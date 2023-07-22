@@ -1,0 +1,79 @@
+@font-face {
+  font-family: Santello;
+  src: url("./Santello/Santello.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background 0.1s;
+  cursor: default;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input,
+button {
+  outline: none;
+  cursor: pointer;
+}
+
+body {
+  font-family: "Santello", sans-serif;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    width: 0.6em;
+  }
+
+  &.dark {
+    $main: #f0d800;
+    $back: #070707;
+    $text: #fff6ff;
+
+    $tape: #f0d800;
+    $click: #cab600;
+    $header: #070707d0;
+
+    background: $back;
+    color: $text;
+
+    &::-webkit-scrollbar-thumb {
+      background: $main;
+      border-radius: 10em;
+      border: 2px solid $back;
+    }
+
+    @import "./Hero/hero";
+  }
+
+  &.light {
+    $main: #dec800;
+    $back: #e5e5e5;
+    $text: #070707;
+
+    $tape: #fffbd4;
+    $click: #f0d800;
+    $header: #e5e5e5d0;
+
+    background: $back;
+    color: $text;
+
+    &::-webkit-scrollbar-thumb {
+      background: $main;
+      border-radius: 10em;
+      border: 2px solid $back;
+    }
+
+    @import "./Hero/hero";
+  }
+}
+
+::selection {
+  background: transparent;
+  color: #00f3aa;
+}

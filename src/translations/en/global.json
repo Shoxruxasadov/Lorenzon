@@ -1,0 +1,43 @@
+{
+  "landing": {
+    "header": {
+      "login": "Sign in",
+      "register": "Sign up"
+    },
+    "section1": {
+      "title1": "Listen to your favorite music",
+      "title2": "anytime, anywhere",
+      "miniTitle1": "Listen to over 80 million songs,",
+      "miniTitle2": "exclusive releases and music in",
+      "miniTitle3": "Hi-Fi sound formate."
+    },
+    "trending": "Trending Music",
+    "section2": {
+      "title1": "Some of The Most Famous",
+      "title2": "Of All Time in the world",
+      "artist": "Artists",
+      "paragraph": "World music is an easy way for people to describe the melding traditional and nontraditional music from foreign countries. Generally, world music refers to sounds from the non-Western part of the world.",
+      "registerPeople": "People register this website",
+      "heldPeople": "Virtual concept held this year"
+    },
+    "artist": "Explore Artist",
+    "section3": {
+      "title": "CALLING ALL CREATORS",
+      "paragraph": "Get on Lorenzon to connect with fans, share your sounds, and grow your audience. What are you waiting for?",
+      "button": "FInd out more"
+    },
+    "section4": {
+      "verizon": "The ability to switch outputs on the fly, so you can flip in midstream from the smart speaker in your office to your living room's big sound or from your desktop app to your phone without missing a beat. The service also lets you upload personal content, although the procedure for doing so is cumbersome.",
+      "never": "Never stop listening",
+      "available": "An available on Web, iOS, Android, Sonos and Chromecast"
+    },
+    "footer": {
+      "title1": "Come enjoy with",
+      "title2": "music with us",
+      "keep1": "Keep up with our new releases,",
+      "keep2": "music and what Emma's been up to.",
+      "policy": "Privacy Policy",
+      "service": "Terms of Service"
+    }
+  }
+}

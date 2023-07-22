@@ -21,7 +21,7 @@ export default function Hero() {
       <Header darkmode={darkmode} setDarkmode={setDarkmode} />
       <Main darkmode={darkmode} />
       <Footer darkmode={darkmode} />
-      <<Analytics />
+      <Analytics />
     </div>
   );
 }

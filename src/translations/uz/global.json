@@ -17,8 +17,8 @@
       "title2": "",
       "artist": "Artistlari",
       "paragraph": "Jahon musiqasi - bu odamlar uchun xorijiy mamlakatlarning an'anaviy va noan'anaviy musiqalarini tasvirlashning oson usuli. Umuman olganda, jahon musiqasi dunyoning g'arbiy bo'lmagan qismidagi tovushlarni anglatadi.",
-      "registerPeople": "Ushbu Saytdan ro'yxatdan o'tgan odamlar",
-      "heldPeople": "Ushbu yil Virtual kontseptsiya bo'lib o'tdi"
+      "registerPeople": "Saytdan ro'yxatdan o'tgan odamlar",
+      "heldPeople": "Virtual kontseptsiya bo'lib o'tdi"
     },
     "artist": "Artist tanishing",
     "section3": {
@@ -28,16 +28,15 @@
     },
     "section4": {
       "verizon": "Chiqishlarni tezda almashtirish imkoniyati, shuning uchun siz ofisingizdagi aqlli karnaydan yashash xonangizning katta ovoziga yoki ish stoli ilovasidan telefoningizga hech qanday zarba bermasdan o'tishingiz mumkin. Xizmat shuningdek, shaxsiy tarkibni yuklash imkonini beradi, garchi buni amalga oshirish jarayoni mashaqqatli bo'lsa ham.",
-      "never": "Hech qachon tinglashni to'xtatmang",
-      "available": "Web, iOS, Android, Sonos va Chromecast-da mavjud"
+      "never": "Musiqa tinglashni to'xtatmang",
+      "available": "Web, iOS va Android-da mavjud"
     },
     "footer": {
       "title1": "Keling, biz bilan musiqa",
       "title2": "tinglab zavqlaning",
-      "keep1": "Yangi nashrlarimiz, musiqalarimiz va Emma",
-      "keep2": "nimalar bilan mashg'ul bo'lganidan xabardor bo'ling.",
-      "policy": "Maxfiylik Siyosati",
-      "service": "Xizmat Ko'rsatish Shartlari"
+      "keep1": "Bizning yangiliklarimiz, musiqamiz va",
+      "keep2": "Emma nima qilayotganini kuzatib boring.",
+      "copyright": "Muallif"
     }
   }
 }

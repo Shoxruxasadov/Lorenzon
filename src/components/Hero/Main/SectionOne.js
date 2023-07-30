@@ -33,9 +33,9 @@ export default function SectionOne({ darkmode }) {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 2, type: "spring" }}
           >
-            {t("landing.section1.miniTitle1")} <br />{" "}
-            {t("landing.section1.miniTitle2")}
-            <br /> {t("landing.section1.miniTitle3")}
+            <span>{t("landing.section1.miniTitle1")}</span>{" "}
+            <span>{t("landing.section1.miniTitle2")}</span>{" "}
+            <span>{t("landing.section1.miniTitle3")}</span>
           </motion.h3>
         </div>
         <motion.div

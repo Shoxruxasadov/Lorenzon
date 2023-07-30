@@ -18,9 +18,9 @@ export default function SectionFour({ darkmode }) {
       <div className="container">
         <div className="verizon">
           {darkmode ? (
-            <img className="verizon" src={veroblack} />
+            <img className="verizonLogo" src={veroblack} />
           ) : (
-            <img className="verizon" src={verizon} />
+            <img className="verizonLogo" src={verizon} />
           )}
           <p>{t("landing.section4.verizon")}</p>
           <img className="line" src={line} />

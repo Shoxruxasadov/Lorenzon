@@ -7,13 +7,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background 0.1s;
   cursor: default;
 }
 
 a {
   text-decoration: none;
-  cursor: pointer;
 }
 
 input,
@@ -32,12 +30,13 @@ body {
 
   &.dark {
     $main: #f0d800;
-    $back: #070707;
+    $back: #080808;
     $text: #fff6ff;
 
     $tape: #f0d800;
     $click: #cab600;
-    $header: #070707d0;
+    $header: #080808d0;
+    $toggle: #131313dd;
 
     background: $back;
     color: $text;
@@ -59,6 +58,7 @@ body {
     $tape: #fffbd4;
     $click: #f0d800;
     $header: #e5e5e5d0;
+    $toggle: #ffffffbb;
 
     background: $back;
     color: $text;
@@ -74,6 +74,6 @@ body {
 }
 
 ::selection {
-  background: transparent;
-  color: #00f3aa;
+  background: #009af3;
+  color: #080808;
 }

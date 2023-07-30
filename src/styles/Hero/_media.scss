@@ -1,15 +1,152 @@
 @media (max-width: 1440px) {
   #hero {
-    header .container {
-      max-width: 1200px;
+    header {
+      height: 90px;
+      .container {
+        max-width: 1200px;
+      }
     }
 
     main section .container {
-      max-width: 1200px!important;
+      max-width: 1200px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 100px;
+          h1 {
+            font-size: 68px !important;
+            line-height: 80px !important;
+          }
+          h3 {
+            font-size: 12px;
+            line-height: 22px;
+          }
+        }
+      }
+      .trending {
+        margin: 160px auto 120px;
+
+        .trending-inner span div {
+          font-size: 29px !important;
+        }
+      }
+      .section2 .container {
+        .title {
+          h1 {
+            font-size: 56px !important;
+            line-height: 64px !important;
+          }
+          p {
+            font-size: 14px;
+            line-height: 26px;
+          }
+        }
+        .people {
+          .register-people,
+          .help-people {
+            gap: 20px;
+
+            h1 {
+              font-size: 72px;
+            }
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      .artists {
+        div {
+          img {
+            width: 360px;
+            height: 234px;
+          }
+        }
+        a {
+          padding: 22px 46px;
+          span,
+          svg {
+            font-size: 18px !important;
+          }
+        }
+      }
+
+      .section3 .container {
+        h1 {
+          font-size: 22px;
+          line-height: 90px;
+        }
+        div span {
+          font-size: 70px;
+          line-height: 85px;
+        }
+      }
+
+      .tape {
+        height: 90px;
+        .tape-inner span div {
+          font-size: 30px;
+
+          img {
+            width: 28px;
+          }
+        }
+      }
+
+      .section4 .container {
+        .verizon {
+          .verizonLogo {
+            width: 170px;
+          }
+          p {
+            font-size: 20.5px;
+            line-height: 35px;
+          }
+          .line,
+          .outline {
+            width: 230px;
+          }
+        }
+
+        .install {
+          height: 430px;
+
+          .logo {
+            img {
+              height: 42px;
+            }
+            h1 {
+              font-size: 31.5px;
+              line-height: 42px;
+            }
+          }
+
+          h2 {
+            font-size: 64px;
+          }
+
+          p {
+            font-size: 22px;
+          }
+
+          .download a img {
+            width: 155px;
+          }
+        }
+      }
     }
 
     footer .container {
       max-width: 1200px;
+
+      .title {
+        h1 {
+          font-size: 52px;
+          line-height: 72px;
+        }
+      }
     }
   }
 }
@@ -21,30 +158,359 @@
     }
 
     main section .container {
-      max-width: 1100px!important;
+      max-width: 1100px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          h1 {
+            font-size: 62px !important;
+            line-height: 70px !important;
+          }
+          h3 {
+            font-size: 11px;
+            line-height: 20px;
+          }
+        }
+        .brands {
+          margin: 60px auto 0;
+
+          img {
+            transform: scale(0.9);
+          }
+        }
+      }
+
+      .trending {
+        margin: 150px auto 120px;
+
+        .trending-inner span div {
+          font-size: 25px !important;
+          gap: 5px !important;
+        }
+      }
+
+      .section2 .container {
+        .title {
+          h1 {
+            font-size: 52px !important;
+            line-height: 60px !important;
+          }
+          p {
+            font-size: 12.7px;
+            line-height: 23px;
+          }
+        }
+
+        .people {
+          gap: 46px;
+
+          .register-people,
+          .help-people {
+            gap: 15px;
+
+            h1 {
+              font-size: 66px;
+            }
+            p {
+              font-size: 17px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 320px;
+            height: 208px;
+          }
+        }
+        a {
+          padding: 20px 42px;
+          span,
+          svg {
+            font-size: 16px !important;
+          }
+        }
+      }
+
+      .section3 .container {
+        h1 {
+          font-size: 20px;
+          line-height: 80px;
+        }
+        div {
+          span {
+            font-size: 64px;
+            line-height: 70px;
+          }
+          .star-img {
+            width: 280px;
+          }
+        }
+      }
+
+      .tape {
+        height: 81px;
+        .tape-inner span div {
+          font-size: 28px;
+
+          img {
+            width: 26px;
+          }
+        }
+      }
+
+      .section4 .container {
+        .verizon {
+          .verizonLogo {
+            width: 160px;
+          }
+          p {
+            font-size: 19px;
+            line-height: 32px;
+          }
+          .line,
+          .outline {
+            width: 200px;
+          }
+
+          .line {
+            left: -360px;
+          }
+
+          .outline {
+            right: -340px;
+          }
+        }
+
+        .install {
+          height: 395px;
+
+          .logo {
+            img {
+              height: 36px;
+            }
+            h1 {
+              font-size: 27px;
+              line-height: 36px;
+            }
+          }
+
+          h2 {
+            font-size: 56px;
+            line-height: 70px;
+          }
+
+          p {
+            font-size: 22px;
+            line-height: 40px;
+          }
+
+          .download a img {
+            width: 145px;
+          }
+        }
+      }
     }
 
     footer .container {
       max-width: 1100px;
+
+      .title {
+        h1 {
+          font-size: 48px;
+          line-height: 64px;
+        }
+      }
     }
   }
 }
 
 @media (max-width: 1160px) {
-    #hero {
-      header .container {
-        max-width: 960px;
+  #hero {
+    header .container {
+      max-width: 960px;
+    }
+
+    main section .container {
+      max-width: 960px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 90px;
+          h1 {
+            font-size: 53px !important;
+            line-height: 60px !important;
+          }
+          h3 {
+            font-size: 10px;
+            line-height: 20px;
+          }
+        }
+        .line {
+          margin: 30px auto;
+        }
+        .brands {
+          margin: 55px auto 0;
+
+          img {
+            transform: scale(0.8);
+          }
+        }
       }
-  
-      main section .container {
-        max-width: 960px!important;
+
+      .trending {
+        margin: 120px auto;
+
+        .trending-inner span div {
+          font-size: 22px !important;
+          gap: 5px !important;
+        }
       }
-  
-      footer .container {
-        max-width: 960px;
+
+      .section2 .container {
+        .title {
+          h1 {
+            font-size: 46px !important;
+            line-height: 54px !important;
+          }
+          p {
+            font-size: 11.2px;
+            line-height: 22px;
+          }
+        }
+
+        .people {
+          gap: 52px;
+
+          .register-people,
+          .help-people {
+            gap: 8px;
+
+            h1 {
+              font-size: 58px;
+              line-height: 72px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 280px;
+            height: 182px;
+          }
+        }
+        a {
+          padding: 17px 40px;
+        }
+      }
+
+      .section3 .container {
+        h1 {
+          font-size: 20px;
+          line-height: 70px;
+        }
+        div {
+          span {
+            font-size: 56px;
+            line-height: 65px;
+          }
+          .star-img {
+            width: 260px;
+          }
+          .music-img {
+            width: 90px;
+          }
+        }
+      }
+
+      .tape {
+        height: 72px;
+        .tape-inner span div {
+          font-size: 24px;
+
+          img {
+            width: 23px;
+          }
+        }
+      }
+
+      .section4 .container {
+        .verizon {
+          .verizonLogo {
+            width: 150px;
+          }
+          p {
+            font-size: 17px;
+            line-height: 29px;
+          }
+          .line,
+          .outline {
+            width: 180px;
+          }
+
+          .line {
+            left: -320px;
+          }
+
+          .outline {
+            right: -300px;
+          }
+        }
+
+        .install {
+          height: 345px;
+          padding: 50px 0;
+
+          .logo {
+            img {
+              height: 32px;
+            }
+            h1 {
+              font-size: 24px;
+              line-height: 32px;
+            }
+          }
+
+          h2 {
+            font-size: 48px;
+            line-height: 60px;
+          }
+
+          p {
+            font-size: 20px;
+            line-height: 30px;
+          }
+
+          .download a img {
+            width: 135px;
+          }
+        }
+      }
+    }
+
+    footer .container {
+      max-width: 960px;
+
+      .title {
+        h1 {
+          font-size: 42px;
+          line-height: 56px;
+        }
       }
     }
   }
+}
 
 @media (max-width: 1024px) {
   #hero {
@@ -53,11 +519,196 @@
     }
 
     main section .container {
-      max-width: 860px!important;
+      max-width: 860px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 80px;
+          h1 {
+            font-size: 48px !important;
+            line-height: 60px !important;
+          }
+          h3 {
+            font-size: 10px;
+            line-height: 20px;
+          }
+        }
+        .line {
+          margin: 25px auto;
+        }
+        .brands {
+          margin: 50px auto 0;
+
+          img {
+            transform: scale(0.72);
+          }
+        }
+      }
+
+      .trending {
+        margin: 120px auto;
+        height: 100px;
+
+        .trending-inner span div {
+          font-size: 20px !important;
+          gap: 2px !important;
+          img {
+            width: 24px;
+          }
+        }
+      }
+
+      .section2 .container {
+        .title {
+          gap: 35px;
+          h1 {
+            font-size: 42px !important;
+            line-height: 50px !important;
+          }
+          p {
+            font-size: 10.1px;
+            line-height: 20px;
+          }
+        }
+
+        .people {
+          gap: 44px;
+
+          .register-people,
+          .help-people {
+            gap: 8px;
+
+            h1 {
+              font-size: 54px;
+              line-height: 64px;
+            }
+            p {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 240px;
+            height: 156px;
+          }
+        }
+        a {
+          padding: 16px 36px;
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 180px;
+
+        h1 {
+          font-size: 19px;
+          line-height: 64px;
+        }
+        div {
+          span {
+            font-size: 51px;
+            line-height: 58px;
+          }
+          .star-img {
+            width: 220px;
+          }
+          .music-img {
+            width: 80px;
+          }
+        }
+      }
+
+      .tape {
+        height: 64px;
+        .tape-inner span div {
+          font-size: 22px;
+
+          img {
+            width: 21px;
+          }
+        }
+      }
+
+      .section4 .container {
+        .verizon {
+          .verizonLogo {
+            width: 140px;
+          }
+          p {
+            font-size: 15px;
+            line-height: 26px;
+          }
+          .line,
+          .outline {
+            width: 170px;
+          }
+
+          .line {
+            left: -300px;
+          }
+
+          .outline {
+            right: -280px;
+          }
+        }
+
+        .install {
+          height: 309px;
+          padding: 40px 0;
+
+          .logo {
+            img {
+              height: 30px;
+            }
+            h1 {
+              font-size: 22.5px;
+              line-height: 30px;
+            }
+          }
+
+          h2 {
+            font-size: 44px;
+            line-height: 50px;
+          }
+
+          p {
+            font-size: 18px;
+            line-height: 28px;
+          }
+
+          .download a img {
+            width: 125px;
+          }
+        }
+      }
     }
 
     footer .container {
       max-width: 860px;
+
+      .title {
+        h1 {
+          font-size: 38px;
+          line-height: 52px;
+        }
+
+        h3 {
+          font-size: 14px;
+        }
+      }
+
+      .keep {
+        .social,
+        .copyright a {
+          font-size: 15px;
+        }
+      }
     }
   }
 }
@@ -65,32 +716,1729 @@
 @media (max-width: 920px) {
   #hero {
     header .container {
-      max-width: 700px;
+      max-width: 720px;
     }
 
     main section .container {
-      max-width: 700px!important;
+      max-width: 720px !important;
+    }
+
+    main {
+      .section1 .container {
+        text-align: center;
+
+        .title {
+          padding-top: 90px;
+          flex-direction: column;
+          gap: 10px;
+
+          h1 {
+            font-size: 52px !important;
+            line-height: 60px !important;
+            width: 100%;
+          }
+          h3 {
+            font-size: 15px;
+            line-height: 20px;
+            width: 100%;
+            align-items: center;
+            flex-direction: row;
+            justify-content: center;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 25px auto;
+        }
+        .brands {
+          margin: 45px auto 0;
+
+          img {
+            transform: scale(1);
+
+            &:nth-child(1) {
+              width: 76.8px;
+            }
+
+            &:nth-child(2) {
+              width: 121.6px;
+            }
+            &:nth-child(3) {
+              width: 121.6px;
+            }
+            &:nth-child(4) {
+              width: 102.4px;
+            }
+          }
+        }
+      }
+
+      .trending {
+        height: 87px;
+        margin: 100px auto;
+
+        .trending-inner span div {
+          font-size: 23px !important;
+          gap: 2px !important;
+          img {
+            width: 26px;
+          }
+        }
+      }
+
+      .section2 .container {
+        flex-direction: column;
+        margin: 0 auto 100px;
+        gap: 32px;
+
+        .title {
+          width: 100%;
+          gap: 10px;
+          text-align: center;
+          align-items: center;
+
+          h1 {
+            font-size: 44px !important;
+            line-height: 50px !important;
+          }
+          p {
+            font-size: 11.2px;
+            line-height: 20px;
+          }
+        }
+
+        .people {
+          width: 100%;
+          gap: 32px;
+          flex-direction: row;
+          justify-content: center;
+
+          .register-people,
+          .help-people {
+            gap: 0px;
+            text-align: center;
+
+            h1 {
+              font-size: 50px;
+              line-height: 60px;
+            }
+            p {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 280px;
+            height: 182px;
+          }
+        }
+        a {
+          padding: 16px 36px;
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 180px;
+        text-align: center;
+
+        h1 {
+          font-size: 18px;
+          line-height: 64px;
+        }
+        div {
+          width: 100%;
+
+          span {
+            font-size: 48px;
+            line-height: 58px;
+          }
+          .star-img {
+            width: 180px;
+          }
+          .music-img {
+            width: 70px;
+            left: 50px;
+            right: auto !important;
+            bottom: -60px !important;
+          }
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+        .verizon {
+          width: 82%;
+
+          .verizonLogo {
+            width: 160px;
+          }
+          p {
+            font-size: 16px;
+            line-height: 26px;
+          }
+          .line,
+          .outline {
+            width: 180px;
+          }
+
+          .line {
+            left: -220px;
+          }
+
+          .outline {
+            right: -200px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 287.5px;
+          padding: 35px 0;
+
+          .logo {
+            img {
+              height: 30px;
+            }
+            h1 {
+              font-size: 22.5px;
+              line-height: 30px;
+            }
+          }
+
+          h2 {
+            font-size: 38px;
+            line-height: 50px;
+          }
+
+          p {
+            font-size: 18px;
+            line-height: 28px;
+          }
+
+          .download a img {
+            width: 125px;
+          }
+        }
+      }
     }
 
     footer .container {
-      max-width: 700px;
+      max-width: 720px;
+      gap: 4px;
+
+      .title {
+        flex-direction: column;
+        gap: 0px;
+
+        h1 {
+          font-size: 30px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+
+        h1,
+        h3 {
+          text-align: center;
+          width: 100%;
+        }
+      }
+
+      .keep {
+        justify-content: center;
+        gap: 15px;
+
+        .copyright {
+          gap: 10px;
+        }
+      }
     }
   }
 }
 
-
 @media (max-width: 768px) {
   #hero {
     header .container {
-      width: 600px!important;
+      width: 600px !important;
+
+      .navbar {
+        display: none;
+      }
+      .menu {
+        display: flex;
+      }
+      .menu {
+        display: block;
+
+        .toggle {
+          display: flex;
+        }
+      }
     }
 
     main section .container {
-      width: 600px!important;
+      width: 600px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 90px;
+          gap: 10px;
+
+          h1 {
+            font-size: 42px !important;
+            line-height: 60px !important;
+            width: 100%;
+          }
+          h3 {
+            font-size: 12.8px;
+            line-height: 20px;
+            width: 100%;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 20px auto;
+        }
+        .brands {
+          margin: 40px auto 0;
+
+          img {
+            transform: scale(0.9);
+          }
+        }
+      }
+
+      .trending {
+        height: 80px;
+
+        .trending-inner span div {
+          font-size: 20px !important;
+          gap: 2px !important;
+          img {
+            width: 22px;
+          }
+        }
+      }
+
+      .section2 .container {
+        gap: 30px;
+
+        .title {
+          gap: 10px;
+
+          h1 {
+            font-size: 38px !important;
+            line-height: 48px !important;
+          }
+          p {
+            font-size: 9.2px;
+            line-height: 20px;
+          }
+        }
+
+        .people {
+          gap: 30px;
+
+          .register-people,
+          .help-people {
+            h1 {
+              font-size: 44px;
+              line-height: 52px;
+            }
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 240px;
+            height: 156px;
+          }
+        }
+        a {
+          padding: 14px 32px;
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 180px;
+
+        h1 {
+          font-size: 18px;
+          line-height: 64px;
+        }
+        div {
+          margin-bottom: 30px;
+          span {
+            font-size: 42px;
+            line-height: 52px;
+          }
+          .star-img {
+            width: 160px;
+          }
+          .music-img {
+            width: 65px;
+            left: 25px;
+            right: auto !important;
+            bottom: -60px !important;
+          }
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+        .verizon {
+          width: 88%;
+
+          .verizonLogo {
+            width: 150px;
+          }
+          p {
+            font-size: 14px;
+            line-height: 26px;
+          }
+          .line,
+          .outline {
+            width: 160px;
+          }
+
+          .line {
+            left: -190px;
+          }
+
+          .outline {
+            right: -190px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 238.01px;
+          padding: 25px 0 20px;
+
+          .logo {
+            img {
+              height: 28px;
+            }
+            h1 {
+              font-size: 21px;
+              line-height: 28px;
+            }
+          }
+
+          h2 {
+            font-size: 34px;
+            line-height: 42px;
+          }
+
+          p {
+            font-size: 18px;
+            line-height: 26px;
+          }
+
+          .download a img {
+            width: 110px;
+          }
+        }
+      }
     }
 
     footer .container {
-      width: 600px!important;
+      width: 600px !important;
+
+      .title {
+        flex-direction: column;
+        gap: 0px;
+
+        h1 {
+          font-size: 25px;
+        }
+
+        h3 {
+          font-size: 16px;
+        }
+
+        h1,
+        h3 {
+          text-align: center;
+          width: 100%;
+        }
+      }
+
+      .keep {
+        justify-content: center;
+        gap: 10px;
+
+        .social {
+          gap: 8px;
+        }
+
+        .copyright {
+          gap: 8px;
+        }
+
+        &,
+        .social,
+        .copyright a {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 660.8px) {
+  #hero {
+    header {
+      height: 80px;
+      .container {
+        width: 520px !important;
+      }
+    }
+
+    main section .container {
+      width: 520px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 90px;
+          gap: 10px;
+
+          h1 {
+            font-size: 37px !important;
+            line-height: 50px !important;
+          }
+          h3 {
+            font-size: 11px;
+            line-height: 20px;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 18px auto;
+        }
+        .brands {
+          margin: 30px auto 0;
+
+          img {
+            transform: scale(0.7);
+          }
+        }
+      }
+
+      .trending {
+        height: 70px;
+      }
+
+      .section2 .container {
+        gap: 25px;
+
+        .title {
+          gap: 10px;
+
+          h1 {
+            font-size: 32px !important;
+            line-height: 44px !important;
+          }
+          p {
+            font-size: 11.8px;
+            line-height: 20px;
+          }
+        }
+
+        .people {
+          gap: 25px;
+
+          .register-people,
+          .help-people {
+            h1 {
+              font-size: 38px;
+              line-height: 48px;
+            }
+            p {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 200px;
+            height: 130px;
+          }
+        }
+        a {
+          padding: 13px 30px;
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 160px;
+
+        h1 {
+          font-size: 17px;
+          line-height: 56px;
+        }
+        div {
+          margin-bottom: 30px;
+
+          span {
+            font-size: 36px;
+            line-height: 52px;
+          }
+          .star-img {
+            width: 160px;
+          }
+          .music-img {
+            width: 65px;
+            left: 25px;
+            right: auto !important;
+            bottom: -60px !important;
+          }
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+
+        .verizon {
+          width: 88%;
+
+          .verizonLogo {
+            width: 150px;
+          }
+          p {
+            font-size: 12.6px;
+            line-height: 24px;
+          }
+          .line,
+          .outline {
+            width: 150px;
+          }
+
+          .line {
+            left: -150px;
+          }
+
+          .outline {
+            right: -150px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 220px;
+          padding: 25px 0 20px;
+
+          .logo {
+            img {
+              height: 26px;
+            }
+            h1 {
+              font-size: 19.5px;
+              line-height: 26px;
+            }
+          }
+
+          h2 {
+            font-size: 30px;
+            line-height: 38px;
+          }
+
+          p {
+            font-size: 16px;
+            line-height: 24px;
+          }
+
+          .download a img {
+            width: 100px;
+          }
+        }
+      }
+    }
+
+    footer .container {
+      width: 520px !important;
+
+      .title {
+        h1 {
+          font-size: 21px;
+        }
+
+        h3 {
+          font-size: 15px;
+        }
+      }
+
+      .keep {
+        gap: 9px;
+
+        .social {
+          gap: 7px;
+        }
+
+        .copyright {
+          gap: 7px;
+        }
+
+        &,
+        .social,
+        .copyright a {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 550.8px) {
+  #hero {
+    header .container {
+      width: 400px !important;
+    }
+
+    main section .container {
+      width: 400px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 70px;
+          gap: 7px;
+
+          h1 {
+            font-size: 28px !important;
+            line-height: 38px !important;
+          }
+          h3 {
+            font-size: 8.5px;
+            line-height: auto;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 15px auto;
+        }
+        .brands {
+          margin: 25px auto 0;
+
+          img {
+            transform: scale(1);
+
+            &:nth-child(1) {
+              width: 53px;
+            }
+            &:nth-child(2) {
+              width: 75px;
+            }
+            &:nth-child(3) {
+              width: 75px;
+            }
+            &:nth-child(4) {
+              width: 75px;
+            }
+          }
+        }
+      }
+
+      .trending {
+        height: 70px;
+
+        .trending-inner span div {
+          font-size: 18px !important;
+          gap: 2px !important;
+          img {
+            width: 20px;
+          }
+        }
+      }
+
+      .section2 .container {
+        gap: 22px;
+
+        .title {
+          gap: 8px;
+
+          h1 {
+            font-size: 25px !important;
+            line-height: 38px !important;
+          }
+          p {
+            font-size: 9.2px;
+            line-height: 20px;
+          }
+        }
+
+        .people {
+          gap: 22px;
+
+          .register-people,
+          .help-people {
+            h1 {
+              font-size: 32px;
+              line-height: 48px;
+            }
+            p {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 170px;
+            height: 110px;
+          }
+        }
+        a {
+          padding: 10px 24px;
+          gap: 5px;
+
+          span {
+            font-size: 13px !important;
+          }
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 160px;
+
+        h1 {
+          font-size: 16px;
+          line-height: 52px;
+        }
+        div {
+          margin-bottom: 25px;
+
+          span {
+            font-size: 28px;
+            line-height: 42px;
+          }
+          .star-img {
+            width: 150px;
+          }
+          .music-img {
+            width: 55px;
+            left: 25px;
+            right: auto !important;
+            bottom: -60px !important;
+          }
+        }
+        a {
+          padding: 12px 36px;
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+
+        .verizon {
+          width: 88%;
+          gap: 25px;
+
+          .verizonLogo {
+            width: 140px;
+          }
+          p {
+            font-size: 9.8px;
+            line-height: 20px;
+          }
+          .line,
+          .outline {
+            width: 150px;
+          }
+
+          .line {
+            left: -150px;
+          }
+
+          .outline {
+            right: -150px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 220px;
+          padding: 25px 0 20px;
+          border-radius: 20px;
+
+          .logo {
+            img {
+              height: 26px;
+            }
+            h1 {
+              font-size: 19.5px;
+              line-height: 26px;
+            }
+          }
+
+          h2 {
+            font-size: 24px;
+            line-height: 32px;
+          }
+
+          p {
+            font-size: 15px;
+            line-height: 20px;
+          }
+
+          .download a img {
+            width: 95px;
+          }
+        }
+      }
+    }
+
+    footer .container {
+      width: 400px !important;
+      gap: 0;
+
+      .title {
+        h1 {
+          font-size: 16px;
+          line-height: 35px;
+        }
+
+        h3 {
+          font-size: 11.2px;
+          line-height: 25px;
+        }
+      }
+
+      .keep {
+        gap: 8px;
+
+        .social {
+          gap: 6px;
+          line-height: 28px;
+        }
+
+        .copyright {
+          gap: 6px;
+          line-height: 28px;
+        }
+
+        &,
+        .social,
+        .copyright a {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 425.8px) {
+  #hero {
+    header {
+      height: 70px;
+
+      .container {
+        width: 360px !important;
+
+        .menu .nav-mini {
+          width: 230px;
+
+          .login {
+            font-size: 16px !important;
+          }
+
+          .register {
+            font-size: 16px !important;
+          }
+
+          .lang {
+            width: 130px;
+            font-size: 16px !important;
+          }
+        }
+      }
+    }
+
+    main section .container {
+      width: 360px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 70px;
+          gap: 2px;
+
+          h1 {
+            font-size: 25px !important;
+            line-height: 34px !important;
+          }
+          h3 {
+            font-size: 7.4px;
+            line-height: auto;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 15px auto;
+        }
+        .brands {
+          margin: 25px auto 0;
+
+          img {
+            transform: scale(1);
+
+            &:nth-child(1) {
+              width: 53px;
+            }
+            &:nth-child(2) {
+              width: 75px;
+            }
+            &:nth-child(3) {
+              width: 75px;
+            }
+            &:nth-child(4) {
+              width: 75px;
+            }
+          }
+        }
+      }
+
+      .trending {
+        height: 70px;
+
+        .trending-inner span div {
+          font-size: 17px !important;
+          gap: 2px !important;
+          img {
+            width: 19px;
+          }
+        }
+      }
+
+      .section2 .container {
+        gap: 20px;
+
+        .title {
+          gap: 4px;
+
+          h1 {
+            font-size: 22px !important;
+            line-height: 32px !important;
+          }
+          p {
+            font-size: 8px;
+            line-height: 18px;
+          }
+        }
+
+        .people {
+          gap: 20px;
+
+          .register-people,
+          .help-people {
+            h1 {
+              font-size: 28px;
+              line-height: 42px;
+            }
+            p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 170px;
+            height: 110px;
+          }
+        }
+        a {
+          padding: 9px 22px;
+          gap: 5px;
+
+          span {
+            font-size: 12px !important;
+          }
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 160px;
+
+        h1 {
+          font-size: 16px;
+          line-height: 52px;
+        }
+        div {
+          margin-bottom: 20px;
+
+          span {
+            font-size: 26px;
+            line-height: 42px;
+          }
+          .star-img {
+            width: 150px;
+          }
+          .music-img {
+            width: 55px;
+            left: 25px;
+            right: auto !important;
+            bottom: -60px !important;
+          }
+        }
+        a {
+          padding: 12px 36px;
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+
+        .verizon {
+          width: 88%;
+          gap: 25px;
+
+          .verizonLogo {
+            width: 140px;
+          }
+          p {
+            font-size: 8.6px;
+            line-height: 20px;
+          }
+          .line,
+          .outline {
+            width: 150px;
+          }
+
+          .line {
+            left: -150px;
+          }
+
+          .outline {
+            right: -150px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 220px;
+          padding: 25px 0 20px;
+          border-radius: 20px;
+
+          .logo {
+            img {
+              height: 26px;
+            }
+            h1 {
+              font-size: 19.5px;
+              line-height: 26px;
+            }
+          }
+
+          h2 {
+            font-size: 22px;
+            line-height: 32px;
+            letter-spacing: -0.2px;
+          }
+
+          p {
+            font-size: 15px;
+            line-height: 20px;
+          }
+
+          .download a img {
+            width: 95px;
+          }
+        }
+      }
+    }
+
+    footer .container {
+      width: 360px !important;
+
+      .title {
+        h1 {
+          font-size: 15px;
+          line-height: 35px;
+        }
+
+        h3 {
+          font-size: 10px;
+          line-height: 25px;
+        }
+      }
+
+      .keep {
+        gap: 7px;
+
+        .social {
+          gap: 5px;
+          line-height: 26px;
+        }
+
+        .copyright {
+          gap: 5px;
+          line-height: 26px;
+        }
+
+        &,
+        .social,
+        .copyright a {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  #hero {
+    header .container {
+      width: 330px !important;
+
+      .logo {
+        img {
+          height: 32px;
+        }
+        h1 {
+          height: 32px;
+          font-size: 25px;
+        }
+      }
+
+      .menu{
+        transform: scale(.9);
+      }
+    }
+
+    main section .container {
+      width: 330px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 60px;
+          gap: 2px;
+
+          h1 {
+            font-size: 23px !important;
+            line-height: 30px !important;
+          }
+          h3 {
+            font-size: 7px;
+            line-height: auto;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 12px auto;
+        }
+        .brands {
+          margin: 22px auto 0;
+
+          img {
+            transform: scale(1);
+
+            &:nth-child(1) {
+              width: 44px;
+            }
+            &:nth-child(2) {
+              width: 68px;
+            }
+            &:nth-child(3) {
+              width: 68px;
+            }
+            &:nth-child(4) {
+              width: 68px;
+            }
+          }
+        }
+      }
+
+      .trending {
+        height: 60px;
+        margin: 80px auto 100px;
+
+        .trending-inner span div {
+          font-size: 16px !important;
+          gap: 1px !important;
+          img {
+            width: 17px;
+          }
+        }
+      }
+
+      .section2 .container {
+        gap: 20px;
+
+        .title {
+          gap: 4px;
+
+          h1 {
+            font-size: 20px !important;
+            line-height: 28px !important;
+          }
+          p {
+            font-size: 7.5px;
+            line-height: 17px;
+          }
+        }
+
+        .people {
+          gap: 20px;
+
+          .register-people,
+          .help-people {
+            h1 {
+              font-size: 24px;
+              line-height: 36px;
+            }
+            p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        gap: 30px;
+
+        div {
+          gap: 30px;
+          img {
+            width: 160px;
+            height: 103.5px;
+          }
+        }
+        a {
+          padding: 8px 20px;
+          gap: 3px;
+
+          span {
+            font-size: 11px !important;
+
+            
+          }
+          svg{
+            font-size: 11px!important;
+          }
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 160px;
+
+        h1 {
+          font-size: 16px;
+          line-height: 52px;
+        }
+        div {
+          margin-bottom: 20px;
+
+          span {
+            font-size: 23px;
+            line-height: 42px;
+          }
+          .star-img {
+            width: 150px;
+          }
+          .music-img {
+            width: 55px;
+            left: 25px;
+            right: auto !important;
+            bottom: -60px !important;
+          }
+        }
+        a {
+          padding: 12px 36px;
+        }
+      }
+
+      .tape {
+        height: 56px;
+        .tape-inner span div {
+          gap: 4px;
+          font-size: 20px;
+
+          img {
+            width: 20px;
+          }
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+
+        .verizon {
+          width: 88%;
+          gap: 20px;
+
+          .verizonLogo {
+            width: 140px;
+          }
+          p {
+            font-size: 8.1px;
+            line-height: 20px;
+          }
+          .line,
+          .outline {
+            width: 150px;
+          }
+
+          .line {
+            left: -150px;
+          }
+
+          .outline {
+            right: -150px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 205px;
+          padding: 25px 0 20px;
+          border-radius: 20px;
+
+          .logo {
+            img {
+              height: 26px;
+            }
+            h1 {
+              font-size: 19.5px;
+              line-height: 26px;
+            }
+          }
+
+          h2 {
+            font-size: 19px;
+            line-height: 28px;
+            letter-spacing: -0.2px;
+          }
+
+          p {
+            font-size: 15px;
+            line-height: 20px;
+          }
+
+          .download a img {
+            width: 95px;
+          }
+        }
+      }
+    }
+
+    footer .container {
+      width: 330px !important;
+
+      .title {
+        h1 {
+          font-size: 13.5px;
+          line-height: 25px;
+        }
+
+        h3 {
+          font-size: 9px;
+          line-height: 15px;
+        }
+      }
+
+      .keep {
+        gap: 5px;
+
+        .social {
+          gap: 2px;
+          line-height: 20px;
+        }
+
+        .copyright {
+          gap: 2px;
+          line-height: 20px;
+        }
+
+        &,
+        .social,
+        .copyright a {
+          font-size: 9px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 340px) {
+  #hero {
+    header .container {
+      width: 290px !important;
+    }
+
+    main section .container {
+      width: 290px !important;
+    }
+
+    main {
+      .section1 .container {
+        .title {
+          padding-top: 60px;
+          gap: 2px;
+
+          h1 {
+            font-size: 21px !important;
+            line-height: 30px !important;
+          }
+          h3 {
+            font-size: 6.1px;
+            line-height: auto;
+            gap: 3px;
+          }
+        }
+        .line {
+          margin: 12px auto;
+        }
+        .brands {
+          margin: 22px auto 0;
+
+          img {
+            transform: scale(.8);
+
+            &:nth-child(1) {
+              width: 44px;
+            }
+            &:nth-child(2) {
+              width: 68px;
+            }
+            &:nth-child(3) {
+              width: 68px;
+            }
+            &:nth-child(4) {
+              width: 68px;
+            }
+          }
+        }
+      }
+
+      .trending {
+        height: 60px;
+        margin: 80px auto 100px;
+
+        .trending-inner span div {
+          font-size: 15px !important;
+          gap: 1px !important;
+          img {
+            width: 16px;
+          }
+        }
+      }
+
+      .section2 .container {
+        gap: 20px;
+
+        .title {
+          gap: 4px;
+
+          h1 {
+            font-size: 18px !important;
+            line-height: 24px !important;
+          }
+          p {
+            font-size: 6.5px;
+            line-height: 16px;
+          }
+        }
+
+        .people {
+          gap: 20px;
+
+          .register-people,
+          .help-people {
+            h1 {
+              font-size: 22px;
+              line-height: 36px;
+            }
+            p {
+              font-size: 8px;
+            }
+          }
+        }
+      }
+
+      .artists {
+        div {
+          img {
+            width: 140px;
+            height: 90px;
+          }
+        }
+        a {
+          padding: 8px 20px;
+          gap: 3px;
+
+          span {
+            font-size: 10px !important;
+          }
+
+          svg{
+            font-size: 10px!important;
+          }
+        }
+      }
+
+      .section3 .container {
+        margin-bottom: 160px;
+
+        h1 {
+          font-size: 16px;
+          line-height: 52px;
+        }
+        div {
+          margin-bottom: 20px;
+
+          span {
+            font-size: 20px;
+            line-height: 36px;
+          }
+          .star-img {
+            width: 150px;
+          }
+          .music-img {
+            width: 55px;
+            left: 0px;
+            right: auto !important;
+            bottom: -50px !important;
+          }
+        }
+        a {
+          padding: 10px 30px;
+        }
+      }
+
+      .tape {
+        height: 52px;
+        .tape-inner span div {
+          gap: 4px;
+          font-size: 18px;
+
+          img {
+            width: 18px;
+          }
+        }
+      }
+
+      .section4 .container {
+        margin: 150px auto 120px;
+
+        .verizon {
+          width: 88%;
+          gap: 20px;
+
+          .verizonLogo {
+            width: 140px;
+          }
+          p {
+            font-size: 7.7px;
+            line-height: 20px;
+          }
+          .line,
+          .outline {
+            width: 150px;
+          }
+
+          .line {
+            left: -150px;
+          }
+
+          .outline {
+            right: -150px;
+          }
+        }
+
+        .install {
+          width: 100%;
+          height: 190px;
+          padding: 25px 0 20px;
+          border-radius: 20px;
+
+          .logo {
+            img {
+              height: 26px;
+            }
+            h1 {
+              font-size: 19.5px;
+              line-height: 26px;
+            }
+          }
+
+          h2 {
+            font-size: 18px;
+            line-height: 28px;
+            letter-spacing: -0.2px;
+          }
+
+          p {
+            font-size: 15px;
+            line-height: 20px;
+          }
+
+          .download a img {
+            width: 95px;
+          }
+        }
+      }
+    }
+
+    footer .container {
+      width: 290px !important;
+
+      .title {
+        h1 {
+          font-size: 12px;
+          line-height: 25px;
+        }
+
+        h3 {
+          font-size: 8px;
+          line-height: 15px;
+        }
+      }
+
+      .keep {
+        gap: 5px;
+
+        .social {
+          gap: 2px;
+          line-height: 20px;
+        }
+
+        .copyright {
+          gap: 2px;
+          line-height: 20px;
+        }
+
+        &,
+        .social,
+        .copyright a {
+          font-size: 8px;
+        }
+      }
     }
   }
 }

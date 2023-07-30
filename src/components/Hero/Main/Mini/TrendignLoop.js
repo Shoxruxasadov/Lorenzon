@@ -10,40 +10,100 @@ export default function TrendignLoop() {
     <div className="trending">
       <div className="trending-inner">
         <span>
-          <div className="trending-line">
-            <img src={star1} />
-            <p>{t("landing.trending")}</p>
-          </div>
-          <div className="trending-outline">
-            <img src={star2} />
-            <p>{t("landing.trending")}</p>
-          </div>
-          <div className="trending-line">
-            <img src={star1} />
-            <p>{t("landing.trending")}</p>
-          </div>
-          <div className="trending-outline">
-            <img src={star2} />
-            <p>{t("landing.trending")}</p>
-          </div>
+          {window.innerWidth < 660 ? (
+            <>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+            </>
+          ) : window.innerWidth < 920 ? (
+            <>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+            </>
+          )}
         </span>
         <span>
-          <div className="trending-line">
-            <img src={star1} />
-            <p>{t("landing.trending")}</p>
-          </div>
-          <div className="trending-outline">
-            <img src={star2} />
-            <p>{t("landing.trending")}</p>
-          </div>
-          <div className="trending-line">
-            <img src={star1} />
-            <p>{t("landing.trending")}</p>
-          </div>
-          <div className="trending-outline">
-            <img src={star2} />
-            <p>{t("landing.trending")}</p>
-          </div>
+          {window.innerWidth < 660 ? (
+            <>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+            </>
+          ) : window.innerWidth < 920 ? (
+            <>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-line">
+                <img src={star1} />
+                <p>{t("landing.trending")}</p>
+              </div>
+              <div className="trending-outline">
+                <img src={star2} />
+                <p>{t("landing.trending")}</p>
+              </div>
+            </>
+          )}
         </span>
       </div>
     </div>

@@ -11,6 +11,7 @@ export default function Header({ darkmode, setDarkmode }) {
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
+  let menuToggle = null;
 
   const handleChangeLanguage = (lang) => {
     i18next.changeLanguage(lang);
@@ -21,6 +22,11 @@ export default function Header({ darkmode, setDarkmode }) {
     document.querySelector("html").setAttribute("lang", language || "en");
   }, [lang]);
 
+  function langChanger(lan) {
+    localStorage.setItem("lang", lan);
+    setLang(!lang);
+  }
+
   return (
     <header>
       <div className="container">
@@ -28,7 +34,7 @@ export default function Header({ darkmode, setDarkmode }) {
           <img src={logo} />
           <h1>Lorenzon</h1>
         </Link>
-        <nav>
+        <nav className="navbar">
           <Link className="login" to={"/login"}>
             {t("landing.header.login")}
           </Link>
@@ -38,106 +44,35 @@ export default function Header({ darkmode, setDarkmode }) {
 
           <ul className="lang">
             <span>{language || "EN"}</span>
-            {language == null && (
-              <>
-                <li className="en">EN</li>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "ru");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="ru"
-                >
-                  RU
-                </li>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "uz");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="uz"
-                >
-                  UZ
-                </li>
-              </>
-            )}
-            {language == "en" && (
-              <>
-                <li className="en">EN</li>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "ru");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="ru"
-                >
-                  RU
-                </li>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "uz");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="uz"
-                >
-                  UZ
-                </li>
-              </>
-            )}
-            {language == "ru" && (
-              <>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "en");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="en"
-                >
-                  EN
-                </li>
-                <li className="ru">RU</li>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "uz");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="uz"
-                >
-                  UZ
-                </li>
-              </>
-            )}
-            {language == "uz" && (
-              <>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "en");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="en"
-                >
-                  EN
-                </li>
-                <li
-                  onClick={() => {
-                    localStorage.setItem("lang", "ru");
-                    setLang(!lang);
-                  }}
-                  style={{ color: "#555" }}
-                  className="ru"
-                >
-                  RU
-                </li>
-                <li className="uz">UZ</li>
-              </>
-            )}
+            <li
+              onClick={() => langChanger("en")}
+              style={
+                language == "en"
+                  ? { color: "#010101" }
+                  : { color: "#676" }
+              }
+              className="en"
+            >
+              EN
+            </li>
+            <li
+              onClick={() => langChanger("ru")}
+              style={
+                language == "ru" ? { color: "#010101" } : { color: "#676" }
+              }
+              className="ru"
+            >
+              RU
+            </li>
+            <li
+              onClick={() => langChanger("uz")}
+              style={
+                language == "uz" ? { color: "#010101" } : { color: "#676" }
+              }
+              className="uz"
+            >
+              UZ
+            </li>
           </ul>
 
           <button onClick={() => setDarkmode(!darkmode)} className="darkmode">
@@ -151,6 +86,69 @@ export default function Header({ darkmode, setDarkmode }) {
             />
           </button>
         </nav>
+        <div className="menu">
+          <div
+            onClick={() =>
+              document.querySelector(".menu").classList.toggle("active")
+            }
+            className="toggle"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <nav className="nav-mini">
+            <Link className="login" to={"/login"}>
+              {t("landing.header.login")}
+            </Link>
+            <Link className="register" to={"/register"}>
+              {t("landing.header.register")}
+            </Link>
+            <div className="langDarkMode">
+              <ul className="lang">
+              <li
+              onClick={() => langChanger("en")}
+              style={
+                language == "en"
+                  ? { color: "#010101" }
+                  : { color: "#676" }
+              }
+              className="en"
+            >
+              EN
+            </li>
+            <li
+              onClick={() => langChanger("ru")}
+              style={
+                language == "ru" ? { color: "#010101" } : { color: "#676" }
+              }
+              className="ru"
+            >
+              RU
+            </li>
+            <li
+              onClick={() => langChanger("uz")}
+              style={
+                language == "uz" ? { color: "#010101" } : { color: "#676" }
+              }
+              className="uz"
+            >
+              UZ
+            </li>
+              </ul>
+              <div onClick={() => setDarkmode(!darkmode)} className="darkmode">
+                <HiMoon
+                  className="dark"
+                  style={darkmode ? { left: "-50%" } : { left: "52%" }}
+                />
+                <HiSun
+                  className="light"
+                  style={darkmode ? { left: "50%" } : { left: "150%" }}
+                />
+              </div>
+            </div>
+          </nav>
+        </div>
       </div>
     </header>
   );

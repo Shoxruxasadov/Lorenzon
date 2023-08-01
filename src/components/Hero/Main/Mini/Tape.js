@@ -1,5 +1,5 @@
 import React from "react";
-import star from "../../../../images/section4/Star.webp";
+import star from "../../../../images/Hero/section4/Star.webp";
 
 export default function Tape() {
   return (

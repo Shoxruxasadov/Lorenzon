@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Analytics } from '@vercel/analytics/react';
 
 // ROUTER
 import { RouterProvider } from "react-router-dom";
@@ -39,6 +40,7 @@ root.render(
     <Provider store={store}>
       <I18nextProvider i18n={i18next}>
         <RouterProvider router={router} />
+        <Analytics />
       </I18nextProvider>
     </Provider>
   </React.StrictMode>

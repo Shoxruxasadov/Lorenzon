@@ -38,5 +38,42 @@
       "keep2": "Emma nima qilayotganini kuzatib boring.",
       "copyright": "Muallif"
     }
+  },
+  "login": {
+    "signin": {
+      "title": "Xush kelibsiz!",
+      "paragraph": "Hisobingizga kirish uchun maʼlumotlarni kiriting.",
+      "email": "Elektron pochta",
+      "password": "Parol",
+      "remember": "Eslab qolish",
+      "forget": "Parolni unutdingizmi?",
+      "sign": "Kirish",
+      "or": "yoki",
+      "account": "Hisobingiz yo'qmi?",
+      "to": "Roʻyxatdan oʻtish"
+    },
+    "signup": {
+      "title": "Hisob ochish!",
+      "paragraph": "Hisob yaratish uchun maʼlumotlaringizni kiriting.",
+      "firstName": "Ism",
+      "lastName": "Familiya",
+      "email": "Elektron pochta",
+      "password": "Parol",
+      "conpass": "Parolni tasdiqlang",
+      "sign": "Ro'yxatdan o'tish",
+      "or": "yoki",
+      "account": "Hisobingiz bormi?",
+      "to": "Kirish"
+    },
+    "validation": {
+      "conEqualPass": "Parol va parolni tasdiqlash bir-biriga teng emas",
+      "signedup": "Siz roʻyxatdan oʻtdingiz",
+      "signedin": "Siz tizimga kirdingiz",
+      "name": "Ism kiriting",
+      "email": "Electron pochta kiriting",
+      "password": "Parol kiriting",
+      "conpass": "Tasdiqlash parolini kiriting",
+      "wrong": "Parol noto'g'ri"
+    }
   }
 }

@@ -31,13 +31,20 @@ body {
 
   &.dark {
     $main: #f0d800;
-    $back: #080808;
+    $back: #121212;
     $text: #fff6ff;
-
+    // ----------- \\
     $tape: #f0d800;
     $click: #cab600;
     $header: #080808d0;
     $toggle: #131313dd;
+    // --------------- \\
+    $login-back: #141414;
+    $provider: #222;
+    $provibor: #333;
+    $provinput: #171717;
+    $logtex: #97a5c2;
+    $login: #24242a;
 
     background: $back;
     color: $text;
@@ -48,18 +55,32 @@ body {
       border: 2px solid $back;
     }
 
+    ::selection {
+      background: #009af3;
+      color: $text;
+    }
+    
+
     @import "./Hero/hero";
+    @import "./Login/login";
   }
 
   &.light {
     $main: #dec800;
-    $back: #e5e5e5;
+    $back: #FCFDFF;
     $text: #070707;
-
+    // ----------- \\
     $tape: #fffbd4;
     $click: #f0d800;
     $header: #e5e5e5d0;
     $toggle: #ffffffbb;
+    // --------------- \\
+    $login-back: #FCFDFF;
+    $provider: #eceff4;
+    $provibor: #d0d5dd;
+    $provinput: #f9f9f9;
+    $logtex: #4e5667;
+    $login: #cbcce8;
 
     background: $back;
     color: $text;
@@ -70,11 +91,14 @@ body {
       border: 2px solid $back;
     }
 
+    ::selection {
+      background: #009af3;
+      color: $text;
+    }
+    
+
     @import "./Hero/hero";
+    @import "./Login/login";
   }
 }
 
-::selection {
-  background: #009af3;
-  color: #080808;
-}

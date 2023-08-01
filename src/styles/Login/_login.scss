@@ -1,0 +1,310 @@
+#login {
+  padding: 32px 32px 32px 0;
+  gap: 32px;
+
+  .formes .wrapper {
+    width: 360px;
+  }
+}
+
+#register {
+  padding: 32px 0 32px 32px;
+  gap: 28px;
+
+  .formes .wrapper {
+    width: 400px;
+  }
+}
+
+#login,
+#register {
+  background: $login-back;
+  color: $text;
+  overflow: hidden;
+  display: flex;
+  height: 100svh;
+
+  .formes {
+    width: 48%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        color: $logtex;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.4px;
+        text-align: center;
+      }
+
+      p {
+        color: $logtex;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .name {
+          width: 100%;
+          display: flex;
+          gap: 18px;
+
+          .firstName,
+          .lastName {
+            width: 50%;
+            height: 44px;
+            position: relative;
+
+            svg {
+              transform: translateY(-50%);
+              position: absolute;
+              top: 50%;
+              left: 14px;
+              color: $text;
+              cursor: pointer;
+              color: $logtex;
+            }
+
+            input {
+              width: 100%;
+              height: 100%;
+              padding-left: 42px;
+              border-radius: 8px;
+              border: 1px solid $provibor;
+              background: $provinput;
+              color: $text;
+
+              &::placeholder {
+                color: $logtex;
+                padding-top: 1px;
+
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 24px;
+              }
+            }
+          }
+        }
+
+        .email,
+        .password,
+        .confirmPassword {
+          width: 100%;
+          height: 44px;
+          position: relative;
+
+          svg {
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            color: $text;
+            cursor: pointer;
+            color: $logtex;
+          }
+
+          input {
+            width: 100%;
+            height: 100%;
+            padding-left: 42px;
+            border-radius: 8px;
+            border: 1px solid $provibor;
+            background: $provinput;
+            color: $text;
+
+            &::placeholder {
+              color: $logtex;
+              padding-top: 1px;
+
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 24px;
+            }
+          }
+        }
+
+        ::selection {
+          background: transparent;
+        }
+
+        .remember {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 20px;
+          cursor: pointer;
+
+          @import "./checkbox";
+
+          .checkbox .rememberme {
+            color: $logtex;
+            cursor: pointer;
+
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            padding-top: 1px;
+          }
+
+          a {
+            color: #5429ff;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+          }
+        }
+
+        button[type="submit"] {
+          height: 44px;
+          border: none;
+          border-radius: 8px;
+          background: #5429ff;
+          color: $login-back;
+
+          color: #fff;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 20px;
+        }
+      }
+    }
+
+    .lines {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0;
+
+      .line-start {
+        width: 45%;
+        height: 1px;
+        background: $login;
+        border-radius: 50% 0 0 50%;
+      }
+
+      span {
+        color: $login;
+      }
+
+      .line-end {
+        width: 45%;
+        height: 1px;
+        background: $login;
+        border-radius: 0 50% 50% 0;
+      }
+    }
+
+    .providers {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      button {
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        height: 44px;
+
+        color: $logtex;
+        border-radius: 8px;
+        border: 1px solid $provibor;
+        background: $provider;
+        cursor: pointer;
+
+        svg,
+        svg > path {
+          cursor: pointer;
+        }
+
+        span {
+          color: $logtex;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 20px;
+          padding-top: 2px;
+          cursor: pointer;
+
+          &:first-of-type {
+            padding-left: 4px;
+          }
+
+          &:last-of-type {
+            padding-top: 2px;
+            padding-right: 1px;
+          }
+        }
+      }
+    }
+
+    .replacement {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+
+      span {
+        color: $logtex;
+        font-weight: 400;
+      }
+
+      a {
+        color: #5429ff;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .images {
+    width: 50%;
+    height: 100%;
+    border-radius: 40px;
+    background: $login;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      cursor: pointer;
+      position: absolute;
+      bottom: -345px;
+      left: 25px;
+
+      h1 {
+        height: 40px;
+        font-size: 30px;
+        color: $login-back;
+        padding-top: 1px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@import "./media";

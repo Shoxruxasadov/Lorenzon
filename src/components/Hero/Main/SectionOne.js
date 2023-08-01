@@ -2,16 +2,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { motion, spring } from "framer-motion";
 
-import darkPhoto from "../../../images/section1/bgDark.webp";
-import lightPhoto from "../../../images/section1/bgLight.webp";
-import logo48 from "../../../images/section1/Group3348.webp";
-import logo49 from "../../../images/section1/Group3349.webp";
-import logo50 from "../../../images/section1/Group3350.webp";
-import logo51 from "../../../images/section1/Group3351.webp";
-import light48 from "../../../images/section1/light3348.webp";
-import light49 from "../../../images/section1/light3349.webp";
-import light50 from "../../../images/section1/light3350.webp";
-import light51 from "../../../images/section1/light3351.webp";
+import darkPhoto from "../../../images/Hero/section1/bgDark.webp";
+import lightPhoto from "../../../images/Hero/section1/bgLight.webp";
+import logo48 from "../../../images/Hero/section1/Group3348.webp";
+import logo49 from "../../../images/Hero/section1/Group3349.webp";
+import logo50 from "../../../images/Hero/section1/Group3350.webp";
+import logo51 from "../../../images/Hero/section1/Group3351.webp";
+import light48 from "../../../images/Hero/section1/light3348.webp";
+import light49 from "../../../images/Hero/section1/light3349.webp";
+import light50 from "../../../images/Hero/section1/light3350.webp";
+import light51 from "../../../images/Hero/section1/light3351.webp";
 
 export default function SectionOne({ darkmode }) {
   const [t, i18n] = useTranslation("global");

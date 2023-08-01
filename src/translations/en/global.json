@@ -38,5 +38,42 @@
       "keep2": "music and what Emma's been up to.",
       "copyright": "Copyright"
     }
+  },
+  "login": {
+    "signin": {
+      "title": "Welcome Back!",
+      "paragraph": "Please fill your detail to access your account.",
+      "email": "Email",
+      "password": "Password",
+      "remember": "Remember me",
+      "forget": "Forgot Password?",
+      "sign": "Sign in",
+      "or": "or",
+      "account": "Don’t have an account?",
+      "to": "Sign up"
+    },
+    "signup": {
+      "title": "Create an account!",
+      "paragraph": "Please fill in your details to create an account.",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "conpass": "Confirm Password",
+      "sign": "Sign up",
+      "or": "or",
+      "account": "Do you have an account?",
+      "to": "Sign in"
+    },
+    "validation": {
+      "conEqualPass": "Password and Confirm Password are not equal to each other",
+      "signedup": "You are signed up",
+      "signedin": "You are signed in",
+      "name": "Name is request",
+      "email": "Email is request",
+      "password": "Password is request",
+      "conpass": "Confirm Password is request",
+      "wrong": "Password is wrong"
+    }
   }
 }

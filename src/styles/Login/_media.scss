@@ -7,7 +7,7 @@
     padding: 16px;
 
     .images {
-      display: none;
+      display: none!important;
     }
     .formes {
       width: 100%;
@@ -20,7 +20,7 @@
     #register {
       .formes {
         width: 150%;
-        transform: scale(1.3);
+        transform: scale(1.3)!important;
       }
     }
   }
@@ -30,7 +30,7 @@
   #register {
     .formes {
       width: 110%;
-      transform: scale(0.9);
+      transform: scale(0.9)!important;
     }
   }
 }
@@ -40,7 +40,7 @@
   #register {
     .formes {
       width: 120%;
-      transform: scale(0.8);
+      transform: scale(0.8)!important;
     }
   }
 }
@@ -50,7 +50,7 @@
   #register {
     .formes {
       width: 130%;
-      transform: scale(0.7);
+      transform: scale(0.7)!important;
     }
   }
 }

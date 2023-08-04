@@ -11,7 +11,6 @@ export default function Header({ darkmode, setDarkmode }) {
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
-  let menuToggle = null;
 
   const handleChangeLanguage = (lang) => {
     i18next.changeLanguage(lang);

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { motion, spring } from "framer-motion";
+import { motion } from "framer-motion";
 
 import darkPhoto from "../../../images/Hero/section1/bgDark.webp";
 import lightPhoto from "../../../images/Hero/section1/bgLight.webp";

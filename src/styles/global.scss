@@ -19,14 +19,20 @@ input,
 button {
   outline: none;
   cursor: pointer;
+  font-family: Santello;
 }
 
 body {
   font-family: "Santello", sans-serif;
   scroll-behavior: smooth;
 
-  &::-webkit-scrollbar {
-    width: 0.6em;
+  ::selection {
+    all: unset;
+  }
+
+  &::-webkit-scrollbar{
+    all: unset;
+    width: 0!important;
   }
 
   &.dark {
@@ -45,24 +51,23 @@ body {
     $provinput: #171717;
     $logtex: #97a5c2;
     $login: #24242a;
+    // ------------ \\
+    $admin-main: #0f54f0;
+    $admin-side: #262528;
+    $admin-cont: #181618;
+    $admin-text: #FFFFFF;
+    $admin-gray: #FFFFFF;
+    $admin-gold: #F6B445;
+    $admin-shadow: #3939391a;
+    $admin-butowe: #FFFFFF;
+
 
     background: $back;
     color: $text;
 
-    &::-webkit-scrollbar-thumb {
-      background: $main;
-      border-radius: 10em;
-      border: 2px solid $back;
-    }
-
-    ::selection {
-      background: #009af3;
-      color: $text;
-    }
-    
-
     @import "./Hero/hero";
     @import "./Login/login";
+    @import "./Admin//admin";
   }
 
   &.light {
@@ -81,24 +86,22 @@ body {
     $provinput: #f9f9f9;
     $logtex: #4e5667;
     $login: #cbcce8;
+    // ------------ \\
+    $admin-main: #0f54f0;
+    $admin-side: #FFFFFF;
+    $admin-cont: #F9F8F9;
+    $admin-text: #000000;
+    $admin-gray: #727272;
+    $admin-gold: #F3A522;
+    $admin-butowe: #0f54f0;
+    $admin-shadow: #6363631a;
 
     background: $back;
     color: $text;
 
-    &::-webkit-scrollbar-thumb {
-      background: $main;
-      border-radius: 10em;
-      border: 2px solid $back;
-    }
-
-    ::selection {
-      background: #009af3;
-      color: $text;
-    }
-    
-
     @import "./Hero/hero";
     @import "./Login/login";
+    @import "./Admin//admin";
   }
 }
 

@@ -13,7 +13,7 @@ export const warning = (text, mode, pos) =>
     theme: mode,
   });
 
-export const error = (text, mode, pos) =>
+export const wrong = (text, mode, pos) =>
   toast.error(text, {
     position: pos,
     autoClose: 3000,

@@ -66,14 +66,16 @@
       "to": "Kirish"
     },
     "validation": {
-      "conEqualPass": "Parol va parolni tasdiqlash bir-biriga teng emas",
+      "conEqualPass": "Tasqinlanga parol xato",
       "signedup": "Siz roʻyxatdan oʻtdingiz",
       "signedin": "Siz tizimga kirdingiz",
-      "name": "Ism kiriting",
+      "name": "Ism Sharif kiriting",
+      "nameLang": "Ism Sharif kamida 4 ta harfdan iborat bo'lishi kerak",
       "email": "Electron pochta kiriting",
       "password": "Parol kiriting",
       "conpass": "Tasdiqlash parolini kiriting",
-      "wrong": "Parol noto'g'ri"
+      "wrong": "Parol yoki pochta noto'g'ri",
+      "errorRegister": "Bunday foydalanuvchi mavjud"
     }
   }
 }

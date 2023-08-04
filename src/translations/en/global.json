@@ -69,11 +69,13 @@
       "conEqualPass": "Password and Confirm Password are not equal to each other",
       "signedup": "You are signed up",
       "signedin": "You are signed in",
-      "name": "Name is request",
+      "name": "Full Name is request",
+      "nameLang": "The Full Name must have at least 4 letters",
       "email": "Email is request",
       "password": "Password is request",
       "conpass": "Confirm Password is request",
-      "wrong": "Password is wrong"
+      "wrong": "Password or email is wrong",
+      "errorRegister": "Such a user exists"
     }
   }
 }

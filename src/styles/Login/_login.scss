@@ -75,8 +75,11 @@
               top: 50%;
               left: 14px;
               color: $text;
-              cursor: pointer;
               color: $logtex;
+
+              &,&>path{
+                cursor: pointer;
+              }
             }
 
             input {

@@ -10,12 +10,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Signin() {
-  const confirm = useSelector((state) => state.confirmReducer.confirm);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
@@ -34,10 +34,14 @@ export default function Signin() {
     let password = data.password;
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        dispatch({ type: "GET_CONFIRM", payload: user });
+        const confirm = userCredential.user;
+        const docRef = doc(db, "users", confirm.uid);
+        const user = await getDoc(docRef);
+
+        dispatch({ type: "SET_CONFIRM", payload: confirm });
+        dispatch({ type: "SET_USER", payload: user.data() });
 
         success(
           t("login.validation.signedin"),
@@ -72,10 +76,6 @@ export default function Signin() {
         posTaos
       );
   }
-
-  useEffect(() => {
-    if (confirm) navigate("/home");
-  }, []);
 
   return (
     <>

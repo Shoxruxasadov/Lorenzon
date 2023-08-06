@@ -1,19 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  confirm: JSON.parse(localStorage.getItem("user")) || null,
+  confirm: JSON.parse(localStorage.getItem("confirm")) || null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
 };
 
 export const confirmSlice = createSlice({
   name: "confirm",
   initialState,
   reducers: {
-    getConfirm: (state, action) => {
+    setConfirm: (state, action) => {
+      state.confirm = action.payload;
+    },
+    setUser: (state, action) => {
       state.confirm = action.payload;
     },
   },
 });
 
-export const { getConfirm } = confirmSlice.actions;
+export const { setConfirm, setUser } = confirmSlice.actions;
 
 export default confirmSlice.reducer;

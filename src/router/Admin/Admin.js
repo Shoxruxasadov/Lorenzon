@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Admin/Sidebar";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Admin() {
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (window.location.pathname === "/admin") navigate("/admin/dashboard");
+      if (window.location.pathname === "/admin") navigate("/admin/dashboard");
   }, []);
 
   const [darkmode, setDarkmode] = useState(
@@ -22,7 +24,7 @@ export default function Admin() {
   return (
     <div id="admin">
       <Sidebar darkmode={darkmode} setDarkmode={setDarkmode} />
-      <Outlet />
+      <Outlet darkmode={darkmode} />
     </div>
   );
 }

@@ -53,21 +53,24 @@ body {
     $login: #24242a;
     // ------------ \\
     $admin-main: #0f54f0;
-    $admin-side: #262528;
+    $admin-side: #1F1E1F;
     $admin-cont: #181618;
     $admin-text: #FFFFFF;
     $admin-gray: #FFFFFF;
     $admin-gold: #F6B445;
-    $admin-shadow: #3939391a;
     $admin-butowe: #FFFFFF;
-
+    $admin-shadow: #3939391a;
+    $admin-tablehead: #282729;
+    $admin-line: #3b393D;
+    $admin-userhead: #282729;
+    $admin-inpborder: #282729;
 
     background: $back;
     color: $text;
 
     @import "./Hero/hero";
     @import "./Login/login";
-    @import "./Admin//admin";
+    @import "./Admin/admin";
   }
 
   &.light {
@@ -95,13 +98,17 @@ body {
     $admin-gold: #F3A522;
     $admin-butowe: #0f54f0;
     $admin-shadow: #6363631a;
+    $admin-tablehead: #EDf4ff;
+    $admin-line: #b5b5b5;
+    $admin-userhead: #F9F8F9;
+    $admin-inpborder: #DDE2E8;
 
     background: $back;
     color: $text;
 
     @import "./Hero/hero";
     @import "./Login/login";
-    @import "./Admin//admin";
+    @import "./Admin/admin";
   }
 }
 

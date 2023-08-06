@@ -9,13 +9,13 @@ import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
 export default function Signup() {
-  const confirm = useSelector((state) => state.confirmReducer.confirm);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [darkmode, setDarkmode] = useState(
@@ -28,45 +28,52 @@ export default function Signup() {
   } = useForm();
   const posTaos = "top-left";
 
-  const onSubmit = (data) => {
-    let email = data.email;
-    let password = data.password;
-
-    if (!(data.password === data.confirmPassword)) {
+  const onSubmit = async (data) => {
+    if (data.password !== data.confirmPassword) {
       wrong(
         t("login.validation.conEqualPass"),
         darkmode ? "light" : "dark",
         posTaos
       );
     } else {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed up
-          const user = userCredential.user;
-
-          success(
-            t("login.validation.signedup"),
-            darkmode ? "light" : "dark",
-            posTaos
-          );
-
-          setTimeout(() => {
-            navigate("/login");
-          }, 2000);
-        })
-        .catch((error) => {
-          wrong(
-            t("login.validation.errorRegister"),
-            darkmode ? "light" : "dark",
-            posTaos
-          );
+      try {
+        const res = await createUserWithEmailAndPassword(
+          auth,
+          data.email,
+          data.password
+        );
+        await setDoc(doc(db, "users", res.user.uid), {
+          birthday: null,
+          country: null,
+          email: data.email,
+          image: null,
+          name: `${data.firstName} ${data.lastName}`,
+          password: data.password,
+          phone: null,
+          role: "User",
+          timeStamp: serverTimestamp(),
         });
+
+        success(
+          t("login.validation.signedup"),
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+
+        
+      } catch (error) {
+        wrong(
+          t("login.validation.errorRegister"),
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+      }
     }
   };
-
-  useEffect(() => {
-    if (confirm) navigate("/home");
-  }, []);
 
   function handleValidation() {
     let name = errors.firstName || errors.lastName;

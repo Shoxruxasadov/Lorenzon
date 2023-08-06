@@ -60,3 +60,6 @@ export const simple = (text, mode, pos) =>
     progress: undefined,
     theme: mode,
   });
+
+
+

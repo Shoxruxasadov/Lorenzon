@@ -1,4 +1,4 @@
-import { createBrowserRouter, useNavigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./styles/global.scss";
 
@@ -11,60 +11,84 @@ import Signin from "./router/Login/Signin";
 import Signup from "./router/Login/Signup";
 // ADMIN PAGES
 import Admin from "./router/Admin/Admin";
-import Dashboard from "./components/Admin/Dashboard";
-import Users from "./components/Admin/Users";
-import Products from "./components/Admin/Products";
+import Dashboard from "./components/Admin/Home/Dashboard";
+import Users from "./components/Admin/Users/Users";
+import AddUser from "./components/Admin/Users/AddUser";
+import Products from "./components/Admin/Products/Products";
 
-const RequireAuth = ({ children }) => {
+const Auth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
-  console.log(confirm);
   return confirm ? children : (window.location.pathname = "/login");
+};
+
+const NoAuth = ({ children }) => {
+  const confirm = useSelector((state) => state.confirmReducer.confirm);
+  return confirm ? (window.location.pathname = "/home") : children;
+};
+
+const ConfirmAdmin = ({ children }) => {
+  const confirm = useSelector((state) => state.confirmReducer.user);
+  return confirm.role === "Admin"
+    ? children
+    : (window.location.pathname = "/home");
 };
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Hero />,
+    element: (
+      <NoAuth>
+        <Hero />
+      </NoAuth>
+    ),
     errorElement: <Error />,
   },
   {
     path: "/home",
     element: (
-      <RequireAuth>
+      <Auth>
         <Home />
-      </RequireAuth>
+      </Auth>
     ),
   },
   {
     path: "/admin",
     element: (
-      <RequireAuth>
+      <ConfirmAdmin>
         <Admin />
-      </RequireAuth>
+      </ConfirmAdmin>
     ),
     children: [
       {
         path: "/admin/dashboard",
         element: (
-          <RequireAuth>
+          <ConfirmAdmin>
             <Dashboard />
-          </RequireAuth>
+          </ConfirmAdmin>
         ),
       },
       {
         path: "/admin/users",
         element: (
-          <RequireAuth>
+          <ConfirmAdmin>
             <Users />
-          </RequireAuth>
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/users/add-user",
+        element: (
+          <ConfirmAdmin>
+            <AddUser />
+          </ConfirmAdmin>
         ),
       },
       {
         path: "/admin/products",
         element: (
-          <RequireAuth>
+          <ConfirmAdmin>
             <Products />
-          </RequireAuth>
+          </ConfirmAdmin>
         ),
       },
     ],
@@ -72,17 +96,25 @@ export const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <RequireAuth>
+      <Auth>
         <Profile />
-      </RequireAuth>
+      </Auth>
     ),
   },
   {
     path: "/login",
-    element: <Signin />,
+    element: (
+      <NoAuth>
+        <Signin />
+      </NoAuth>
+    ),
   },
   {
     path: "/register",
-    element: <Signup />,
+    element: (
+      <NoAuth>
+        <Signup />
+      </NoAuth>
+    ),
   },
 ]);

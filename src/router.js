@@ -28,9 +28,7 @@ const NoAuth = ({ children }) => {
 
 const ConfirmAdmin = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.user);
-  return confirm.role === "Admin"
-    ? children
-    : (window.location.pathname = "/home");
+  return confirm && confirm.role === "Admin" ? children : (window.location.pathname = "/home");
 };
 
 export const router = createBrowserRouter([

@@ -2,9 +2,8 @@ import { takeEvery, call, put } from "redux-saga/effects";
 import { getUsers } from "../reducers/userReducer";
 import axios from "axios";
 
-function* workGetUsers() {
-  // const res = yield axios.get("https://ogserver.onrender.com/goods");
-  // yield put(getUsers(res.data));
+function* workGetUsers(action) {
+  yield put(getUsers(action.payload));
   return;
 }
 

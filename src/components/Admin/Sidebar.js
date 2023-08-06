@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
+import i18next from "i18next";
+
 import logo from "../../images/Admin/logo.png";
 import icon from "../../images/Admin/icon.png";
 
@@ -8,6 +11,24 @@ import { FaUserFriends } from "react-icons/fa";
 import { HiMiniMusicalNote } from "react-icons/hi2";
 
 export default function Sidebar({ darkmode, setDarkmode }) {
+  const language = localStorage.getItem("lang");
+  const [t, i18n] = useTranslation("global");
+  const [lang, setLang] = useState(false);
+
+  const handleChangeLanguage = (lang) => {
+    i18next.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    handleChangeLanguage(language);
+    document.querySelector("html").setAttribute("lang", language || "en");
+  }, [lang]);
+
+  function langChanger(lan) {
+    localStorage.setItem("lang", lan);
+    setLang(!lang);
+  }
+
   return (
     <div className="sidebar">
       <div className="wrapper">
@@ -43,12 +64,93 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             <span>Products</span>
           </NavLink>
         </div>
+      </div>
+      <div className="out">
+        <ul className="lang">
+          <li
+            onClick={() => langChanger("en")}
+            style={
+              darkmode
+                ? language === "en"
+                  ? {
+                      transition: "0.15s",
+                      boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
+                      backgroundColor: "#FFFFFF",
+                      color: "#0f54f0",
+                    }
+                  : { backgroundColor: "transparent", color: "#000000" }
+                : language === "en"
+                ? {
+                    transition: "0.15s",
+                    backgroundColor: "#262528",
+                    color: "#0f54f0",
+                  }
+                : { backgroundColor: "transparent", color: "#ffffff" }
+            }
+            className="en"
+          >
+            EN
+          </li>
+          <li
+            onClick={() => langChanger("ru")}
+            style={
+              darkmode
+                ? language === "ru"
+                  ? {
+                      transition: "0.15s",
+                      boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
+                      backgroundColor: "#FFFFFF",
+                      color: "#0f54f0",
+                    }
+                  : { backgroundColor: "transparent", color: "#000000" }
+                : language === "ru"
+                ? {
+                    transition: "0.15s",
+                    backgroundColor: "#262528",
+                    color: "#0f54f0",
+                  }
+                : { backgroundColor: "transparent", color: "#ffffff" }
+            }
+            className="ru"
+          >
+            RU
+          </li>
+          <li
+            onClick={() => langChanger("uz")}
+            style={
+              darkmode
+                ? language === "uz"
+                  ? {
+                      transition: "0.15s",
+                      boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
+                      backgroundColor: "#FFFFFF",
+                      color: "#0f54f0",
+                    }
+                  : { backgroundColor: "transparent", color: "#000000" }
+                : language === "uz"
+                ? {
+                    transition: "0.15s",
+                    backgroundColor: "#262528",
+                    color: "#0f54f0",
+                  }
+                : { backgroundColor: "transparent", color: "#ffffff" }
+            }
+            className="uz"
+          >
+            UZ
+          </li>
+        </ul>
         <div onClick={() => setDarkmode(!darkmode)} className="darkmode">
           <div
             className="sun"
             style={
               darkmode
-                ? { backgroundColor: "#FFFFFF", color: "#0f54f0", boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px" }
+                ? {
+                    transition: "0.15s",
+                    boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
+                    backgroundColor: "#FFFFFF",
+                    color: "#0f54f0",
+                  }
                 : { backgroundColor: "transparent", color: "#ffffff" }
             }
           >
@@ -59,7 +161,11 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             className="moon"
             style={
               darkmode
-                ? { backgroundColor: "transparent", color: "#000000" }
+                ? {
+                    transition: "0.15s",
+                    backgroundColor: "transparent",
+                    color: "#000000",
+                  }
                 : { backgroundColor: "#262528", color: "#0f54f0" }
             }
           >
@@ -67,8 +173,8 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             <span>Dark</span>
           </div>
         </div>
+        <div className="logout"></div>
       </div>
-      <div className="logout"></div>
     </div>
   );
 }

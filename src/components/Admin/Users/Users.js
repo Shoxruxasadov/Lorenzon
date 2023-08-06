@@ -1,30 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase/firebase";
-import axios from "axios";
 import unknown from "../../../images/Admin/unknown.jpg";
+import { useSelector } from "react-redux";
 
 export default function Users() {
-  const navigate = useNavigate();
+  const users = useSelector((state) => state.userReducer.users);
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let list = [];
-      try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        querySnapshot.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
-        setData(list);
-      } catch (err) {
-        console.log("ERROR FETCH DATA IN FIRESTROE");
-      }
-    };
-    fetchData();
-  }, []);
+  useEffect(() => setData(users), [users]);
 
   return (
     <section className="users">

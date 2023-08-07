@@ -30,13 +30,9 @@ export default function Signin() {
   const posTaos = "top-right";
 
   const onSubmit = (data) => {
-    let email = data.email;
-    let password = data.password;
-
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
       .then(async (userCredential) => {
-        // Signed in
-        success( t("login.validation.signedin"), darkmode ? "light" : "dark", posTaos );
+        success( t("login.validation.signedin"), darkmode ? "light" : "dark", posTaos )
 
         const confirm = userCredential.user;
         const docRef = doc(db, "users", confirm.uid);
@@ -45,7 +41,8 @@ export default function Signin() {
         dispatch({ type: "SET_CONFIRM", payload: confirm });
         dispatch({ type: "SET_USER", payload: user.data() });
 
-        setTimeout(() => navigate("/home"), 2000);
+        setTimeout(() => navigate("/home"), 1000)
+        
       }).catch((error) => wrong( t("login.validation.wrong"), darkmode ? "light" : "dark", posTaos ));
   };
 

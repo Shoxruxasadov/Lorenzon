@@ -10,19 +10,18 @@ export default function Admin() {
   const navigate = useNavigate();
 
   const [darkmode, setDarkmode] = useState(
-    localStorage.getItem("theme") == "light" ? true : false
+    localStorage.getItem("theme") === "light" ? true : false
   );
 
   useEffect(() => {
-    if (window.location.pathname === "/admin") navigate("/admin/dashboard");
+    if (window.location.pathname === "/admin" || window.location.pathname === "/admin/") navigate("/admin/dashboard");
     const fetchData = async () => {
       let list = [];
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
         querySnapshot.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
+          list.push(doc.data());
         });
-        delete list[0].timeStamp;
         dispatch({ type: "GET_USERS", payload: list });
       } catch (err) {
         console.log("ERROR FETCH DATA IN FIRESTORE");
@@ -32,11 +31,10 @@ export default function Admin() {
   }, []);
 
   useEffect(() => {
-    // setDarkmode(!darkmode)
     localStorage.setItem("theme", darkmode ? "light" : "dark");
     document
       .querySelector("body")
-      .setAttribute("class", localStorage.getItem("theme"));
+      .setAttribute("class", darkmode ? "light" : "dark");
   }, [darkmode]);
 
   return (

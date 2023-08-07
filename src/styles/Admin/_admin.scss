@@ -158,6 +158,63 @@
         background: $admin-main;
         border-radius: 0.5em;
         cursor: pointer;
+        padding: 0 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .data{
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+
+          img{
+            width: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+
+          .title{
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+
+            h3{
+              font-size: 14px;
+              font-weight: 500;
+              color: #FFF;
+              cursor: pointer;
+            }
+
+            h4{
+              font-size: 12px;
+              font-weight: 400;
+              color: #FFF;
+              cursor: pointer;
+              line-height: 14px;
+            }
+          }
+        }
+
+        .back{
+          display: flex;
+          align-items: center;
+
+          svg{
+            rotate: 180deg;
+            font-size: 17px;
+            color: #FFF;
+
+            &,&>path{
+              cursor: pointer;
+            }
+          }
+        }
+
+
+        
       }
     }
   }

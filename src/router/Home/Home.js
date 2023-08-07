@@ -12,7 +12,7 @@ export default function Home() {
     <div id="home">
       <a onClick={logout}>
         <span>Log out</span>
-        <div class="liquid"></div>
+        <div className="liquid"></div>
       </a>
     </div>
   );

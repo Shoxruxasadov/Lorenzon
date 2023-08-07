@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import i18next from "i18next";
+import { useSelector } from "react-redux";
 
 import logo from "../../images/Admin/logo.png";
 import icon from "../../images/Admin/icon.png";
@@ -9,8 +10,10 @@ import icon from "../../images/Admin/icon.png";
 import { HiHome, HiMoon, HiSun } from "react-icons/hi";
 import { FaUserFriends } from "react-icons/fa";
 import { HiMiniMusicalNote } from "react-icons/hi2";
+import { LuLogOut } from "react-icons/lu";
 
 export default function Sidebar({ darkmode, setDarkmode }) {
+  const user = useSelector((state) => state.confirmReducer.user);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
@@ -27,6 +30,12 @@ export default function Sidebar({ darkmode, setDarkmode }) {
   function langChanger(lan) {
     localStorage.setItem("lang", lan);
     setLang(!lang);
+  }
+
+  function logout() {
+    localStorage.setItem("confirm", null);
+    localStorage.setItem("user", null);
+    document.location.reload(true);
   }
 
   return (
@@ -173,7 +182,18 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             <span>Dark</span>
           </div>
         </div>
-        <div className="logout"></div>
+        <div className="logout" onClick={logout}>
+          <div className="data">
+            <img src={user.image} />
+            <div className="title">
+              <h3>{user.name}</h3>
+              <h4>{user.email}</h4>
+            </div>
+          </div>
+          <div className="back">
+            <LuLogOut />
+          </div>
+        </div>
       </div>
     </div>
   );

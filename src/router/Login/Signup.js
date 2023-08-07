@@ -46,6 +46,7 @@ export default function Signup() {
           birthday: null,
           country: null,
           email: data.email,
+          gender: null,
           image: null,
           name: `${data.firstName} ${data.lastName}`,
           password: data.password,

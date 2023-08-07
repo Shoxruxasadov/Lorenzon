@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function Home() {
   function logout() {
     localStorage.setItem("confirm", null);
     localStorage.setItem("user", null);
+    document.location.reload(true)
   }
 
   return (
-    <>
-      <h1>Home Page</h1>
-      <button onClick={logout}>Log out</button>
-    </>
+    <div id="home">
+      <a onClick={logout}>
+        <span>Log out</span>
+        <div class="liquid"></div>
+      </a>
+    </div>
   );
 }

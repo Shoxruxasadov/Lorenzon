@@ -36,30 +36,17 @@ export default function Signin() {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
+        success( t("login.validation.signedin"), darkmode ? "light" : "dark", posTaos );
+
         const confirm = userCredential.user;
         const docRef = doc(db, "users", confirm.uid);
         const user = await getDoc(docRef);
-
+        
         dispatch({ type: "SET_CONFIRM", payload: confirm });
         dispatch({ type: "SET_USER", payload: user.data() });
 
-        success(
-          t("login.validation.signedin"),
-          darkmode ? "light" : "dark",
-          posTaos
-        );
-
-        setTimeout(() => {
-          navigate("/home");
-        }, 2000);
-      })
-      .catch((error) => {
-        wrong(
-          t("login.validation.wrong"),
-          darkmode ? "light" : "dark",
-          posTaos
-        );
-      });
+        setTimeout(() => navigate("/home"), 2000);
+      }).catch((error) => wrong( t("login.validation.wrong"), darkmode ? "light" : "dark", posTaos ));
   };
 
   function handleValidation() {

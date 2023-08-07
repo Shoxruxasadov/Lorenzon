@@ -60,11 +60,7 @@ export default function Signup() {
           posTaos
         );
 
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-
-        
+        setTimeout(() => navigate("/login"), 2000);
       } catch (error) {
         wrong(
           t("login.validation.errorRegister"),

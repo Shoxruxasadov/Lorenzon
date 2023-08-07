@@ -9,7 +9,6 @@ export default function Admin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("theme") == "light" ? true : false
   );
@@ -23,6 +22,7 @@ export default function Admin() {
         querySnapshot.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() });
         });
+        delete list[0].timeStamp;
         dispatch({ type: "GET_USERS", payload: list });
       } catch (err) {
         console.log("ERROR FETCH DATA IN FIRESTORE");

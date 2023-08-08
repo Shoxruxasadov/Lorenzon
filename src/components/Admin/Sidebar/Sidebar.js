@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import i18next from "i18next";
 import { useSelector } from "react-redux";
 
-import logo from "../../images/Admin/logo.png";
-import icon from "../../images/Admin/icon.png";
+import logo from "../../../images/Admin/logo.png";
+import icon from "../../../images/Admin/icon.png";
 
 import { HiHome, HiMoon, HiSun } from "react-icons/hi";
 import { FaUserFriends } from "react-icons/fa";

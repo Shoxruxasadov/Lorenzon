@@ -40,7 +40,7 @@ export default function AddUser() {
     formState: { errors },
   } = useForm();
   const [photo, setPhoto] = useState("");
-  const [getPhoto, setGetPhoto] = useState("");
+  const [getPhoto, setGetPhoto] = useState(null);
   const [per, setPer] = useState(null);
   const [disable, setDisable] = useState(false);
 
@@ -104,6 +104,7 @@ export default function AddUser() {
           birthday: data.birthday,
           country: data.country,
           email: data.email,
+          gender: data.gender,
           image: getPhoto,
           name: data.name,
           password: data.password,

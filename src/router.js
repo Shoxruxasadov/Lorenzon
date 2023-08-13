@@ -23,12 +23,17 @@ const Auth = ({ children }) => {
 
 const NoAuth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
-  return confirm ? (window.location.pathname = "/home") : children;
+  const user = useSelector((state) => state.confirmReducer.user);
+  return confirm && user
+    ? (window.location.pathname = user.role === "Admin" ? "/admin" : "/home")
+    : children;
 };
 
 const ConfirmAdmin = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.user);
-  return confirm && confirm.role === "Admin" ? children : (window.location.pathname = "/home");
+  return confirm && confirm.role === "Admin"
+    ? children
+    : (window.location.pathname = "/home");
 };
 
 export const router = createBrowserRouter([

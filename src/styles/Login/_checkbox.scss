@@ -65,13 +65,13 @@
   }
   @-moz-keyframes splash {
     40% {
-      background: #5429ff;
-      box-shadow: 0 -18px 0 -8px #5429ff, 16px -8px 0 -8px #5429ff,
-        16px 8px 0 -8px #5429ff, 0 18px 0 -8px #5429ff, -16px 8px 0 -8px #5429ff,
-        -16px -8px 0 -8px #5429ff;
+      background: $main;
+      box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+        16px 8px 0 -8px $main, 0 18px 0 -8px $main, -16px 8px 0 -8px $main,
+        -16px -8px 0 -8px $main;
     }
     100% {
-      background: #5429ff;
+      background: $main;
       box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent,
         32px 16px 0 -10px transparent, 0 36px 0 -10px transparent,
         -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
@@ -79,13 +79,13 @@
   }
   @-webkit-keyframes splash {
     40% {
-      background: #5429ff;
-      box-shadow: 0 -18px 0 -8px #5429ff, 16px -8px 0 -8px #5429ff,
-        16px 8px 0 -8px #5429ff, 0 18px 0 -8px #5429ff, -16px 8px 0 -8px #5429ff,
-        -16px -8px 0 -8px #5429ff;
+      background: $main;
+      box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+        16px 8px 0 -8px $main, 0 18px 0 -8px $main, -16px 8px 0 -8px $main,
+        -16px -8px 0 -8px $main;
     }
     100% {
-      background: #5429ff;
+      background: $main;
       box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent,
         32px 16px 0 -10px transparent, 0 36px 0 -10px transparent,
         -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
@@ -93,13 +93,13 @@
   }
   @-o-keyframes splash {
     40% {
-      background: #5429ff;
-      box-shadow: 0 -18px 0 -8px #5429ff, 16px -8px 0 -8px #5429ff,
-        16px 8px 0 -8px #5429ff, 0 18px 0 -8px #5429ff, -16px 8px 0 -8px #5429ff,
-        -16px -8px 0 -8px #5429ff;
+      background: $main;
+      box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+        16px 8px 0 -8px $main, 0 18px 0 -8px $main, -16px 8px 0 -8px $main,
+        -16px -8px 0 -8px $main;
     }
     100% {
-      background: #5429ff;
+      background: $main;
       box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent,
         32px 16px 0 -10px transparent, 0 36px 0 -10px transparent,
         -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
@@ -107,13 +107,13 @@
   }
   @keyframes splash {
     40% {
-      background: #5429ff;
-      box-shadow: 0 -18px 0 -8px #5429ff, 16px -8px 0 -8px #5429ff,
-        16px 8px 0 -8px #5429ff, 0 18px 0 -8px #5429ff, -16px 8px 0 -8px #5429ff,
-        -16px -8px 0 -8px #5429ff;
+      background: $main;
+      box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+        16px 8px 0 -8px $main, 0 18px 0 -8px $main, -16px 8px 0 -8px $main,
+        -16px -8px 0 -8px $main;
     }
     100% {
-      background: #5429ff;
+      background: $main;
       box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent,
         32px 16px 0 -10px transparent, 0 36px 0 -10px transparent,
         -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;

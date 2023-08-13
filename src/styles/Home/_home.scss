@@ -4,6 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: $back;
+  color: $text;
 
   a {
     position: relative;
@@ -33,7 +35,7 @@
     left: 0;
     width: 200px;
     height: 200px;
-    background: #4973ff;
+    background: $main;
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
     transition: 0.5s;
     cursor: pointer;
@@ -54,7 +56,7 @@
 
   a .liquid::before {
     border-radius: 45%;
-    background: rgba(20, 20, 20, 1);
+    background: $back;
     animation: animate 5s linear infinite;
     cursor: pointer;
   }

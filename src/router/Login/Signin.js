@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import photo from "../../images/Login/login.svg";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { wrong, success, warning } from "../../toastify/Toastify";
 import { ToastContainer } from "react-toastify";
 
@@ -32,18 +32,26 @@ export default function Signin() {
   const onSubmit = (data) => {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(async (userCredential) => {
-        success( t("login.validation.signedin"), darkmode ? "light" : "dark", posTaos )
+        success(
+          t("login.validation.signedin"),
+          darkmode ? "light" : "dark",
+          posTaos
+        );
 
         const confirm = userCredential.user;
         const docRef = doc(db, "users", confirm.uid);
         const user = await getDoc(docRef);
-        
-        dispatch({ type: "SET_CONFIRM", payload: confirm });
-        dispatch({ type: "SET_USER", payload: user.data() });
+        const role = user.data().role;
 
-        setTimeout(() => navigate("/home"), 1000)
-        
-      }).catch((error) => wrong( t("login.validation.wrong"), darkmode ? "light" : "dark", posTaos ));
+        setTimeout(() => {
+          dispatch({ type: "SET_CONFIRM", payload: confirm });
+          dispatch({ type: "SET_USER", payload: user.data() });
+          role === "Admin" ? navigate("/admin") : navigate("/home");
+        }, 1000);
+      })
+      .catch((error) =>
+        wrong(t("login.validation.wrong"), darkmode ? "light" : "dark", posTaos)
+      );
   };
 
   function handleValidation() {

@@ -10,18 +10,6 @@
   cursor: default;
 }
 
-a {
-  text-decoration: none;
-  cursor: pointer;
-}
-
-input,
-button {
-  outline: none;
-  cursor: pointer;
-  font-family: Santello;
-}
-
 body {
   font-family: "Santello", sans-serif;
   scroll-behavior: smooth;
@@ -30,87 +18,99 @@ body {
     all: unset;
   }
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     all: unset;
-    width: 0!important;
+    width: 0 !important;
   }
 
-  &.dark {
-    $main: #f0d800;
-    $back: #121212;
-    $text: #fff6ff;
-    // ----------- \\
-    $tape: #f0d800;
-    $click: #cab600;
-    $header: #080808d0;
-    $toggle: #131313dd;
-    // --------------- \\
-    $login-back: #141414;
-    $provider: #222;
-    $provibor: #333;
-    $provinput: #171717;
-    $logtex: #97a5c2;
-    $login: #24242a;
-    // ------------ \\
-    $admin-main: #0f54f0;
-    $admin-side: #1F1E1F;
-    $admin-cont: #181618;
-    $admin-text: #FFFFFF;
-    $admin-gray: #FFFFFF;
-    $admin-gold: #F6B445;
-    $admin-butowe: #FFFFFF;
-    $admin-shadow: #3939391a;
-    $admin-tablehead: #282729;
-    $admin-line: #3b393D;
-    $admin-userhead: #282729;
-    $admin-inpborder: #282729;
-
-    background: $back;
-    color: $text;
-
-    @import "./Hero/hero";
-    @import "./Login/login";
-    @import "./Admin/admin";
-    @import "./Home/home";
+  a {
+    text-decoration: none;
+    cursor: pointer;
   }
 
-  &.light {
-    $main: #dec800;
-    $back: #FCFDFF;
-    $text: #070707;
-    // ----------- \\
-    $tape: #fffbd4;
-    $click: #f0d800;
-    $header: #e5e5e5d0;
-    $toggle: #ffffffbb;
-    // --------------- \\
-    $login-back: #FCFDFF;
-    $provider: #eceff4;
-    $provibor: #d0d5dd;
-    $provinput: #f9f9f9;
-    $logtex: #4e5667;
-    $login: #cbcce8;
-    // ------------ \\
-    $admin-main: #0f54f0;
-    $admin-side: #FFFFFF;
-    $admin-cont: #F9F8F9;
-    $admin-text: #000000;
-    $admin-gray: #727272;
-    $admin-gold: #F3A522;
-    $admin-butowe: #0f54f0;
-    $admin-shadow: #6363631a;
-    $admin-tablehead: #EDf4ff;
-    $admin-line: #b5b5b5;
-    $admin-userhead: #F9F8F9;
-    $admin-inpborder: #DDE2E8;
-
-    background: $back;
-    color: $text;
-
-    @import "./Hero/hero";
-    @import "./Login/login";
-    @import "./Admin/admin";
-    @import "./Home/home";
+  input,
+  button,
+  textarea {
+    outline: none;
+    cursor: pointer;
+    font-family: Santello;
   }
 }
 
+body.dark {
+  $main: #4464ad;
+  $text: #f1f1f1;
+  $gray: #a2a2a2;
+  $view: #181818;
+  $back: #0f0f0f;
+
+  // -------------------------
+
+  $hero-tape: #4464ad;
+  $hero-click: #5571b3;
+  $hero-header: #080808d0;
+  $hero-toggle: #131313dd;
+
+  // -------------------------
+
+  $login-base: #24242a;
+  $login-prov: #222222;
+  $login-bor: #333333;
+  $login-inp: #171717;
+
+  // -------------------------
+
+  $admin-shadow: #3939391a;
+  $admin-tabhead: #282729;
+  $admin-ushead: #282729;
+  $admin-inpbor: #282729;
+  $admin-butowe: #ffffff;
+  $admin-line: #3b393d;
+
+  // -------------------------
+
+  @import "./Hero/hero";
+  @import "./Login/login";
+  @import "./Login//checkbox";
+  @import "./Admin/admin";
+  @import "./Home/home";
+}
+
+body.light {
+  $main: #4464ad;
+  $text: #0f0f0f;
+  $gray: #97a5c2;
+  $view: #f1f1f1;
+  $back: #e4e4e4;
+
+  // -------------------------
+
+  $hero-tape: #d4e8ff;
+  $hero-click: #5571b3;
+  $hero-header: #e5e5e5d0;
+  $hero-toggle: #ffffffbb;
+
+  // -------------------------
+
+  $login-base: #cbcce8;
+  $login-prov: #eceff4;
+  $login-bor: #d0d5dd;
+  $login-inp: #f9f9f9;
+
+  // -------------------------
+
+  $admin-shadow: #6363631a;
+  $admin-tabhead: #edf4ff;
+  $admin-ushead: #f9f8f9;
+  $admin-inpbor: #dde2e8;
+  $admin-butowe: #4464ad;
+  $admin-line: #b5b5b5;
+
+  // -------------------------
+
+  @import "./Hero/hero";
+  @import "./Login/login";
+  @import "./Login//checkbox";
+  @import "./Admin/admin";
+  @import "./Home/home";
+}

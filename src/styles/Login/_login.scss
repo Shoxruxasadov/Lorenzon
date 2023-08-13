@@ -1,24 +1,6 @@
-#login {
-  padding: 32px 32px 32px 0;
-  gap: 32px;
-
-  .formes .wrapper {
-    width: 360px;
-  }
-}
-
-#register {
-  padding: 32px 0 32px 32px;
-  gap: 28px;
-
-  .formes .wrapper {
-    width: 400px;
-  }
-}
-
 #login,
 #register {
-  background: $login-back;
+  background: $back;
   color: $text;
   overflow: hidden;
   display: flex;
@@ -36,7 +18,7 @@
       flex-direction: column;
 
       h1 {
-        color: $logtex;
+        color: $gray;
         font-size: 36px;
         font-weight: 700;
         line-height: normal;
@@ -45,7 +27,7 @@
       }
 
       p {
-        color: $logtex;
+        color: $gray;
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
@@ -75,7 +57,6 @@
               top: 50%;
               left: 14px;
               color: $text;
-              color: $logtex;
 
               &,&>path{
                 cursor: pointer;
@@ -87,12 +68,12 @@
               height: 100%;
               padding-left: 42px;
               border-radius: 8px;
-              border: 1px solid $provibor;
-              background: $provinput;
+              border: 1px solid $login-bor;
+              background: $login-inp;
               color: $text;
 
               &::placeholder {
-                color: $logtex;
+                color: $gray;
                 padding-top: 1px;
 
                 font-size: 14px;
@@ -117,7 +98,7 @@
             left: 14px;
             color: $text;
             cursor: pointer;
-            color: $logtex;
+            color: $gray;
           }
 
           input {
@@ -125,12 +106,12 @@
             height: 100%;
             padding-left: 42px;
             border-radius: 8px;
-            border: 1px solid $provibor;
-            background: $provinput;
+            border: 1px solid $login-bor;
+            background: $login-inp;
             color: $text;
 
             &::placeholder {
-              color: $logtex;
+              color: $gray;
               padding-top: 1px;
 
               font-size: 14px;
@@ -154,7 +135,7 @@
           @import "./checkbox";
 
           .checkbox .rememberme {
-            color: $logtex;
+            color: $gray;
             cursor: pointer;
 
             font-size: 14px;
@@ -164,7 +145,7 @@
           }
 
           a {
-            color: #5429ff;
+            color: $main;
             font-size: 14px;
             font-weight: 500;
             line-height: 20px;
@@ -175,8 +156,8 @@
           height: 44px;
           border: none;
           border-radius: 8px;
-          background: #5429ff;
-          color: $login-back;
+          background: $main;
+          color: $back;
 
           color: #fff;
           font-size: 16px;
@@ -196,18 +177,18 @@
       .line-start {
         width: 45%;
         height: 1px;
-        background: $login;
+        background: $login-base;
         border-radius: 50% 0 0 50%;
       }
 
       span {
-        color: $login;
+        color: $login-base;
       }
 
       .line-end {
         width: 45%;
         height: 1px;
-        background: $login;
+        background: $login-base;
         border-radius: 0 50% 50% 0;
       }
     }
@@ -225,10 +206,10 @@
         gap: 5px;
         height: 44px;
 
-        color: $logtex;
+        color: $gray;
         border-radius: 8px;
-        border: 1px solid $provibor;
-        background: $provider;
+        border: 1px solid $login-bor;
+        background: $login-prov;
         cursor: pointer;
 
         svg,
@@ -237,7 +218,7 @@
         }
 
         span {
-          color: $logtex;
+          color: $gray;
           font-size: 16px;
           font-weight: 600;
           line-height: 20px;
@@ -263,12 +244,12 @@
       line-height: 20px;
 
       span {
-        color: $logtex;
+        color: $gray;
         font-weight: 400;
       }
 
       a {
-        color: #5429ff;
+        color: $main;
         font-weight: 500;
       }
     }
@@ -278,7 +259,7 @@
     width: 50%;
     height: 100%;
     border-radius: 40px;
-    background: $login;
+    background: $login-base;
     position: relative;
 
     display: flex;
@@ -302,11 +283,29 @@
       h1 {
         height: 40px;
         font-size: 30px;
-        color: $login-back;
+        color: $back;
         padding-top: 1px;
         cursor: pointer;
       }
     }
+  }
+}
+
+#login {
+  padding: 32px 32px 32px 0;
+  gap: 32px;
+
+  .formes .wrapper {
+    width: 360px;
+  }
+}
+
+#register {
+  padding: 32px 0 32px 32px;
+  gap: 28px;
+
+  .formes .wrapper {
+    width: 400px;
   }
 }
 

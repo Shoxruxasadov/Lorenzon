@@ -4,12 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, storage } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import {
   BiSolidPencil,
@@ -23,7 +18,7 @@ import { MdVerifiedUser } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import unknown from "../../../images/Admin/unknown.jpg";
 
-import { success, wrong, warning } from "../../../toastify/Toastify";
+import { success, wrong, warning, info } from "../../../toastify/Toastify";
 import { ToastContainer } from "react-toastify";
 
 export default function AddUser() {
@@ -46,10 +41,8 @@ export default function AddUser() {
 
   useEffect(() => {
     const uploadPhoto = () => {
-      const name = new Date().getTime() + photo.name;
-
-      console.log(name);
-      const storageRef = ref(storage, photo.name);
+      const name = new Date().getTime() + "." + photo.name;
+      const storageRef = ref(storage, `Users/${name}`);
       const uploadTask = uploadBytesResumable(storageRef, photo);
 
       uploadTask.on(
@@ -61,17 +54,17 @@ export default function AddUser() {
           setPer(progress);
           switch (snapshot.state) {
             case "paused":
-              console.log("Upload is paused");
+              info("Upload is paused", darkmode, "top-right");
               break;
             case "running":
-              console.log("Upload is running");
+              success("Upload is running", darkmode, "top-right");
               break;
             default:
               break;
           }
         },
         (error) => {
-          console.log("ERROR PHOTO");
+          wrong("RASM YUKLANMADI !", darkmode, "top-right");
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -124,8 +117,6 @@ export default function AddUser() {
       }
     }
   };
-
-
 
   return (
     <>

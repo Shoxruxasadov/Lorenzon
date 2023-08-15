@@ -161,7 +161,8 @@
           font-size: 18px;
           border-radius: 10em;
           margin-left: 10px;
-          font-weight: 500;
+          font-weight: 600;
+          letter-spacing: .5px;
 
           display: flex;
           align-items: center;
@@ -181,6 +182,7 @@
           background: $main;
           border-radius: 10em;
           font-weight: 600;
+          letter-spacing: .5px;
 
           display: flex;
           align-items: center;
@@ -429,20 +431,13 @@
         h1 {
           font-size: 80px;
           line-height: 100px;
-
-          span:nth-child(1) {
-            font-weight: 400;
-          }
-
-          span:nth-child(2) {
-            font-weight: 600;
-          }
+          font-weight: 600;
         }
 
         h3 {
           font-size: 14px;
           line-height: 28px;
-          font-weight: 400;
+          font-weight: 500;
           text-align: end;
           display: flex;
           flex-direction: column;
@@ -450,10 +445,10 @@
       }
 
       .ellipse1 {
-        opacity: 0.55;
-        background: #b97fc8c6;
+        opacity: 0.44;
+        background: $main;
         border-radius: 50%;
-        filter: blur(250px);
+        filter: blur(300px);
         position: absolute;
         z-index: -1;
         left: -190px;
@@ -520,7 +515,7 @@
             gap: 10px;
 
             font-size: 33px;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 30px;
           }
 
@@ -531,7 +526,7 @@
 
             color: $main;
             font-size: 33px;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 30px;
 
             -webkit-text-fill-color: transparent;
@@ -568,7 +563,7 @@
 
         h1 {
           font-size: 60px;
-          font-weight: 500;
+          font-weight: 600;
           line-height: 70px;
 
           span {
@@ -578,7 +573,7 @@
 
         p {
           font-size: 16px;
-          font-weight: 400;
+          font-weight: 500;
           line-height: 28px;
           opacity: 60%;
           width: 80%;
@@ -600,13 +595,13 @@
           h1 {
             color: $main;
             font-size: 80px;
-            font-weight: 700;
+            font-weight: 600;
             line-height: 80px;
           }
 
           p {
             font-size: 20px;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 28px;
           }
         }
@@ -624,7 +619,7 @@
 
           p {
             font-size: 20px;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 28px;
           }
         }
@@ -633,9 +628,9 @@
       .ellipse2 {
         width: 500px;
         height: 500px;
-        background: #ccf30099;
-        opacity: 0.55;
-        filter: blur(250px);
+        opacity: 0.44;
+        background: $main;
+        filter: blur(300px);
         position: absolute;
         z-index: -1;
         top: 100px;
@@ -675,7 +670,7 @@
       }
 
       a {
-        padding: 24px 50px;
+        padding: 15px 40px;
         position: absolute;
         translate: -80%;
         z-index: 1;
@@ -710,7 +705,7 @@
       h1 {
         color: $main;
         font-size: 24px;
-        font-weight: 500;
+        font-weight: 600;
         text-transform: uppercase;
         line-height: 100px;
       }
@@ -722,8 +717,8 @@
 
         span {
           font-size: 80px;
-          font-weight: 400;
-          line-height: 95px;
+          font-weight: 600;
+          line-height: 90px;
           margin-bottom: 40px;
         }
 
@@ -745,7 +740,7 @@
       }
 
       a {
-        padding: 15px 40px;
+        padding: 12px 36px;
 
         border: 1px solid $main;
         background: $main;
@@ -754,7 +749,7 @@
         text-align: center;
 
         color: #010101;
-        font-size: 14px;
+        font-size: 18px;
         font-weight: 600;
         line-height: 50px;
       }
@@ -824,7 +819,7 @@
       .verizon {
         width: 65%;
         font-size: 24px;
-        font-weight: 400;
+        font-weight: 600;
         line-height: 45px;
         position: relative;
 
@@ -890,9 +885,10 @@
         }
 
         p {
-          color: #525252;
+          color: #010101;
           font-size: 24px;
-          font-weight: 400;
+          font-weight: 600;
+          letter-spacing: 1px;
           line-height: 50px;
         }
 
@@ -941,7 +937,8 @@
 
         h3 {
           font-size: 16px;
-          font-weight: 400;
+          font-weight: 600;
+          letter-spacing: .5px;
           line-height: 27px;
           text-align: end;
         }
@@ -956,7 +953,8 @@
 
         .social {
           font-size: 16px;
-          font-weight: 400;
+          font-weight: 600;
+          letter-spacing: .5px;
           line-height: 32px;
           position: static;
           z-index: 1;
@@ -968,6 +966,7 @@
             color: $text;
             transition: 0.2s;
             font-weight: 500;
+            letter-spacing: .7px;
             display: flex;
             align-items: center;
             gap: 2px;
@@ -997,6 +996,8 @@
           a {
             color: $text;
             transition: 0.2s;
+            font-weight: 500;
+            letter-spacing: .7px;
             position: relative;
             display: flex;
             align-items: center;
@@ -1018,9 +1019,9 @@
       .ellipse3 {
         width: 500px;
         height: 500px;
-        background: #00f3aa99;
-        opacity: 0.55;
-        filter: blur(250px);
+        opacity: 0.44;
+        background: $main;
+        filter: blur(300px);
         position: absolute;
         z-index: -1;
         bottom: -180px;

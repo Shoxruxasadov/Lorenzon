@@ -38,18 +38,18 @@ body {
 }
 
 body.dark {
-  $main: #4464ad;
+  $main: #3590f3;
   $text: #f1f1f1;
-  $gray: #a2a2a2;
-  $view: #181818;
-  $back: #0f0f0f;
+  $bate: #99999f;
+  $view: #222222;
+  $back: #141414;
 
   // -------------------------
 
-  $hero-tape: #4464ad;
-  $hero-click: #5571b3;
-  $hero-header: #080808d0;
-  $hero-toggle: #131313dd;
+  $hero-tape: #3590f3;
+  $hero-click: #4498f1;
+  $hero-header: #222222;
+  $hero-toggle: #222222;
 
   // -------------------------
 
@@ -62,31 +62,37 @@ body.dark {
 
   $admin-shadow: #3939391a;
   $admin-tabhead: #282729;
-  $admin-ushead: #282729;
   $admin-inpbor: #282729;
   $admin-butowe: #ffffff;
   $admin-line: #3b393d;
 
   // -------------------------
 
+  background: $back;
+  color: $text;
+
+  // -------------------------
+
   @import "./Hero/hero";
   @import "./Login/login";
-  @import "./Login//checkbox";
   @import "./Admin/admin";
   @import "./Home/home";
+
+  @import "./assets/checkbox";
+  @import "./assets/button";
 }
 
 body.light {
-  $main: #4464ad;
-  $text: #0f0f0f;
-  $gray: #97a5c2;
+  $main: #3590f3;
+  $text: #141414;
+  $bate: #758096;
   $view: #f1f1f1;
   $back: #e4e4e4;
 
   // -------------------------
 
-  $hero-tape: #d4e8ff;
-  $hero-click: #5571b3;
+  $hero-tape: #88baef;
+  $hero-click: #4498f1;
   $hero-header: #e5e5e5d0;
   $hero-toggle: #ffffffbb;
 
@@ -100,17 +106,24 @@ body.light {
   // -------------------------
 
   $admin-shadow: #6363631a;
-  $admin-tabhead: #edf4ff;
-  $admin-ushead: #f9f8f9;
+  $admin-tabhead: #f9f8f9;
   $admin-inpbor: #dde2e8;
-  $admin-butowe: #4464ad;
+  $admin-butowe: #3590f3;
   $admin-line: #b5b5b5;
+
+  // -------------------------
+
+  background: $back;
+  color: $text;
 
   // -------------------------
 
   @import "./Hero/hero";
   @import "./Login/login";
-  @import "./Login//checkbox";
   @import "./Admin/admin";
   @import "./Home/home";
+
+  @import "./assets/checkbox";
+  @import "./assets/button";
 }
+

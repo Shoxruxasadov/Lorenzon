@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div id="home">
-      <a onClick={logout}>
+      <a className="interactiveButton" onClick={logout}>
         <span>Log out</span>
         <div className="liquid"></div>
       </a>

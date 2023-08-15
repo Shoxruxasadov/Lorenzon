@@ -18,7 +18,7 @@
       flex-direction: column;
 
       h1 {
-        color: $gray;
+        color: $bate;
         font-size: 36px;
         font-weight: 700;
         line-height: normal;
@@ -27,7 +27,7 @@
       }
 
       p {
-        color: $gray;
+        color: $bate;
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
@@ -73,7 +73,7 @@
               color: $text;
 
               &::placeholder {
-                color: $gray;
+                color: $bate;
                 padding-top: 1px;
 
                 font-size: 14px;
@@ -96,9 +96,8 @@
             position: absolute;
             top: 50%;
             left: 14px;
-            color: $text;
             cursor: pointer;
-            color: $gray;
+            color: $bate;
           }
 
           input {
@@ -108,10 +107,10 @@
             border-radius: 8px;
             border: 1px solid $login-bor;
             background: $login-inp;
-            color: $text;
+            color: $bate;
 
             &::placeholder {
-              color: $gray;
+              color: $bate;
               padding-top: 1px;
 
               font-size: 14px;
@@ -132,10 +131,10 @@
           height: 20px;
           cursor: pointer;
 
-          @import "./checkbox";
+          @import "../assets/checkbox";
 
           .checkbox .rememberme {
-            color: $gray;
+            color: $bate;
             cursor: pointer;
 
             font-size: 14px;
@@ -206,7 +205,7 @@
         gap: 5px;
         height: 44px;
 
-        color: $gray;
+        color: $bate;
         border-radius: 8px;
         border: 1px solid $login-bor;
         background: $login-prov;
@@ -218,7 +217,7 @@
         }
 
         span {
-          color: $gray;
+          color: $bate;
           font-size: 16px;
           font-weight: 600;
           line-height: 20px;
@@ -244,7 +243,7 @@
       line-height: 20px;
 
       span {
-        color: $gray;
+        color: $bate;
         font-weight: 400;
       }
 

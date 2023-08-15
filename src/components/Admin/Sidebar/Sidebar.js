@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import i18next from "i18next";
 import { useSelector } from "react-redux";
 
-import logo from "../../../images/Admin/logo.png";
-import icon from "../../../images/Admin/icon.png";
+import logo from "../../../images/Logo/logo.png";
+import icon from "../../../images/Logo/white.png";
 
 import { HiHome, HiMoon, HiSun } from "react-icons/hi";
 import { FaUserFriends } from "react-icons/fa";
@@ -83,16 +83,16 @@ export default function Sidebar({ darkmode, setDarkmode }) {
                 ? language === "en"
                   ? {
                       transition: "0.15s",
-                      boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
-                      backgroundColor: "#FFFFFF",
-                      color: "#0f54f0",
+                      boxShadow: "#6363631a 0px 2px 4px",
+                      backgroundColor: "#f1f1f1",
+                      color: "#3590f3",
                     }
                   : { backgroundColor: "transparent", color: "#000000" }
                 : language === "en"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#262528",
-                    color: "#0f54f0",
+                    backgroundColor: "#222222",
+                    color: "#3590f3",
                   }
                 : { backgroundColor: "transparent", color: "#ffffff" }
             }
@@ -107,16 +107,16 @@ export default function Sidebar({ darkmode, setDarkmode }) {
                 ? language === "ru"
                   ? {
                       transition: "0.15s",
-                      boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
-                      backgroundColor: "#FFFFFF",
-                      color: "#0f54f0",
+                      boxShadow: "#6363631a 0px 2px 4px",
+                      backgroundColor: "#f1f1f1",
+                      color: "#3590f3",
                     }
                   : { backgroundColor: "transparent", color: "#000000" }
                 : language === "ru"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#262528",
-                    color: "#0f54f0",
+                    backgroundColor: "#222222",
+                    color: "#3590f3",
                   }
                 : { backgroundColor: "transparent", color: "#ffffff" }
             }
@@ -131,16 +131,16 @@ export default function Sidebar({ darkmode, setDarkmode }) {
                 ? language === "uz"
                   ? {
                       transition: "0.15s",
-                      boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
-                      backgroundColor: "#FFFFFF",
-                      color: "#0f54f0",
+                      boxShadow: "#6363631a 0px 2px 4px",
+                      backgroundColor: "#f1f1f1",
+                      color: "#3590f3",
                     }
                   : { backgroundColor: "transparent", color: "#000000" }
                 : language === "uz"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#262528",
-                    color: "#0f54f0",
+                    backgroundColor: "#222222",
+                    color: "#3590f3",
                   }
                 : { backgroundColor: "transparent", color: "#ffffff" }
             }
@@ -156,11 +156,11 @@ export default function Sidebar({ darkmode, setDarkmode }) {
               darkmode
                 ? {
                     transition: "0.15s",
-                    boxShadow: "rgba(99, 99, 99, 0.1) 0px 2px 4px",
-                    backgroundColor: "#FFFFFF",
-                    color: "#0f54f0",
+                    boxShadow: "#6363631a 0px 2px 4px",
+                    backgroundColor: "#f1f1f1",
+                    color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#f1f1f1" }
             }
           >
             <HiSun className="light" />
@@ -171,11 +171,14 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             style={
               darkmode
                 ? {
-                    transition: "0.15s",
                     backgroundColor: "transparent",
-                    color: "#000000",
+                    color: "#141414",
                   }
-                : { backgroundColor: "#262528", color: "#0f54f0" }
+                : {
+                    transition: "0.15s",
+                    backgroundColor: "#222222",
+                    color: "#3590f3",
+                  }
             }
           >
             <HiMoon className="dark" />

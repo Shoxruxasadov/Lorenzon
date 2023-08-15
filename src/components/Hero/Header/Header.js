@@ -5,7 +5,7 @@ import i18next from "i18next";
 
 import { HiSun, HiMoon } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
-import logo from "../../../images/Admin/logo.png";
+import logo from "../../../images/Logo/logo.png";
 
 export default function Header({ darkmode, setDarkmode }) {
   const language = localStorage.getItem("lang");

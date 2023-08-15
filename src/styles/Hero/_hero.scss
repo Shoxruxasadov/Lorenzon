@@ -517,6 +517,7 @@
             font-size: 33px;
             font-weight: 500;
             line-height: 30px;
+            color: #D1CFCF;
           }
 
           .trending-outline {
@@ -530,7 +531,7 @@
             line-height: 30px;
 
             -webkit-text-fill-color: transparent;
-            -webkit-text-stroke-width: 0.6px;
+            -webkit-text-stroke-width: 0.65px;
           }
         }
 
@@ -684,7 +685,6 @@
         align-items: center;
         justify-content: center;
         gap: 12px;
-        box-shadow: 0 0 10px $back;
 
         span,
         svg {

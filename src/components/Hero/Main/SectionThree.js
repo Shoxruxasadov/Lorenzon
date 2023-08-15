@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import music from "../../../images/Hero/section3/music.webp";
-import star from "../../../images/Hero/section3/star.webp";
+import music from "../../../images/Hero/section3/music.svg";
+import star from "../../../images/Hero/section3/star.svg";
 
 export default function SectionThree() {
   const [t, i18n] = useTranslation("global");

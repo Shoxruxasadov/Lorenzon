@@ -47,8 +47,8 @@ export default function Header({ darkmode, setDarkmode }) {
               onClick={() => langChanger("en")}
               style={
                 language == "en"
-                  ? { color: "#010101" }
-                  : { color: "#676" }
+                  ? { color: "#141414" }
+                  : { color: "#f1f1f1" }
               }
               className="en"
             >
@@ -57,7 +57,7 @@ export default function Header({ darkmode, setDarkmode }) {
             <li
               onClick={() => langChanger("ru")}
               style={
-                language == "ru" ? { color: "#010101" } : { color: "#676" }
+                language == "ru" ? { color: "#141414" } : { color: "#f1f1f1" }
               }
               className="ru"
             >
@@ -66,7 +66,7 @@ export default function Header({ darkmode, setDarkmode }) {
             <li
               onClick={() => langChanger("uz")}
               style={
-                language == "uz" ? { color: "#010101" } : { color: "#676" }
+                language == "uz" ? { color: "#141414" } : { color: "#f1f1f1" }
               }
               className="uz"
             >
@@ -109,8 +109,8 @@ export default function Header({ darkmode, setDarkmode }) {
               onClick={() => langChanger("en")}
               style={
                 language == "en"
-                  ? { color: "#010101" }
-                  : { color: "#676" }
+                  ? { color: "#141414" }
+                  : { color: "#f1f1f1" }
               }
               className="en"
             >
@@ -119,7 +119,7 @@ export default function Header({ darkmode, setDarkmode }) {
             <li
               onClick={() => langChanger("ru")}
               style={
-                language == "ru" ? { color: "#010101" } : { color: "#676" }
+                language == "ru" ? { color: "#141414" } : { color: "#f1f1f1" }
               }
               className="ru"
             >
@@ -128,7 +128,7 @@ export default function Header({ darkmode, setDarkmode }) {
             <li
               onClick={() => langChanger("uz")}
               style={
-                language == "uz" ? { color: "#010101" } : { color: "#676" }
+                language == "uz" ? { color: "#141414" } : { color: "#f1f1f1" }
               }
               className="uz"
             >

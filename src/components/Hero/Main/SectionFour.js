@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import verizon from "../../../images/Hero/section4/verizon.webp";
 import veroblack from "../../../images/Hero/section4/veroblack.webp";
-import line from "../../../images/Hero/section4/line.webp";
-import outline from "../../../images/Hero/section4/outline.webp";
+import line from "../../../images/Hero/section4/line.svg";
+import outline from "../../../images/Hero/section4/outline.svg";
 import appstore from "../../../images/Hero/section4/AppStore.webp";
 import googleplay from "../../../images/Hero/section4/GooglePlay.webp";
 import logo from "../../../images/Logo/black.png";

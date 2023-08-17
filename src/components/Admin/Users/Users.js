@@ -9,10 +9,17 @@ import { TbGenderMale, TbGenderFemale, TbGenderAgender } from "react-icons/tb";
 
 export default function Users() {
   const users = useSelector((state) => state.userReducer.users);
-  const [genders, setGenders] = useState([]);
-  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
+  const [data, setData] = useState([]);
+  const [qualityData, setQualityData] = useState(0);
+  const [percentageData, setPercentageData] = useState(0);
+
+  const [ages, setAges] = useState([]);
+
+  const [countrys, setCountrys] = useState([]);
+
+  const [genders, setGenders] = useState([]);
   const [male, setMale] = useState(0);
   const [female, setFemale] = useState(0);
   const [agender, setAgender] = useState(0);
@@ -20,10 +27,32 @@ export default function Users() {
   useEffect(() => {
     setData(users);
 
-    const gender = [];
-    users.map((item) => gender.push(item.gender));
-    setGenders(gender);
+    const ages = [];
+    const countrys = [];
+    const genders = [];
+
+    users.map((item) => {
+      ages.push(item.birthday);
+      countrys.push(item.countrys);
+      genders.push(item.gender);
+    });
+
+    console.log(ages);
+
+    setAges(ages);
+    setCountrys(countrys);
+    setGenders(genders);
   }, [users]);
+
+  useEffect(() => {
+    let qualtyData = 0;
+    data.filter((item) => {
+      if (item.birthday != null && item.country != null && item.gender != null)
+        qualtyData++;
+    });
+    setQualityData(qualtyData);
+    setPercentageData(Math.floor((qualtyData * 100) / data.length));
+  }, [data]);
 
   useEffect(() => {
     let males = 0;
@@ -65,13 +94,13 @@ export default function Users() {
             <div className="content">
               <h1>Total Users</h1>
               <h2>{data.length}</h2>
-              <p>from {data.length}</p>
+              <p>from {qualityData}</p>
             </div>
             <div className="skill">
               <div className="outer">
                 <div className="inner">
                   <div className="number">
-                    <CountUp end={70} duration={1.5} />%
+                    <CountUp end={percentageData} duration={1.5} />%
                   </div>
                 </div>
               </div>
@@ -87,7 +116,15 @@ export default function Users() {
                     <stop offset="100%" />
                   </linearGradient>
                 </defs>
-                <circle cx="35" cy="35" r="30" strokeLinecap="round" />
+                <circle
+                  cx="35"
+                  cy="35"
+                  r="30"
+                  strokeLinecap="round"
+                  style={{
+                    strokeDashoffset: ((100 - percentageData) / 100) * 188,
+                  }}
+                />
               </svg>
             </div>
           </div>
@@ -152,53 +189,110 @@ export default function Users() {
             </div>
           </div>
           <div className="activeMember part userPart">
-            <div className="skill">
-              <div className="outer">
-                <div className="inner">
-                  <div className="number">
-                    <CountUp end={male} duration={1.5} />%
+            <div className="genderBox">
+              <p>
+                <TbGenderMale className="icon" />
+                <span>Male</span>
+              </p>
+              <div className="skill">
+                <div className="outer">
+                  <div className="inner">
+                    <div className="number">
+                      <CountUp end={male} duration={1.5} />%
+                    </div>
                   </div>
                 </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  width="70px"
+                  height="70px"
+                >
+                  <defs>
+                    <linearGradient id="GradientColor">
+                      <stop offset="0%" />
+                      <stop offset="100%" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    cx="35"
+                    cy="35"
+                    r="30"
+                    strokeLinecap="round"
+                    style={{ strokeDashoffset: `${((100 - male) / 100) * 188 }`}}
+                  />
+                </svg>
               </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                width="70px"
-                height="70px"
-              >
-                <defs>
-                  <linearGradient id="GradientColor">
-                    <stop offset="0%" />
-                    <stop offset="100%" />
-                  </linearGradient>
-                </defs>
-                <circle cx="35" cy="35" r="30" strokeLinecap="round" />
-              </svg>
-              <TbGenderMale className="icon" />
             </div>
-            <div className="skill">
-              <div className="outer">
-                <div className="inner">
-                  <div className="number">
-                    <CountUp end={female} duration={1.5} />%
+            <div className="genderBox">
+              <p>
+                <TbGenderAgender className="icon" />
+                <span>Not</span>
+              </p>
+              <div className="skill">
+                <div className="outer">
+                  <div className="inner">
+                    <div className="number">
+                      <CountUp end={agender} duration={1.5} />%
+                    </div>
                   </div>
                 </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  width="70px"
+                  height="70px"
+                >
+                  <defs>
+                    <linearGradient id="GradientColor">
+                      <stop offset="0%" />
+                      <stop offset="100%" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    cx="35"
+                    cy="35"
+                    r="30"
+                    strokeLinecap="round"
+                    style={{ strokeDashoffset: ((100 - agender) / 100) * 188 }}
+                  />
+                </svg>
               </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                width="70px"
-                height="70px"
-              >
-                <defs>
-                  <linearGradient id="GradientColor">
-                    <stop offset="0%" />
-                    <stop offset="100%" />
-                  </linearGradient>
-                </defs>
-                <circle cx="35" cy="35" r="30" strokeLinecap="round" />
-              </svg>
-              <TbGenderFemale className="icon" />
+            </div>
+            <div className="genderBox">
+              <p>
+                <TbGenderFemale className="icon" />
+                <span>Female</span>
+              </p>
+              <div className="skill">
+                <div className="outer">
+                  <div className="inner">
+                    <div className="number">
+                      <CountUp end={female} duration={1.5} />%
+                    </div>
+                  </div>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  width="70px"
+                  height="70px"
+                >
+                  <defs>
+                    <linearGradient id="GradientColor">
+                      <stop offset="0%" />
+                      <stop offset="100%" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    cx="35"
+                    cy="35"
+                    r="30"
+                    strokeLinecap="round"
+                    style={{ strokeDashoffset: ((100 - female) / 100) * 188 }}
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>

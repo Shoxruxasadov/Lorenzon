@@ -24,13 +24,23 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase/firebase";
-import { useSelector } from "react-redux";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  FacebookAuthProvider,
+} from "firebase/auth";
+import {
+  auth,
+  db,
+  providerGoogle,
+  providerFacebook,
+} from "../../firebase/firebase";
+import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 
 export default function Signup() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
@@ -124,6 +134,97 @@ export default function Signup() {
         );
       }
     }
+  };
+
+  const authGoogle = () => {
+    signInWithPopup(auth, providerGoogle)
+      .then(async (result) => {
+        success(
+          t("login.validation.signedin"),
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+
+        const confirm = result.user.reloadUserInfo;
+
+        await setDoc(doc(db, "users", confirm.localId), {
+          birthday: null,
+          country: null,
+          email: confirm.email,
+          gender: null,
+          image: confirm.photoUrl,
+          name: confirm.displayName,
+          password: "GOOGLE",
+          role: "User",
+          timeStamp: serverTimestamp(),
+        });
+
+        const docRef = doc(db, "users", confirm.localId);
+        const user = await getDoc(docRef);
+        const role = user.data().role;
+
+        setTimeout(() => {
+          dispatch({ type: "SET_CONFIRM", payload: confirm });
+          dispatch({ type: "SET_USER", payload: user.data() });
+          role === "Admin" ? navigate("/admin") : navigate("/home");
+        }, 1000);
+      })
+      .catch((error) => {
+        wrong(
+          "QANDAYDIR XATOLIK YUZ BERDI",
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+      });
+  };
+
+  const authFacebook = () => {
+    signInWithPopup(auth, providerFacebook)
+      .then(async (result) => {
+        success(
+          t("login.validation.signedin"),
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+
+        const confirm = result.user;
+        console.log(confirm);
+
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        console.log(credential);
+        console.log(accessToken);
+
+        // await setDoc(doc(db, "users", confirm.localId), {
+        //   birthday: null,
+        //   country: null,
+        //   email: confirm.email,
+        //   gender: null,
+        //   image: confirm.photoUrl,
+        //   name: confirm.displayName,
+        //   password: "GOOGLE",
+        //   role: "User",
+        //   timeStamp: serverTimestamp(),
+        // });
+
+        // const docRef = doc(db, "users", confirm.localId);
+        // const user = await getDoc(docRef);
+        // const role = user.data().role;
+
+        // setTimeout(() => {
+        //   dispatch({ type: "SET_CONFIRM", payload: confirm });
+        //   dispatch({ type: "SET_USER", payload: user.data() });
+        //   role === "Admin" ? navigate("/admin") : navigate("/home");
+        // }, 1000);
+      })
+      .catch((error) => {
+        wrong(
+          "QANDAYDIR XATOLIK YUZ BERDI",
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+      });
   };
 
   function handleValidation() {
@@ -496,7 +597,7 @@ export default function Signup() {
               <div className="line-end " />
             </div>
             <div className="providers">
-              <button>
+              <button onClick={authGoogle}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -523,21 +624,35 @@ export default function Signup() {
                 </svg>
                 <span>Google</span>
               </button>
-              <button>
-                {/* <img src={apple} /> */}
+              <button onClick={authFacebook}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24px"
-                  height="24px"
-                  viewBox="0 0 1024 1024"
-                  className="icon"
+                  width="21"
+                  height="21"
+                  viewBox="0 0 40 40"
                 >
+                  <linearGradient
+                    id="a"
+                    x1="-277.375"
+                    x2="-277.375"
+                    y1="406.6018"
+                    y2="407.5726"
+                    gradientTransform="matrix(40 0 0 -39.7778 11115.001 16212.334)"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0" stopColor="#0062e0" />
+                    <stop offset="1" stopColor="#19afff" />
+                  </linearGradient>
                   <path
-                    fill={darkmode ? "#4e5667" : "#97a5c2"}
-                    d="M747.4 535.7c-.4-68.2 30.5-119.6 92.9-157.5-34.9-50-87.7-77.5-157.3-82.8-65.9-5.2-138 38.4-164.4 38.4-27.9 0-91.7-36.6-141.9-36.6C273.1 298.8 163 379.8 163 544.6c0 48.7 8.9 99 26.7 150.8 23.8 68.2 109.6 235.3 199.1 232.6 46.8-1.1 79.9-33.2 140.8-33.2 59.1 0 89.7 33.2 141.9 33.2 90.3-1.3 167.9-153.2 190.5-221.6-121.1-57.1-114.6-167.2-114.6-170.7zm-105.1-305c50.7-60.2 46.1-115 44.6-134.7-44.8 2.6-96.6 30.5-126.1 64.8-32.5 36.8-51.6 82.3-47.5 133.6 48.4 3.7 92.6-21.2 129-63.7z"
+                    fill="url(#a)"
+                    d="M16.7 39.8C7.2 38.1 0 29.9 0 20 0 9 9 0 20 0s20 9 20 20c0 9.9-7.2 18.1-16.7 19.8l-1.1-.9h-4.4l-1.1.9z"
+                  />
+                  <path
+                    fill="#fff"
+                    d="m27.8 25.6.9-5.6h-5.3v-3.9c0-1.6.6-2.8 3-2.8H29V8.2c-1.4-.2-3-.4-4.4-.4-4.6 0-7.8 2.8-7.8 7.8V20h-5v5.6h5v14.1c1.1.2 2.2.3 3.3.3 1.1 0 2.2-.1 3.3-.3V25.6h4.4z"
                   />
                 </svg>
-                <span>Apple</span>
+                <span>Facebook</span>
               </button>
             </div>
             <div className="replacement">

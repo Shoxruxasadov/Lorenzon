@@ -42,7 +42,7 @@ export default function AddUser() {
   useEffect(() => {
     const uploadPhoto = () => {
       const name = new Date().getTime() + "." + photo.name;
-      const storageRef = ref(storage, `Users/${name}`);
+      const storageRef = ref(storage, `users/${name}`);
       const uploadTask = uploadBytesResumable(storageRef, photo);
 
       uploadTask.on(

@@ -62,7 +62,7 @@ export default function Users() {
     genders.filter((item) => {
       if (item == "Male") males++;
       if (item == "Female") females++;
-      if (item == null) agenders++;
+      if (item == null || item == "Robot") agenders++;
     });
 
     setMale(Math.floor((males * 100) / data.length));

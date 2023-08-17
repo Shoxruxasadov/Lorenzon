@@ -14,7 +14,7 @@ import Admin from "./router/Admin/Admin";
 import Dashboard from "./components/Admin/Home/Dashboard";
 import Users from "./components/Admin/Users/Users";
 import AddUser from "./components/Admin/Users/AddUser";
-import Products from "./components/Admin/Products/Products";
+import Musics from "./components/Admin/Products/Musics";
 
 const Auth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
@@ -87,10 +87,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/products",
+        path: "/admin/Musics",
         element: (
           <ConfirmAdmin>
-            <Products />
+            <Musics />
           </ConfirmAdmin>
         ),
       },

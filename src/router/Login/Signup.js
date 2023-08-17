@@ -3,11 +3,18 @@ import photo from "../../images/Login/register.svg";
 import { useForm } from "react-hook-form";
 import { wrong, success, warning } from "../../toastify/Toastify";
 import { ToastContainer } from "react-toastify";
-
-import { BiSolidLockAlt, BiSolidUser, BiSolidLock } from "react-icons/bi";
-import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
+import {
+  BiSolidLockAlt,
+  BiSolidUser,
+  BiSolidLock,
+  BiSolidFlag,
+  BiSolidCake,
+} from "react-icons/bi";
+import { MdEmail } from "react-icons/md";
+import { FaMale, FaFemale, FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -18,6 +25,7 @@ import { motion } from "framer-motion";
 export default function Signup() {
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
+  const [eye, setEye] = useState(false);
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("theme") == "light" ? true : false
   );
@@ -154,6 +162,44 @@ export default function Signup() {
                   />
                 </label>
               </div>
+              <div className="outher">
+                <label className="birthday" htmlFor="birthday">
+                  <BiSolidCake />
+                  <input
+                    {...register("birthday", {
+                      required: t("login.validation.name"),
+                    })}
+                    id="birthday"
+                    type="text"
+                    placeholder={t("login.signup.birthday")}
+                    aria-invalid={errors.birthday ? "true" : "false"}
+                  />
+                </label>
+                <label className="gender" htmlFor="gender">
+                  <FaMale />
+                  <FaFemale />
+                  <input
+                    {...register("gender", {
+                      required: t("login.validation.name"),
+                    })}
+                    id="gender"
+                    type="text"
+                    aria-invalid={errors.gender ? "true" : "false"}
+                  />
+                </label>
+              </div>
+              <label className="country" htmlFor="country">
+                <BiSolidFlag />
+                <input
+                  {...register("country", {
+                    required: t("login.validation.name"),
+                  })}
+                  id="country"
+                  type="text"
+                  placeholder={t("login.signup.country")}
+                  aria-invalid={errors.country ? "true" : "false"}
+                />
+              </label>
               <label className="email" htmlFor="email">
                 <MdEmail />
                 <input
@@ -169,20 +215,30 @@ export default function Signup() {
                 <input
                   {...register("password", { required: true })}
                   id="password"
-                  type="password"
+                  type={eye ? "text" : "password"}
                   placeholder={t("login.signup.password")}
                   aria-invalid={errors.password ? "true" : "false"}
                 />
+                {eye ? (
+                  <FaEye className="eye" onClick={() => setEye(!eye)} />
+                ) : (
+                  <FaEyeSlash className="eye" onClick={() => setEye(!eye)} />
+                )}
               </label>
               <label className="confirmPassword" htmlFor="confirmPassword">
                 <BiSolidLockAlt />
                 <input
                   {...register("confirmPassword", { required: true })}
                   id="confirmPassword"
-                  type="password"
+                  type={eye ? "text" : "password"}
                   placeholder={t("login.signup.conpass")}
                   aria-invalid={errors.confirmPassword ? "true" : "false"}
                 />
+                {eye ? (
+                  <FaEye className="eye" onClick={() => setEye(!eye)} />
+                ) : (
+                  <FaEyeSlash className="eye" onClick={() => setEye(!eye)} />
+                )}
               </label>
               <button onClick={handleValidation} type="submit">
                 {t("login.signup.sign")}

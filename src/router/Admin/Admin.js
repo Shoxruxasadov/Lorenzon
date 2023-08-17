@@ -19,7 +19,8 @@ export default function Admin() {
       let list = [];
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
-        querySnapshot.forEach((doc) => {
+        const reverseDocs = querySnapshot.docs.reverse();
+        reverseDocs.forEach((doc) => {
           list.push(doc.data());
         });
         dispatch({ type: "GET_USERS", payload: list });

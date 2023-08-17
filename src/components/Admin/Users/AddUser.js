@@ -121,7 +121,7 @@ export default function AddUser() {
   return (
     <>
       <ToastContainer />
-      <section className="add-user">
+      <section className="adout add-user">
         <header>
           <div className="category">
             <h1 onClick={() => navigate("/admin/users")} className="link">

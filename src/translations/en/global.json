@@ -57,6 +57,8 @@
       "paragraph": "Please fill in your details to create an account.",
       "firstName": "First Name",
       "lastName": "Last Name",
+      "birthday": "Birthday",
+      "country": "Country",
       "email": "Email",
       "password": "Password",
       "conpass": "Confirm Password",

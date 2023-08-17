@@ -1,12 +1,12 @@
 import React from "react";
 import { HiSearch } from "react-icons/hi";
 
-export default function Products() {
+export default function Musics() {
   return (
-    <section className="products">
+    <section className="adout musics">
       <header>
         <div className="category">
-          <h1>Products</h1>
+          <h1>Musics</h1>
         </div>
         <div className="others">
           <div className="search">
@@ -14,7 +14,7 @@ export default function Products() {
             <HiSearch />
           </div>
           <div className="addUser">
-            <button>Add Product</button>
+            <button>Add Collection</button>
           </div>
         </div>
       </header>

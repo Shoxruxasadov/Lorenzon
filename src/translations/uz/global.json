@@ -57,6 +57,8 @@
       "paragraph": "Hisob yaratish uchun maʼlumotlaringizni kiriting.",
       "firstName": "Ism",
       "lastName": "Familiya",
+      "birthday": "Tug'ilgan kun",
+      "country": "Mamlakat",
       "email": "Elektron pochta",
       "password": "Parol",
       "conpass": "Parolni tasdiqlang",

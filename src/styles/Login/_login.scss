@@ -56,9 +56,10 @@
               position: absolute;
               top: 50%;
               left: 14px;
-              color: $text;
+              color: $bate;
 
-              &,&>path{
+              &,
+              & > path {
                 cursor: pointer;
               }
             }
@@ -84,6 +85,56 @@
           }
         }
 
+        .outher {
+          width: 100%;
+          display: flex;
+          gap: 18px;
+
+          .birthday {width: 60%;}
+
+          .gender {width: 40%;}
+
+          .birthday,
+          .gender {
+            height: 44px;
+            position: relative;
+
+            svg {
+              transform: translateY(-50%);
+              position: absolute;
+              top: 50%;
+              left: 14px;
+              color: $bate;
+
+              &,
+              & > path {
+                cursor: pointer;
+              }
+            }
+
+            input {
+              width: 100%;
+              height: 100%;
+              padding-left: 42px;
+              border-radius: 8px;
+              border: 1px solid $login-bor;
+              background: $login-inp;
+              color: $text;
+              
+
+              &::placeholder {
+                color: $bate;
+                padding-top: 1px;
+
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 24px;
+              }
+            }
+          }
+        }
+
+        .country,
         .email,
         .password,
         .confirmPassword {
@@ -96,8 +147,18 @@
             position: absolute;
             top: 50%;
             left: 14px;
-            cursor: pointer;
             color: $bate;
+
+
+            &,&>path{
+              cursor: pointer;
+            }
+
+          }
+
+          .eye{
+            left: auto;
+            right: 14px;
           }
 
           input {

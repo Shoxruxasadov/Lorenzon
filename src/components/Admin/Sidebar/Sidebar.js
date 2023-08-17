@@ -64,13 +64,13 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             <span>Users</span>
           </NavLink>
           <NavLink
-            to="/admin/products"
+            to="/admin/musics"
             className={({ isActive, isPending }) =>
               isPending ? "pending" : isActive ? "active" : ""
             }
           >
             <HiMiniMusicalNote />
-            <span>Products</span>
+            <span>Musics</span>
           </NavLink>
         </div>
       </div>

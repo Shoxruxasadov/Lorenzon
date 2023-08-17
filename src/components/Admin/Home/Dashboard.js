@@ -6,7 +6,7 @@ export default function Dashboard() {
   api.get().then(({ data }) => console.log(data));
 
   return (
-    <section className="dashboard">
+    <section className="adout dashboard">
       <header>
         <div className="category">
           <h1>Dashboard</h1>

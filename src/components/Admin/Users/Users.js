@@ -37,8 +37,6 @@ export default function Users() {
       genders.push(item.gender);
     });
 
-    console.log(ages);
-
     setAges(ages);
     setCountrys(countrys);
     setGenders(genders);

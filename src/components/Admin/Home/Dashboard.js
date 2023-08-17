@@ -1,9 +1,7 @@
 import React from "react";
 import { HiSearch } from "react-icons/hi";
-import api from "../../../api/instance";
 
 export default function Dashboard() {
-  api.get().then(({ data }) => console.log(data));
 
   return (
     <section className="adout dashboard">

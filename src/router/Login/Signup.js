@@ -5,6 +5,7 @@ import { wrong, success, warning } from "../../toastify/Toastify";
 import { ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import country from "../../api/country";
 
 import {
   BiSolidLockAlt,
@@ -14,7 +15,14 @@ import {
   BiSolidCake,
 } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
-import { FaMale, FaFemale, FaEye, FaEyeSlash } from "react-icons/fa";
+import { HiSearch } from "react-icons/hi";
+import {
+  FaMale,
+  FaFemale,
+  FaGenderless,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -26,6 +34,19 @@ export default function Signup() {
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
+
+  const [allCountry, setAllCountry] = useState(country);
+  const [newCountry, setNewCountry] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+
+  const [selectCountry, setSelectCountry] = useState(t("login.signup.country"));
+  const [ocCountry, setOcCountry] = useState(false);
+
+  const [selectGender, setSelectGender] = useState(t("login.signup.gender"));
+  const [ocGender, setOcGender] = useState(false);
+
+  const [birthdayData, setBirthdayData] = useState("");
+
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("theme") == "light" ? true : false
   );
@@ -43,6 +64,32 @@ export default function Signup() {
         darkmode ? "light" : "dark",
         posTaos
       );
+    } else if (
+      selectGender == "Gender" ||
+      selectGender == "Пол" ||
+      selectGender == "Jins"
+    ) {
+      warning(
+        t("login.validation.enterGender"),
+        darkmode ? "light" : "dark",
+        posTaos
+      );
+    } else if (birthdayData.length < 14) {
+      warning(
+        t("login.validation.birthday"),
+        darkmode ? "light" : "dark",
+        posTaos
+      );
+    } else if (
+      selectCountry == "Country" ||
+      selectCountry == "Страна" ||
+      selectCountry == "Mamlakat"
+    ) {
+      warning(
+        t("login.validation.enterCountry"),
+        darkmode ? "light" : "dark",
+        posTaos
+      );
     } else {
       try {
         const res = await createUserWithEmailAndPassword(
@@ -51,14 +98,13 @@ export default function Signup() {
           data.password
         );
         await setDoc(doc(db, "users", res.user.uid), {
-          birthday: null,
-          country: null,
+          birthday: birthdayData,
+          country: selectCountry,
           email: data.email,
-          gender: null,
+          gender: selectGender,
           image: null,
           name: `${data.firstName} ${data.lastName}`,
           password: data.password,
-          phone: null,
           role: "User",
           timeStamp: serverTimestamp(),
         });
@@ -83,18 +129,44 @@ export default function Signup() {
   function handleValidation() {
     let name = errors.firstName || errors.lastName;
     if (name) warning(name.message, darkmode ? "light" : "dark", posTaos);
+    if (birthdayData.length < 14)
+      warning(
+        t("login.validation.birthday"),
+        darkmode ? "light" : "dark",
+        posTaos
+      );
+
+    if (selectGender === t("login.signup.gender"))
+      warning(
+        t("login.validation.enterGender"),
+        darkmode ? "light" : "dark",
+        posTaos
+      );
+
+    if (selectCountry === t("login.signup.country"))
+      warning(
+        t("login.validation.enterCountry"),
+        darkmode ? "light" : "dark",
+        posTaos
+      );
+
     if (errors.email)
       warning(
         t("login.validation.email"),
         darkmode ? "light" : "dark",
         posTaos
       );
-    if (errors.password)
-      warning(
-        t("login.validation.password"),
-        darkmode ? "light" : "dark",
-        posTaos
-      );
+    if (errors.password) {
+      if (errors.password.message === "") {
+        warning(
+          t("login.validation.password"),
+          darkmode ? "light" : "dark",
+          posTaos
+        );
+      } else {
+        warning(errors.password.message, darkmode ? "light" : "dark", posTaos);
+      }
+    }
     if (errors.confirmPassword)
       warning(
         t("login.validation.conpass"),
@@ -102,6 +174,49 @@ export default function Signup() {
         posTaos
       );
   }
+
+  let currentYear = new Date().getFullYear();
+  function checkBirthdayValue(str, max) {
+    if (str.charAt(0) !== "0" || str == "00") {
+      let num = parseInt(str);
+      if (isNaN(num) || num <= 0 || num > max) num = 1;
+      if (
+        num > parseInt(max.toString().charAt(0)) &&
+        num.toString().length == 1
+      ) {
+        str = "0" + num;
+      } else {
+        str = num.toString();
+      }
+    }
+    return str;
+  }
+
+  function inpBithday(e) {
+    e.target.type = "text";
+    let input = e.target.value;
+    if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+    let values = input.split("/").map(function (v) {
+      return v.replace(/\D/g, "");
+    });
+    if (values[0]) values[0] = checkBirthdayValue(values[0], 31); // day check
+    if (values[1]) values[1] = checkBirthdayValue(values[1], 12); // month check
+    if (values[1]) values[1] = checkBirthdayValue(values[1], currentYear); // year check
+    let output = values.map(function (v, i) {
+      return v.length == 2 && i < 2 ? v + " / " : v;
+    });
+    e.target.value = output.join("").substr(0, 14);
+  }
+
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < allCountry.length; i++) {
+      if (allCountry[i].toUpperCase().startsWith(searchInput.toUpperCase())) {
+        arr.push(allCountry[i]);
+      }
+    }
+    setNewCountry(arr);
+  }, [searchInput]);
 
   return (
     <>
@@ -166,39 +281,164 @@ export default function Signup() {
                 <label className="birthday" htmlFor="birthday">
                   <BiSolidCake />
                   <input
-                    {...register("birthday", {
-                      required: t("login.validation.name"),
-                    })}
+                    type="tel"
                     id="birthday"
-                    type="text"
-                    placeholder={t("login.signup.birthday")}
-                    aria-invalid={errors.birthday ? "true" : "false"}
+                    placeholder={t("login.signup.birthdayFormat")}
+                    onChange={(e) => {
+                      inpBithday(e);
+                      setBirthdayData(e.target.value);
+                    }}
                   />
                 </label>
-                <label className="gender" htmlFor="gender">
-                  <FaMale />
-                  <FaFemale />
-                  <input
-                    {...register("gender", {
-                      required: t("login.validation.name"),
-                    })}
-                    id="gender"
-                    type="text"
-                    aria-invalid={errors.gender ? "true" : "false"}
-                  />
+                <label className="gender">
+                  {selectGender === "Male" ? (
+                    <FaMale
+                      onClick={() => {
+                        setOcGender(!ocGender);
+                        setOcCountry(false);
+                      }}
+                    />
+                  ) : selectGender === "Female" ? (
+                    <FaFemale
+                      onClick={() => {
+                        setOcGender(!ocGender);
+                        setOcCountry(false);
+                      }}
+                    />
+                  ) : (
+                    <FaGenderless
+                      onClick={() => {
+                        setOcGender(!ocGender);
+                        setOcCountry(false);
+                      }}
+                    />
+                  )}
+                  <div
+                    onClick={() => {
+                      setOcGender(!ocGender);
+                      setOcCountry(false);
+                    }}
+                    id="select"
+                    className="select"
+                  >
+                    <span
+                      className={
+                        selectGender == "Gender" ||
+                        selectGender == "Пол" ||
+                        selectGender == "Jins"
+                          ? ""
+                          : "active"
+                      }
+                    >
+                      {selectGender === "Male"
+                        ? t("login.signup.male")
+                        : selectGender === "Female"
+                        ? t("login.signup.female")
+                        : selectGender}
+                    </span>
+                  </div>
+                  <div
+                    id="content"
+                    className={ocGender ? "content active" : "content"}
+                  >
+                    <ul id="options">
+                      <li
+                        onClick={() => {
+                          setSelectGender("Male");
+                          setOcGender(false);
+                        }}
+                        id="selectedItem"
+                      >
+                        <FaMale />
+                        <span>{t("login.signup.male")}</span>
+                      </li>
+                      <li
+                        onClick={() => {
+                          setSelectGender("Female");
+                          setOcGender(false);
+                        }}
+                        id="selectedItem"
+                      >
+                        <FaFemale />
+                        <span>{t("login.signup.female")}</span>
+                      </li>
+                    </ul>
+                  </div>
                 </label>
               </div>
-              <label className="country" htmlFor="country">
-                <BiSolidFlag />
-                <input
-                  {...register("country", {
-                    required: t("login.validation.name"),
-                  })}
-                  id="country"
-                  type="text"
-                  placeholder={t("login.signup.country")}
-                  aria-invalid={errors.country ? "true" : "false"}
+              <label className="country">
+                <BiSolidFlag
+                  onClick={() => {
+                    setOcCountry(!ocCountry);
+                    setOcGender(false);
+                  }}
                 />
+                <div
+                  onClick={() => {
+                    setOcCountry(!ocCountry);
+                    setOcGender(false);
+                  }}
+                  id="select"
+                  className="select"
+                >
+                  <span
+                    className={
+                      selectCountry == "Country" ||
+                      selectCountry == "Страна" ||
+                      selectCountry == "Mamlakat"
+                        ? ""
+                        : "active"
+                    }
+                  >
+                    {selectCountry}
+                  </span>
+                  <i id="arrow" className="fa-solid fa-angle-down"></i>
+                </div>
+                <div
+                  id="content"
+                  className={ocCountry ? "content active" : "content"}
+                >
+                  <div className="search">
+                    <HiSearch />
+                    <input
+                      onKeyUp={(e) => setSearchInput(e.target.value)}
+                      id="searchCountryInp"
+                      type="text"
+                      placeholder="Search Country"
+                    />
+                  </div>
+                  <ul id="options">
+                    {searchInput === "" ? (
+                      allCountry.map((item, index) => (
+                        <li
+                          key={index}
+                          onClick={() => {
+                            setSelectCountry(item);
+                            setOcCountry(false);
+                          }}
+                          id="selectedItem"
+                        >
+                          {item}
+                        </li>
+                      ))
+                    ) : newCountry.length == 0 ? (
+                      <li>{t("login.signup.NotCountry")}</li>
+                    ) : (
+                      newCountry.map((item, index) => (
+                        <li
+                          key={index}
+                          onClick={() => {
+                            setSelectCountry(item);
+                            setOcCountry(false);
+                          }}
+                          id="selectedItem"
+                        >
+                          {item}
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </div>
               </label>
               <label className="email" htmlFor="email">
                 <MdEmail />
@@ -213,7 +453,13 @@ export default function Signup() {
               <label className="password" htmlFor="password">
                 <BiSolidLock />
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: true,
+                    minLength: {
+                      value: 8,
+                      message: t("login.validation.passLang"),
+                    },
+                  })}
                   id="password"
                   type={eye ? "text" : "password"}
                   placeholder={t("login.signup.password")}

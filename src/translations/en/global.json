@@ -58,6 +58,9 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "birthday": "Birthday",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
       "country": "Country",
       "email": "Email",
       "password": "Password",
@@ -65,19 +68,25 @@
       "sign": "Sign up",
       "or": "or",
       "account": "Do you have an account?",
-      "to": "Sign in"
+      "to": "Sign in",
+      "birthdayFormat": "DD / MM / YYYY",
+      "NotCountry": "Country not found 😕"
     },
     "validation": {
       "conEqualPass": "Password and Confirm Password are not equal to each other",
       "signedup": "You are signed up",
       "signedin": "You are signed in",
       "name": "Full Name is request",
-      "nameLang": "The Full Name must have at least 4 letters",
+      "nameLang": "Fullname must not be less than 4 letters",
       "email": "Email is request",
       "password": "Password is request",
+      "passLang": "Password must not be less than 8 characters",
       "conpass": "Confirm Password is request",
       "wrong": "Password or email is wrong",
-      "errorRegister": "Such a user exists"
+      "errorRegister": "Such a user exists",
+      "enterGender": "Enter your gender",
+      "enterCountry": "Enter your country",
+      "birthday": "Enter your birthday"
     }
   }
 }

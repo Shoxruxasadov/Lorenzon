@@ -12,7 +12,7 @@
       "miniTitle3": "Hi-Fi ovoz formatida tinglang."
     },
     "trending": "Ommaviy musiqa",
-    "section2":{
+    "section2": {
       "title1": "Dunyodagi Barcha Zamonlarning Eng Mashhur",
       "title2": "",
       "artist": "Artistlari",
@@ -58,6 +58,9 @@
       "firstName": "Ism",
       "lastName": "Familiya",
       "birthday": "Tug'ilgan kun",
+      "gender": "Jins",
+      "male": "Erkak",
+      "female": "Ayol",
       "country": "Mamlakat",
       "email": "Elektron pochta",
       "password": "Parol",
@@ -65,19 +68,25 @@
       "sign": "Ro'yxatdan o'tish",
       "or": "yoki",
       "account": "Hisobingiz bormi?",
-      "to": "Kirish"
+      "to": "Kirish",
+      "birthdayFormat": "KK / OO / YYYY",
+      "NotCountry": "Mamlakat topilmadi 😕"
     },
     "validation": {
       "conEqualPass": "Tasqinlanga parol xato",
       "signedup": "Siz roʻyxatdan oʻtdingiz",
       "signedin": "Siz tizimga kirdingiz",
       "name": "Ism Sharif kiriting",
-      "nameLang": "Ism Sharif kamida 4 ta harfdan iborat bo'lishi kerak",
+      "nameLang": "Ism sharif 4 ta harfdan kam bo'lmasin",
       "email": "Electron pochta kiriting",
       "password": "Parol kiriting",
+      "passLang": "Parol 8 belgidan kam bo'lmasin",
       "conpass": "Tasdiqlash parolini kiriting",
       "wrong": "Parol yoki pochta noto'g'ri",
-      "errorRegister": "Bunday foydalanuvchi mavjud"
+      "errorRegister": "Bunday foydalanuvchi mavjud",
+      "enterGender": "Jinsingizni kiriting",
+      "enterCountry": "Mamlakatingizni kiriting",
+      "birthday": "Tug'ilgan kuningizni kiriting"
     }
   }
 }

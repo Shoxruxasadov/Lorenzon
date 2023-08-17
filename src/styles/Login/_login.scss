@@ -90,10 +90,6 @@
           display: flex;
           gap: 18px;
 
-          .birthday {width: 60%;}
-
-          .gender {width: 40%;}
-
           .birthday,
           .gender {
             height: 44px;
@@ -120,7 +116,6 @@
               border: 1px solid $login-bor;
               background: $login-inp;
               color: $text;
-              
 
               &::placeholder {
                 color: $bate;
@@ -129,6 +124,291 @@
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 24px;
+              }
+            }
+          }
+
+          .birthday {
+            width: 60%;
+
+            input {
+              width: 100%;
+              height: 100%;
+              padding-left: 42px;
+              border-radius: 8px;
+              border: 1px solid $login-bor;
+              background: $login-inp;
+              color: $text;
+              font-size: 15px;
+
+              &:focus {
+                outline: 0;
+              }
+
+              &.error {
+                border-color: #ff0000;
+              }
+
+              &::placeholder {
+                color: $bate;
+                padding-top: 1px;
+
+                font-size: 13px;
+                font-weight: 400;
+                line-height: 24px;
+              }
+            }
+          }
+
+          .gender {
+            width: 40%;
+            height: 44px;
+            border-radius: 8px;
+            border: 1px solid $login-bor;
+            background: $login-inp;
+
+            ::-webkit-scrollbar {
+              width: 0px;
+            }
+
+            .select {
+              height: 100%;
+              font-size: 13.333px;
+              color: $bate;
+              padding-left: 42px;
+
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              cursor: pointer;
+
+              span {
+                cursor: pointer;
+                color: $bate;
+
+                &.active {
+                  color: $text;
+                }
+              }
+            }
+
+            .content {
+              transition: 0.2s;
+              padding: 0px;
+              height: 0px;
+              margin-top: 5px;
+              position: relative;
+              z-index: 100;
+              border-radius: 8px;
+              visibility: hidden;
+              overflow: hidden;
+
+              border-radius: 8px;
+              border: 1px solid $login-bor;
+              background: $login-inp;
+
+              &.active {
+                padding: 10px;
+                height: 100px;
+                visibility: visible;
+              }
+
+              ::-webkit-scrollbar {
+                width: 5px;
+              }
+              ::-webkit-scrollbar-thumb {
+                background: $text;
+                border-radius: 25px;
+              }
+              ::-webkit-scrollbar-track {
+                background-color: $login-inp;
+                border-radius: 25px;
+              }
+
+              .search {
+                position: relative;
+
+                svg {
+                  position: absolute;
+                  top: calc(50% - 7.5px);
+                  left: 13px;
+                  color: $bate;
+                  font-size: 17px;
+                }
+
+                input {
+                  width: 100%;
+                  height: 40px;
+                  padding-left: 40px;
+                  margin-bottom: 15px;
+
+                  border-radius: 8px;
+                  border: 1px solid $login-bor;
+                  background: $login-inp;
+                  color: $text;
+
+                  &::placeholder {
+                    color: $bate;
+                    padding-top: 1px;
+
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 24px;
+                  }
+                }
+              }
+
+              #options {
+                li {
+                  height: 40px;
+                  border-radius: 5px;
+                  display: flex;
+                  cursor: pointer;
+                  align-items: center;
+                  font-size: 16px;
+                  padding: 0 12px;
+                  position: relative;
+
+                  &:hover {
+                    background: $main;
+                  }
+
+                  svg {
+                    position: absolute;
+                    transform: translateY(-50%);
+                    top: 50%;
+                    left: 3px;
+                    color: $text;
+                  }
+
+                  span {
+                    padding: 16px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .country {
+          width: 100%;
+          height: 44px;
+          border-radius: 8px;
+          border: 1px solid $login-bor;
+          background: $login-inp;
+
+          ::-webkit-scrollbar {
+            width: 0px;
+          }
+
+          .select {
+            height: 100%;
+            font-size: 13.333px;
+            color: $bate;
+            padding-left: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            cursor: pointer;
+
+            span {
+              cursor: pointer;
+              color: $bate;
+
+              &.active {
+                color: $text;
+              }
+            }
+          }
+
+          .content {
+            transition: 0.2s;
+            padding: 0px;
+            height: 0px;
+            margin-top: 5px;
+            position: relative;
+            z-index: 100;
+            border-radius: 8px;
+            visibility: hidden;
+            overflow: hidden;
+
+            border-radius: 8px;
+            border: 1px solid $login-bor;
+            background: $login-inp;
+
+            &.active {
+              transition: 0.2s;
+              padding: 20px;
+              height: auto;
+              max-height: 348px;
+              visibility: visible;
+              overflow-y: auto;
+            }
+
+            ::-webkit-scrollbar {
+              width: 5px;
+            }
+            ::-webkit-scrollbar-thumb {
+              background: $text;
+              border-radius: 25px;
+            }
+            ::-webkit-scrollbar-track {
+              background-color: $login-inp;
+              border-radius: 25px;
+            }
+
+            .search {
+              position: relative;
+
+              svg {
+                position: absolute;
+                top: calc(50% - 7.5px);
+                left: 13px;
+                color: $bate;
+                font-size: 17px;
+              }
+
+              input {
+                width: 100%;
+                height: 40px;
+                padding-left: 40px;
+                margin-bottom: 15px;
+
+                border-radius: 8px;
+                border: 1px solid $login-bor;
+                background: $login-inp;
+                color: $text;
+
+                &::placeholder {
+                  color: $bate;
+                  padding-top: 1px;
+
+                  font-size: 14px;
+                  font-weight: 400;
+                  line-height: 24px;
+                }
+              }
+            }
+
+            #options {
+              max-height: 250px;
+              overflow: auto;
+
+              li {
+                height: 40px;
+                border-radius: 5px;
+                display: flex;
+                cursor: pointer;
+                align-items: center;
+                font-size: 16px;
+                padding: 0 12px;
+
+                &:hover {
+                  background: $main;
+                }
               }
             }
           }
@@ -149,14 +429,13 @@
             left: 14px;
             color: $bate;
 
-
-            &,&>path{
+            &,
+            & > path {
               cursor: pointer;
             }
-
           }
 
-          .eye{
+          .eye {
             left: auto;
             right: 14px;
           }
@@ -168,7 +447,7 @@
             border-radius: 8px;
             border: 1px solid $login-bor;
             background: $login-inp;
-            color: $bate;
+            color: $text;
 
             &::placeholder {
               color: $bate;

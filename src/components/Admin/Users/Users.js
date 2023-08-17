@@ -180,30 +180,6 @@ export default function Users() {
               <div className="outer">
                 <div className="inner">
                   <div className="number">
-                    <CountUp end={agender} duration={1.5} />%
-                  </div>
-                </div>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                width="70px"
-                height="70px"
-              >
-                <defs>
-                  <linearGradient id="GradientColor">
-                    <stop offset="0%" />
-                    <stop offset="100%" />
-                  </linearGradient>
-                </defs>
-                <circle cx="35" cy="35" r="30" strokeLinecap="round" />
-              </svg>
-              <TbGenderAgender className="icon" />
-            </div>
-            <div className="skill">
-              <div className="outer">
-                <div className="inner">
-                  <div className="number">
                     <CountUp end={female} duration={1.5} />%
                   </div>
                 </div>
@@ -231,7 +207,7 @@ export default function Users() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Phone</th>
+                <th>Birthday</th>
                 <th>Country</th>
                 <th>Gender</th>
                 <th>Role</th>
@@ -247,7 +223,7 @@ export default function Users() {
                       <p>{item.email}</p>
                     </div>
                   </td>
-                  <td>{item.phone}</td>
+                  <td>{item.birthday}</td>
                   <td>{item.country}</td>
                   <td>{item.gender}</td>
                   <td>{item.role}</td>

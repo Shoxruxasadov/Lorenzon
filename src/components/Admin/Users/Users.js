@@ -4,16 +4,24 @@ import { useNavigate } from "react-router-dom";
 import unknown from "../../../images/Admin/unknown.jpg";
 import { useSelector } from "react-redux";
 import CountUp from "react-countup/build";
+import timeConverter from "../../../api/timeConverter";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { TbGenderMale, TbGenderFemale, TbGenderAgender } from "react-icons/tb";
 
 export default function Users() {
   const users = useSelector((state) => state.userReducer.users);
   const navigate = useNavigate();
+  const currentUser = JSON.parse(localStorage.getItem("user")).email;
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([...users]); // Malumotlar massivi
   const [qualityData, setQualityData] = useState(0);
   const [percentageData, setPercentageData] = useState(0);
+
+  const [page, setPage] = useState(1); // O'qish boliq
+  const [perPage, setPerPage] = useState(10); // Har bir sahifada ko'rsatiladigan malumotlar soni
+  const [totalPages, setTotalPages] = useState(1); // Jami bo'lgan bo'limdagi malumotlar soni
+  const [loader, setLoader] = useState(true);
 
   const [ages, setAges] = useState([]);
 
@@ -23,6 +31,29 @@ export default function Users() {
   const [male, setMale] = useState(0);
   const [female, setFemale] = useState(0);
   const [agender, setAgender] = useState(0);
+
+  useEffect(() => {
+    // Malumotlarni olish funktsiyasi
+    const fetchData = () => {
+      // Malumotlar massivining o'zi - dataMassiv
+      const startIndex = (page - 1) * perPage;
+      const endIndex = startIndex + perPage;
+      const slicedData = data.slice(startIndex, endIndex);
+
+      setData((prevData) => [...prevData, ...slicedData]);
+      setTotalPages(Math.ceil(data.length / perPage));
+      setTimeout(() => setLoader(false), 1500);
+    };
+
+    fetchData();
+  }, [page, perPage]);
+
+  const fetchMoreData = () => {
+    // Qo'shimcha malumotlarni olish funktsiyasi
+    if (page < totalPages) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
   useEffect(() => {
     setData(users);
@@ -94,7 +125,7 @@ export default function Users() {
               <h2>{data.length}</h2>
               <p>from {qualityData}</p>
             </div>
-            <div className="skill">
+            <div className="skill big">
               <div className="outer">
                 <div className="inner">
                   <div className="number">
@@ -105,8 +136,8 @@ export default function Users() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 version="1.1"
-                width="70px"
-                height="70px"
+                width="80px"
+                height="80px"
               >
                 <defs>
                   <linearGradient id="GradientColor">
@@ -115,12 +146,12 @@ export default function Users() {
                   </linearGradient>
                 </defs>
                 <circle
-                  cx="35"
-                  cy="35"
-                  r="30"
+                  cx="40"
+                  cy="40"
+                  r="35"
                   strokeLinecap="round"
                   style={{
-                    strokeDashoffset: ((100 - percentageData) / 100) * 188,
+                    strokeDashoffset: ((100 - percentageData) / 100) * 220,
                   }}
                 />
               </svg>
@@ -217,17 +248,15 @@ export default function Users() {
                     cy="35"
                     r="30"
                     strokeLinecap="round"
-                    style={{ strokeDashoffset: `${((100 - male) / 100) * 188 }`}}
+                    style={{
+                      strokeDashoffset: `${((100 - male) / 100) * 188}`,
+                    }}
                   />
                 </svg>
               </div>
             </div>
             <div className="genderBox">
-              <p>
-                <TbGenderAgender className="icon" />
-                <span>Not</span>
-              </p>
-              <div className="skill">
+              <div className="skill big">
                 <div className="outer">
                   <div className="inner">
                     <div className="number">
@@ -238,8 +267,8 @@ export default function Users() {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   version="1.1"
-                  width="70px"
-                  height="70px"
+                  width="80px"
+                  height="80px"
                 >
                   <defs>
                     <linearGradient id="GradientColor">
@@ -248,11 +277,11 @@ export default function Users() {
                     </linearGradient>
                   </defs>
                   <circle
-                    cx="35"
-                    cy="35"
-                    r="30"
+                    cx="40"
+                    cy="40"
+                    r="35"
                     strokeLinecap="round"
-                    style={{ strokeDashoffset: ((100 - agender) / 100) * 188 }}
+                    style={{ strokeDashoffset: ((100 - agender) / 100) * 220 }}
                   />
                 </svg>
               </div>
@@ -295,35 +324,59 @@ export default function Users() {
           </div>
         </div>
         <div className="table">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Birthday</th>
-                <th>Country</th>
-                <th>Gender</th>
-                <th>Role</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    <img src={item.image ? item.image : unknown} />
-                    <div className="name">
-                      <h1>{item.name}</h1>
-                      <p>{item.email}</p>
-                    </div>
-                  </td>
-                  <td>{item.birthday}</td>
-                  <td>{item.country}</td>
-                  <td>{item.gender}</td>
-                  <td>{item.role}</td>
+          <InfiniteScroll
+            dataLength={data.length} // Malumotlar massivi uzunligi
+            next={fetchMoreData} // Qo'shimcha malumotlarni olish funktsiyasi
+            hasMore={page < totalPages} // Qo'shimcha malumotlar mavjudligini tekshirish
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Birthday</th>
+                  <th>Country</th>
+                  <th>Gender</th>
+                  <th>Role</th>
                 </tr>
-              ))}
-              {/* <tr><th style={{padding: "10px 0 15px"}} colSpan={5}>Loading...</th></tr> */}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.map(
+                  (item, index) =>
+                    currentUser != item.email && (
+                      <tr key={index}>
+                        <td>
+                          <img src={item.image ? item.image : unknown} />
+                          <div className="name">
+                            <h1>{item.name}</h1>
+                            <p>{item.email}</p>
+                          </div>
+                        </td>
+                        <td>
+                          {item.birthday &&
+                            timeConverter(item.birthday.seconds)}
+                        </td>
+                        <td>{item.country}</td>
+                        <td>{item.gender}</td>
+                        <td>{item.role}</td>
+                      </tr>
+                    )
+                )}
+                {loader ? (
+                  <tr>
+                    <th style={{ padding: "10px 0 15px" }} colSpan={5}>
+                      Loading...
+                    </th>
+                  </tr>
+                ) : (
+                  <tr>
+                    <th style={{ padding: "10px 0 15px" }} colSpan={5}>
+                      No others data !
+                    </th>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </InfiniteScroll>
         </div>
       </div>
     </section>

@@ -69,7 +69,7 @@
       "or": "или",
       "account": "У тебя есть аккаунт?",
       "to": "Войти",
-      "birthdayFormat": "ДД / ММ / ГГГГ",
+      "birthdayFormat": "ДД - ММ - ГГГГ",
       "NotCountry": "Страна не найдена 😕"
     },
     "validation": {

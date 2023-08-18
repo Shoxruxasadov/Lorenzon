@@ -24,7 +24,7 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { Timestamp, doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -56,6 +56,13 @@ export default function Signup() {
   const [ocGender, setOcGender] = useState(false);
 
   const [birthdayData, setBirthdayData] = useState("");
+  const trimmedData = birthdayData.replace(/\s+/g, "");
+  const happy =
+    trimmedData.substring(6, 10) +
+    "-" +
+    trimmedData.substring(3, 5) +
+    "-" +
+    trimmedData.substring(0, 2);
 
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("theme") == "light" ? true : false
@@ -108,7 +115,7 @@ export default function Signup() {
           data.password
         );
         await setDoc(doc(db, "users", res.user.uid), {
-          birthday: birthdayData,
+          birthday: Timestamp.fromDate(happy),
           country: selectCountry,
           email: data.email,
           gender: selectGender,
@@ -170,6 +177,7 @@ export default function Signup() {
         }, 1000);
       })
       .catch((error) => {
+        console.log(error);
         wrong(
           "QANDAYDIR XATOLIK YUZ BERDI",
           darkmode ? "light" : "dark",
@@ -219,6 +227,7 @@ export default function Signup() {
         // }, 1000);
       })
       .catch((error) => {
+        console.log(error);
         wrong(
           "QANDAYDIR XATOLIK YUZ BERDI",
           darkmode ? "light" : "dark",
@@ -296,15 +305,15 @@ export default function Signup() {
   function inpBithday(e) {
     e.target.type = "text";
     let input = e.target.value;
-    if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-    let values = input.split("/").map(function (v) {
+    if (/\D\-$/.test(input)) input = input.substr(0, input.length - 3);
+    let values = input.split("-").map(function (v) {
       return v.replace(/\D/g, "");
     });
     if (values[0]) values[0] = checkBirthdayValue(values[0], 31); // day check
     if (values[1]) values[1] = checkBirthdayValue(values[1], 12); // month check
     if (values[1]) values[1] = checkBirthdayValue(values[1], currentYear); // year check
     let output = values.map(function (v, i) {
-      return v.length == 2 && i < 2 ? v + " / " : v;
+      return v.length == 2 && i < 2 ? v + " - " : v;
     });
     e.target.value = output.join("").substr(0, 14);
   }

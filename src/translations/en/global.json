@@ -69,7 +69,7 @@
       "or": "or",
       "account": "Do you have an account?",
       "to": "Sign in",
-      "birthdayFormat": "DD / MM / YYYY",
+      "birthdayFormat": "DD - MM - YYYY",
       "NotCountry": "Country not found 😕"
     },
     "validation": {

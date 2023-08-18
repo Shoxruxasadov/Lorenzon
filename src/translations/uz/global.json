@@ -69,7 +69,7 @@
       "or": "yoki",
       "account": "Hisobingiz bormi?",
       "to": "Kirish",
-      "birthdayFormat": "KK / OO / YYYY",
+      "birthdayFormat": "KK - OO - YYYY",
       "NotCountry": "Mamlakat topilmadi 😕"
     },
     "validation": {

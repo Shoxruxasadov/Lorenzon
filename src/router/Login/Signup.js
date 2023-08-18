@@ -24,7 +24,13 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-import { Timestamp, doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  Timestamp,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -115,7 +121,7 @@ export default function Signup() {
           data.password
         );
         await setDoc(doc(db, "users", res.user.uid), {
-          birthday: Timestamp.fromDate(happy),
+          birthday: Timestamp.fromDate(new Date(happy)),
           country: selectCountry,
           email: data.email,
           gender: selectGender,

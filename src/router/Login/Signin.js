@@ -89,27 +89,48 @@ export default function Signin() {
 
         const confirm = result.user.reloadUserInfo;
 
-        await setDoc(doc(db, "users", confirm.localId), {
-          birthday: null,
-          country: null,
-          email: confirm.email,
-          gender: null,
-          image: confirm.photoUrl,
-          name: confirm.displayName,
-          password: "GOOGLE",
-          role: "User",
-          timeStamp: serverTimestamp(),
-        });
-
         const docRef = doc(db, "users", confirm.localId);
         const user = await getDoc(docRef);
-        const role = user.data().role;
 
-        setTimeout(() => {
-          dispatch({ type: "SET_CONFIRM", payload: confirm });
-          dispatch({ type: "SET_USER", payload: user.data() });
-          role === "Admin" ? navigate("/admin") : navigate("/home");
-        }, 1000);
+        if (user._document !== null) {
+          const docRef = doc(db, "users", confirm.localId);
+          const user = await getDoc(docRef);
+          const role = user.data().role;
+
+          console.log("IF ishladi");
+          console.log(user.data());
+
+          setTimeout(() => {
+            dispatch({ type: "SET_CONFIRM", payload: confirm });
+            dispatch({ type: "SET_USER", payload: user.data() });
+            role === "Admin" ? navigate("/admin") : navigate("/home");
+          }, 1000);
+        } else {
+          await setDoc(doc(db, "users", confirm.localId), {
+            birthday: null,
+            country: null,
+            email: confirm.email,
+            gender: null,
+            image: confirm.photoUrl,
+            name: confirm.displayName,
+            password: "GOOGLE",
+            role: "User",
+            timeStamp: serverTimestamp(),
+          });
+
+          const docRef = doc(db, "users", confirm.localId);
+          const user = await getDoc(docRef);
+          const role = user.data().role;
+
+          console.log("ELSE ishladi");
+          console.log(user.data());
+
+          setTimeout(() => {
+            dispatch({ type: "SET_CONFIRM", payload: confirm });
+            dispatch({ type: "SET_USER", payload: user.data() });
+            role === "Admin" ? navigate("/admin") : navigate("/home");
+          }, 1000);
+        }
       })
       .catch((error) => {
         wrong(

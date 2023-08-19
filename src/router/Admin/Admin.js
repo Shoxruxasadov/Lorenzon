@@ -14,15 +14,20 @@ export default function Admin() {
   );
 
   useEffect(() => {
-    if (window.location.pathname === "/admin" || window.location.pathname === "/admin/") navigate("/admin/dashboard");
+    if (
+      window.location.pathname === "/admin" ||
+      window.location.pathname === "/admin/"
+    )
+      navigate("/admin/dashboard");
     const fetchData = async () => {
       let list = [];
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
         const reverseDocs = querySnapshot.docs.reverse();
         reverseDocs.forEach((doc) => {
-          list.push(doc.data());
+          if ("admin@dev.uz" != doc.data().email) list.push(doc.data());
         });
+        console.log(list);
         dispatch({ type: "GET_USERS", payload: list });
       } catch (err) {
         console.log("ERROR FETCH DATA IN FIRESTORE");

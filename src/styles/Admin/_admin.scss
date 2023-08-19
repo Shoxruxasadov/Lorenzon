@@ -162,6 +162,7 @@
         justify-content: space-between;
 
         .data {
+          width: calc(100% - 20px);
           display: flex;
           align-items: center;
           gap: 5px;
@@ -174,6 +175,7 @@
           }
 
           .title {
+            width: calc(100% - 37px);
             display: flex;
             flex-direction: column;
             cursor: pointer;
@@ -183,6 +185,9 @@
               font-weight: 500;
               color: #fff;
               cursor: pointer;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
 
             h4 {
@@ -191,6 +196,9 @@
               color: #fff;
               cursor: pointer;
               line-height: 14px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
             }
           }
         }
@@ -273,7 +281,8 @@
             border: none;
             border-radius: 2em;
             background: $view;
-            box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+            box-shadow: -0.5px -0.5px 0px $admin-shadbar,
+              2px 2px 5px -1px #00000026;
             color: $text;
             font-size: 15px;
 
@@ -301,7 +310,8 @@
           background: $main;
           border-radius: 2em;
           border: none;
-          box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+          box-shadow: -0.5px -0.5px 0px $admin-shadbar,
+            2px 2px 5px -1px #00000026;
           color: #ffffff;
           padding: 0 25px;
           height: 39px;
@@ -375,7 +385,7 @@
   }
 
   .part {
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+    box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
     border-radius: 0.5em;
     background: $view;
   }
@@ -435,6 +445,29 @@
     }
   }
 
+  .users {
+    height: 100svh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0.4em;
+      height: 0;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $main;
+      border-radius: 10em;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0.2em;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: $main;
+      border-radius: 10em;
+    }
+  }
+
   .users .content {
     width: 100%;
     display: flex;
@@ -452,14 +485,16 @@
         padding: 20px;
       }
 
-      .activeMember {
+      .ageStatistics,
+      .countryStatistics,
+      .genderStatistics {
         justify-content: space-between;
       }
 
-      .totalUser,
-      .activeMembers,
-      .newReturning,
-      .activeMember {
+      .userStatistics,
+      .ageStatistics,
+      .countryStatistics,
+      .genderStatistics {
         display: flex;
         align-items: center;
 
@@ -467,17 +502,14 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          gap: 0;
+          gap: 7px;
           width: calc(100% - 70px);
 
-          h1 {
-            font-weight: 400;
-            font-size: 20px;
-          }
-          h2 {
-            font-size: 26px;
-            letter-spacing: 1px;
-            color: $main;
+          h3 {
+            font-size: 22px;
+            letter-spacing: 0.5px;
+            text-shadow: -0.5px -0.5px 0px $admin-shadbar, 0px 0px 2px #00000026;
+            -webkit-text-fill-color: $text;
           }
           p {
             font-size: 16px;
@@ -497,6 +529,7 @@
             gap: 2px;
             opacity: 90%;
             letter-spacing: 1px;
+            font-weight: 600;
 
             svg {
               font-size: 18px;
@@ -575,14 +608,17 @@
       }
     }
 
+    .table {
+      border-radius: 0.5em;
+      overflow: hidden;
+    }
+
     .table table {
       width: 100% !important;
       font-size: 15px;
-      overflow: hidden;
       text-align: center;
-      border-radius: 0.5em;
       border-collapse: collapse;
-      box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+      box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
 
       thead tr {
         background: $admin-tabhead;

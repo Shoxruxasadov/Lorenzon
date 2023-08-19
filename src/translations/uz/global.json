@@ -88,5 +88,78 @@
       "enterCountry": "Mamlakatingizni kiriting",
       "birthday": "Tug'ilgan kuningizni kiriting"
     }
+  },
+  "admin": {
+    "sidebar": {
+      "home": "Asosiy",
+      "users": "Foydalanuvchilar",
+      "musics": "Musiqalar",
+      "light": "Yorqin",
+      "dark": "Kech"
+    },
+    "dashboard": {
+      "title": "Boshqaruv paneli"
+    },
+    "users": {
+      "title": "Foydalanuvchilar",
+      "input": "Bu yerdan foydalanuvchini izlang...",
+      "button": "Foydalanuvchi qo'shish",
+      "totalUser": "Foydalanuvchilar",
+      "middleAge": "O'rtacha",
+      "topCountry": "Mamlakat",
+      "male": "Erkak",
+      "female": "Ayol",
+      "name": "Ism",
+      "birthday": "Tug'ilgan kun",
+      "country": "Mamlakat",
+      "gender": "Jins",
+      "role": "Rol",
+      "loading": "Yuklanmoqda...",
+      "otherData": "Boshqa ma'lumotlar yo'q!",
+      "serachUsers": "Siz izlagan foydalanuvchi topilmadi!"
+    },
+    "adduser": {
+      "title": "Foydalanuvchi qo'shish",
+      "firstStatus": "Profil",
+      "secondStatus": "Tasdiqlash",
+      "basic": "Asosiy ma'lumotlar",
+      "profilePhone": "Avatar",
+      "titlePhoto": "Bu sizning profilingizda ko'rsatiladi.",
+      "name": "Ism",
+      "email": "Elektron pochta",
+      "birthday": "KK - OO - YYYY",
+      "gender": "Jins",
+      "male": "Erkak",
+      "female": "Ayol",
+      "country": "Mamlakat",
+      "notCountry": "Mamlakat topilmadi 😕",
+      "role": "Rol",
+      "user": "Foydalanuvchi",
+      "admin": "Administrator",
+      "password": "Parol",
+      "conpass": "Parolni tasdiqlang",
+      "continue": "Davom eting",
+      "validation": {
+        "conEqualPass": "Tasqinlanga parol xato",
+        "conpass": "Tasdiqlash parolini kiriting",
+        "addedUser": "Foydalanuvchi qo'shildi",
+        "errorRegister": "Bunday foydalanuvchi mavjud",
+        "name": "Ism kiriting",
+        "nameLang": "Ism 3 ta harfdan kam bo'lmasin",
+        "email": "Electron pochta kiriting",
+        "password": "Parol kiriting",
+        "passLang": "Parol 8 belgidan kam bo'lmasin",
+        "enterGender": "Jins kiriting",
+        "enterCountry": "Mamlakat kiriting",
+        "enterBirthday": "Tug'ilgan kun kiriting",
+        "enterRole": "Role kiriting",
+        "noUploadPhoto": "Rasm Yuklanmadi" 
+      }
+    },
+    "musics": {
+      "title": "Musiqalar",
+      "input": "Musiqani shu yerdan qidiring...",
+      "button": "To'plam qo'shish"
+    }
   }
 }

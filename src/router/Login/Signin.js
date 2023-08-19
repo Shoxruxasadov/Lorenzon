@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiSolidLock } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { wrong, success, warning } from "../../toastify/Toastify";
@@ -28,6 +29,8 @@ export default function Signin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
+  const [eye, setEye] = useState(false);
+
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("theme") == "light" ? true : false
   );
@@ -219,10 +222,15 @@ export default function Signin() {
                 <input
                   {...register("password", { required: true })}
                   id="password"
-                  type="password"
+                  type={eye ? "text" : "password"}
                   placeholder={t("login.signin.password")}
                   aria-invalid={errors.password ? "true" : "false"}
                 />
+                {eye ? (
+                  <FaEye className="eye" onClick={() => setEye(!eye)} />
+                ) : (
+                  <FaEyeSlash className="eye" onClick={() => setEye(!eye)} />
+                )}
               </label>
               <div className="remember">
                 <div className="checkbox">

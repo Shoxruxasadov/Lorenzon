@@ -52,7 +52,7 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             }
           >
             <HiHome />
-            <span>Home</span>
+            <span>{t("admin.sidebar.home")}</span>
           </NavLink>
           <NavLink
             to="/admin/users"
@@ -61,7 +61,7 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             }
           >
             <FaUserFriends />
-            <span>Users</span>
+            <span>{t("admin.sidebar.users")}</span>
           </NavLink>
           <NavLink
             to="/admin/musics"
@@ -70,7 +70,7 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             }
           >
             <HiMiniMusicalNote />
-            <span>Musics</span>
+            <span>{t("admin.sidebar.musics")}</span>
           </NavLink>
         </div>
       </div>
@@ -164,7 +164,7 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             }
           >
             <HiSun className="light" />
-            <span>Light</span>
+            <span>{t("admin.sidebar.light")}</span>
           </div>
           <div
             className="moon"
@@ -182,7 +182,7 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             }
           >
             <HiMoon className="dark" />
-            <span>Dark</span>
+            <span>{t("admin.sidebar.dark")}</span>
           </div>
         </div>
         <div className="logout" onClick={logout}>

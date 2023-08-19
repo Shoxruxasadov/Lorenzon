@@ -1,19 +1,15 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { HiSearch } from "react-icons/hi";
 
 export default function Dashboard() {
+  const [t, i18n] = useTranslation("global");
 
   return (
     <section className="adout dashboard">
       <header>
         <div className="category">
-          <h1>Dashboard</h1>
-        </div>
-        <div className="others">
-          <div className="search">
-            <input type="text" placeholder="Search anything here..." />
-            <HiSearch />
-          </div>
+          <h1>{t("admin.dashboard.title")}</h1>
         </div>
       </header>
       <div className="content">

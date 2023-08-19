@@ -8,15 +8,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import timeConverter from "../../../api/timeConverter";
 import ageConverter from "../../../api/ageConverter";
 
-import { TbGenderMale, TbGenderFemale, TbGenderAgender } from "react-icons/tb";
+import { TbGenderMale, TbGenderFemale } from "react-icons/tb";
+import { useTranslation } from "react-i18next";
 
 export default function Users() {
   const users = useSelector((state) => state.userReducer.users);
   const navigate = useNavigate();
+  const [t, i18n] = useTranslation("global");
 
   const [data, setData] = useState([...users]); // Malumotlar massivi
   const [slicedData, setSlicedData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
+
+  const [newSlicedData, setNewSlicedData] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const [qualityData, setQualityData] = useState(0);
   const [percentageData, setPercentageData] = useState(0);
@@ -147,20 +152,36 @@ export default function Users() {
     setAgender(100 - (malePer + femalePer));
   }, [genders]);
 
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < slicedData.length; i++) {
+      if (
+        slicedData[i].name.toUpperCase().startsWith(searchInput.toUpperCase())
+      ) {
+        arr.push(slicedData[i]);
+      }
+    }
+    setNewSlicedData(arr);
+  }, [searchInput]);
+
   return (
     <section className="adout users" ref={scrollRef} onScroll={handleScroll}>
       <header>
         <div className="category">
-          <h1>Users</h1>
+          <h1>{t("admin.users.title")}</h1>
         </div>
         <div className="others">
           <div className="search">
-            <input type="text" placeholder="Search anything here..." />
+            <input
+              type="text"
+              placeholder={t("admin.users.input")}
+              onKeyUp={(e) => setSearchInput(e.target.value)}
+            />
             <HiSearch />
           </div>
           <div className="addUser">
             <button onClick={() => navigate("/admin/users/add-user")}>
-              Add User
+            {t("admin.users.button")}
             </button>
           </div>
         </div>
@@ -170,9 +191,9 @@ export default function Users() {
           <div className="userStatistics part userPart">
             <div className="content">
               <h3>
-                Users: {data.length} / {qualityData}
+              {t("admin.users.totalUser")}: {data.length} / {qualityData}
               </h3>
-              <h3>Middle: {middleAge}</h3>
+              <h3>{t("admin.users.middleAge")}: {middleAge}</h3>
             </div>
             <div className="skill big">
               <div className="outer">
@@ -235,7 +256,9 @@ export default function Users() {
                     r="30"
                     strokeLinecap="round"
                     style={{
-                      strokeDashoffset: `${((100 - male) / 100) * 188}`,
+                      strokeDashoffset: `${
+                        ((100 - overEighteens) / 100) * 188
+                      }`,
                     }}
                   />
                 </svg>
@@ -267,7 +290,7 @@ export default function Users() {
                     cy="40"
                     r="35"
                     strokeLinecap="round"
-                    style={{ strokeDashoffset: ((100 - agender) / 100) * 220 }}
+                    style={{ strokeDashoffset: ((100 - notAge) / 100) * 220 }}
                   />
                 </svg>
               </div>
@@ -299,20 +322,25 @@ export default function Users() {
                     cy="35"
                     r="30"
                     strokeLinecap="round"
-                    style={{ strokeDashoffset: ((100 - female) / 100) * 188 }}
+                    style={{
+                      strokeDashoffset: ((100 - notEighteens) / 100) * 188,
+                    }}
                   />
                 </svg>
               </div>
             </div>
           </div>
-          <div style={{justifyContent: "center"}} className="countryStatistics part userPart">
-            <h1>Country</h1>
+          <div
+            style={{ justifyContent: "center" }}
+            className="countryStatistics part userPart"
+          >
+            <h1>{t("admin.users.topCountry")}</h1>
           </div>
           <div className="genderStatistics part userPart">
             <div className="genderBox">
               <p>
                 <TbGenderMale className="icon" />
-                <span>Male</span>
+                <span>{t("admin.users.male")}</span>
               </p>
               <div className="skill">
                 <div className="outer">
@@ -380,7 +408,7 @@ export default function Users() {
             <div className="genderBox">
               <p>
                 <TbGenderFemale className="icon" />
-                <span>Female</span>
+                <span>{t("admin.users.female")}</span>
               </p>
               <div className="skill">
                 <div className="outer">
@@ -423,43 +451,88 @@ export default function Users() {
             <table>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Birthday</th>
-                  <th>Country</th>
-                  <th>Gender</th>
-                  <th>Role</th>
+                  <th>{t("admin.users.name")}</th>
+                  <th>{t("admin.users.birthday")}</th>
+                  <th>{t("admin.users.country")}</th>
+                  <th>{t("admin.users.gender")}</th>
+                  <th>{t("admin.users.role")}</th>
                 </tr>
               </thead>
               <tbody>
-                {slicedData.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      <img src={item.image ? item.image : unknown} />
-                      <div className="name">
-                        <h1>{item.name}</h1>
-                        <p>{item.email}</p>
-                      </div>
-                    </td>
-                    <td>
-                      {item.birthday && timeConverter(item.birthday.seconds)}
-                    </td>
-                    <td>{item.country}</td>
-                    <td>{item.gender}</td>
-                    <td>{item.role}</td>
-                  </tr>
-                ))}
-                {loader ? (
+                {searchInput === "" ? (
+                  <>
+                    {slicedData.map((item, index) => (
+                      <tr key={index}>
+                        <td>
+                          <img src={item.image ? item.image : unknown} />
+                          <div className="name">
+                            <h1>{item.name}</h1>
+                            <p>{item.email}</p>
+                          </div>
+                        </td>
+                        <td>
+                          {item.birthday &&
+                            timeConverter(item.birthday.seconds)}
+                        </td>
+                        <td>{item.country}</td>
+                        <td>{item.gender}</td>
+                        <td>{item.role}</td>
+                      </tr>
+                    ))}
+                    {loader ? (
+                      <tr>
+                        <th style={{ padding: "10px 0 15px" }} colSpan={5}>
+                        {t("admin.users.loading")}
+                        </th>
+                      </tr>
+                    ) : (
+                      <tr>
+                        <th style={{ padding: "10px 0 15px" }} colSpan={5}>
+                        {t("admin.users.otherData")}
+                        </th>
+                      </tr>
+                    )}
+                  </>
+                ) : newSlicedData.length == 0 ? (
                   <tr>
                     <th style={{ padding: "10px 0 15px" }} colSpan={5}>
-                      Loading...
+                      {t("admin.users.serachUsers")}
                     </th>
                   </tr>
                 ) : (
-                  <tr>
-                    <th style={{ padding: "10px 0 15px" }} colSpan={5}>
-                      No others data !
-                    </th>
-                  </tr>
+                  <>
+                    {newSlicedData.map((item, index) => (
+                      <tr key={index}>
+                        <td>
+                          <img src={item.image ? item.image : unknown} />
+                          <div className="name">
+                            <h1>{item.name}</h1>
+                            <p>{item.email}</p>
+                          </div>
+                        </td>
+                        <td>
+                          {item.birthday &&
+                            timeConverter(item.birthday.seconds)}
+                        </td>
+                        <td>{item.country}</td>
+                        <td>{item.gender}</td>
+                        <td>{item.role}</td>
+                      </tr>
+                    ))}
+                    {loader ? (
+                      <tr>
+                        <th style={{ padding: "10px 0 15px" }} colSpan={5}>
+                        {t("admin.users.loading")}
+                        </th>
+                      </tr>
+                    ) : (
+                      <tr>
+                        <th style={{ padding: "10px 0 15px" }} colSpan={5}>
+                        {t("admin.users.otherData")}
+                        </th>
+                      </tr>
+                    )}
+                  </>
                 )}
               </tbody>
             </table>

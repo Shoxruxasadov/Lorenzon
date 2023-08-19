@@ -1,29 +1,77 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { Timestamp, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, storage } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-import {
-  BiSolidPencil,
-  BiSolidCake,
-  BiSolidLock,
-  BiSolidLockAlt,
-} from "react-icons/bi";
-import { FaUser, FaPhone, FaFlag, FaUsersCog } from "react-icons/fa";
-import { TbMailFilled } from "react-icons/tb";
-import { MdVerifiedUser } from "react-icons/md";
-import { useForm } from "react-hook-form";
-import unknown from "../../../images/Admin/unknown.jpg";
-
 import { success, wrong, warning, info } from "../../../toastify/Toastify";
 import { ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import country from "../../../api/country";
+
+import { RiAdminFill, RiUser2Fill } from "react-icons/ri";
+import { HiSearch } from "react-icons/hi";
+import { TbMailFilled } from "react-icons/tb";
+import { MdVerifiedUser } from "react-icons/md";
+import unknown from "../../../images/Admin/unknown.jpg";
+
+import {
+  BiSolidLockAlt,
+  BiSolidPencil,
+  BiSolidLock,
+  BiSolidFlag,
+  BiSolidCake,
+} from "react-icons/bi";
+
+import {
+  FaMale,
+  FaFemale,
+  FaGenderless,
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+} from "react-icons/fa";
 
 export default function AddUser() {
   const navigate = useNavigate();
+  const [t, i18n] = useTranslation("global");
+  const [lang, setLang] = useState(false);
   const [nextProfile, setNextProfile] = useState(false);
+  const [eye, setEye] = useState(false);
+
+  const [allCountry, setAllCountry] = useState(country);
+  const [newCountry, setNewCountry] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+
+  const [selectCountry, setSelectCountry] = useState(
+    t("admin.adduser.country")
+  );
+  const [ocCountry, setOcCountry] = useState(false);
+
+  const [selectGender, setSelectGender] = useState(t("admin.adduser.gender"));
+  const [ocGender, setOcGender] = useState(false);
+
+  const [selectRole, setSelectRole] = useState(t("admin.adduser.role"));
+  const [ocRole, setOcRole] = useState(false);
+
+  useEffect(() => {
+    setSelectCountry(t("admin.adduser.country"));
+    setSelectGender(t("admin.adduser.gender"));
+    setSelectRole(t("admin.adduser.role"));
+  }, [lang]);
+
+  const [birthdayData, setBirthdayData] = useState("");
+  const trimmedData = birthdayData.replace(/\s+/g, "");
+  const happy =
+    trimmedData.substring(6, 10) +
+    "-" +
+    trimmedData.substring(3, 5) +
+    "-" +
+    trimmedData.substring(0, 2);
+
   const inputRef = useRef(null);
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("theme") === "light" ? true : false
@@ -35,51 +83,49 @@ export default function AddUser() {
     formState: { errors },
   } = useForm();
   const [photo, setPhoto] = useState("");
-  const [getPhoto, setGetPhoto] = useState(null);
   const [per, setPer] = useState(null);
   const [disable, setDisable] = useState(false);
 
-  useEffect(() => {
-    const uploadPhoto = () => {
-      const name = new Date().getTime() + "." + photo.name;
-      const storageRef = ref(storage, `users/${name}`);
-      const uploadTask = uploadBytesResumable(storageRef, photo);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          setPer(progress);
-          switch (snapshot.state) {
-            case "paused":
-              info("Upload is paused", darkmode, "top-right");
-              break;
-            case "running":
-              success("Upload is running", darkmode, "top-right");
-              break;
-            default:
-              break;
-          }
-        },
-        (error) => {
-          wrong("RASM YUKLANMADI !", darkmode, "top-right");
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setGetPhoto(downloadURL);
-          });
-        }
-      );
-    };
-    photo && uploadPhoto();
-  }, [photo]);
-
   const onSubmit = async (data) => {
-    if (data.password !== data.conpass) {
+    if (data.password !== data.confirmPassword) {
       warning(
-        "Tasqinlanga parol xato",
+        t("admin.adduser.validation.conEqualPass"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+    } else if (birthdayData.length < 14) {
+      warning(
+        t("admin.adduser.validation.enterBirthday"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+    } else if (
+      selectGender == "Gender" ||
+      selectGender == "Пол" ||
+      selectGender == "Jins"
+    ) {
+      warning(
+        t("admin.adduser.validation.enterGender"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+    } else if (
+      selectCountry == "Country" ||
+      selectCountry == "Страна" ||
+      selectCountry == "Mamlakat"
+    ) {
+      warning(
+        t("admin.adduser.validation.enterCountry"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+    } else if (
+      selectRole == "Role" ||
+      selectRole == "Роль" ||
+      selectRole == "Rol"
+    ) {
+      warning(
+        t("admin.adduser.validation.enterRole"),
         darkmode ? "light" : "dark",
         "top-right"
       );
@@ -93,30 +139,201 @@ export default function AddUser() {
           data.password
         );
 
-        await setDoc(doc(db, "users", res.user.uid), {
-          birthday: data.birthday,
-          country: data.country,
-          email: data.email,
-          gender: data.gender,
-          image: getPhoto,
-          name: data.name,
-          password: data.password,
-          phone: data.phone,
-          role: data.role,
-          timeStamp: serverTimestamp(),
-        });
+        if (photo) {
+          const name = new Date().getTime() + "." + photo.name;
+          const storageRef = ref(storage, `users/${name}`);
+          const uploadTask = uploadBytesResumable(storageRef, photo);
 
-        success("User qo'shildi", darkmode ? "light" : "dark", "top-right");
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log("Upload is " + progress + "% done");
+              setPer(progress);
+              switch (snapshot.state) {
+                case "paused":
+                  console.log("Upload is paused");
+                  break;
+                case "running":
+                  console.log("Upload is running");
+                  break;
+                default:
+                  break;
+              }
+            },
+            (error) => {
+              wrong(
+                t("admin.adduser.validation.noUploadPhoto"),
+                darkmode,
+                "top-right"
+              );
+              console.log(error);
+            },
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then(
+                async (downloadURL) => {
+                  await setDoc(doc(db, "users", res.user.uid), {
+                    birthday: Timestamp.fromDate(new Date(happy)),
+                    country: selectCountry,
+                    email: data.email,
+                    gender: selectGender,
+                    image: downloadURL,
+                    name: data.name,
+                    password: data.password,
+                    role: selectRole,
+                    timeStamp: serverTimestamp(),
+                  });
+                }
+              );
+            }
+          );
+        } else {
+          await setDoc(doc(db, "users", res.user.uid), {
+            birthday: Timestamp.fromDate(new Date(happy)),
+            country: selectCountry,
+            email: data.email,
+            gender: selectGender,
+            image: null,
+            name: data.name,
+            password: data.password,
+            role: selectRole,
+            timeStamp: serverTimestamp(),
+          });
+        }
+
+        success(
+          t("admin.adduser.validation.addedUser"),
+          darkmode ? "light" : "dark",
+          "top-right"
+        );
         setNextProfile(true);
         setTimeout(() => {
           setDisable(false);
         }, 2000);
-      } catch (err) {
+      } catch {
         setDisable(false);
-        wrong("Bunday user mavjud", darkmode ? "light" : "dark", "top-right");
+        wrong(
+          t("admin.adduser.validation.errorRegister"),
+          darkmode ? "light" : "dark",
+          "top-right"
+        );
       }
     }
   };
+
+  let currentYear = new Date().getFullYear();
+  function checkBirthdayValue(str, max) {
+    if (str.charAt(0) !== "0" || str == "00") {
+      let num = parseInt(str);
+      if (isNaN(num) || num <= 0 || num > max) num = 1;
+      if (
+        num > parseInt(max.toString().charAt(0)) &&
+        num.toString().length == 1
+      ) {
+        str = "0" + num;
+      } else {
+        str = num.toString();
+      }
+    }
+    return str;
+  }
+
+  function inpBithday(e) {
+    e.target.type = "text";
+    let input = e.target.value;
+    if (/\D\-$/.test(input)) input = input.substr(0, input.length - 3);
+    let values = input.split("-").map(function (v) {
+      return v.replace(/\D/g, "");
+    });
+    if (values[0]) values[0] = checkBirthdayValue(values[0], 31); // day check
+    if (values[1]) values[1] = checkBirthdayValue(values[1], 12); // month check
+    if (values[1]) values[1] = checkBirthdayValue(values[1], currentYear); // year check
+    let output = values.map(function (v, i) {
+      return v.length == 2 && i < 2 ? v + " - " : v;
+    });
+    e.target.value = output.join("").substr(0, 14);
+  }
+
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < allCountry.length; i++) {
+      if (allCountry[i].toUpperCase().startsWith(searchInput.toUpperCase())) {
+        arr.push(allCountry[i]);
+      }
+    }
+    setNewCountry(arr);
+  }, [searchInput]);
+
+  function handleValidation() {
+    if (errors.name)
+      warning(errors.name.message, darkmode ? "light" : "dark", "top-right");
+
+    if (errors.email)
+      warning(
+        t("admin.adduser.validation.email"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+
+    if (birthdayData.length < 14)
+      warning(
+        t("admin.adduser.validation.enterBirthday"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+
+    if (
+      selectGender == "Gender" ||
+      selectGender == "Пол" ||
+      selectGender == "Jins"
+    )
+      warning(
+        t("admin.adduser.validation.enterGender"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+
+    if (
+      selectCountry == "Country" ||
+      selectCountry == "Страна" ||
+      selectCountry == "Mamlakat"
+    )
+      warning(
+        t("admin.adduser.validation.enterCountry"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+
+    if (selectRole == "Role" || selectRole == "Роль" || selectRole == "Rol")
+      warning(
+        t("admin.adduser.validation.enterRole"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+
+    if (errors.password) {
+      if (errors.password.message === "") {
+        warning(
+          t("admin.adduser.validation.password"),
+          darkmode ? "light" : "dark",
+          "top-right"
+        );
+      } else {
+        warning(
+          errors.password.message,
+          darkmode ? "light" : "dark",
+          "top-right"
+        );
+      }
+    }
+    if (errors.confirmPassword)
+      warning(
+        t("admin.adduser.validation.conpass"),
+        darkmode ? "light" : "dark",
+        "top-right"
+      );
+  }
 
   return (
     <>
@@ -125,10 +342,10 @@ export default function AddUser() {
         <header>
           <div className="category">
             <h1 onClick={() => navigate("/admin/users")} className="link">
-              Users
+              {t("admin.users.title")}
             </h1>
             <h3>/</h3>
-            <h2>Add User</h2>
+            <h2>{t("admin.adduser.title")}</h2>
           </div>
           <div className="others">
             <div className="addUserProgress">
@@ -150,7 +367,7 @@ export default function AddUser() {
                 >
                   1
                 </div>
-                <p>Profile</p>
+                <p>{t("admin.adduser.firstStatus")}</p>
               </div>
               <div className="line" />
               <div
@@ -171,18 +388,18 @@ export default function AddUser() {
                 >
                   2
                 </div>
-                <p>Confirmation</p>
+                <p>{t("admin.adduser.secondStatus")}</p>
               </div>
             </div>
           </div>
         </header>
         <div className="content">
-          <div className="card">
-            <div className="head">
-              <h1>Basic Information</h1>
-            </div>
-            <form className="body" onSubmit={handleSubmit(onSubmit)}>
-              <div className="photo">
+          <div className="head">
+            <h1>{t("admin.adduser.basic")}</h1>
+          </div>
+          <form className="body" onSubmit={handleSubmit(onSubmit)}>
+            <div className="photo">
+              <div className="top">
                 <div className="img" onClick={() => inputRef.current.click()}>
                   <div className="image">
                     <img src={photo ? URL.createObjectURL(photo) : unknown} />
@@ -197,118 +414,338 @@ export default function AddUser() {
                   </div>
                 </div>
                 <div className="title">
-                  <h1>Profile photo</h1>
-                  <p>This will be displayed on your profile.</p>
+                  <h1>{t("admin.adduser.profilePhone")}</h1>
+                  <p>{t("admin.adduser.titlePhoto")}</p>
                 </div>
               </div>
-              <div className="terminal">
-                <div className="datas">
-                  <label htmlFor="name">
-                    <FaUser />
-                    <input
-                      type="text"
-                      id="name"
-                      placeholder="Name"
-                      {...register("name", { required: true })}
-                      aria-invalid={errors.name ? "true" : "false"}
-                    />
-                  </label>
-                  <label htmlFor="email">
-                    <TbMailFilled />
-                    <input
-                      type="text"
-                      id="email"
-                      placeholder="Email"
-                      {...register("email", { required: true })}
-                      aria-invalid={errors.email ? "true" : "false"}
-                    />
-                  </label>
-                  <label htmlFor="phone">
-                    <FaPhone />
-                    <input
-                      type="number"
-                      id="phone"
-                      placeholder="Phone"
-                      {...register("phone", { required: true })}
-                      aria-invalid={errors.phone ? "true" : "false"}
-                    />
-                  </label>
-                </div>
-                <div className="datas">
-                  <label htmlFor="birthday">
-                    <BiSolidCake />
-                    <input
-                      type="text"
-                      id="birthday"
-                      placeholder="Birthday"
-                      {...register("birthday", { required: true })}
-                      aria-invalid={errors.birthday ? "true" : "false"}
-                    />
-                  </label>
-                  <label htmlFor="password">
-                    <BiSolidLock />
-                    <input
-                      type="password"
-                      id="password"
-                      placeholder="Password"
-                      {...register("password", { required: true })}
-                      aria-invalid={errors.password ? "true" : "false"}
-                    />
-                  </label>
-                  <label htmlFor="conpass">
-                    <BiSolidLockAlt />
-                    <input
-                      type="password"
-                      id="conpass"
-                      placeholder="Confirm Password"
-                      {...register("conpass", { required: true })}
-                      aria-invalid={errors.conpass ? "true" : "false"}
-                    />
-                  </label>
-                </div>
-                <div className="datas">
-                  <label htmlFor="country">
-                    <FaFlag />
-                    <input
-                      type="text"
-                      id="country"
-                      placeholder="Country"
-                      {...register("country", { required: true })}
-                      aria-invalid={errors.country ? "true" : "false"}
-                    />
-                  </label>
-                  <label htmlFor="gender">
-                    <FaUsersCog />
-                    <input
-                      type="text"
-                      id="gender"
-                      placeholder="Gender"
-                      {...register("gender", { required: true })}
-                      aria-invalid={errors.gender ? "true" : "false"}
-                    />
-                  </label>
-                  <label htmlFor="role">
-                    <MdVerifiedUser />
-                    <input
-                      type="text"
-                      id="role"
-                      placeholder="Role"
-                      {...register("role", { required: true })}
-                      aria-invalid={errors.role ? "true" : "false"}
-                    />
-                  </label>
-                </div>
-                <div className="submit">
-                  <button
-                    disabled={(per !== null && per < 100) || disable}
-                    type="submit"
+              <div className="submit">
+                <button
+                  disabled={(per !== null && per < 100) || disable}
+                  onClick={handleValidation}
+                  type="submit"
+                >
+                  {t("admin.adduser.continue")}
+                </button>
+              </div>
+            </div>
+            <div className="terminal">
+              <label htmlFor="name">
+                <FaUser className="faUser" />
+                <input
+                  {...register("name", {
+                    required: t("admin.adduser.validation.name"),
+                    minLength: {
+                      value: 3,
+                      message: t("admin.adduser.validation.nameLang"),
+                    },
+                  })}
+                  id="name"
+                  type="text"
+                  placeholder={t("admin.adduser.name")}
+                  aria-invalid={errors.name ? "true" : "false"}
+                />
+              </label>
+              <label htmlFor="email">
+                <TbMailFilled />
+                <input
+                  {...register("email", { required: true })}
+                  id="email"
+                  type="email"
+                  placeholder={t("admin.adduser.email")}
+                  aria-invalid={errors.email ? "true" : "false"}
+                />
+              </label>
+              <label className="birthday" htmlFor="birthday">
+                <BiSolidCake />
+                <input
+                  type="tel"
+                  id="birthday"
+                  placeholder={t("admin.adduser.birthday")}
+                  onChange={(e) => {
+                    inpBithday(e);
+                    setBirthdayData(e.target.value);
+                  }}
+                />
+              </label>
+              <label className="gender">
+                {selectGender === "Male" ? (
+                  <FaMale
+                    onClick={() => {
+                      setOcGender(!ocGender);
+                      setOcCountry(false);
+                      setOcRole(false);
+                    }}
+                  />
+                ) : selectGender === "Female" ? (
+                  <FaFemale
+                    onClick={() => {
+                      setOcGender(!ocGender);
+                      setOcCountry(false);
+                      setOcRole(false);
+                    }}
+                  />
+                ) : (
+                  <FaGenderless
+                    onClick={() => {
+                      setOcGender(!ocGender);
+                      setOcCountry(false);
+                      setOcRole(false);
+                    }}
+                  />
+                )}
+                <div
+                  onClick={() => {
+                    setOcGender(!ocGender);
+                    setOcCountry(false);
+                    setOcRole(false);
+                  }}
+                  id="select"
+                  className="select"
+                >
+                  <span
+                    className={
+                      selectGender == "Gender" ||
+                      selectGender == "Пол" ||
+                      selectGender == "Jins"
+                        ? ""
+                        : "active"
+                    }
                   >
-                    Continue
-                  </button>
+                    {selectGender === "Male"
+                      ? t("admin.adduser.male")
+                      : selectGender === "Female"
+                      ? t("admin.adduser.female")
+                      : selectGender}
+                  </span>
                 </div>
+                <div
+                  id="content"
+                  className={ocGender ? "content active" : "content"}
+                >
+                  <ul id="options">
+                    <li
+                      onClick={() => {
+                        setSelectGender("Male");
+                        setOcGender(false);
+                      }}
+                      id="selectedItem"
+                    >
+                      <FaMale />
+                      <span>{t("admin.adduser.male")}</span>
+                    </li>
+                    <li
+                      onClick={() => {
+                        setSelectGender("Female");
+                        setOcGender(false);
+                      }}
+                      id="selectedItem"
+                    >
+                      <FaFemale />
+                      <span>{t("admin.adduser.female")}</span>
+                    </li>
+                  </ul>
+                </div>
+              </label>
+              <label className="country">
+                <BiSolidFlag
+                  onClick={() => {
+                    setOcCountry(!ocCountry);
+                    setOcGender(false);
+                  }}
+                />
+                <div
+                  onClick={() => {
+                    setOcCountry(!ocCountry);
+                    setOcGender(false);
+                  }}
+                  id="select"
+                  className="select"
+                >
+                  <span
+                    className={
+                      selectCountry == "Country" ||
+                      selectCountry == "Страна" ||
+                      selectCountry == "Mamlakat"
+                        ? ""
+                        : "active"
+                    }
+                  >
+                    {selectCountry}
+                  </span>
+                  <i id="arrow" className="fa-solid fa-angle-down"></i>
+                </div>
+                <div
+                  id="content"
+                  className={ocCountry ? "content active" : "content"}
+                >
+                  <div className="search">
+                    <HiSearch />
+                    <input
+                      onKeyUp={(e) => setSearchInput(e.target.value)}
+                      id="searchCountryInp"
+                      type="text"
+                      placeholder="Search Country"
+                    />
+                  </div>
+                  <ul id="options">
+                    {searchInput === "" ? (
+                      allCountry.map((item, index) => (
+                        <li
+                          key={index}
+                          onClick={() => {
+                            setSelectCountry(item);
+                            setOcCountry(false);
+                          }}
+                          id="selectedItem"
+                        >
+                          {item}
+                        </li>
+                      ))
+                    ) : newCountry.length == 0 ? (
+                      <li>{t("admin.adduser.notCountry")}</li>
+                    ) : (
+                      newCountry.map((item, index) => (
+                        <li
+                          key={index}
+                          onClick={() => {
+                            setSelectCountry(item);
+                            setOcCountry(false);
+                          }}
+                          id="selectedItem"
+                        >
+                          {item}
+                        </li>
+                      ))
+                    )}
+                  </ul>
+                </div>
+              </label>
+              <label className="role">
+                {selectRole === "User" ? (
+                  <RiUser2Fill
+                    onClick={() => {
+                      setOcRole(!ocRole);
+                      setOcGender(false);
+                      setOcCountry(false);
+                    }}
+                  />
+                ) : selectRole === "Admin" ? (
+                  <RiAdminFill
+                    onClick={() => {
+                      setOcRole(!ocRole);
+                      setOcGender(false);
+                      setOcCountry(false);
+                    }}
+                  />
+                ) : (
+                  <MdVerifiedUser
+                    onClick={() => {
+                      setOcRole(!ocRole);
+                      setOcGender(false);
+                      setOcCountry(false);
+                    }}
+                  />
+                )}
+                <div
+                  onClick={() => {
+                    setOcRole(!ocRole);
+                    setOcGender(false);
+                    setOcCountry(false);
+                  }}
+                  id="selectRole"
+                  className="selectRole"
+                >
+                  <span
+                    className={
+                      selectRole == "Role" ||
+                      selectRole == "Роль" ||
+                      selectRole == "Rol"
+                        ? ""
+                        : "active"
+                    }
+                  >
+                    {selectRole === "User"
+                      ? t("admin.adduser.user")
+                      : selectRole === "Admin"
+                      ? t("admin.adduser.admin")
+                      : selectRole}
+                  </span>
+                </div>
+                <div
+                  id="content"
+                  className={ocRole ? "content active" : "content"}
+                >
+                  <ul id="options">
+                    <li
+                      onClick={() => {
+                        setSelectRole("User");
+                        setOcRole(false);
+                      }}
+                      id="selectedItem"
+                    >
+                      <RiUser2Fill />
+                      <span>{t("admin.adduser.user")}</span>
+                    </li>
+                    <li
+                      onClick={() => {
+                        setSelectRole("Admin");
+                        setOcRole(false);
+                      }}
+                      id="selectedItem"
+                    >
+                      <RiAdminFill />
+                      <span>{t("admin.adduser.admin")}</span>
+                    </li>
+                  </ul>
+                </div>
+              </label>
+              <label htmlFor="password">
+                <BiSolidLock />
+                <input
+                  {...register("password", {
+                    required: true,
+                    minLength: {
+                      value: 8,
+                      message: t("admin.adduser.validation.passLang"),
+                    },
+                  })}
+                  id="password"
+                  type={eye ? "text" : "password"}
+                  placeholder={t("admin.adduser.password")}
+                  aria-invalid={errors.password ? "true" : "false"}
+                />
+                {eye ? (
+                  <FaEye className="eye" onClick={() => setEye(!eye)} />
+                ) : (
+                  <FaEyeSlash className="eye" onClick={() => setEye(!eye)} />
+                )}
+              </label>
+              <label htmlFor="conpass">
+                <BiSolidLockAlt />
+                <input
+                  {...register("confirmPassword", { required: true })}
+                  id="conpass"
+                  type={eye ? "text" : "password"}
+                  placeholder={t("admin.adduser.conpass")}
+                  aria-invalid={errors.confirmPassword ? "true" : "false"}
+                />
+                {eye ? (
+                  <FaEye className="eye" onClick={() => setEye(!eye)} />
+                ) : (
+                  <FaEyeSlash className="eye" onClick={() => setEye(!eye)} />
+                )}
+              </label>
+              <div className="submit">
+                <button
+                  disabled={(per !== null && per < 100) || disable}
+                  onClick={handleValidation}
+                  type="submit"
+                >
+                  {t("admin.adduser.continue")}
+                </button>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </section>
     </>

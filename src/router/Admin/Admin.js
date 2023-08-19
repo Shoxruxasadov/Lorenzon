@@ -27,7 +27,6 @@ export default function Admin() {
         reverseDocs.forEach((doc) => {
           if ("admin@dev.uz" != doc.data().email) list.push(doc.data());
         });
-        console.log(list);
         dispatch({ type: "GET_USERS", payload: list });
       } catch (err) {
         console.log("ERROR FETCH DATA IN FIRESTORE");

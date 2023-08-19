@@ -86,7 +86,81 @@
       "errorRegister": "Such a user exists",
       "enterGender": "Enter your gender",
       "enterCountry": "Enter your country",
-      "birthday": "Enter your birthday"
+      "birthday": "Enter your birthday",
+      "enterRole": "Enter your role"
+    }
+  },
+  "admin": {
+    "sidebar": {
+      "home": "Home",
+      "users": "Users",
+      "musics": "Musics",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "users": {
+      "title": "Users",
+      "input": "Search users here...",
+      "button": "Add User",
+      "totalUser": "Users",
+      "middleAge": "Middle",
+      "topCountry": "Country",
+      "male": "Male",
+      "female": "Female",
+      "name": "Name",
+      "birthday": "Birthday",
+      "country": "Country",
+      "gender": "Gender",
+      "role": "Role",
+      "loading": "Loading...",
+      "otherData": "No others data !",
+      "serachUsers": "The user you were looking for was not found !"
+    },
+    "adduser": {
+      "title": "Add User",
+      "firstStatus": "Profile",
+      "secondStatus": "Confirmation",
+      "basic": "Basic Information",
+      "profilePhone": "Profile photo",
+      "titlePhoto": "This will be displayed on your profile.",
+      "name": "Name",
+      "email": "Email",
+      "birthday": "DD - MM - YYYY",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "country": "Country",
+      "NotCountry": "Country not found 😕",
+      "role": "Role",
+      "user": "User",
+      "admin": "Admin",
+      "password": "Password",
+      "conpass": "Confirm Password",
+      "continue": "Continue",
+      "validation": {
+        "conEqualPass": "Confirmed password is wrong",
+        "conpass": "Enter confirmation password",
+        "addedUser": "User added",
+        "errorRegister": "Such user exists.",
+        "name": "Enter name",
+        "nameLang": "Name must be at least 3 letters",
+        "email": "Enter email",
+        "password": "Enter password",
+        "passLang": "Password must be at least 8 characters",
+        "enterGender": "Enter gender",
+        "enterCountry": "Enter country",
+        "enterBirthday": "Enter birthday",
+        "enterRole": "Enter role",
+        "noUploadPhoto": "Image not loaded"
+      }
+    },
+    "musics": {
+      "title": "Musics",
+      "input": "Search musics here...",
+      "button": "Add Collection"
     }
   }
 }

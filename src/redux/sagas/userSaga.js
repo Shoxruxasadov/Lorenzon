@@ -1,6 +1,5 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { getUsers, getSort } from "../reducers/userReducer";
-import axios from "axios";
 
 function* workGetUsers(action) {
   for (let i = 0; i < action.payload.length; i++) {

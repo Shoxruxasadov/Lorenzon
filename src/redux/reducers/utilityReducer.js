@@ -5,8 +5,8 @@ const initialState = {
   sidebar: localStorage.getItem("sidebar") || true,
 };
 
-export const assetsSlice = createSlice({
-  name: "assets",
+export const utilitySlice = createSlice({
+  name: "utility",
   initialState,
   reducers: {
     setDarkmode: (state, action) => {
@@ -24,6 +24,6 @@ export const assetsSlice = createSlice({
   },
 });
 
-export const { setDarkmode, setSidebar } = assetsSlice.actions;
+export const { setDarkmode, setSidebar } = utilitySlice.actions;
 
-export default assetsSlice.reducer;
+export default utilitySlice.reducer;

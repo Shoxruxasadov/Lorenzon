@@ -9,7 +9,7 @@ import logo from "../../../images/Logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Header() {
-  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);

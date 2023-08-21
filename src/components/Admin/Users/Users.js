@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup/build";
 
-import timeConverter from "../../../api/timeConverter";
-import ageConverter from "../../../api/ageConverter";
+import timeConverter from "../../../utility/timeConverter";
+import ageConverter from "../../../utility/ageConverter";
 
 import { HiSortDescending, HiSortAscending } from "react-icons/hi";
 import { TbGenderMale, TbGenderFemale } from "react-icons/tb";

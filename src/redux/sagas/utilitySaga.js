@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import { setDarkmode, setSidebar } from "../reducers/assetsReducer";
+import { setDarkmode, setSidebar } from "../reducers/utilityReducer";
 
 function* workSetDarkmode(action) {
   yield put(setDarkmode());
@@ -11,7 +11,7 @@ function* workSetSidebar(action) {
   return;
 }
 
-export default function* userSaga() {
+export default function* utilitySaga() {
   yield takeEvery("SET_DARKMODE", workSetDarkmode);
   yield takeEvery("SET_SIDEBAR", workSetSidebar);
 }

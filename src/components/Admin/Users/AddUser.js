@@ -7,11 +7,11 @@ import { auth, db, storage } from "../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-import { success, wrong, warning, info } from "../../../toastify/Toastify";
+import { success, wrong, warning } from "../../../utility/toastify";
 import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import country from "../../../api/country";
+import country from "../../../utility/country";
 
 import { RiAdminFill, RiUser2Fill } from "react-icons/ri";
 import { HiSearch } from "react-icons/hi";
@@ -38,7 +38,7 @@ import {
 
 
 export default function AddUser() {
-  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);

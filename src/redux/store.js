@@ -5,23 +5,23 @@ import logger from "redux-logger";
 // REDUCERS
 import userReducer from "./reducers/userReducer";
 import confirmReducer from "./reducers/confirmReducer";
-import assetsReducer from "./reducers/assetsReducer";
+import utilityReducer from "./reducers/utilityReducer";
 
 // SAGAS
 import userSaga from "./sagas/userSaga";
 import confirmSaga from "./sagas/confirmSaga";
-import assetsSaga from "./sagas/assetsSaga";
+import utilitySaga from "./sagas/utilitySaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
-  reducer: { userReducer, confirmReducer, assetsReducer },
+  reducer: { userReducer, confirmReducer, utilityReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware, logger),
 });
 
 sagaMiddleware.run(userSaga);
 sagaMiddleware.run(confirmSaga);
-sagaMiddleware.run(assetsSaga);
+sagaMiddleware.run(utilitySaga);
 
 export default store;

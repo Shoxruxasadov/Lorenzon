@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiSolidLock } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
-import { wrong, success, warning } from "../../toastify/Toastify";
+import { wrong, success, warning } from "../../utility/toastify";
 import photo from "../../images/Login/login.svg";
 
 import {
@@ -26,7 +26,7 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Signin() {
-  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");

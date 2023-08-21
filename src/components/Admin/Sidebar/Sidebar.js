@@ -14,7 +14,7 @@ import { LuLogOut } from "react-icons/lu";
 
 export default function Sidebar() {
   const user = useSelector((state) => state.confirmReducer.user);
-  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);

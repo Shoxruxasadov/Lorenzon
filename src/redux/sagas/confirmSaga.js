@@ -15,7 +15,7 @@ function* workSetUser(action) {
   return;
 }
 
-export default function* userSaga() {
+export default function* confirmSaga() {
   yield takeEvery("SET_CONFIRM", workSetConfirm);
   yield takeEvery("SET_USER", workSetUser);
 }

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import photo from "../../images/Login/register.svg";
-import { useForm } from "react-hook-form";
-import { wrong, success, warning } from "../../toastify/Toastify";
-import { ToastContainer } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-import country from "../../api/country";
+
+import photo from "../../images/Login/register.svg";
+import { wrong, success, warning } from "../../utility/toastify";
+import country from "../../utility/country";
 
 import {
   BiSolidLockAlt,
@@ -33,11 +34,13 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
+
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   FacebookAuthProvider,
 } from "firebase/auth";
+
 import {
   auth,
   db,
@@ -46,7 +49,7 @@ import {
 } from "../../firebase/firebase";
 
 export default function Signup() {
-  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");

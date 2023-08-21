@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import i18next from "i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import logo from "../../../images/Logo/logo.png";
 import icon from "../../../images/Logo/white.png";
@@ -12,11 +12,13 @@ import { FaUserFriends } from "react-icons/fa";
 import { HiMiniMusicalNote } from "react-icons/hi2";
 import { LuLogOut } from "react-icons/lu";
 
-export default function Sidebar({ darkmode, setDarkmode }) {
+export default function Sidebar() {
   const user = useSelector((state) => state.confirmReducer.user);
+  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChangeLanguage = (lang) => {
     i18next.changeLanguage(lang);
@@ -41,7 +43,7 @@ export default function Sidebar({ darkmode, setDarkmode }) {
   return (
     <div className="sidebar">
       <div className="wrapper">
-        <div className="logo">
+        <div onClick={() => dispatch({ type: "SET_SIDEBAR" })} className="logo">
           <img src={darkmode ? logo : icon} />
         </div>
         <div className="categories">
@@ -149,7 +151,10 @@ export default function Sidebar({ darkmode, setDarkmode }) {
             UZ
           </li>
         </ul>
-        <div onClick={() => setDarkmode(!darkmode)} className="darkmode">
+        <div
+          onClick={() => dispatch({ type: "SET_DARKMODE" })}
+          className="darkmode"
+        >
           <div
             className="sun"
             style={

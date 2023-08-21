@@ -6,11 +6,14 @@ import i18next from "i18next";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import logo from "../../../images/Logo/logo.png";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Header({ darkmode, setDarkmode }) {
+export default function Header() {
+  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
+  const dispatch = useDispatch();
 
   const handleChangeLanguage = (lang) => {
     i18next.changeLanguage(lang);
@@ -46,9 +49,7 @@ export default function Header({ darkmode, setDarkmode }) {
             <li
               onClick={() => langChanger("en")}
               style={
-                language == "en"
-                  ? { color: "#141414" }
-                  : { color: "#f1f1f1" }
+                language == "en" ? { color: "#141414" } : { color: "#f1f1f1" }
               }
               className="en"
             >
@@ -74,7 +75,10 @@ export default function Header({ darkmode, setDarkmode }) {
             </li>
           </ul>
 
-          <button onClick={() => setDarkmode(!darkmode)} className="darkmode">
+          <button
+            onClick={() => dispatch({ type: "SET_DARKMODE" })}
+            className="darkmode"
+          >
             <HiMoon
               className="dark"
               style={darkmode ? { left: "-50%" } : { left: "52%" }}
@@ -105,37 +109,44 @@ export default function Header({ darkmode, setDarkmode }) {
             </Link>
             <div className="langDarkMode">
               <ul className="lang">
-              <li
-              onClick={() => langChanger("en")}
-              style={
-                language == "en"
-                  ? { color: "#141414" }
-                  : { color: "#f1f1f1" }
-              }
-              className="en"
-            >
-              EN
-            </li>
-            <li
-              onClick={() => langChanger("ru")}
-              style={
-                language == "ru" ? { color: "#141414" } : { color: "#f1f1f1" }
-              }
-              className="ru"
-            >
-              RU
-            </li>
-            <li
-              onClick={() => langChanger("uz")}
-              style={
-                language == "uz" ? { color: "#141414" } : { color: "#f1f1f1" }
-              }
-              className="uz"
-            >
-              UZ
-            </li>
+                <li
+                  onClick={() => langChanger("en")}
+                  style={
+                    language == "en"
+                      ? { color: "#141414" }
+                      : { color: "#f1f1f1" }
+                  }
+                  className="en"
+                >
+                  EN
+                </li>
+                <li
+                  onClick={() => langChanger("ru")}
+                  style={
+                    language == "ru"
+                      ? { color: "#141414" }
+                      : { color: "#f1f1f1" }
+                  }
+                  className="ru"
+                >
+                  RU
+                </li>
+                <li
+                  onClick={() => langChanger("uz")}
+                  style={
+                    language == "uz"
+                      ? { color: "#141414" }
+                      : { color: "#f1f1f1" }
+                  }
+                  className="uz"
+                >
+                  UZ
+                </li>
               </ul>
-              <div onClick={() => setDarkmode(!darkmode)} className="darkmode">
+              <div
+                onClick={() => dispatch({ type: "SET_DARKMODE" })}
+                className="darkmode"
+              >
                 <HiMoon
                   className="dark"
                   style={darkmode ? { left: "-50%" } : { left: "52%" }}

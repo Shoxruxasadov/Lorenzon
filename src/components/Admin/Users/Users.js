@@ -1,22 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
-import { HiSearch } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
-import unknown from "../../../images/Admin/unknown.jpg";
-import { useSelector } from "react-redux";
-import CountUp from "react-countup/build";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import CountUp from "react-countup/build";
+
 import timeConverter from "../../../api/timeConverter";
 import ageConverter from "../../../api/ageConverter";
 
+import { HiSortDescending, HiSortAscending } from "react-icons/hi";
 import { TbGenderMale, TbGenderFemale } from "react-icons/tb";
-import { useTranslation } from "react-i18next";
+import { HiSearch } from "react-icons/hi";
+import unknown from "../../../images/Admin/unknown.jpg";
 
 export default function Users() {
   const users = useSelector((state) => state.userReducer.users);
-  const navigate = useNavigate();
+  const sort = useSelector((state) => state.userReducer.sort);
   const [t, i18n] = useTranslation("global");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const scrollRef = useRef(null);
 
-  const [data, setData] = useState([...users]); // Malumotlar massivi
   const [slicedData, setSlicedData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
 
@@ -26,29 +30,27 @@ export default function Users() {
   const [qualityData, setQualityData] = useState(0);
   const [percentageData, setPercentageData] = useState(0);
 
-  const [page, setPage] = useState(1); // O'qish boliq
-  const [perPage, setPerPage] = useState(20); // Har bir sahifada ko'rsatiladigan malumotlar soni
-  const [totalPages, setTotalPages] = useState(1); // Jami bo'lgan bo'limdagi malumotlar soni
+  const [page, setPage] = useState(1); // O'qish bo'limi
+  const [perPage, setPerPage] = useState(10); // Har bir sahifada ko'rsatiladigan malumotlar soni
+  const [totalPages, setTotalPages] = useState(1); // Jami bo'limlar
   const [loader, setLoader] = useState(true);
 
   const [ages, setAges] = useState([]);
   const [overEighteens, setOverEighteens] = useState(0);
   const [notEighteens, setNotEighteens] = useState(0);
   const [middleAge, setMiddleAge] = useState(0);
-  const [notAge, setNotAge] = useState(0);
 
   const [countrys, setCountrys] = useState([]);
 
   const [genders, setGenders] = useState([]);
   const [male, setMale] = useState(0);
   const [female, setFemale] = useState(0);
-  const [agender, setAgender] = useState(0);
 
   const fetchData = () => {
     // Malumotlar massivining o'zi - dataMassiv
     const startIndex = (page - 1) * perPage;
     const endIndex = startIndex + perPage;
-    setCurrentData(data.slice(startIndex, endIndex));
+    setCurrentData(users.slice(startIndex, endIndex));
   };
 
   const fetchMoreData = () => {
@@ -59,7 +61,6 @@ export default function Users() {
     }
   };
 
-  const scrollRef = useRef(null);
   const handleScroll = () => {
     const scrollContainer = scrollRef.current;
     if (scrollContainer) {
@@ -73,24 +74,27 @@ export default function Users() {
   };
 
   useEffect(() => fetchData(), [page, perPage]);
-  useEffect(() => setData([...users]), [users]);
   useEffect(
     () => setSlicedData((prevData) => [...prevData, ...currentData]),
     [currentData]
   );
 
   useEffect(() => {
-    setTotalPages(Math.ceil(data.length / perPage));
+    setTotalPages(Math.ceil(users.length / perPage));
+    setSlicedData([]);
+    setPage(1);
     fetchData();
 
     let qualtyData = 0;
-    data.filter((item) => {
+    users.filter((item) => {
       if (item.birthday != null && item.country != null && item.gender != null)
         qualtyData++;
     });
 
     setQualityData(qualtyData);
-    setPercentageData(Math.floor((qualtyData * 100) / data.length));
+    setPercentageData(
+      users.length > 0 ? Math.floor((qualtyData * 100) / users.length) : 0
+    );
 
     // ---------------------
 
@@ -98,41 +102,42 @@ export default function Users() {
     const countryses = [];
     const genderses = [];
 
-    data.map((item) => {
-      ageses.push(item.birthday && ageConverter(item.birthday.seconds));
-      countryses.push(item.country);
-      genderses.push(item.gender);
+    users.map((item) => {
+      if (item.birthday !== null) {
+        ageses.push(ageConverter(item.birthday));
+      }
+      if (item.country !== null) {
+        countryses.push(item.country);
+      }
+      if (item.gender !== null) {
+        genderses.push(item.gender);
+      }
     });
 
     setAges(ageses);
     setCountrys(countryses);
     setGenders(genderses);
-  }, [data]);
+  }, [users]);
 
   useEffect(() => {
     let overEighteen = 0;
     let notEighteen = 0;
-
-    let arrMiddle = [];
-    let allMiddle = 0;
+    let middle = 0;
 
     ages.filter((item) => {
       if (item >= 18) overEighteen++;
-      if (item != null && item < 18) notEighteen++;
-      if (item != null) arrMiddle.push(item);
+      if (item < 18) notEighteen++;
+      middle += item;
     });
 
-    arrMiddle.map((age) => {
-      allMiddle += age;
-    });
-
-    const overPer = Math.round((overEighteen * 100) / data.length);
-    const notPer = Math.round((notEighteen * 100) / data.length);
+    const overPer =
+      ages.length > 0 ? Math.round((overEighteen * 100) / ages.length) : 0;
+    const notPer =
+      ages.length > 0 ? Math.round((notEighteen * 100) / ages.length) : 0;
 
     setOverEighteens(overPer);
     setNotEighteens(notPer);
-    setNotAge(100 - (overPer + notPer));
-    setMiddleAge(Math.round(allMiddle / arrMiddle.length));
+    setMiddleAge(ages.length > 0 ? Math.round(middle / ages.length) : 0);
   }, [ages]);
 
   useEffect(() => {
@@ -144,12 +149,13 @@ export default function Users() {
       if (item == "Female") females++;
     });
 
-    const malePer = Math.round((males * 100) / data.length);
-    const femalePer = Math.round((females * 100) / data.length);
+    const malePer =
+      genders.length > 0 ? Math.round((males * 100) / genders.length) : 0;
+    const femalePer =
+      genders.length > 0 ? Math.round((females * 100) / genders.length) : 0;
 
     setMale(malePer);
     setFemale(femalePer);
-    setAgender(100 - (malePer + femalePer));
   }, [genders]);
 
   useEffect(() => {
@@ -163,6 +169,11 @@ export default function Users() {
     }
     setNewSlicedData(arr);
   }, [searchInput]);
+
+  useEffect(() => {
+    setSlicedData([]);
+    setPage(1);
+  }, [sort]);
 
   return (
     <section className="adout users" ref={scrollRef} onScroll={handleScroll}>
@@ -181,7 +192,7 @@ export default function Users() {
           </div>
           <div className="addUser">
             <button onClick={() => navigate("/admin/users/add-user")}>
-            {t("admin.users.button")}
+              {t("admin.users.button")}
             </button>
           </div>
         </div>
@@ -191,9 +202,11 @@ export default function Users() {
           <div className="userStatistics part userPart">
             <div className="content">
               <h3>
-              {t("admin.users.totalUser")}: {data.length} / {qualityData}
+                {t("admin.users.totalUser")}: {users.length} / {qualityData}
               </h3>
-              <h3>{t("admin.users.middleAge")}: {middleAge}</h3>
+              <h3>
+                {t("admin.users.middleAge")}: {middleAge}
+              </h3>
             </div>
             <div className="skill big">
               <div className="outer">
@@ -265,37 +278,6 @@ export default function Users() {
               </div>
             </div>
             <div className="genderBox">
-              <div className="skill big">
-                <div className="outer">
-                  <div className="inner">
-                    <div className="number">
-                      <CountUp end={notAge} duration={1.5} />%
-                    </div>
-                  </div>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  width="80px"
-                  height="80px"
-                >
-                  <defs>
-                    <linearGradient id="GradientColor">
-                      <stop offset="0%" />
-                      <stop offset="100%" />
-                    </linearGradient>
-                  </defs>
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="35"
-                    strokeLinecap="round"
-                    style={{ strokeDashoffset: ((100 - notAge) / 100) * 220 }}
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="genderBox">
               <p>-18</p>
               <div className="skill">
                 <div className="outer">
@@ -329,12 +311,6 @@ export default function Users() {
                 </svg>
               </div>
             </div>
-          </div>
-          <div
-            style={{ justifyContent: "center" }}
-            className="countryStatistics part userPart"
-          >
-            <h1>{t("admin.users.topCountry")}</h1>
           </div>
           <div className="genderStatistics part userPart">
             <div className="genderBox">
@@ -370,37 +346,6 @@ export default function Users() {
                     style={{
                       strokeDashoffset: `${((100 - male) / 100) * 188}`,
                     }}
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="genderBox">
-              <div className="skill big">
-                <div className="outer">
-                  <div className="inner">
-                    <div className="number">
-                      <CountUp end={agender} duration={1.5} />%
-                    </div>
-                  </div>
-                </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  width="80px"
-                  height="80px"
-                >
-                  <defs>
-                    <linearGradient id="GradientColor">
-                      <stop offset="0%" />
-                      <stop offset="100%" />
-                    </linearGradient>
-                  </defs>
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="35"
-                    strokeLinecap="round"
-                    style={{ strokeDashoffset: ((100 - agender) / 100) * 220 }}
                   />
                 </svg>
               </div>
@@ -444,14 +389,21 @@ export default function Users() {
         </div>
         <div className="table">
           <InfiniteScroll
-            dataLength={data.length} // Malumotlar massivi uzunligi
+            dataLength={users.length} // Malumotlar massivi uzunligi
             next={fetchMoreData} // Qo'shimcha malumotlarni olish funktsiyasi
             hasMore={page < totalPages} // Qo'shimcha malumotlar mavjudligini tekshirish
           >
             <table>
               <thead>
                 <tr>
-                  <th>{t("admin.users.name")}</th>
+                  <th onClick={() => dispatch({ type: "SET_SORT" })}>
+                    {sort == "desc" ? (
+                      <HiSortDescending />
+                    ) : (
+                      <HiSortAscending />
+                    )}
+                    {t("admin.users.name")}
+                  </th>
                   <th>{t("admin.users.birthday")}</th>
                   <th>{t("admin.users.country")}</th>
                   <th>{t("admin.users.gender")}</th>
@@ -470,10 +422,7 @@ export default function Users() {
                             <p>{item.email}</p>
                           </div>
                         </td>
-                        <td>
-                          {item.birthday &&
-                            timeConverter(item.birthday.seconds)}
-                        </td>
+                        <td>{item.birthday && timeConverter(item.birthday)}</td>
                         <td>{item.country}</td>
                         <td>{item.gender}</td>
                         <td>{item.role}</td>
@@ -482,13 +431,13 @@ export default function Users() {
                     {loader ? (
                       <tr>
                         <th style={{ padding: "10px 0 15px" }} colSpan={5}>
-                        {t("admin.users.loading")}
+                          {t("admin.users.loading")}
                         </th>
                       </tr>
                     ) : (
                       <tr>
                         <th style={{ padding: "10px 0 15px" }} colSpan={5}>
-                        {t("admin.users.otherData")}
+                          {t("admin.users.otherData")}
                         </th>
                       </tr>
                     )}
@@ -510,10 +459,7 @@ export default function Users() {
                             <p>{item.email}</p>
                           </div>
                         </td>
-                        <td>
-                          {item.birthday &&
-                            timeConverter(item.birthday.seconds)}
-                        </td>
+                        <td>{item.birthday && timeConverter(item.birthday)}</td>
                         <td>{item.country}</td>
                         <td>{item.gender}</td>
                         <td>{item.role}</td>
@@ -522,13 +468,13 @@ export default function Users() {
                     {loader ? (
                       <tr>
                         <th style={{ padding: "10px 0 15px" }} colSpan={5}>
-                        {t("admin.users.loading")}
+                          {t("admin.users.loading")}
                         </th>
                       </tr>
                     ) : (
                       <tr>
                         <th style={{ padding: "10px 0 15px" }} colSpan={5}>
-                        {t("admin.users.otherData")}
+                          {t("admin.users.otherData")}
                         </th>
                       </tr>
                     )}

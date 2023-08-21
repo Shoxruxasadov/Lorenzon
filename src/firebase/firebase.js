@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, FacebookAuthProvider  } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -10,9 +14,8 @@ const firebaseConfig = {
   storageBucket: "lorezoz.appspot.com",
   messagingSenderId: "1072823927945",
   appId: "1:1072823927945:web:5d0d7b2d3fa0c311a33258",
-  measurementId: "G-QD9LV10BCN"
+  measurementId: "G-QD9LV10BCN",
 };
-
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();

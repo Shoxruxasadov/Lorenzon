@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { Timestamp, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, storage } from "../../../firebase/firebase";
@@ -35,7 +36,9 @@ import {
   FaUser,
 } from "react-icons/fa";
 
+
 export default function AddUser() {
+  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
@@ -73,9 +76,6 @@ export default function AddUser() {
     trimmedData.substring(0, 2);
 
   const inputRef = useRef(null);
-  const [darkmode, setDarkmode] = useState(
-    localStorage.getItem("theme") === "light" ? true : false
-  );
 
   const {
     register,

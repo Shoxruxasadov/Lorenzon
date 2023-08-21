@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiSolidLock } from "react-icons/bi";
@@ -26,14 +26,12 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Signin() {
+  const darkmode = useSelector((state) => state.assetsReducer.darkmode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
 
-  const [darkmode, setDarkmode] = useState(
-    localStorage.getItem("theme") == "light" ? true : false
-  );
   const {
     register,
     handleSubmit,

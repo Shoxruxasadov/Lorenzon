@@ -398,12 +398,12 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 0em;
+      width: 0;
       height: 0;
     }
-    &::-webkit-scrollbar-thumb {
-      background: $main;
-      border-radius: 10em;
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
     }
   }
 
@@ -467,12 +467,12 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 0em;
+      width: 0;
       height: 0;
     }
-    &::-webkit-scrollbar-thumb {
-      background: $main;
-      border-radius: 10em;
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
     }
   }
 
@@ -489,8 +489,19 @@
       height: 130px;
 
       .userPart {
-        width: 25%;
         padding: 20px;
+
+        &:nth-child(1) {
+          width: 40%;
+        }
+
+        &:nth-child(2) {
+          width: 30%;
+        }
+
+        &:nth-child(3) {
+          width: 30%;
+        }
       }
 
       .ageStatistics,
@@ -519,10 +530,16 @@
             letter-spacing: 0.5px;
             text-shadow: -0.5px -0.5px 0px $admin-shadbar, 0px 0px 2px #00000026;
             -webkit-text-fill-color: $text;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
           }
           p {
             font-size: 16px;
             opacity: 0.6;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
           }
         }
 
@@ -531,6 +548,7 @@
           flex-direction: column;
           align-items: center;
           gap: 5px;
+          width: 100px;
 
           p {
             display: flex;
@@ -634,12 +652,38 @@
         font-size: 18px;
 
         th:nth-child(1) {
-          text-align: start;
-        }
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          gap: 4px;
 
+          &,
+          svg,
+          svg > path {
+            cursor: pointer;
+          }
+
+          svg {
+            transition: 0.2s;
+            margin-top: 2px;
+            font-size: 0;
+            visibility: hidden;
+          }
+
+          &:hover {
+            svg {
+              visibility: visible;
+              font-size: 18px;
+              color: $main;
+            }
+          }
+        }
         th {
           padding: 18px 100px 18px 50px;
           font-weight: 500;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
       }
 
@@ -854,7 +898,7 @@
           position: relative;
 
           @media (max-width: 760px) {
-            width: 90%!important;
+            width: 90% !important;
           }
 
           input {

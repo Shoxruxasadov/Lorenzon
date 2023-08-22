@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -6,6 +7,7 @@ import music from "../../../images/Hero/section3/music.svg";
 import star from "../../../images/Hero/section3/star.svg";
 
 export default function SectionThree() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const [t, i18n] = useTranslation("global");
 
   return (

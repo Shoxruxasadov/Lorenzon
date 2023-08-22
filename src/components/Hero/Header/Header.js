@@ -81,11 +81,11 @@ export default function Header() {
           >
             <HiMoon
               className="dark"
-              style={darkmode ? { left: "-50%" } : { left: "52%" }}
+              style={darkmode ? { left: "52%" } : { left: "-50%" }}
             />
             <HiSun
               className="light"
-              style={darkmode ? { left: "50%" } : { left: "150%" }}
+              style={darkmode ? { left: "150%" } : { left: "50%" }}
             />
           </button>
         </nav>
@@ -149,11 +149,11 @@ export default function Header() {
               >
                 <HiMoon
                   className="dark"
-                  style={darkmode ? { left: "-50%" } : { left: "52%" }}
+                  style={darkmode ? { left: "52%" } : { left: "-50%" }}
                 />
                 <HiSun
                   className="light"
-                  style={darkmode ? { left: "50%" } : { left: "150%" }}
+                  style={darkmode ? { left: "150%" } : { left: "50%" }}
                 />
               </div>
             </div>

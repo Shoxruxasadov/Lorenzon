@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
@@ -13,7 +14,8 @@ import light49 from "../../../images/Hero/section1/light3349.webp";
 import light50 from "../../../images/Hero/section1/light3350.webp";
 import light51 from "../../../images/Hero/section1/light3351.webp";
 
-export default function SectionOne({ darkmode }) {
+export default function SectionOne() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const [t, i18n] = useTranslation("global");
 
   return (
@@ -56,7 +58,7 @@ export default function SectionOne({ darkmode }) {
           transition={{ duration: 2, type: "spring" }}
           className="photo"
         >
-          {darkmode ? <img src={lightPhoto} /> : <img src={darkPhoto} />}
+          {darkmode ? <img src={darkPhoto} /> : <img src={lightPhoto} />}
         </motion.div>
         <motion.div
           initial={{ y: "3rem", opacity: 0 }}
@@ -66,13 +68,14 @@ export default function SectionOne({ darkmode }) {
         >
           {darkmode ? (
             <>
-              <img src={light48} /> <img src={light49} />
-              <img src={light50} /> <img src={light51} />
+              
+              <img src={logo48} /> <img src={logo49} />
+              <img src={logo50} /> <img src={logo51} />
             </>
           ) : (
             <>
-              <img src={logo48} /> <img src={logo49} />
-              <img src={logo50} /> <img src={logo51} />
+              <img src={light48} /> <img src={light49} />
+              <img src={light50} /> <img src={light51} />
             </>
           )}
         </motion.div>

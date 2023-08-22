@@ -18,10 +18,105 @@
     gap: 20px;
     z-index: 1;
     position: fixed;
+    transition: 0.12s;
+
+    &.active {
+      width: 55px !important;
+      padding: 5px !important;
+
+      .wrapper {
+        .logo {
+          margin-bottom: 15px;
+
+          img {
+            width: 100%;
+            padding: 13px 6px 0 6px !important;
+          }
+        }
+
+        .categories a {
+          justify-content: center;
+          padding: 0 !important;
+
+          &:hover {
+            span {
+              visibility: visible;
+              transform: translate(0, -50%);
+              opacity: 1;
+            }
+          }
+
+          span {
+            transform: translate(-40px, -50%);
+            position: absolute;
+            top: 50%;
+            left: 55px;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: -1;
+            background: $main;
+            padding: 0 17px;
+            color: #ffffff;
+            border-radius: 0.5em;
+          }
+        }
+      }
+
+      .out {
+        .lang {
+          .en,
+          .ru,
+          .uz {
+            display: none;
+          }
+
+          .miniLang {
+            display: block;
+          }
+        }
+
+        .darkmode {
+          .sun,
+          .moon {
+            visibility: hidden;
+            opacity: 0;
+            display: none;
+          }
+
+          .moonDark,
+          .sunLight {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
+        .logout {
+          padding: 0 !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .data {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100% !important;
+
+            .title {
+              display: none;
+            }
+          }
+          .back {
+            display: none;
+          }
+        }
+      }
+    }
 
     .wrapper {
       width: 100%;
-      height: calc(100% - 80px);
+      height: 100%;
 
       .logo {
         width: 100%;
@@ -29,10 +124,12 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 20px;
+        cursor: pointer;
 
         img {
           width: 40%;
           padding: 15px;
+          cursor: pointer;
         }
       }
 
@@ -49,6 +146,7 @@
           line-height: 44px;
           padding-left: 12px;
           color: $bate;
+          position: relative;
 
           display: flex;
           align-items: center;
@@ -57,7 +155,7 @@
           &.active {
             background: $main;
             color: #ffffff;
-            transition: 0.15s;
+            transition: 0.12s;
           }
 
           svg {
@@ -112,6 +210,18 @@
           border-radius: 0.35em;
           line-height: 34px;
         }
+
+        .miniLang {
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          text-align: center;
+          border-radius: 0.32em;
+          line-height: 34px;
+          display: none;
+          color: $main;
+          background-color: $view;
+        }
       }
 
       .darkmode {
@@ -124,6 +234,10 @@
         gap: 5px;
         cursor: pointer;
         box-shadow: inset rgba(99, 99, 99, 0.1) 0px 0px 4px;
+        transition: 0.3s;
+
+        position: relative;
+        overflow: hidden;
 
         .sun,
         .moon {
@@ -144,6 +258,35 @@
           }
 
           span {
+            cursor: pointer;
+          }
+        }
+
+        .moonDark,
+        .sunLight {
+          width: 77%;
+          height: 77%;
+          left: -50%;
+          top: 50%;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          transition: 0.3s cubic-bezier(0.25, 0.75, 0.5, 1.25);
+
+          visibility: hidden;
+          opacity: 0;
+
+          background-color: $view;
+          border-radius: 0.3em;
+          color: $main;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &,
+          svg,
+          svg > path {
+            font-size: 23px;
             cursor: pointer;
           }
         }
@@ -229,6 +372,11 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    transition: 0.12s;
+
+    &.active {
+      padding: 30px 30px 30px 90px !important;
+    }
 
     .link {
       cursor: pointer;
@@ -492,22 +640,26 @@
         padding: 20px;
 
         &:nth-child(1) {
-          width: 40%;
+          width: 32%;
         }
 
         &:nth-child(2) {
-          width: 30%;
+          width: 28%;
         }
 
         &:nth-child(3) {
-          width: 30%;
+          width: 20%;
+        }
+
+        &:nth-child(4) {
+          width: 20%;
         }
       }
 
       .ageStatistics,
       .countryStatistics,
       .genderStatistics {
-        justify-content: space-between;
+        justify-content: space-around;
       }
 
       .userStatistics,

@@ -36,9 +36,9 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-
 export default function AddUser() {
   const darkmode = useSelector((state) => state.utilityReducer.darkmode);
+  const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
@@ -90,13 +90,13 @@ export default function AddUser() {
     if (data.password !== data.confirmPassword) {
       warning(
         t("admin.adduser.validation.conEqualPass"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
     } else if (birthdayData.length < 14) {
       warning(
         t("admin.adduser.validation.enterBirthday"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
     } else if (
@@ -106,7 +106,7 @@ export default function AddUser() {
     ) {
       warning(
         t("admin.adduser.validation.enterGender"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
     } else if (
@@ -116,7 +116,7 @@ export default function AddUser() {
     ) {
       warning(
         t("admin.adduser.validation.enterCountry"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
     } else if (
@@ -126,7 +126,7 @@ export default function AddUser() {
     ) {
       warning(
         t("admin.adduser.validation.enterRole"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
     } else {
@@ -165,7 +165,7 @@ export default function AddUser() {
             (error) => {
               wrong(
                 t("admin.adduser.validation.noUploadPhoto"),
-                darkmode,
+                darkmode ? "dark" : "light",
                 "top-right"
               );
               console.log(error);
@@ -204,7 +204,7 @@ export default function AddUser() {
 
         success(
           t("admin.adduser.validation.addedUser"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           "top-right"
         );
         setNextProfile(true);
@@ -215,7 +215,7 @@ export default function AddUser() {
         setDisable(false);
         wrong(
           t("admin.adduser.validation.errorRegister"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           "top-right"
         );
       }
@@ -267,19 +267,19 @@ export default function AddUser() {
 
   function handleValidation() {
     if (errors.name)
-      warning(errors.name.message, darkmode ? "light" : "dark", "top-right");
+      warning(errors.name.message, darkmode ? "dark" : "light", "top-right");
 
     if (errors.email)
       warning(
         t("admin.adduser.validation.email"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
 
     if (birthdayData.length < 14)
       warning(
         t("admin.adduser.validation.enterBirthday"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
 
@@ -290,7 +290,7 @@ export default function AddUser() {
     )
       warning(
         t("admin.adduser.validation.enterGender"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
 
@@ -301,14 +301,14 @@ export default function AddUser() {
     )
       warning(
         t("admin.adduser.validation.enterCountry"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
 
     if (selectRole == "Role" || selectRole == "Роль" || selectRole == "Rol")
       warning(
         t("admin.adduser.validation.enterRole"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
 
@@ -316,13 +316,13 @@ export default function AddUser() {
       if (errors.password.message === "") {
         warning(
           t("admin.adduser.validation.password"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           "top-right"
         );
       } else {
         warning(
           errors.password.message,
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           "top-right"
         );
       }
@@ -330,7 +330,7 @@ export default function AddUser() {
     if (errors.confirmPassword)
       warning(
         t("admin.adduser.validation.conpass"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         "top-right"
       );
   }
@@ -338,7 +338,7 @@ export default function AddUser() {
   return (
     <>
       <ToastContainer />
-      <section className="adout add-user">
+      <section className={sidebar ? "adout add-user" : "adout add-user active"}>
         <header>
           <div className="category">
             <h1 onClick={() => navigate("/admin/users")} className="link">
@@ -354,7 +354,7 @@ export default function AddUser() {
                 style={
                   !nextProfile
                     ? { color: "#0f54f0" }
-                    : { color: darkmode ? "#b5b5b5" : "#3b393D" }
+                    : { color: darkmode ? "#3b393D" : "#b5b5b5" }
                 }
               >
                 <div
@@ -362,7 +362,7 @@ export default function AddUser() {
                   style={
                     !nextProfile
                       ? { background: "#0f54f0" }
-                      : { background: darkmode ? "#b5b5b5" : "#3b393D" }
+                      : { background: darkmode ? "#3b393D" : "#b5b5b5" }
                   }
                 >
                   1
@@ -375,7 +375,7 @@ export default function AddUser() {
                 style={
                   nextProfile
                     ? { color: "#0f54f0" }
-                    : { color: darkmode ? "#b5b5b5" : "#3b393D" }
+                    : { color: darkmode ? "#3b393D" : "#b5b5b5" }
                 }
               >
                 <div
@@ -383,7 +383,7 @@ export default function AddUser() {
                   style={
                     nextProfile
                       ? { background: "#0f54f0" }
-                      : { background: darkmode ? "#b5b5b5" : "#3b393D" }
+                      : { background: darkmode ? "#3b393D" : "#b5b5b5" }
                   }
                 >
                   2

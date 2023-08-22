@@ -9,8 +9,10 @@ import outline from "../../../images/Hero/section4/outline.svg";
 import appstore from "../../../images/Hero/section4/AppStore.webp";
 import googleplay from "../../../images/Hero/section4/GooglePlay.webp";
 import logo from "../../../images/Logo/black.png";
+import { useSelector } from "react-redux";
 
-export default function SectionFour({ darkmode }) {
+export default function SectionFour() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const [t, i18n] = useTranslation("global");
 
   return (
@@ -18,9 +20,9 @@ export default function SectionFour({ darkmode }) {
       <div className="container">
         <div className="verizon">
           {darkmode ? (
-            <img className="verizonLogo" src={veroblack} />
-          ) : (
             <img className="verizonLogo" src={verizon} />
+          ) : (
+            <img className="verizonLogo" src={veroblack} />
           )}
           <p>{t("landing.section4.verizon")}</p>
           <img className="line" src={line} />

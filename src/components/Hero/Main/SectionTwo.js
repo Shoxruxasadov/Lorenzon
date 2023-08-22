@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import CountUp from "react-countup/build";
 
 export default function SectionTwo() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const [t, i18n] = useTranslation("global");
 
   return (

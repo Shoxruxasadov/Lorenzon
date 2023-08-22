@@ -1,12 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { HiSearch } from "react-icons/hi";
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
+  const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const [t, i18n] = useTranslation("global");
 
   return (
-    <section className="adout dashboard">
+    <section className={sidebar ? "adout dashboard" : "adout dashboard active"}>
       <header>
         <div className="category">
           <h1>{t("admin.dashboard.title")}</h1>

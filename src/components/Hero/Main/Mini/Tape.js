@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import star from "../../../../images/Hero/section4/Star.svg";
 
 export default function Tape() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
+  
   return (
     <div className="tape">
       <div className="tape-inner">

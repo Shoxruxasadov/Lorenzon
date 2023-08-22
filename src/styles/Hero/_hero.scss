@@ -123,28 +123,14 @@
             background: $hero-click;
           }
 
-          .dark {
-            transform: translate(-50%, -50%);
-            transition: 0.3s cubic-bezier(0.25, 0.75, 0.5, 1.25);
-            position: absolute;
-            font-size: 24px;
-            color: #010101;
-            left: -50%;
-            top: 50%;
-
-            &,
-            path {
-              cursor: pointer;
-            }
-          }
-
+          .dark,
           .light {
             transform: translate(-50%, -50%);
             transition: 0.3s cubic-bezier(0.25, 0.75, 0.5, 1.25);
             position: absolute;
             font-size: 24px;
             color: #010101;
-            left: 50%;
+            left: -50%;
             top: 50%;
 
             &,
@@ -162,7 +148,7 @@
           border-radius: 10em;
           margin-left: 10px;
           font-weight: 600;
-          letter-spacing: .5px;
+          letter-spacing: 0.5px;
 
           display: flex;
           align-items: center;
@@ -182,7 +168,7 @@
           background: $main;
           border-radius: 10em;
           font-weight: 600;
-          letter-spacing: .5px;
+          letter-spacing: 0.5px;
 
           display: flex;
           align-items: center;
@@ -263,7 +249,7 @@
 
         .nav-mini {
           position: absolute;
-          transform: scale(.4) translateX(400px);
+          transform: scale(0.4) translateX(400px);
           opacity: 0;
           right: 0;
           top: 100px;
@@ -517,7 +503,7 @@
             font-size: 33px;
             font-weight: 500;
             line-height: 30px;
-            color: #D1CFCF;
+            color: #d1cfcf;
           }
 
           .trending-outline {
@@ -938,7 +924,7 @@
         h3 {
           font-size: 16px;
           font-weight: 600;
-          letter-spacing: .5px;
+          letter-spacing: 0.5px;
           line-height: 27px;
           text-align: end;
         }
@@ -954,7 +940,7 @@
         .social {
           font-size: 16px;
           font-weight: 600;
-          letter-spacing: .5px;
+          letter-spacing: 0.5px;
           line-height: 32px;
           position: static;
           z-index: 1;
@@ -966,7 +952,7 @@
             color: $text;
             transition: 0.2s;
             font-weight: 500;
-            letter-spacing: .7px;
+            letter-spacing: 0.7px;
             display: flex;
             align-items: center;
             gap: 2px;
@@ -997,7 +983,7 @@
             color: $text;
             transition: 0.2s;
             font-weight: 500;
-            letter-spacing: .7px;
+            letter-spacing: 0.7px;
             position: relative;
             display: flex;
             align-items: center;

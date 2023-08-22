@@ -15,23 +15,50 @@ import { LuLogOut } from "react-icons/lu";
 export default function Sidebar() {
   const user = useSelector((state) => state.confirmReducer.user);
   const darkmode = useSelector((state) => state.utilityReducer.darkmode);
+  const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
   const dispatch = useDispatch();
+
+  const [miniLang, setMiniLang] = useState(
+    language === "en" ? 1 : language === "ru" ? 2 : language === "uz" ? 3 : 1
+  );
 
   const handleChangeLanguage = (lang) => {
     i18next.changeLanguage(lang);
   };
 
   useEffect(() => {
+    if (language == "en") setMiniLang(1);
+    if (language == "ru") setMiniLang(2);
+    if (language == "uz") setMiniLang(3);
     handleChangeLanguage(language);
     document.querySelector("html").setAttribute("lang", language || "en");
   }, [lang]);
 
+  useEffect(() => {
+    if (miniLang === 1) {
+      localStorage.setItem("lang", "en");
+    } else if (miniLang === 2) {
+      localStorage.setItem("lang", "ru");
+    } else if (miniLang === 3) {
+      localStorage.setItem("lang", "uz");
+    }
+    setLang(!lang);
+  }, [miniLang]);
+
   function langChanger(lan) {
     localStorage.setItem("lang", lan);
     setLang(!lang);
+  }
+
+  function miniLangChanger() {
+    if (miniLang === 3) {
+      setMiniLang(1);
+    } else {
+      setMiniLang((prev) => (prev += 1));
+    }
   }
 
   function logout() {
@@ -41,10 +68,10 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="sidebar">
+    <div className={sidebar ? "sidebar" : "sidebar active"}>
       <div className="wrapper">
         <div onClick={() => dispatch({ type: "SET_SIDEBAR" })} className="logo">
-          <img src={darkmode ? logo : icon} />
+          <img src={darkmode ? icon : logo} />
         </div>
         <div className="categories">
           <NavLink
@@ -85,18 +112,18 @@ export default function Sidebar() {
                 ? language === "en"
                   ? {
                       transition: "0.15s",
-                      boxShadow: "#6363631a 0px 2px 4px",
-                      backgroundColor: "#f1f1f1",
+                      backgroundColor: "#222222",
                       color: "#3590f3",
                     }
-                  : { backgroundColor: "transparent", color: "#000000" }
+                  : { backgroundColor: "transparent", color: "#ffffff" }
                 : language === "en"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#222222",
+                    boxShadow: "#6363631a 0px 2px 4px",
+                    backgroundColor: "#f1f1f1",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#000000" }
             }
             className="en"
           >
@@ -109,18 +136,18 @@ export default function Sidebar() {
                 ? language === "ru"
                   ? {
                       transition: "0.15s",
-                      boxShadow: "#6363631a 0px 2px 4px",
-                      backgroundColor: "#f1f1f1",
+                      backgroundColor: "#222222",
                       color: "#3590f3",
                     }
-                  : { backgroundColor: "transparent", color: "#000000" }
+                  : { backgroundColor: "transparent", color: "#ffffff" }
                 : language === "ru"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#222222",
+                    boxShadow: "#6363631a 0px 2px 4px",
+                    backgroundColor: "#f1f1f1",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#000000" }
             }
             className="ru"
           >
@@ -133,22 +160,31 @@ export default function Sidebar() {
                 ? language === "uz"
                   ? {
                       transition: "0.15s",
-                      boxShadow: "#6363631a 0px 2px 4px",
-                      backgroundColor: "#f1f1f1",
+                      backgroundColor: "#222222",
                       color: "#3590f3",
                     }
-                  : { backgroundColor: "transparent", color: "#000000" }
+                  : { backgroundColor: "transparent", color: "#ffffff" }
                 : language === "uz"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#222222",
+                    boxShadow: "#6363631a 0px 2px 4px",
+                    backgroundColor: "#f1f1f1",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#000000" }
             }
             className="uz"
           >
             UZ
+          </li>
+          <li className="miniLang" onClick={miniLangChanger}>
+            {miniLang == 1
+              ? "EN"
+              : miniLang == 2
+              ? "RU"
+              : miniLang == 3
+              ? "UZ"
+              : "EN"}
           </li>
         </ul>
         <div
@@ -159,13 +195,13 @@ export default function Sidebar() {
             className="sun"
             style={
               darkmode
-                ? {
+                ? { backgroundColor: "transparent", color: "#f1f1f1" }
+                : {
                     transition: "0.15s",
                     boxShadow: "#6363631a 0px 2px 4px",
                     backgroundColor: "#f1f1f1",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#f1f1f1" }
             }
           >
             <HiSun className="light" />
@@ -176,18 +212,31 @@ export default function Sidebar() {
             style={
               darkmode
                 ? {
-                    backgroundColor: "transparent",
-                    color: "#141414",
-                  }
-                : {
                     transition: "0.15s",
                     backgroundColor: "#222222",
                     color: "#3590f3",
+                  }
+                : {
+                    backgroundColor: "transparent",
+                    color: "#141414",
                   }
             }
           >
             <HiMoon className="dark" />
             <span>{t("admin.sidebar.dark")}</span>
+          </div>
+
+          <div
+            className="moonDark"
+            style={darkmode ? { left: "51%" } : { left: "-50%" }}
+          >
+            <HiMoon className="dark" style={{ padding: "0 0 1px 1px" }} />
+          </div>
+          <div
+            className="sunLight"
+            style={darkmode ? { left: "150%" } : { left: "50%" }}
+          >
+            <HiSun />
           </div>
         </div>
         <div className="logout" onClick={logout}>

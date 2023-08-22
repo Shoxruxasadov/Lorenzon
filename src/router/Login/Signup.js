@@ -85,7 +85,7 @@ export default function Signup() {
     if (data.password !== data.confirmPassword) {
       wrong(
         t("login.validation.conEqualPass"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
     } else if (
@@ -95,13 +95,13 @@ export default function Signup() {
     ) {
       warning(
         t("login.validation.enterGender"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
     } else if (birthdayData.length < 14) {
       warning(
         t("login.validation.birthday"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
     } else if (
@@ -111,7 +111,7 @@ export default function Signup() {
     ) {
       warning(
         t("login.validation.enterCountry"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
     } else {
@@ -135,7 +135,7 @@ export default function Signup() {
 
         success(
           t("login.validation.signedup"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
 
@@ -143,7 +143,7 @@ export default function Signup() {
       } catch (error) {
         wrong(
           t("login.validation.errorRegister"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
       }
@@ -155,7 +155,7 @@ export default function Signup() {
       .then(async (result) => {
         success(
           t("login.validation.signedin"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
 
@@ -187,7 +187,7 @@ export default function Signup() {
         console.log(error);
         wrong(
           "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
       });
@@ -198,7 +198,7 @@ export default function Signup() {
       .then(async (result) => {
         success(
           t("login.validation.signedin"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
 
@@ -237,7 +237,7 @@ export default function Signup() {
         console.log(error);
         wrong(
           "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
       });
@@ -245,49 +245,49 @@ export default function Signup() {
 
   function handleValidation() {
     let name = errors.firstName || errors.lastName;
-    if (name) warning(name.message, darkmode ? "light" : "dark", posTaos);
+    if (name) warning(name.message, darkmode ? "dark" : "light", posTaos);
     if (birthdayData.length < 14)
       warning(
         t("login.validation.birthday"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
 
     if (selectGender === t("login.signup.gender"))
       warning(
         t("login.validation.enterGender"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
 
     if (selectCountry === t("login.signup.country"))
       warning(
         t("login.validation.enterCountry"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
 
     if (errors.email)
       warning(
         t("login.validation.email"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
     if (errors.password) {
       if (errors.password.message === "") {
         warning(
           t("login.validation.password"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
       } else {
-        warning(errors.password.message, darkmode ? "light" : "dark", posTaos);
+        warning(errors.password.message, darkmode ? "dark" : "light", posTaos);
       }
     }
     if (errors.confirmPassword)
       warning(
         t("login.validation.conpass"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
   }

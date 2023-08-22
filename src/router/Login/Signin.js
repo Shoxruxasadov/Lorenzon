@@ -44,7 +44,7 @@ export default function Signin() {
       .then(async (result) => {
         success(
           t("login.validation.signedin"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
 
@@ -60,7 +60,7 @@ export default function Signin() {
         }, 1000);
       })
       .catch((error) =>
-        wrong(t("login.validation.wrong"), darkmode ? "light" : "dark", posTaos)
+        wrong(t("login.validation.wrong"), darkmode ? "dark" : "light", posTaos)
       );
   };
 
@@ -68,13 +68,13 @@ export default function Signin() {
     if (errors.email)
       warning(
         t("login.validation.email"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
     if (errors.password)
       warning(
         t("login.validation.password"),
-        darkmode ? "light" : "dark",
+        darkmode ? "dark" : "light",
         posTaos
       );
   }
@@ -84,7 +84,7 @@ export default function Signin() {
       .then(async (result) => {
         success(
           t("login.validation.signedin"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
 
@@ -136,7 +136,7 @@ export default function Signin() {
       .catch((error) => {
         wrong(
           "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
       });
@@ -147,7 +147,7 @@ export default function Signin() {
       .then(async (result) => {
         success(
           t("login.validation.signedin"),
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
 
@@ -185,7 +185,7 @@ export default function Signin() {
       .catch((error) => {
         wrong(
           "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "light" : "dark",
+          darkmode ? "dark" : "light",
           posTaos
         );
       });

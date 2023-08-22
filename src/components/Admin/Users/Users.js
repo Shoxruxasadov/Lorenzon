@@ -16,6 +16,7 @@ import unknown from "../../../images/Admin/unknown.jpg";
 export default function Users() {
   const users = useSelector((state) => state.userReducer.users);
   const sort = useSelector((state) => state.userReducer.sort);
+  const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -176,7 +177,7 @@ export default function Users() {
   }, [sort]);
 
   return (
-    <section className="adout users" ref={scrollRef} onScroll={handleScroll}>
+    <section className={sidebar ? "adout users" : "adout users active"} ref={scrollRef} onScroll={handleScroll}>
       <header>
         <div className="category">
           <h1>{t("admin.users.title")}</h1>
@@ -239,6 +240,9 @@ export default function Users() {
                 />
               </svg>
             </div>
+          </div>
+          <div className="countryStatistics part userPart">
+                  <h1>{t("admin.users.country")}</h1>
           </div>
           <div className="ageStatistics part userPart">
             <div className="genderBox">

@@ -1,9 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import star1 from "../../../../images/Hero/section1/Star1.svg";
 import star2 from "../../../../images/Hero/section1/Star2.svg";
 
 export default function TrendignLoop() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const [t, i18n] = useTranslation("global");
 
   return (

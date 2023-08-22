@@ -7,16 +7,16 @@ import SectionThree from "./SectionThree";
 import Tape from "./Mini/Tape";
 import SectionFour from "./SectionFour";
 
-export default function Main({ darkmode }) {
+export default function Main() {
   return (
     <main>
-      <SectionOne darkmode={darkmode} />
+      <SectionOne />
       <TrendignLoop />
       <SectionTwo />
       <Artists />
       <SectionThree />
       <Tape />
-      <SectionFour darkmode={darkmode} />
+      <SectionFour />
     </main>
   );
 }

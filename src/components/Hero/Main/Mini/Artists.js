@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
@@ -13,6 +14,7 @@ import photo7 from "../../../../images/Hero/section2/Rectangle28-6.webp";
 import photo8 from "../../../../images/Hero/section2/Rectangle28-7.webp";
 
 export default function Artists() {
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const [t, i18n] = useTranslation("global");
 
   return (

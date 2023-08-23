@@ -6,7 +6,7 @@ import "./styles/global.scss";
 import Hero from "./router/Hero/Hero";
 import Error from "./router/Error/Error";
 import Home from "./router/Home/Home";
-import Profile from "./router/Profile/Profile";
+import Setting from "./router/Setting/Setting";
 import Signin from "./router/Login/Signin";
 import Signup from "./router/Login/Signup";
 // ADMIN PAGES
@@ -97,10 +97,10 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/profile",
+    path: "/setting",
     element: (
       <Auth>
-        <Profile />
+        <Setting />
       </Auth>
     ),
   },

@@ -17,6 +17,11 @@ export default function Admin() {
     ) {
       navigate("/admin/dashboard");
     }
+
+    dispatch({ type: "GET_ARTISTS" });
+    dispatch({ type: "GET_PLAYLISTS" });
+    dispatch({ type: "GET_ALBUMS" });
+    dispatch({ type: "GET_MUSICS" });
   }, []);
 
   useEffect(() => {

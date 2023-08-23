@@ -60,6 +60,10 @@
             color: #ffffff;
             border-radius: 0.5em;
           }
+
+          svg {
+            font-size: 19px;
+          }
         }
       }
 
@@ -152,10 +156,19 @@
           align-items: center;
           gap: 7px;
 
-          &.active {
+          &.active,
+          &:hover {
             background: $main;
             color: #ffffff;
             transition: 0.12s;
+          }
+
+          &.active {
+            opacity: 100% !important;
+          }
+
+          &:hover {
+            opacity: 90%;
           }
 
           svg {
@@ -1401,6 +1414,153 @@
             &:disabled {
               opacity: 0.5;
               cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .musics {
+    height: 100svh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .musics .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .top {
+      display: flex;
+      gap: 25px;
+      width: 100%;
+      height: 170px;
+
+      .userPart {
+        padding: 20px;
+        width: 33%;
+      }
+    }
+
+    .table-wrapper {
+      box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
+      border-radius: 0.5em;
+      overflow: hidden;
+    }
+
+    .table-wrapper .table {
+      width: 100% !important;
+      font-size: 15px;
+      text-align: center;
+
+      .th:nth-child(2) {
+        padding-left: 2px;
+      }
+
+      .th,
+      .td {
+        &:nth-child(1) {
+          width: 3%;
+        }
+        &:nth-child(2) {
+          width: 28%;
+          text-align: start;
+        }
+        &:nth-child(3) {
+          width: 24%;
+          text-align: start;
+        }
+        &:nth-child(4) {
+          width: 20%;
+          text-align: start;
+        }
+        &:nth-child(5) {
+          width: 15%;
+          text-align: start;
+        }
+        &:nth-child(6) {
+          width: 10%;
+          text-align: end;
+
+          span svg {
+            animation: spin 2s linear infinite;
+
+            @keyframes spin {
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+          }
+        }
+      }
+
+      .thead .tr {
+        background: $admin-tabhead;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        padding: 20px 16px;
+        gap: 16px;
+
+        .th {
+          font-weight: 500;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+
+      .tbody .tr {
+        background: $view;
+        display: flex;
+        align-items: center;
+        padding: 10px 16px;
+        gap: 16px;
+
+        &:hover {
+          background: $admin-tabhead;
+          opacity: background-color 50%;
+        }
+
+        .td:nth-child(2) {
+          display: flex;
+          align-items: start;
+          text-align: start;
+          gap: 10px;
+
+          img {
+            width: 45px;
+            border-radius: 0.5em;
+          }
+
+          .name {
+            height: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 4px;
+
+            h1 {
+              font-size: 15px;
+              font-weight: 400;
+            }
+            p {
+              font-size: 13px;
             }
           }
         }

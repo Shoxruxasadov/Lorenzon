@@ -420,7 +420,7 @@ export default function Users() {
                     {slicedData.map((item, index) => (
                       <tr key={index}>
                         <td>
-                          <img src={item.image ? item.image : unknown} />
+                          <img src={item.image ? item.image : unknown} alt={item.name} />
                           <div className="name">
                             <h1>{item.name}</h1>
                             <p>{item.email}</p>
@@ -457,7 +457,7 @@ export default function Users() {
                     {newSlicedData.map((item, index) => (
                       <tr key={index}>
                         <td>
-                          <img src={item.image ? item.image : unknown} />
+                          <img src={item.image ? item.image : unknown} alt={item.name} />
                           <div className="name">
                             <h1>{item.name}</h1>
                             <p>{item.email}</p>

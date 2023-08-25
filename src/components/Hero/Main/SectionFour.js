@@ -19,25 +19,21 @@ export default function SectionFour() {
     <section className="section4">
       <div className="container">
         <div className="verizon">
-          {darkmode ? (
-            <img className="verizonLogo" src={verizon} />
-          ) : (
-            <img className="verizonLogo" src={veroblack} />
-          )}
+          <img src={darkmode ? verizon : veroblack} alt="verizon" />
           <p>{t("landing.section4.verizon")}</p>
-          <img className="line" src={line} />
-          <img className="outline" src={outline} />
+          <img className="line" src={line} alt="" />
+          <img className="outline" src={outline} alt="" />
         </div>
         <div className="install">
           <Link to={"/"} className="logo">
-            <img src={logo} />
+            <img src={logo} alt="Lorenzon" />
             <h1>Lorenzon</h1>
           </Link>
           <h2>{t("landing.section4.never")}</h2>
           <p>{t("landing.section4.available")}</p>
           <div className="download">
             <Link target="_blank" to={"https://apps.apple.com/us/app/lorenzon"}>
-              <img className="ios" src={appstore} />
+              <img className="ios" src={appstore} alt="App Store" />
             </Link>
             <Link
               target="_blank"
@@ -45,7 +41,7 @@ export default function SectionFour() {
                 "https://play.google.com/store/apps/details?id=com.shokhdev.lorenzon&hl=ru&gl=US"
               }
             >
-              <img className="android" src={googleplay} />
+              <img className="android" src={googleplay} alt="Google Play" />
             </Link>
           </div>
         </div>

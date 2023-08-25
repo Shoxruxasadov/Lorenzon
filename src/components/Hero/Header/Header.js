@@ -33,7 +33,7 @@ export default function Header() {
     <header>
       <div className="container">
         <Link to={"/"} className="logo">
-          <img src={logo} />
+          <img src={logo} alt="Lorenzon" />
           <h1>Lorenzon</h1>
         </Link>
         <nav className="navbar">

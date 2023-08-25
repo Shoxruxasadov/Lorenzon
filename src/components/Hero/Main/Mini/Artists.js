@@ -20,16 +20,16 @@ export default function Artists() {
   return (
     <div className="artists">
       <div>
-        <img src={photo1} />
-        <img src={photo2} />
-        <img src={photo3} />
-        <img src={photo4} />
+        <img src={photo1} alt="artist" />
+        <img src={photo2} alt="artist" />
+        <img src={photo3} alt="artist" />
+        <img src={photo4} alt="artist" />
       </div>
       <div>
-        <img src={photo5} />
-        <img className="back" src={photo6} />
-        <img className="ford" src={photo7} />
-        <img src={photo8} />
+        <img src={photo5} alt="artist" />
+        <img src={photo6} alt="artist" className="back" />
+        <img src={photo7} alt="artist" className="ford" />
+        <img src={photo8} alt="artist" />
       </div>
       <Link>
         <span>{t("landing.artist")}</span>

@@ -16,8 +16,8 @@ export default function SectionThree() {
         <h1>{t("landing.section3.title")}</h1>
         <div>
           <span>{t("landing.section3.paragraph")}</span>
-          <img className="star-img" src={star} />
-          <img className="music-img" src={music} />
+          <img className="star-img" src={star} alt="star" />
+          <img className="music-img" src={music} alt="music" />
         </div>
         <Link>{t("landing.section3.button")}</Link>
       </div>

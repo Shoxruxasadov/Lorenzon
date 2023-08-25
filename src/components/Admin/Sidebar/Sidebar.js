@@ -71,7 +71,7 @@ export default function Sidebar() {
     <div className={sidebar ? "sidebar" : "sidebar active"}>
       <div className="wrapper">
         <div onClick={() => dispatch({ type: "SET_SIDEBAR" })} className="logo">
-          <img src={darkmode ? icon : logo} />
+          <img src={darkmode ? icon : logo} alt="Lorenzon" />
         </div>
         <div className="categories">
           <NavLink
@@ -241,7 +241,7 @@ export default function Sidebar() {
         </div>
         <div className="logout" onClick={logout}>
           <div className="data">
-            <img src={user.image} />
+            <img src={user.image} alt="User" />
             <div className="title">
               <h3>{user.name}</h3>
               <h4>{user.email}</h4>

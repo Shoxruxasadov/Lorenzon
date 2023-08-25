@@ -163,7 +163,7 @@ export default function Musics() {
                           )}
                         </div>
                         <div className="td">
-                          <img src={item.image} />
+                          <img src={item.image} alt={item.name} />
                           <div className="name">
                             <h1>{item.name}</h1>
                             <p>{item.artist}</p>
@@ -224,7 +224,7 @@ export default function Musics() {
                       >
                         <div className="td">{index + 1}</div>
                         <div className="td">
-                          <img src={item.image} />
+                          <img src={item.image} alt={item.name} />
                           <div className="name">
                             <h1>{item.name}</h1>
                             <p>{item.artist}</p>

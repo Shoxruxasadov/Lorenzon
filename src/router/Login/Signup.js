@@ -345,7 +345,7 @@ export default function Signup() {
           transition={{ duration: 2, type: "spring" }}
           className="images"
         >
-          <img src={photo} />
+          <img src={photo} alt="Logo" />
           <Link to={"/"} className="logo">
             <h1>Lorenzon</h1>
           </Link>

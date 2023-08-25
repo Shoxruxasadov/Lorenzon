@@ -58,7 +58,7 @@ export default function SectionOne() {
           transition={{ duration: 2, type: "spring" }}
           className="photo"
         >
-          {darkmode ? <img src={darkPhoto} /> : <img src={lightPhoto} />}
+          {darkmode ? <img src={darkPhoto} alt="Home Background" /> : <img src={lightPhoto} alt="Home Background" />}
         </motion.div>
         <motion.div
           initial={{ y: "3rem", opacity: 0 }}
@@ -69,13 +69,13 @@ export default function SectionOne() {
           {darkmode ? (
             <>
               
-              <img src={logo48} /> <img src={logo49} />
-              <img src={logo50} /> <img src={logo51} />
+              <img src={logo48} alt="Music Streaming" /> <img src={logo49} alt="Music Streaming" />
+              <img src={logo50} alt="Music Streaming" /> <img src={logo51} alt="Music Streaming" />
             </>
           ) : (
             <>
-              <img src={light48} /> <img src={light49} />
-              <img src={light50} /> <img src={light51} />
+              <img src={light48} alt="Music Streaming" /> <img src={light49} alt="Music Streaming" />
+              <img src={light50} alt="Music Streaming" /> <img src={light51} alt="Music Streaming" />
             </>
           )}
         </motion.div>

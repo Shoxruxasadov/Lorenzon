@@ -402,7 +402,7 @@ export default function AddUser() {
               <div className="top">
                 <div className="img" onClick={() => inputRef.current.click()}>
                   <div className="image">
-                    <img src={photo ? URL.createObjectURL(photo) : unknown} />
+                    <img src={photo ? URL.createObjectURL(photo) : unknown} alt="User Photo" />
                     <input
                       type="file"
                       onChange={(e) => setPhoto(e.target.files[0])}

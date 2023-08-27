@@ -45,7 +45,7 @@ export default function Header() {
           </Link>
 
           <ul className="lang">
-            <span>{language || "EN"}</span>
+            <li className="span">{language || "EN"}</li>
             <li
               onClick={() => langChanger("en")}
               style={

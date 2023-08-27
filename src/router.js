@@ -14,7 +14,11 @@ import Admin from "./router/Admin/Admin";
 import Dashboard from "./components/Admin/Home/Dashboard";
 import Users from "./components/Admin/Users/Users";
 import AddUser from "./components/Admin/Users/AddUser";
-import Musics from "./components/Admin/Products/Musics";
+import Musics from "./components/Admin/Music/Musics/Music";
+import Singers from "./components/Admin/Music/Singers/Singer";
+import Playlist from "./components/Admin/Music/Playlists/Playlist";
+import Album from "./components/Admin/Music/Albums/Album";
+import AddMusic from "./components/Admin/Music/Musics/AddMusic";
 
 const Auth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
@@ -87,10 +91,66 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin/Musics",
+        path: "/admin/musics",
         element: (
           <ConfirmAdmin>
             <Musics />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/add-music",
+        element: (
+          <ConfirmAdmin>
+            <AddMusic />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/singers",
+        element: (
+          <ConfirmAdmin>
+            <Singers />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/singers/add-singer",
+        element: (
+          <ConfirmAdmin>
+            <AddMusic />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/playlists",
+        element: (
+          <ConfirmAdmin>
+            <Playlist />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/playlists/add-playlist",
+        element: (
+          <ConfirmAdmin>
+            <AddMusic />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/albums",
+        element: (
+          <ConfirmAdmin>
+            <Album />
+          </ConfirmAdmin>
+        ),
+      },
+      {
+        path: "/admin/musics/albums/add-album",
+        element: (
+          <ConfirmAdmin>
+            <AddMusic />
           </ConfirmAdmin>
         ),
       },

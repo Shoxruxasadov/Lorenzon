@@ -104,7 +104,7 @@
     "users": {
       "title": "Users",
       "input": "Search users here...",
-      "button": "Add User",
+      "button": "Add user",
       "totalUser": "Users",
       "middleAge": "Middle",
       "topCountry": "Country",
@@ -160,7 +160,46 @@
     "musics": {
       "title": "Musics",
       "input": "Search musics here...",
-      "button": "Add music"
+      "button": "Add music",
+      "music": "Title",
+      "album": "Album",
+      "playlist": "Playlist",
+      "added": "Date added",
+      "add": {
+        "title": "Add Music"
+      }
+    },
+    "singer": {
+      "title": "Singers",
+      "input": "Search singers here...",
+      "button": "Add singer",
+      "add": {}
+    },
+    "playlist": {
+      "title": "Playlists",
+      "input": "Search playlists here...",
+      "button": "Add playlist",
+      "add": {}
+    },
+    "album": {
+      "title": "Albums",
+      "input": "Search albums here...",
+      "button": "Add album",
+      "add": {}
     }
+  },
+  "date":{
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "Aug",
+    "sep": "Sep",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec"
   }
 }

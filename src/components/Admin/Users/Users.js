@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup/build";
 
-import timeConverter from "../../../utility/timeConverter";
+import TimeConverter from "../../../utility/TimeConverter";
 import ageConverter from "../../../utility/ageConverter";
 
 import { HiSortDescending, HiSortAscending } from "react-icons/hi";
@@ -177,7 +177,11 @@ export default function Users() {
   }, [sort]);
 
   return (
-    <section className={sidebar ? "adout users" : "adout users active"} ref={scrollRef} onScroll={handleScroll}>
+    <section
+      className={sidebar ? "adout users" : "adout users active"}
+      ref={scrollRef}
+      onScroll={handleScroll}
+    >
       <header>
         <div className="category">
           <h1>{t("admin.users.title")}</h1>
@@ -242,7 +246,7 @@ export default function Users() {
             </div>
           </div>
           <div className="countryStatistics part userPart">
-                  <h1>{t("admin.users.country")}</h1>
+            <h1>{t("admin.users.country")}</h1>
           </div>
           <div className="ageStatistics part userPart">
             <div className="genderBox">
@@ -420,13 +424,20 @@ export default function Users() {
                     {slicedData.map((item, index) => (
                       <tr key={index}>
                         <td>
-                          <img src={item.image ? item.image : unknown} alt={item.name} />
+                          <img
+                            src={item.image ? item.image : unknown}
+                            alt={item.name}
+                          />
                           <div className="name">
                             <h1>{item.name}</h1>
                             <p>{item.email}</p>
                           </div>
                         </td>
-                        <td>{item.birthday && timeConverter(item.birthday)}</td>
+                        <td>
+                          {item.birthday && (
+                            <TimeConverter timeSeconds={item.birthday} />
+                          )}
+                        </td>
                         <td>{item.country}</td>
                         <td>{item.gender}</td>
                         <td>{item.role}</td>
@@ -457,13 +468,20 @@ export default function Users() {
                     {newSlicedData.map((item, index) => (
                       <tr key={index}>
                         <td>
-                          <img src={item.image ? item.image : unknown} alt={item.name} />
+                          <img
+                            src={item.image ? item.image : unknown}
+                            alt={item.name}
+                          />
                           <div className="name">
                             <h1>{item.name}</h1>
                             <p>{item.email}</p>
                           </div>
                         </td>
-                        <td>{item.birthday && timeConverter(item.birthday)}</td>
+                        <td>
+                          {item.birthday && (
+                            <TimeConverter timeSeconds={item.birthday} />
+                          )}
+                        </td>
                         <td>{item.country}</td>
                         <td>{item.gender}</td>
                         <td>{item.role}</td>

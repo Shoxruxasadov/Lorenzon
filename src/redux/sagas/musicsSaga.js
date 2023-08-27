@@ -9,19 +9,19 @@ import api from "../../api/instance";
 
 function* workGetArtists(action) {
   const response = yield call(api.get, "/artists.json");
-  yield put(getArtists(response.data));
+  yield put(getArtists(Object.values(response.data).reverse()));
   return;
 }
 
 function* workGetPlaylists(action) {
   const response = yield call(api.get, "/playlists.json");
-  yield put(getPlaylists(response.data));
+  yield put(getPlaylists(Object.values(response.data).reverse()));
   return;
 }
 
 function* workGetAlbums(action) {
   const response = yield call(api.get, "/albums.json");
-  yield put(getAlbums(response.data));
+  yield put(getAlbums(Object.values(response.data).reverse()));
   return;
 }
 

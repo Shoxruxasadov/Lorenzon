@@ -3,18 +3,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import GetAudioDuration from "../../../../utility/GetAudioDuration";
 
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { IoTimeOutline } from "react-icons/io5";
 import { HiSearch } from "react-icons/hi";
 
-import GetAudioDuration from "../../../utility/getAudioDuration";
+import artist from "../../../../images/Admin/artist.jpg";
+import album from "../../../../images/Admin/album.jpg";
+import playDark from "../../../../images/Admin/play-dark.jpg";
+import playLight from "../../../../images/Admin/play-light.jpg";
 
-export default function Musics() {
+export default function Music() {
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
-  // const artists = useSelector((state) => state.musicsReducer.artists);
-  // const playlists = useSelector((state) => state.musicsReducer.playlists);
-  // const albums = useSelector((state) => state.musicsReducer.albums);
+  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const musics = useSelector((state) => state.musicsReducer.musics);
   const [currentMusic, setCurrentMusic] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -107,15 +109,24 @@ export default function Musics() {
             <HiSearch />
           </div>
           <div className="addUser">
-            <button>{t("admin.musics.button")}</button>
+            <button onClick={()=>navigate("/admin/musics/add-music")}>{t("admin.musics.button")}</button>
           </div>
         </div>
       </header>
       <div className="content">
         <div className="top">
-          <div className="artists part userPart"></div>
-          <div className="playlists part userPart"></div>
-          <div className="albums part userPart"></div>
+          <div className="artistsBox part userPart" onClick={()=>navigate("/admin/musics/singers")}>
+            <img src={artist} alt="Artist" />
+            <div className="title"><h1>{t("admin.singer.title")}</h1></div>
+          </div>
+          <div className="playlistsBox part userPart" onClick={()=>navigate("/admin/musics/playlists")}>
+            <img src={darkmode ? playDark : playLight} alt="Artist" />
+            <div className="title"><h1>{t("admin.playlist.title")}</h1></div>
+          </div>
+          <div className="albumsBox part userPart" onClick={()=>navigate("/admin/musics/albums")}>
+            <img src={album} alt="Artist" />
+            <div className="title"><h1>{t("admin.album.title")}</h1></div>
+          </div>
         </div>
         <div className="table-wrapper">
           <InfiniteScroll
@@ -127,10 +138,10 @@ export default function Musics() {
               <div className="thead">
                 <div className="tr">
                   <div className="th">#</div>
-                  <div className="th">Title</div>
-                  <div className="th">Album</div>
-                  <div className="th">Playlist</div>
-                  <div className="th">Date added</div>
+                  <div className="th">{t("admin.musics.music")}</div>
+                  <div className="th">{t("admin.musics.album")}</div>
+                  <div className="th">{t("admin.musics.playlist")}</div>
+                  <div className="th">{t("admin.musics.added")}</div>
                   <div className="th">
                     <IoTimeOutline />
                   </div>

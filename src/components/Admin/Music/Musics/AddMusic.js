@@ -3,21 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { Timestamp, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { auth, db, storage } from "../../../firebase/firebase";
+import { auth, db, storage } from "../../../../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-import { success, wrong, warning } from "../../../utility/toastify";
+import { success, wrong, warning } from "../../../../utility/toastify";
 import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import country from "../../../utility/country";
+import country from "../../../../utility/country";
 
 import { RiAdminFill, RiUser2Fill } from "react-icons/ri";
 import { HiSearch } from "react-icons/hi";
 import { TbMailFilled } from "react-icons/tb";
 import { MdVerifiedUser } from "react-icons/md";
-import unknown from "../../../images/Admin/unknown.jpg";
+import unknown from "../../../../images/Admin/unknown.jpg";
 
 import {
   BiSolidLockAlt,
@@ -36,21 +36,18 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-export default function AddUser() {
+export default function AddMusic() {
   const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
-  const [nextProfile, setNextProfile] = useState(false);
   const [eye, setEye] = useState(false);
 
   const [allCountry, setAllCountry] = useState(country);
   const [newCountry, setNewCountry] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  const [selectCountry, setSelectCountry] = useState(
-    t("admin.adduser.country")
-  );
+  const [selectCountry, setSelectCountry] = useState(t("admin.adduser.country"));
   const [ocCountry, setOcCountry] = useState(false);
 
   const [selectGender, setSelectGender] = useState(t("admin.adduser.gender"));
@@ -64,15 +61,6 @@ export default function AddUser() {
     setSelectGender(t("admin.adduser.gender"));
     setSelectRole(t("admin.adduser.role"));
   }, [t]);
-
-  const [birthdayData, setBirthdayData] = useState("");
-  const trimmedData = birthdayData.replace(/\s+/g, "");
-  const happy =
-    trimmedData.substring(6, 10) +
-    "-" +
-    trimmedData.substring(3, 5) +
-    "-" +
-    trimmedData.substring(0, 2);
 
   const inputRef = useRef(null);
 
@@ -89,12 +77,6 @@ export default function AddUser() {
     if (data.password !== data.confirmPassword) {
       warning(
         t("admin.adduser.validation.conEqualPass"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-    } else if (birthdayData.length < 14) {
-      warning(
-        t("admin.adduser.validation.enterBirthday"),
         darkmode ? "dark" : "light",
         "top-right"
       );
@@ -173,7 +155,6 @@ export default function AddUser() {
               getDownloadURL(uploadTask.snapshot.ref).then(
                 async (downloadURL) => {
                   await setDoc(doc(db, "users", res.user.uid), {
-                    birthday: Timestamp.fromDate(new Date(happy)),
                     country: selectCountry,
                     email: data.email,
                     gender: selectGender,
@@ -189,7 +170,6 @@ export default function AddUser() {
           );
         } else {
           await setDoc(doc(db, "users", res.user.uid), {
-            birthday: Timestamp.fromDate(new Date(happy)),
             country: selectCountry,
             email: data.email,
             gender: selectGender,
@@ -206,7 +186,6 @@ export default function AddUser() {
           darkmode ? "dark" : "light",
           "top-right"
         );
-        setNextProfile(true);
         setTimeout(() => {
           setDisable(false);
         }, 2000);
@@ -220,39 +199,6 @@ export default function AddUser() {
       }
     }
   };
-
-  let currentYear = new Date().getFullYear();
-  function checkBirthdayValue(str, max) {
-    if (str.charAt(0) !== "0" || str == "00") {
-      let num = parseInt(str);
-      if (isNaN(num) || num <= 0 || num > max) num = 1;
-      if (
-        num > parseInt(max.toString().charAt(0)) &&
-        num.toString().length == 1
-      ) {
-        str = "0" + num;
-      } else {
-        str = num.toString();
-      }
-    }
-    return str;
-  }
-
-  function inpBithday(e) {
-    e.target.type = "text";
-    let input = e.target.value;
-    if (/\D\-$/.test(input)) input = input.substr(0, input.length - 3);
-    let values = input.split("-").map(function (v) {
-      return v.replace(/\D/g, "");
-    });
-    if (values[0]) values[0] = checkBirthdayValue(values[0], 31); // day check
-    if (values[1]) values[1] = checkBirthdayValue(values[1], 12); // month check
-    if (values[1]) values[1] = checkBirthdayValue(values[1], currentYear); // year check
-    let output = values.map(function (v, i) {
-      return v.length == 2 && i < 2 ? v + " - " : v;
-    });
-    e.target.value = output.join("").substr(0, 14);
-  }
 
   useEffect(() => {
     let arr = [];
@@ -271,13 +217,6 @@ export default function AddUser() {
     if (errors.email)
       warning(
         t("admin.adduser.validation.email"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-
-    if (birthdayData.length < 14)
-      warning(
-        t("admin.adduser.validation.enterBirthday"),
         darkmode ? "dark" : "light",
         "top-right"
       );
@@ -340,56 +279,11 @@ export default function AddUser() {
       <section className={sidebar ? "adout add-user" : "adout add-user active"}>
         <header>
           <div className="category">
-            <h1 onClick={() => navigate("/admin/users")} className="link">
-              {t("admin.users.title")}
+            <h1 onClick={() => navigate("/admin/musics")} className="link">
+              {t("admin.musics.title")}
             </h1>
             <h3>/</h3>
-            <h2>{t("admin.adduser.title")}</h2>
-          </div>
-          <div className="others">
-            <div className="addUserProgress">
-              <div
-                className="profile"
-                style={
-                  !nextProfile
-                    ? { color: "#0f54f0" }
-                    : { color: darkmode ? "#3b393D" : "#b5b5b5" }
-                }
-              >
-                <div
-                  className="number"
-                  style={
-                    !nextProfile
-                      ? { background: "#0f54f0" }
-                      : { background: darkmode ? "#3b393D" : "#b5b5b5" }
-                  }
-                >
-                  1
-                </div>
-                <p>{t("admin.adduser.firstStatus")}</p>
-              </div>
-              <div className="line" />
-              <div
-                className="confirmation"
-                style={
-                  nextProfile
-                    ? { color: "#0f54f0" }
-                    : { color: darkmode ? "#3b393D" : "#b5b5b5" }
-                }
-              >
-                <div
-                  className="number"
-                  style={
-                    nextProfile
-                      ? { background: "#0f54f0" }
-                      : { background: darkmode ? "#3b393D" : "#b5b5b5" }
-                  }
-                >
-                  2
-                </div>
-                <p>{t("admin.adduser.secondStatus")}</p>
-              </div>
-            </div>
+            <h2>{t("admin.musics.add.title")}</h2>
           </div>
         </header>
         <div className="content">
@@ -460,10 +354,6 @@ export default function AddUser() {
                   type="tel"
                   id="birthday"
                   placeholder={t("admin.adduser.birthday")}
-                  onChange={(e) => {
-                    inpBithday(e);
-                    setBirthdayData(e.target.value);
-                  }}
                 />
               </label>
               <label className="gender">

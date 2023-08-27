@@ -153,13 +153,52 @@
         "enterCountry": "Mamlakat kiriting",
         "enterBirthday": "Tug'ilgan kun kiriting",
         "enterRole": "Role kiriting",
-        "noUploadPhoto": "Rasm Yuklanmadi" 
+        "noUploadPhoto": "Rasm Yuklanmadi"
       }
     },
     "musics": {
       "title": "Musiqalar",
       "input": "Musiqani shu yerdan qidiring...",
-      "button": "Musiqa qo'shish"
+      "button": "Musiqa qo'shish",
+      "music": "Sarlavha",
+      "album": "Albom",
+      "playlist": "Pleylist",
+      "added": "Qo'shilgan sana",
+      "add": {
+        "title": "Musiqa qo'shish"
+      }
+    },
+    "singer": {
+      "title": "Qo'shiqchilar",
+      "input": "Qo'shiqchini shu yerdan qidiring...",
+      "button": "Qo'shiqchi qo'shish",
+      "add": {}
+    },
+    "playlist": {
+      "title": "Pleylistlar",
+      "input": "Pleylistni shu yerdan qidiring...",
+      "button": "Pleylist qo'shish",
+      "add": {}
+    },
+    "album": {
+      "title": "Albomlar",
+      "input": "Albomni shu yerdan qidiring...",
+      "button": "Albom qo'shish",
+      "add": {}
     }
+  },
+  "date":{
+    "jan": "Yan",
+    "feb": "Fev",
+    "mar": "Mart",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "Iyun",
+    "jul": "Iyul",
+    "aug": "Avg",
+    "sep": "Sen",
+    "oct": "Okt",
+    "nov": "Noy",
+    "dec": "Dek"
   }
 }

@@ -20,5 +20,5 @@ export default function GetAudioDuration({ audioUrl }) {
     };
   }, [audioUrl]);
 
-  return <span>{duration !== null ? duration : <TbLoaderQuarter />}</span>;
+  return <>{duration !== null ? duration : <TbLoaderQuarter />}</>;
 }

@@ -434,9 +434,9 @@ export default function Users() {
                           </div>
                         </td>
                         <td>
-                          {item.birthday && (
+                          {item.birthday ? (
                             <TimeConverter timeSeconds={item.birthday} />
-                          )}
+                          ) : null}
                         </td>
                         <td>{item.country}</td>
                         <td>{item.gender}</td>
@@ -478,9 +478,9 @@ export default function Users() {
                           </div>
                         </td>
                         <td>
-                          {item.birthday && (
+                          {item.birthday ? (
                             <TimeConverter timeSeconds={item.birthday} />
-                          )}
+                          ) : null}
                         </td>
                         <td>{item.country}</td>
                         <td>{item.gender}</td>

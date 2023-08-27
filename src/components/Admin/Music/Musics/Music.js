@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import GetAudioDuration from "../../../../utility/GetAudioDuration";
+import GetAudioDuration from "../../../../utility/duration";
 
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import { IoTimeOutline } from "react-icons/io5";

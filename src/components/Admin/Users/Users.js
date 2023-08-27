@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup/build";
 
-import TimeStampConverter from "../../../utility/TimeStampConverter";
+import TimeStampConverter from "../../../utility/timestamp";
 import ageConverter from "../../../utility/ageConverter";
 
 import { HiSortDescending, HiSortAscending } from "react-icons/hi";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function TimeConverter({ timeSeconds }) {
+export default function TimeStampConverter({ timeSeconds }) {
   const [t] = useTranslation("global");
   const [month, setMonth] = useState(null);
   const date = new Date(timeSeconds * 1000);

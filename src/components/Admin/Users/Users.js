@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup/build";
 
-import TimeConverter from "../../../utility/TimeConverter";
+import TimeStampConverter from "../../../utility/TimeStampConverter";
 import ageConverter from "../../../utility/ageConverter";
 
 import { HiSortDescending, HiSortAscending } from "react-icons/hi";
@@ -435,7 +435,7 @@ export default function Users() {
                         </td>
                         <td>
                           {item.birthday ? (
-                            <TimeConverter timeSeconds={item.birthday} />
+                            <TimeStampConverter timeSeconds={item.birthday} />
                           ) : null}
                         </td>
                         <td>{item.country}</td>
@@ -479,7 +479,7 @@ export default function Users() {
                         </td>
                         <td>
                           {item.birthday ? (
-                            <TimeConverter timeSeconds={item.birthday} />
+                            <TimeStampConverter timeSeconds={item.birthday} />
                           ) : null}
                         </td>
                         <td>{item.country}</td>

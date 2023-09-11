@@ -14,7 +14,6 @@ import { LuLogOut } from "react-icons/lu";
 
 export default function Sidebar() {
   const user = useSelector((state) => state.confirmReducer.user);
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const language = localStorage.getItem("lang");
   const [t, i18n] = useTranslation("global");
@@ -71,7 +70,7 @@ export default function Sidebar() {
     <div className={sidebar ? "sidebar" : "sidebar active"}>
       <div className="wrapper">
         <div onClick={() => dispatch({ type: "SET_SIDEBAR" })} className="logo">
-          <img src={darkmode ? icon : logo} alt="Lorenzon" />
+          <img src={icon} alt="Lorenzon" />
         </div>
         <div className="categories">
           <NavLink
@@ -108,22 +107,13 @@ export default function Sidebar() {
           <li
             onClick={() => langChanger("en")}
             style={
-              darkmode
-                ? language === "en"
-                  ? {
-                      transition: "0.15s",
-                      backgroundColor: "#222222",
-                      color: "#3590f3",
-                    }
-                  : { backgroundColor: "transparent", color: "#ffffff" }
-                : language === "en"
+              language === "en"
                 ? {
                     transition: "0.15s",
-                    boxShadow: "#6363631a 0px 2px 4px",
-                    backgroundColor: "#f1f1f1",
+                    backgroundColor: "#222222",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#000000" }
+                : { backgroundColor: "transparent", color: "#ffffff" }
             }
             className="en"
           >
@@ -132,22 +122,13 @@ export default function Sidebar() {
           <li
             onClick={() => langChanger("ru")}
             style={
-              darkmode
-                ? language === "ru"
-                  ? {
-                      transition: "0.15s",
-                      backgroundColor: "#222222",
-                      color: "#3590f3",
-                    }
-                  : { backgroundColor: "transparent", color: "#ffffff" }
-                : language === "ru"
+              language === "ru"
                 ? {
                     transition: "0.15s",
-                    boxShadow: "#6363631a 0px 2px 4px",
-                    backgroundColor: "#f1f1f1",
+                    backgroundColor: "#222222",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#000000" }
+                : { backgroundColor: "transparent", color: "#ffffff" }
             }
             className="ru"
           >
@@ -156,22 +137,13 @@ export default function Sidebar() {
           <li
             onClick={() => langChanger("uz")}
             style={
-              darkmode
-                ? language === "uz"
-                  ? {
-                      transition: "0.15s",
-                      backgroundColor: "#222222",
-                      color: "#3590f3",
-                    }
-                  : { backgroundColor: "transparent", color: "#ffffff" }
-                : language === "uz"
+              language === "uz"
                 ? {
                     transition: "0.15s",
-                    boxShadow: "#6363631a 0px 2px 4px",
-                    backgroundColor: "#f1f1f1",
+                    backgroundColor: "#222222",
                     color: "#3590f3",
                   }
-                : { backgroundColor: "transparent", color: "#000000" }
+                : { backgroundColor: "transparent", color: "#ffffff" }
             }
             className="uz"
           >
@@ -187,58 +159,6 @@ export default function Sidebar() {
               : "EN"}
           </li>
         </ul>
-        <div
-          onClick={() => dispatch({ type: "SET_DARKMODE" })}
-          className="darkmode"
-        >
-          <div
-            className="sun"
-            style={
-              darkmode
-                ? { backgroundColor: "transparent", color: "#f1f1f1" }
-                : {
-                    transition: "0.15s",
-                    boxShadow: "#6363631a 0px 2px 4px",
-                    backgroundColor: "#f1f1f1",
-                    color: "#3590f3",
-                  }
-            }
-          >
-            <HiSun className="light" />
-            <span>{t("admin.sidebar.light")}</span>
-          </div>
-          <div
-            className="moon"
-            style={
-              darkmode
-                ? {
-                    transition: "0.15s",
-                    backgroundColor: "#222222",
-                    color: "#3590f3",
-                  }
-                : {
-                    backgroundColor: "transparent",
-                    color: "#141414",
-                  }
-            }
-          >
-            <HiMoon className="dark" />
-            <span>{t("admin.sidebar.dark")}</span>
-          </div>
-
-          <div
-            className="moonDark"
-            style={darkmode ? { left: "51%" } : { left: "-50%" }}
-          >
-            <HiMoon className="dark" style={{ padding: "0 0 1px 1px" }} />
-          </div>
-          <div
-            className="sunLight"
-            style={darkmode ? { left: "150%" } : { left: "50%" }}
-          >
-            <HiSun />
-          </div>
-        </div>
         <div className="logout" onClick={logout}>
           <div className="data">
             <img src={user.image} alt="User" />

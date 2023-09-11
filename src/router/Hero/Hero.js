@@ -8,7 +8,7 @@ export default function Hero() {
     <div id="hero">
       <Header />
       <Main />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

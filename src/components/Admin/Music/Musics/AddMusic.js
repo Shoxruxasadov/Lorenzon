@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { Timestamp, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { auth, db, storage } from "../../../../firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  db,
+  storage,
+  database,
+  dbRef,
+  dbSet,
+} from "../../../../firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import { success, wrong, warning } from "../../../../utility/toastify";
@@ -18,6 +23,7 @@ import { HiSearch } from "react-icons/hi";
 import { TbMailFilled } from "react-icons/tb";
 import { MdVerifiedUser } from "react-icons/md";
 import unknown from "../../../../images/Admin/unknown.jpg";
+import api from "../../../../api/instance";
 
 import {
   BiSolidLockAlt,
@@ -37,17 +43,22 @@ import {
 } from "react-icons/fa";
 
 export default function AddMusic() {
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
+  const photoRef = useRef(null);
+  const musicRef = useRef(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [allCountry, setAllCountry] = useState(country);
   const [newCountry, setNewCountry] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-
-  const [selectCountry, setSelectCountry] = useState(t("admin.adduser.country"));
   const [ocCountry, setOcCountry] = useState(false);
 
   const [selectGender, setSelectGender] = useState(t("admin.adduser.gender"));
@@ -56,149 +67,158 @@ export default function AddMusic() {
   const [selectRole, setSelectRole] = useState(t("admin.adduser.role"));
   const [ocRole, setOcRole] = useState(false);
 
+  const [photo, setPhoto] = useState("");
+  const [music, setMusic] = useState("");
+
+  const [files, setFiles] = useState([]);
+  const [photoUpload, setPhotoUpload] = useState("");
+  const [per, setPer] = useState(null);
+  const [disable, setDisable] = useState(false);
+
+  const handleDragOver = (event) => event.preventDefault();
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const { files } = event.dataTransfer;
+    if (files.length > 0) {
+      setFiles(files[0]);
+    }
+  };
+
   useEffect(() => {
-    setSelectCountry(t("admin.adduser.country"));
     setSelectGender(t("admin.adduser.gender"));
     setSelectRole(t("admin.adduser.role"));
   }, [t]);
 
-  const inputRef = useRef(null);
+  const onSubmit = (data) => {
+    setDisable(true);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const [photo, setPhoto] = useState("");
-  const [per, setPer] = useState(null);
-  const [disable, setDisable] = useState(false);
+    console.log(data);
 
-  const onSubmit = async (data) => {
-    if (data.password !== data.confirmPassword) {
-      warning(
-        t("admin.adduser.validation.conEqualPass"),
-        darkmode ? "dark" : "light",
-        "top-right"
+    try {
+      const photoName = new Date().getTime() + "." + photoUpload.name;
+      const photoStorageRef = ref(storage, `albums/${photoName}`);
+      const photoUploadTask = uploadBytesResumable(
+        photoStorageRef,
+        photoUpload
       );
-    } else if (
-      selectGender == "Gender" ||
-      selectGender == "Пол" ||
-      selectGender == "Jins"
-    ) {
-      warning(
-        t("admin.adduser.validation.enterGender"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-    } else if (
-      selectCountry == "Country" ||
-      selectCountry == "Страна" ||
-      selectCountry == "Mamlakat"
-    ) {
-      warning(
-        t("admin.adduser.validation.enterCountry"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-    } else if (
-      selectRole == "Role" ||
-      selectRole == "Роль" ||
-      selectRole == "Rol"
-    ) {
-      warning(
-        t("admin.adduser.validation.enterRole"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-    } else {
-      setDisable(true);
 
-      try {
-        const res = await createUserWithEmailAndPassword(
-          auth,
-          data.email,
-          data.password
-        );
+      const musicName = new Date().getTime() + "." + files.name;
+      const musicStorageRef = ref(storage, `songs/${musicName}`);
+      const musicUploadTask = uploadBytesResumable(musicStorageRef, files);
 
-        if (photo) {
-          const name = new Date().getTime() + "." + photo.name;
-          const storageRef = ref(storage, `users/${name}`);
-          const uploadTask = uploadBytesResumable(storageRef, photo);
-
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("Upload is " + progress + "% done");
-              setPer(progress);
-              switch (snapshot.state) {
-                case "paused":
-                  console.log("Upload is paused");
-                  break;
-                case "running":
-                  console.log("Upload is running");
-                  break;
-                default:
-                  break;
-              }
-            },
-            (error) => {
-              wrong(
-                t("admin.adduser.validation.noUploadPhoto"),
-                darkmode ? "dark" : "light",
-                "top-right"
-              );
-              console.log(error);
-            },
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref).then(
-                async (downloadURL) => {
-                  await setDoc(doc(db, "users", res.user.uid), {
-                    country: selectCountry,
-                    email: data.email,
-                    gender: selectGender,
-                    image: downloadURL,
-                    name: data.name,
-                    password: data.password,
-                    role: selectRole,
-                    timeStamp: serverTimestamp(),
-                  });
-                }
-              );
-            }
+      photoUploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          setPer(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+          wrong(t("admin.adduser.validation.noUploadPhoto"));
+        },
+        () => {
+          getDownloadURL(photoUploadTask.snapshot.ref).then((downloadURL) =>
+            setMusic(downloadURL)
           );
-        } else {
-          await setDoc(doc(db, "users", res.user.uid), {
-            country: selectCountry,
-            email: data.email,
-            gender: selectGender,
-            image: null,
-            name: data.name,
-            password: data.password,
-            role: selectRole,
-            timeStamp: serverTimestamp(),
-          });
         }
+      );
 
-        success(
-          t("admin.adduser.validation.addedUser"),
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
-        setTimeout(() => {
-          setDisable(false);
-        }, 2000);
-      } catch {
-        setDisable(false);
-        wrong(
-          t("admin.adduser.validation.errorRegister"),
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
-      }
+      musicUploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          setPer(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          wrong("NOT UPLOADET MUSIC");
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(musicUploadTask.snapshot.ref).then((downloadURL) =>
+            setPhoto(downloadURL)
+          );
+        }
+      );
+    } catch {
+      setDisable(false);
+      wrong(
+        "SOME ERROR HAS OCCURRED",
+      );
     }
   };
+
+  useEffect(() => {
+    console.log(photo);
+    console.log(music);
+    console.log(photo && music);
+
+    const newMusic = {
+      id: Math.round(Date.now() / 1000),
+      album: "DJANUM",
+      artist: "DJANUM",
+      image: photo,
+      name: "DJANUM",
+      playlist: "DJANUM",
+      song: music,
+      timeStamp: Timestamp.now().seconds,
+    };
+
+    if (photo && music) {
+      console.log("ketti");
+
+      database
+        .ref("musics")
+        .push(newMusic)
+        .then(() => {
+          console.log("Data pushed successfully");
+        })
+        .catch((error) => {
+          console.error("Error pushing data:", error);
+        });
+
+      // dbSet(dbRef(database, "musics"), {
+      //   id: Math.round(Date.now() / 1000),
+      //   album: "DJANUM",
+      //   artist: "DJANUM",
+      //   image: photo,
+      //   name: "DJANUM",
+      //   playlist: "DJANUM",
+      //   song: music,
+      //   timeStamp: Timestamp.now().seconds,
+      // });
+
+      success(
+        t("admin.adduser.validation.addedUser"),
+      );
+
+      setDisable(false);
+    }
+  }, [photo, music]);
 
   useEffect(() => {
     let arr = [];
@@ -210,68 +230,7 @@ export default function AddMusic() {
     setNewCountry(arr);
   }, [searchInput]);
 
-  function handleValidation() {
-    if (errors.name)
-      warning(errors.name.message, darkmode ? "dark" : "light", "top-right");
-
-    if (errors.email)
-      warning(
-        t("admin.adduser.validation.email"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-
-    if (
-      selectGender == "Gender" ||
-      selectGender == "Пол" ||
-      selectGender == "Jins"
-    )
-      warning(
-        t("admin.adduser.validation.enterGender"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-
-    if (
-      selectCountry == "Country" ||
-      selectCountry == "Страна" ||
-      selectCountry == "Mamlakat"
-    )
-      warning(
-        t("admin.adduser.validation.enterCountry"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-
-    if (selectRole == "Role" || selectRole == "Роль" || selectRole == "Rol")
-      warning(
-        t("admin.adduser.validation.enterRole"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-
-    if (errors.password) {
-      if (errors.password.message === "") {
-        warning(
-          t("admin.adduser.validation.password"),
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
-      } else {
-        warning(
-          errors.password.message,
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
-      }
-    }
-    if (errors.confirmPassword)
-      warning(
-        t("admin.adduser.validation.conpass"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
-  }
+  function handleValidation() {}
 
   return (
     <>
@@ -293,22 +252,38 @@ export default function AddMusic() {
           <form className="body" onSubmit={handleSubmit(onSubmit)}>
             <div className="photo">
               <div className="top">
-                <div className="img" onClick={() => inputRef.current.click()}>
+                <div className="muz" onClick={() => musicRef.current.click()}>
+                  <div className="music">
+                    <div
+                      className="dribble"
+                      onDragOver={handleDragOver}
+                      onDrop={handleDrop}
+                    >
+                      {/* {files.map((file, index) => (
+                        <span key={index}>{file.name}</span>
+                      ))} */}
+                      <span>{files.name}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="img" onClick={() => photoRef.current.click()}>
                   <div className="image">
-                    <img src={photo ? URL.createObjectURL(photo) : unknown} alt="User Photo" />
+                    <img
+                      src={
+                        photoUpload ? URL.createObjectURL(photoUpload) : unknown
+                      }
+                      alt="Photo"
+                    />
                     <input
                       type="file"
-                      onChange={(e) => setPhoto(e.target.files[0])}
-                      ref={inputRef}
+                      ref={photoRef}
+                      onChange={(e) => setPhotoUpload(e.target.files[0])}
                     />
                   </div>
                   <div className="change">
                     <BiSolidPencil />
                   </div>
-                </div>
-                <div className="title">
                   <h1>{t("admin.adduser.profilePhone")}</h1>
-                  <p>{t("admin.adduser.titlePhoto")}</p>
                 </div>
               </div>
               <div className="submit">
@@ -325,13 +300,9 @@ export default function AddMusic() {
               <label htmlFor="name">
                 <FaUser className="faUser" />
                 <input
-                  {...register("name", {
-                    required: t("admin.adduser.validation.name"),
-                    minLength: {
-                      value: 3,
-                      message: t("admin.adduser.validation.nameLang"),
-                    },
-                  })}
+                  // {...register("name", {
+                  //   required: t("admin.adduser.validation.name"),
+                  // })}
                   id="name"
                   type="text"
                   placeholder={t("admin.adduser.name")}
@@ -341,19 +312,11 @@ export default function AddMusic() {
               <label htmlFor="email">
                 <TbMailFilled />
                 <input
-                  {...register("email", { required: true })}
+                  // {...register("email", { required: true })}
                   id="email"
                   type="email"
                   placeholder={t("admin.adduser.email")}
                   aria-invalid={errors.email ? "true" : "false"}
-                />
-              </label>
-              <label className="birthday" htmlFor="birthday">
-                <BiSolidCake />
-                <input
-                  type="tel"
-                  id="birthday"
-                  placeholder={t("admin.adduser.birthday")}
                 />
               </label>
               <label className="gender">
@@ -432,80 +395,6 @@ export default function AddMusic() {
                       <FaFemale />
                       <span>{t("admin.adduser.female")}</span>
                     </li>
-                  </ul>
-                </div>
-              </label>
-              <label className="country">
-                <BiSolidFlag
-                  onClick={() => {
-                    setOcCountry(!ocCountry);
-                    setOcGender(false);
-                  }}
-                />
-                <div
-                  onClick={() => {
-                    setOcCountry(!ocCountry);
-                    setOcGender(false);
-                  }}
-                  id="select"
-                  className="select"
-                >
-                  <span
-                    className={
-                      selectCountry == "Country" ||
-                      selectCountry == "Страна" ||
-                      selectCountry == "Mamlakat"
-                        ? ""
-                        : "active"
-                    }
-                  >
-                    {selectCountry}
-                  </span>
-                  <i id="arrow" className="fa-solid fa-angle-down"></i>
-                </div>
-                <div
-                  id="content"
-                  className={ocCountry ? "content active" : "content"}
-                >
-                  <div className="search">
-                    <HiSearch />
-                    <input
-                      onKeyUp={(e) => setSearchInput(e.target.value)}
-                      id="searchCountryInp"
-                      type="text"
-                      placeholder="Search Country"
-                    />
-                  </div>
-                  <ul id="options">
-                    {searchInput === "" ? (
-                      allCountry.map((item, index) => (
-                        <li
-                          key={index}
-                          onClick={() => {
-                            setSelectCountry(item);
-                            setOcCountry(false);
-                          }}
-                          id="selectedItem"
-                        >
-                          {item}
-                        </li>
-                      ))
-                    ) : newCountry.length == 0 ? (
-                      <li>{t("admin.adduser.notCountry")}</li>
-                    ) : (
-                      newCountry.map((item, index) => (
-                        <li
-                          key={index}
-                          onClick={() => {
-                            setSelectCountry(item);
-                            setOcCountry(false);
-                          }}
-                          id="selectedItem"
-                        >
-                          {item}
-                        </li>
-                      ))
-                    )}
                   </ul>
                 </div>
               </label>
@@ -591,13 +480,9 @@ export default function AddMusic() {
               <label htmlFor="password">
                 <BiSolidLock />
                 <input
-                  {...register("password", {
-                    required: true,
-                    minLength: {
-                      value: 8,
-                      message: t("admin.adduser.validation.passLang"),
-                    },
-                  })}
+                  // {...register("password", {
+                  //   required: true,
+                  // })}
                   id="password"
                   type={eye ? "text" : "password"}
                   placeholder={t("admin.adduser.password")}
@@ -612,7 +497,7 @@ export default function AddMusic() {
               <label htmlFor="conpass">
                 <BiSolidLockAlt />
                 <input
-                  {...register("confirmPassword", { required: true })}
+                  // {...register("confirmPassword", { required: true })}
                   id="conpass"
                   type={eye ? "text" : "password"}
                   placeholder={t("admin.adduser.conpass")}

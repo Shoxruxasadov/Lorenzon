@@ -10,7 +10,6 @@ import { FaSolarPanel } from "react-icons/fa6";
 
 export default function Album() {
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const albums = useSelector((state) => state.musicsReducer.albums);
   const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();

@@ -2,31 +2,28 @@
 <html lang="en">
   <head>
     <!-- META -->
-    <meta name="description" content="Lorenzon - Listen to your favorite music, anytime, anywhere!" />
+    <meta
+      name="google-site-verification"
+      content="E4VKDILHxyNIMCC_ESpZ2l7q_h_Dg-S90tpF_W8vjVg"
+    />
+    <meta
+      name="description"
+      content="Lorenzon | Enjoy the music and connect with people | Free Music Player"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="keywords" content="Lorenzon, music, song, rington" />
+    <meta name="keywords" content="Lorenzon, music, song" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme-color" content="#141414" />
+    <meta name="theme-color" content="#080b0f" />
     <meta charset="UTF-8" />
     <!-- TITLE -->
     <title>Lorenzon</title>
     <!-- MANIFEST -->
     <link href="%PUBLIC_URL%/logo192.png" rel="apple-touch-icon" />
-    <link href="%PUBLIC_URL%/favicon.ico" rel="icon" />
+    <link href="%PUBLIC_URL%/logo.ico" rel="icon" />
     <link href="%PUBLIC_URL%/manifest.json" rel="manifest" />
     <!-- OTHERS -->
   </head>
-  <body class="dark">
+  <body>
     <div id="root"></div>
-    <script>
-      document
-        .querySelector("body")
-        .setAttribute(
-          "class",
-          localStorage.getItem("theme") == null
-            ? "dark"
-            : localStorage.getItem("theme")
-        );
-    </script>
   </body>
 </html>

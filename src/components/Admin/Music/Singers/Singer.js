@@ -10,7 +10,6 @@ import { FaSolarPanel } from "react-icons/fa6";
 
 export default function Singer() {
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const singers = useSelector((state) => state.musicsReducer.artists);
   const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();

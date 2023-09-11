@@ -4,8 +4,8 @@
   "start_url": "/home",
   "scope": "/home",
   "display": "minimal-ui",
-  "theme_color": "#3590F3",
-  "background_color": "#141414",
+  "theme_color": "#582ddd",
+  "background_color": "#080b0f",
   "icons": [
     {
       "src": "lorenzon.ico",

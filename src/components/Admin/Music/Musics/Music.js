@@ -16,7 +16,6 @@ import playLight from "../../../../images/Admin/play-light.jpg";
 
 export default function Music() {
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const musics = useSelector((state) => state.musicsReducer.musics);
   const [currentMusic, setCurrentMusic] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -29,11 +28,13 @@ export default function Music() {
   const [slicedData, setSlicedData] = useState([]);
   const [currentData, setCurrentData] = useState([]);
 
+  useEffect(() => console.log(slicedData), [slicedData]);
+
   const [newSlicedData, setNewSlicedData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
   const [page, setPage] = useState(1); // O'qish bo'limi
-  const [perPage, setPerPage] = useState(2); // Har bir sahifada ko'rsatiladigan malumotlar soni
+  const [perPage, setPerPage] = useState(10); // Har bir sahifada ko'rsatiladigan malumotlar soni
   const [totalPages, setTotalPages] = useState(1); // Jami bo'limlar
   const [loader, setLoader] = useState(true);
 
@@ -109,23 +110,40 @@ export default function Music() {
             <HiSearch />
           </div>
           <div className="addUser">
-            <button onClick={()=>navigate("/admin/musics/add-music")}>{t("admin.musics.button")}</button>
+            <button onClick={() => navigate("/admin/musics/add-music")}>
+              {t("admin.musics.button")}
+            </button>
           </div>
         </div>
       </header>
       <div className="content">
         <div className="top">
-          <div className="artistsBox part userPart" onClick={()=>navigate("/admin/musics/singers")}>
+          <div
+            className="artistsBox part userPart"
+            onClick={() => navigate("/admin/musics/singers")}
+          >
             <img src={artist} alt="Artist" />
-            <div className="title"><h1>{t("admin.singer.title")}</h1></div>
+            <div className="title">
+              <h1>{t("admin.singer.title")}</h1>
+            </div>
           </div>
-          <div className="playlistsBox part userPart" onClick={()=>navigate("/admin/musics/playlists")}>
-            <img src={darkmode ? playDark : playLight} alt="Artist" />
-            <div className="title"><h1>{t("admin.playlist.title")}</h1></div>
+          <div
+            className="playlistsBox part userPart"
+            onClick={() => navigate("/admin/musics/playlists")}
+          >
+            <img src={playDark} alt="Artist" />
+            <div className="title">
+              <h1>{t("admin.playlist.title")}</h1>
+            </div>
           </div>
-          <div className="albumsBox part userPart" onClick={()=>navigate("/admin/musics/albums")}>
+          <div
+            className="albumsBox part userPart"
+            onClick={() => navigate("/admin/musics/albums")}
+          >
             <img src={album} alt="Artist" />
-            <div className="title"><h1>{t("admin.album.title")}</h1></div>
+            <div className="title">
+              <h1>{t("admin.album.title")}</h1>
+            </div>
           </div>
         </div>
         <div className="table-wrapper">

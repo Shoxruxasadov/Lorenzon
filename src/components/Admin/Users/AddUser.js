@@ -37,7 +37,6 @@ import {
 } from "react-icons/fa";
 
 export default function AddUser() {
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
@@ -87,47 +86,27 @@ export default function AddUser() {
 
   const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
-      warning(
-        t("admin.adduser.validation.conEqualPass"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.conEqualPass"));
     } else if (birthdayData.length < 14) {
-      warning(
-        t("admin.adduser.validation.enterBirthday"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterBirthday"));
     } else if (
       selectGender == "Gender" ||
       selectGender == "Пол" ||
       selectGender == "Jins"
     ) {
-      warning(
-        t("admin.adduser.validation.enterGender"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterGender"));
     } else if (
       selectCountry == "Country" ||
       selectCountry == "Страна" ||
       selectCountry == "Mamlakat"
     ) {
-      warning(
-        t("admin.adduser.validation.enterCountry"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterCountry"));
     } else if (
       selectRole == "Role" ||
       selectRole == "Роль" ||
       selectRole == "Rol"
     ) {
-      warning(
-        t("admin.adduser.validation.enterRole"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterRole"));
     } else {
       setDisable(true);
 
@@ -162,11 +141,7 @@ export default function AddUser() {
               }
             },
             (error) => {
-              wrong(
-                t("admin.adduser.validation.noUploadPhoto"),
-                darkmode ? "dark" : "light",
-                "top-right"
-              );
+              wrong(t("admin.adduser.validation.noUploadPhoto"));
               console.log(error);
             },
             () => {
@@ -201,22 +176,14 @@ export default function AddUser() {
           });
         }
 
-        success(
-          t("admin.adduser.validation.addedUser"),
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
+        success(t("admin.adduser.validation.addedUser"));
         setNextProfile(true);
         setTimeout(() => {
           setDisable(false);
         }, 2000);
       } catch {
         setDisable(false);
-        wrong(
-          t("admin.adduser.validation.errorRegister"),
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
+        wrong(t("admin.adduser.validation.errorRegister"));
       }
     }
   };
@@ -265,73 +232,38 @@ export default function AddUser() {
   }, [searchInput]);
 
   function handleValidation() {
-    if (errors.name)
-      warning(errors.name.message, darkmode ? "dark" : "light", "top-right");
+    if (errors.name) warning(errors.name.message);
 
-    if (errors.email)
-      warning(
-        t("admin.adduser.validation.email"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+    if (errors.email) warning(t("admin.adduser.validation.email"));
 
     if (birthdayData.length < 14)
-      warning(
-        t("admin.adduser.validation.enterBirthday"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterBirthday"));
 
     if (
       selectGender == "Gender" ||
       selectGender == "Пол" ||
       selectGender == "Jins"
     )
-      warning(
-        t("admin.adduser.validation.enterGender"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterGender"));
 
     if (
       selectCountry == "Country" ||
       selectCountry == "Страна" ||
       selectCountry == "Mamlakat"
     )
-      warning(
-        t("admin.adduser.validation.enterCountry"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterCountry"));
 
     if (selectRole == "Role" || selectRole == "Роль" || selectRole == "Rol")
-      warning(
-        t("admin.adduser.validation.enterRole"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+      warning(t("admin.adduser.validation.enterRole"));
 
     if (errors.password) {
       if (errors.password.message === "") {
-        warning(
-          t("admin.adduser.validation.password"),
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
+        warning(t("admin.adduser.validation.password"));
       } else {
-        warning(
-          errors.password.message,
-          darkmode ? "dark" : "light",
-          "top-right"
-        );
+        warning(errors.password.message);
       }
     }
-    if (errors.confirmPassword)
-      warning(
-        t("admin.adduser.validation.conpass"),
-        darkmode ? "dark" : "light",
-        "top-right"
-      );
+    if (errors.confirmPassword) warning(t("admin.adduser.validation.conpass"));
   }
 
   return (
@@ -351,9 +283,7 @@ export default function AddUser() {
               <div
                 className="profile"
                 style={
-                  !nextProfile
-                    ? { color: "#0f54f0" }
-                    : { color: darkmode ? "#3b393D" : "#b5b5b5" }
+                  !nextProfile ? { color: "#0f54f0" } : { color: "#3b393D" }
                 }
               >
                 <div
@@ -361,7 +291,7 @@ export default function AddUser() {
                   style={
                     !nextProfile
                       ? { background: "#0f54f0" }
-                      : { background: darkmode ? "#3b393D" : "#b5b5b5" }
+                      : { background: "#3b393D" }
                   }
                 >
                   1
@@ -372,9 +302,7 @@ export default function AddUser() {
               <div
                 className="confirmation"
                 style={
-                  nextProfile
-                    ? { color: "#0f54f0" }
-                    : { color: darkmode ? "#3b393D" : "#b5b5b5" }
+                  nextProfile ? { color: "#0f54f0" } : { color: "#3b393D" }
                 }
               >
                 <div
@@ -382,7 +310,7 @@ export default function AddUser() {
                   style={
                     nextProfile
                       ? { background: "#0f54f0" }
-                      : { background: darkmode ? "#3b393D" : "#b5b5b5" }
+                      : { background: "#3b393D" }
                   }
                 >
                   2
@@ -401,7 +329,10 @@ export default function AddUser() {
               <div className="top">
                 <div className="img" onClick={() => inputRef.current.click()}>
                   <div className="image">
-                    <img src={photo ? URL.createObjectURL(photo) : unknown} alt="User Photo" />
+                    <img
+                      src={photo ? URL.createObjectURL(photo) : unknown}
+                      alt="User Photo"
+                    />
                     <input
                       type="file"
                       onChange={(e) => setPhoto(e.target.files[0])}

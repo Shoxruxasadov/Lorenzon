@@ -49,11 +49,11 @@ import {
 } from "../../firebase/firebase";
 
 export default function Signup() {
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
+  const pos = "top-left";
 
   const [allCountry, setAllCountry] = useState(country);
   const [newCountry, setNewCountry] = useState([]);
@@ -79,41 +79,24 @@ export default function Signup() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const posTaos = "top-left";
 
   const onSubmit = async (data) => {
     if (data.password !== data.confirmPassword) {
-      wrong(
-        t("login.validation.conEqualPass"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+      wrong(t("login.validation.conEqualPass"), pos);
     } else if (
       selectGender == "Gender" ||
       selectGender == "Пол" ||
       selectGender == "Jins"
     ) {
-      warning(
-        t("login.validation.enterGender"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+      warning(t("login.validation.enterGender"), pos);
     } else if (birthdayData.length < 14) {
-      warning(
-        t("login.validation.birthday"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+      warning(t("login.validation.birthday"), pos);
     } else if (
       selectCountry == "Country" ||
       selectCountry == "Страна" ||
       selectCountry == "Mamlakat"
     ) {
-      warning(
-        t("login.validation.enterCountry"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+      warning(t("login.validation.enterCountry"), pos);
     } else {
       try {
         const res = await createUserWithEmailAndPassword(
@@ -133,19 +116,11 @@ export default function Signup() {
           timeStamp: serverTimestamp(),
         });
 
-        success(
-          t("login.validation.signedup"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        success(t("login.validation.signedup"), pos);
 
         setTimeout(() => navigate("/login"), 2000);
       } catch (error) {
-        wrong(
-          t("login.validation.errorRegister"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        wrong(t("login.validation.errorRegister"), pos);
       }
     }
   };
@@ -153,11 +128,7 @@ export default function Signup() {
   const authGoogle = () => {
     signInWithPopup(auth, providerGoogle)
       .then(async (result) => {
-        success(
-          t("login.validation.signedin"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        success(t("login.validation.signedin"), pos);
 
         const confirm = result.user.reloadUserInfo;
 
@@ -185,22 +156,14 @@ export default function Signup() {
       })
       .catch((error) => {
         console.log(error);
-        wrong(
-          "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        wrong("QANDAYDIR XATOLIK YUZ BERDI", pos);
       });
   };
 
   const authFacebook = () => {
     signInWithPopup(auth, providerFacebook)
       .then(async (result) => {
-        success(
-          t("login.validation.signedin"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        success(t("login.validation.signedin"), pos);
 
         const confirm = result.user;
         console.log(confirm);
@@ -235,61 +198,30 @@ export default function Signup() {
       })
       .catch((error) => {
         console.log(error);
-        wrong(
-          "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        wrong("QANDAYDIR XATOLIK YUZ BERDI", pos);
       });
   };
 
   function handleValidation() {
     let name = errors.firstName || errors.lastName;
-    if (name) warning(name.message, darkmode ? "dark" : "light", posTaos);
-    if (birthdayData.length < 14)
-      warning(
-        t("login.validation.birthday"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+    if (name) warning(name.message, pos);
+    if (birthdayData.length < 14) warning(t("login.validation.birthday"), pos);
 
     if (selectGender === t("login.signup.gender"))
-      warning(
-        t("login.validation.enterGender"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+      warning(t("login.validation.enterGender"), pos);
 
     if (selectCountry === t("login.signup.country"))
-      warning(
-        t("login.validation.enterCountry"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+      warning(t("login.validation.enterCountry"), pos);
 
-    if (errors.email)
-      warning(
-        t("login.validation.email"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+    if (errors.email) warning(t("login.validation.email"), pos);
     if (errors.password) {
       if (errors.password.message === "") {
-        warning(
-          t("login.validation.password"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        warning(t("login.validation.password"), pos);
       } else {
-        warning(errors.password.message, darkmode ? "dark" : "light", posTaos);
+        warning(errors.password.message, pos);
       }
     }
-    if (errors.confirmPassword)
-      warning(
-        t("login.validation.conpass"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+    if (errors.confirmPassword) warning(t("login.validation.conpass"), pos);
   }
 
   let currentYear = new Date().getFullYear();
@@ -324,16 +256,6 @@ export default function Signup() {
     });
     e.target.value = output.join("").substr(0, 14);
   }
-
-  useEffect(() => {
-    let arr = [];
-    for (let i = 0; i < allCountry.length; i++) {
-      if (allCountry[i].toUpperCase().startsWith(searchInput.toUpperCase())) {
-        arr.push(allCountry[i]);
-      }
-    }
-    setNewCountry(arr);
-  }, [searchInput]);
 
   return (
     <>

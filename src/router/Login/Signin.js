@@ -26,7 +26,6 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Signin() {
-  const darkmode = useSelector((state) => state.utilityReducer.darkmode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
@@ -37,16 +36,11 @@ export default function Signin() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const posTaos = "top-right";
 
   const onSubmit = (data) => {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(async (result) => {
-        success(
-          t("login.validation.signedin"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        success(t("login.validation.signedin"));
 
         const confirm = result.user;
         const docRef = doc(db, "users", confirm.uid);
@@ -59,34 +53,18 @@ export default function Signin() {
           role === "Admin" ? navigate("/admin") : navigate("/home");
         }, 1000);
       })
-      .catch((error) =>
-        wrong(t("login.validation.wrong"), darkmode ? "dark" : "light", posTaos)
-      );
+      .catch((err) => wrong(t("login.validation.wrong")));
   };
 
   function handleValidation() {
-    if (errors.email)
-      warning(
-        t("login.validation.email"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
-    if (errors.password)
-      warning(
-        t("login.validation.password"),
-        darkmode ? "dark" : "light",
-        posTaos
-      );
+    if (errors.email) warning(t("login.validation.email"));
+    if (errors.password) warning(t("login.validation.password"));
   }
 
   const authGoogle = () => {
     signInWithPopup(auth, providerGoogle)
       .then(async (result) => {
-        success(
-          t("login.validation.signedin"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        success(t("login.validation.signedin"));
 
         const confirm = result.user.reloadUserInfo;
 
@@ -134,22 +112,14 @@ export default function Signin() {
         }
       })
       .catch((error) => {
-        wrong(
-          "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        wrong("QANDAYDIR XATOLIK YUZ BERDI");
       });
   };
 
   const authFacebook = () => {
     signInWithPopup(auth, providerFacebook)
       .then(async (result) => {
-        success(
-          t("login.validation.signedin"),
-          darkmode ? "dark" : "light",
-          posTaos
-        );
+        success(t("login.validation.signedin"));
 
         const confirm = result.user;
         console.log(confirm);
@@ -182,13 +152,7 @@ export default function Signin() {
         //   role === "Admin" ? navigate("/admin") : navigate("/home");
         // }, 1000);
       })
-      .catch((error) => {
-        wrong(
-          "QANDAYDIR XATOLIK YUZ BERDI",
-          darkmode ? "dark" : "light",
-          posTaos
-        );
-      });
+      .catch((err) => wrong("QANDAYDIR XATOLIK YUZ BERDI"));
   };
 
   return (

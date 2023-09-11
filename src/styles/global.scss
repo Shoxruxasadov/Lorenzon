@@ -1,123 +1,94 @@
+// ===== MAIN COLORS ===== \\
+$main: #582ddd;
+$text: #f3f3f3;
+$bate: #99999f;
+$view: #0c1015;
+$back: #080b0f;
+// HERO PAGE ----------
+$hero-tape: #582ddd;
+$hero-click: #6940ee;
+$hero-header: #222222;
+$hero-toggle: #222222;
+// LOGIN PAGE ----------
+$login-base: #24242a;
+$login-prov: #222222;
+$login-bor: #333333;
+$login-inp: #171717;
+// ADMIN PAGE ----------
+$admin-tabhead: #0d1217;
+$admin-inpbor: #282729;
+$admin-butowe: #ffffff;
+$admin-line: #3b393d;
+$admin-shadbar: #00000026;
+
+// ===== FONT FACE ===== \\
 @font-face {
   font-family: Santello;
   src: url("./fonts/Santello/Santello.ttf");
 }
+@font-face {
+  font-family: BelfastGrotesk300;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk300.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk400;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk400.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk500;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk500.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk600;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk600.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk700;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk700.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk800;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk800.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk900;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk900.ttf");
+}
 
+// ===== BASIC CODE ==== \\
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   cursor: default;
 }
+a,
+input,
+button,
+textarea {
+  outline: none;
+  cursor: pointer;
+  font-family: Santello;
+  text-decoration: none;
+}
+::selection {
+  background: #f3f3f30a;
+}
+::-webkit-scrollbar {
+  all: unset;
+  width: 0;
+  height: 0;
+}
 
 body {
-  font-family: "Santello", sans-serif;
+  font-family: Santello, sans-serif;
   scroll-behavior: smooth;
 
-  ::selection {
-    all: unset;
-  }
-
-  &::-webkit-scrollbar {
-    all: unset;
-    width: 0 !important;
-  }
-
-  a {
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  input,
-  button,
-  textarea {
-    outline: none;
-    cursor: pointer;
-    font-family: Santello;
-  }
-}
-
-body.dark {
-  $main: #3590f3;
-  $text: #f1f1f1;
-  $bate: #99999f;
-  $view: #222222;
-  $back: #141414;
-
-  // -------------------------
-
-  $hero-tape: #3590f3;
-  $hero-click: #4498f1;
-  $hero-header: #222222;
-  $hero-toggle: #222222;
-
-  // -------------------------
-
-  $login-base: #24242a;
-  $login-prov: #222222;
-  $login-bor: #333333;
-  $login-inp: #171717;
-
-  // -------------------------
-
-  $admin-tabhead: #282729;
-  $admin-inpbor: #282729;
-  $admin-butowe: #ffffff;
-  $admin-line: #3b393d;
-  $admin-shadbar: #00000026;
-
-  // -------------------------
-
+  // Fixed Color  ----------
   background: $back;
   color: $text;
 
-  // -------------------------
-
-  @import "./Hero/hero";
-  @import "./Login/login";
-  @import "./Admin/admin";
-  @import "./Home/home";
-
-  @import "./assets/checkbox";
-  @import "./assets/button";
-}
-
-body.light {
-  $main: #3590f3;
-  $text: #141414;
-  $bate: #758096;
-  $view: #f1f1f1;
-  $back: #e4e4e4;
-
-  // -------------------------
-
-  $hero-tape: #88baef;
-  $hero-click: #4498f1;
-  $hero-header: #e5e5e5d0;
-  $hero-toggle: #ffffffbb;
-
-  // -------------------------
-
-  $login-base: #cbcce8;
-  $login-prov: #eceff4;
-  $login-bor: #d0d5dd;
-  $login-inp: #f9f9f9;
-
-  // -------------------------
-
-  $admin-tabhead: #f9f8f9;
-  $admin-inpbor: #dde2e8;
-  $admin-butowe: #3590f3;
-  $admin-line: #b5b5b5;
-  $admin-shadbar: #ffffffb3;
-
-  // -------------------------
-
-  background: $back;
-  color: $text;
-
-  // -------------------------
-
+  // Receiving ----------
   @import "./Hero/hero";
   @import "./Login/login";
   @import "./Admin/admin";

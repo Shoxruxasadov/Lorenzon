@@ -1,42 +1,16 @@
 {
-  "landing": {
+  "brand": "Lorenzon",
+  "hero": {
     "header": {
-      "login": "Kirish",
-      "register": "Ro'yxatdan o'tish"
+      "home": "Asosiy"
     },
-    "section1": {
-      "title1": "Sevimli musiqangizni tinglang",
-      "title2": "istalgan vaqtda, istalgan joyda",
-      "miniTitle1": "80 milliondan ortiq qo'shiqlar,",
-      "miniTitle2": "eksklyuziv nashrlar va musiqalarni",
-      "miniTitle3": "Hi-Fi ovoz formatida tinglang."
-    },
-    "trending": "Ommaviy musiqa",
-    "section2": {
-      "title1": "Dunyodagi Barcha Zamonlarning Eng Mashhur",
-      "title2": "",
-      "artist": "Artistlari",
-      "paragraph": "Jahon musiqasi - bu odamlar uchun xorijiy mamlakatlarning an'anaviy va noan'anaviy musiqalarini tasvirlashning oson usuli. Umuman olganda, jahon musiqasi dunyoning g'arbiy bo'lmagan qismidagi tovushlarni anglatadi.",
-      "registerPeople": "Saytdan ro'yxatdan o'tgan odamlar",
-      "heldPeople": "Virtual kontseptsiya bo'lib o'tdi"
-    },
-    "artist": "Artist tanishing",
-    "section3": {
-      "title": "BARCHA IJODKORLARNI CHAQIRIB",
-      "paragraph": "Muxlislar bilan musiqalaringizni baham ko'rish va auditoriya ko'paytirish uchun Lorenzonga kiring. Nimani kutyapsiz?",
-      "button": "Batafsil ma'lumot oling"
-    },
-    "section4": {
-      "verizon": "Chiqishlarni tezda almashtirish imkoniyati, shuning uchun siz ofisingizdagi aqlli karnaydan yashash xonangizning katta ovoziga yoki ish stoli ilovasidan telefoningizga hech qanday zarba bermasdan o'tishingiz mumkin. Xizmat shuningdek, shaxsiy tarkibni yuklash imkonini beradi, garchi buni amalga oshirish jarayoni mashaqqatli bo'lsa ham.",
-      "never": "Musiqa tinglashni to'xtatmang",
-      "available": "Web, iOS va Android-da mavjud"
-    },
-    "footer": {
-      "title1": "Keling, biz bilan musiqa",
-      "title2": "tinglab zavqlaning",
-      "keep1": "Bizning yangiliklarimiz, musiqamiz va",
-      "keep2": "Emma nima qilayotganini kuzatib boring.",
-      "copyright": "Muallif"
+    "heros": {
+      "headtitle": "Musiqadan zavq oling va odamlar bilan bog'laning.",
+      "subtitle": "Musiqani hamma uchun ochiq qilish. Insoniyat tomonidan tashkil etilgan eng yirik musiqa tadbirlariga qo'shiling. Ilovani yuklab oling, qolganini biz qilamiz.",
+      "signup": "Ro'yxatdan o'tish",
+      "signin": "Kirish",
+      "collaboration": "Hamkor Partnyorlar",
+      "brands": "Sizning brendingiz shu yerda bo'lishi mumkin edi!"
     }
   },
   "login": {

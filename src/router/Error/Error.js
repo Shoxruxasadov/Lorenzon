@@ -15,9 +15,6 @@ export default function Error() {
         gap: "10px",
       }}
     >
-      <h1 style={{ fontWeight: 500, color: "#3590f3" }}>
-        404 | Not Page Found
-      </h1>
       <a className="interactiveButton" onClick={() => navigate("/")}>
         <span>Back</span>
         <div className="liquid"></div>

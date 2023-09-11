@@ -1,65 +1,62 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const warning = (text, mode, pos) =>
+export const warning = (text, pos) =>
   toast.warn(text, {
-    position: pos,
+    position: pos == undefined ? "top-right" : pos,
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: mode,
+    theme: "dark",
   });
 
-export const wrong = (text, mode, pos) =>
+export const wrong = (text, pos) =>
   toast.error(text, {
-    position: pos,
+    position: pos == undefined ? "top-right" : pos,
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: mode,
+    theme: "dark",
   });
 
-export const success = (text, mode, pos) =>
+export const success = (text, pos) =>
   toast.success(text, {
-    position: pos,
+    position: pos == undefined ? "top-right" : pos,
     autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: mode,
+    theme: "dark",
   });
 
-export const info = (text, mode, pos) =>
+export const info = (text, pos) =>
   toast.info(text, {
-    position: pos,
+    position: pos == undefined ? "top-right" : pos,
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: mode,
+    theme: "dark",
   });
 
-export const simple = (text, mode, pos) =>
+export const simple = (text, pos) =>
   toast("🦄 " + text, {
-    position: pos,
+    position: pos == undefined ? "top-right" : pos,
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: mode,
+    theme: "dark",
   });
-
-
-

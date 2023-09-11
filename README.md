@@ -1,1 +1,2 @@
-### Lorenzon App by "Shokh.dev"
+### Lorenzon | Music Streaming Website!
+### Author - Shokhdev || Shoxrux Asadov

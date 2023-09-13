@@ -12,7 +12,6 @@ import { HiSearch } from "react-icons/hi";
 import artist from "../../../../images/Admin/artist.jpg";
 import album from "../../../../images/Admin/album.jpg";
 import playDark from "../../../../images/Admin/play-dark.jpg";
-import playLight from "../../../../images/Admin/play-light.jpg";
 
 export default function Music() {
   const sidebar = useSelector((state) => state.utilityReducer.sidebar);

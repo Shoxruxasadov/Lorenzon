@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Player from "../../components/Home/Player/Player"
+import Sidebar from "../../components/Home/Sidebar/Sidebar";
+import Main from "../../components/Home/Main/Main";
+import Content from "../../components/Home/Content/Content";
 
 export default function Home() {
-  function logout() {
-    localStorage.setItem("confirm", null);
-    localStorage.setItem("user", null);
-    document.location.reload(true)
-  }
+  useEffect(() => document.getElementById("root").setAttribute("class", "home"), []);
 
   return (
-    <div id="home">
-      <a className="interactiveButton" onClick={logout}>
-        <span>Log out</span>
-        <div className="liquid"></div>
-      </a>
-    </div>
+    <>
+      <Sidebar/>
+      <Main/>
+      <Content/>
+      <Player/>
+    </>
   );
 }

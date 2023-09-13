@@ -6,9 +6,9 @@ export default function Main() {
   return (
     <main>
       <Heros />
-      <hr />
-      <Features />
-      <hr />
+      {/* <hr /> */}
+      {/* <Features /> */}
+      {/* <hr /> */}
     </main>
   );
 }

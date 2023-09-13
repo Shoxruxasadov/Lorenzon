@@ -1,4 +1,4 @@
-#hero {
+.hero {
   background: $back;
   color: $text;
 
@@ -122,6 +122,7 @@
             text-align: center;
             line-height: 38px;
             transition: 0.2s ease;
+            cursor: wait;
 
             &:hover {
               background: $hero-click;
@@ -216,7 +217,7 @@
   }
 
   main {
-    padding-bottom: 300px;
+    // padding-bottom: 300px;
 
     hr {
       all: unset;

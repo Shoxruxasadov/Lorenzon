@@ -4,10 +4,9 @@ import { NavLink } from "react-router-dom";
 import i18next from "i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-import logo from "../../../images/Logo/logo.png";
 import icon from "../../../images/Logo/white.png";
 
-import { HiHome, HiMoon, HiSun } from "react-icons/hi";
+import { HiHome } from "react-icons/hi";
 import { FaUserFriends } from "react-icons/fa";
 import { HiMiniMusicalNote } from "react-icons/hi2";
 import { LuLogOut } from "react-icons/lu";
@@ -110,10 +109,10 @@ export default function Sidebar() {
               language === "en"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#222222",
-                    color: "#3590f3",
+                    backgroundColor: "#0D1219",
+                    color: "#582ddd",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#f3f3f3" }
             }
             className="en"
           >
@@ -125,10 +124,10 @@ export default function Sidebar() {
               language === "ru"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#222222",
-                    color: "#3590f3",
+                    backgroundColor: "#0D1219",
+                    color: "#582ddd",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#f3f3f3" }
             }
             className="ru"
           >
@@ -140,10 +139,10 @@ export default function Sidebar() {
               language === "uz"
                 ? {
                     transition: "0.15s",
-                    backgroundColor: "#222222",
-                    color: "#3590f3",
+                    backgroundColor: "#0D1219",
+                    color: "#582ddd",
                   }
-                : { backgroundColor: "transparent", color: "#ffffff" }
+                : { backgroundColor: "transparent", color: "#f3f3f3" }
             }
             className="uz"
           >
@@ -161,10 +160,10 @@ export default function Sidebar() {
         </ul>
         <div className="logout" onClick={logout}>
           <div className="data">
-            <img src={user.image} alt="User" />
+            <img src={user && user.image} alt="User" />
             <div className="title">
-              <h3>{user.name}</h3>
-              <h4>{user.email}</h4>
+              <h3>{user && user.name}</h3>
+              <h4>{user && user.email}</h4>
             </div>
           </div>
           <div className="back">

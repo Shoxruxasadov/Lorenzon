@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sidebar: localStorage.getItem("sidebar") == "close" ? false : true,
+  contentMusic: localStorage.getItem("contentMusic") == "" ? false : true,
 };
 
 export const utilitySlice = createSlice({
@@ -12,9 +13,13 @@ export const utilitySlice = createSlice({
       state.sidebar = !state.sidebar;
       localStorage.setItem("sidebar", state.sidebar ? "open" : "close");
     },
+    setContentMusic: (state, action) => {
+      state.contentMusic = !state.contentMusic;
+      localStorage.setItem("contentMusic", state.contentMusic ? "active" : "");
+    },
   },
 });
 
-export const { setSidebar } = utilitySlice.actions;
+export const { setSidebar, setContentMusic } = utilitySlice.actions;
 
 export default utilitySlice.reducer;

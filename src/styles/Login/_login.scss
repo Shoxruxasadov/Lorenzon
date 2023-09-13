@@ -513,22 +513,21 @@
       gap: 10px;
       margin: 16px 0;
 
-      .line-start {
+      div {
         width: 45%;
         height: 1px;
-        background: $login-base;
-        border-radius: 50% 0 0 50%;
       }
 
       span {
         color: $login-base;
       }
 
+      .line-start {
+        background: linear-gradient(to right, transparent, $login-base 40%);
+      }
+
       .line-end {
-        width: 45%;
-        height: 1px;
-        background: $login-base;
-        border-radius: 0 50% 50% 0;
+        background: linear-gradient(to left, transparent, $login-base 40%);
       }
     }
 
@@ -545,7 +544,6 @@
         gap: 5px;
         height: 44px;
 
-        color: $bate;
         border-radius: 8px;
         border: 1px solid $login-bor;
         background: $login-prov;
@@ -598,7 +596,7 @@
     width: 50%;
     height: 100%;
     border-radius: 40px;
-    background: $login-base;
+    background: $view;
     position: relative;
 
     display: flex;

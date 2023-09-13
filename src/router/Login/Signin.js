@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiSolidLock } from "react-icons/bi";
@@ -26,10 +26,16 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Signin() {
+  useEffect(
+    () => document.getElementById("root").setAttribute("class", "login"),
+    []
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
+  const [wait, setWait] = useState(false);
 
   const {
     register,
@@ -38,6 +44,7 @@ export default function Signin() {
   } = useForm();
 
   const onSubmit = (data) => {
+    setWait(true);
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(async (result) => {
         success(t("login.validation.signedin"));
@@ -51,9 +58,13 @@ export default function Signin() {
           dispatch({ type: "SET_CONFIRM", payload: confirm });
           dispatch({ type: "SET_USER", payload: user.data() });
           role === "Admin" ? navigate("/admin") : navigate("/home");
+          setWait(false);
         }, 1000);
       })
-      .catch((err) => wrong(t("login.validation.wrong")));
+      .catch((err) => {
+        wrong(t("login.validation.wrong"));
+        setWait(false);
+      });
   };
 
   function handleValidation() {
@@ -158,7 +169,7 @@ export default function Signin() {
   return (
     <>
       <ToastContainer />
-      <div id="login">
+      <main id="login" style={{ cursor: wait ? "wait" : "default" }}>
         <motion.section
           initial={{ x: "-2rem", opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -209,7 +220,7 @@ export default function Signin() {
                 </div>
                 <Link>{t("login.signin.forget")}</Link>
               </div>
-              <button onClick={handleValidation} type="submit">
+              <button disabled={wait} onClick={handleValidation} type="submit">
                 {t("login.signin.sign")}
               </button>
             </form>
@@ -294,7 +305,7 @@ export default function Signin() {
             <h1>Lorenzon</h1>
           </Link>
         </motion.section>
-      </div>
+      </main>
     </>
   );
 }

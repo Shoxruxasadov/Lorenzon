@@ -107,7 +107,6 @@ export default function Header() {
             </div>
           </nav>
         )}
-
         {scrennWidth < 780 && (
           <div className="menu">
             <div

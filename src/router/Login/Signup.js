@@ -49,6 +49,7 @@ import {
 } from "../../firebase/firebase";
 
 export default function Signup() {
+  useEffect(() => document.getElementById("root").setAttribute("class", "register"), []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
@@ -260,7 +261,7 @@ export default function Signup() {
   return (
     <>
       <ToastContainer />
-      <div id="register">
+      <main id="register">
         <motion.section
           initial={{ x: "-2rem", opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -599,7 +600,7 @@ export default function Signup() {
             </div>
           </div>
         </motion.section>
-      </div>
+      </main>
     </>
   );
 }

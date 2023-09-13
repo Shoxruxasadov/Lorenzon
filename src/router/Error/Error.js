@@ -16,7 +16,7 @@ export default function Error() {
       }}
     >
       <a className="interactiveButton" onClick={() => navigate("/")}>
-        <span>Back</span>
+        <span style={{textWrap: "nowrap"}}>ERROR | 404</span>
         <div className="liquid"></div>
       </a>
     </div>

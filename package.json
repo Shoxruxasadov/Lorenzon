@@ -11,6 +11,7 @@
     "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",
     "cra-template": "1.2.0",
+    "dotenv": "^16.3.1",
     "firebase": "^10.0.0",
     "framer-motion": "^10.12.22",
     "i18next": "^23.2.11",

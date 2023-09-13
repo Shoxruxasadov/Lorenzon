@@ -59,6 +59,70 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: "/search",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/discover",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/radio",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/albums",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/podcast",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/recently",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/favorite",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
+    path: "/localfiles",
+    element: (
+      <Auth>
+        <Home />
+      </Auth>
+    ),
+  },
+  {
     path: "/admin",
     element: (
       <ConfirmAdmin>
@@ -157,13 +221,30 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/setting",
+    path: "/account",
     element: (
       <Auth>
         <Setting />
       </Auth>
     ),
   },
+  {
+    path: "/profile",
+    element: (
+      <Auth>
+        <Setting />
+      </Auth>
+    ),
+  },
+  {
+    path: "/settings",
+    element: (
+      <Auth>
+        <Setting />
+      </Auth>
+    ),
+  },
+
   {
     path: "/login",
     element: (

@@ -1,15 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import artist from "../../../images/Home/lxst.png";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import play from "../../../images/Home/Play.svg";
+import pouses from "../../../images/Home/Pouse.svg";
 
 export default function HomeMain() {
-  const contentMusic = useSelector((state) => state.utilityReducer.contentMusic);
+  const musics = useSelector((state) => state.musicsReducer.musics);
+  const music = useSelector((state) => state.utilityReducer.currentMusic);
+  const pouse = useSelector((state) => state.utilityReducer.pouse);
+  const follow = useSelector((state) => state.utilityReducer.follow);
+  const media = useSelector((state) => state.utilityReducer.media);
   const [columnCount, setColumnCount] = useState(6);
+  const dispatch = useDispatch();
+
+  console.log(media);
 
   useEffect(() => {
     const handleResize = () => {
-      if (!contentMusic) {
+      if (media == "full") {
         if (window.innerWidth >= 2330) {
           setColumnCount(9);
         }
@@ -31,13 +41,13 @@ export default function HomeMain() {
         if (window.innerWidth >= 1130 && window.innerWidth < 1340) {
           setColumnCount(3);
         }
-        // if (window.innerWidth >= 930 && window.innerWidth < 1130) {
-        //   setColumnCount(2);
-        // }
-        // if (window.innerWidth < 930) {
-        //   setColumnCount(1);
-        // }
-      } else {
+        if (window.innerWidth >= 930 && window.innerWidth < 1130) {
+          setColumnCount(2);
+        }
+        if (window.innerWidth < 930) {
+          setColumnCount(1);
+        }
+      } else if (media == "basic") {
         if (window.innerWidth >= 2060) {
           setColumnCount(9);
         }
@@ -59,21 +69,56 @@ export default function HomeMain() {
         if (window.innerWidth >= 860 && window.innerWidth < 1060) {
           setColumnCount(3);
         }
-        // if (window.innerWidth >= 660 && window.innerWidth < 860) {
-        //   setColumnCount(2);
-        // }
-        // if (window.innerWidth < 660) {
-        //   setColumnCount(1);
-        // }
+        if (window.innerWidth >= 660 && window.innerWidth < 860) {
+          setColumnCount(2);
+        }
+        if (window.innerWidth < 660) {
+          setColumnCount(1);
+        }
+      } else if (media == "table") {
+        if (window.innerWidth >= 860) {
+          setColumnCount(4);
+        }
+        if (window.innerWidth >= 660 && window.innerWidth < 860) {
+          setColumnCount(3);
+        }
+        if (window.innerWidth < 660) {
+          setColumnCount(2);
+        }
+      } else if (media == "mobile") {
+        setColumnCount(2);
+      }
+
+      if (window.innerWidth < 1140) {
+        dispatch({
+          type: "SET_MEDIA",
+          payload: "basic",
+        });
+      }
+
+      if (window.innerWidth < 920) {
+        dispatch({
+          type: "SET_MEDIA",
+          payload: "table",
+        });
+      }
+
+      if (window.innerWidth < 540) {
+        dispatch({
+          type: "SET_MEDIA",
+          payload: "mobile",
+        });
       }
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [contentMusic]);
+  }, [media]);
 
   return (
-    <main className={contentMusic ? "homemain active" : "homemain non-active"}>
+    <main
+      className={media != "full" ? "homemain active" : "homemain non-active"}
+    >
       <div className="banner">
         <div className="title">
           <div className="info">
@@ -140,26 +185,52 @@ export default function HomeMain() {
             </div>
           </div>
           <div className="playing">
-            <button className="play">
+            <button
+              className="play"
+              onClick={() => {
+                dispatch({ type: "SET_POUSE", payload: false });
+                setTimeout(
+                  () =>
+                    dispatch({
+                      type: "SET_CURRENT_MUSIC",
+                      payload: {
+                        song: "https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/songs%2FODIUM.mp3?alt=media&token=cd9d41c8-a91d-4d79-bdeb-eac59fe8d83c",
+                      },
+                    }),
+                  100
+                );
+              }}
+            >
               <span>Play</span>
             </button>
-            <button className="follow">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M4.16666 10.8333L7.49999 14.1667L15.8333 5.83333"
-                  stroke="white"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span>Following</span>
+            <button
+              className="follow"
+              onClick={() => dispatch({ type: "SET_FOLLOW" })}
+            >
+              {follow ? (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M4.16666 10.8333L7.49999 14.1667L15.8333 5.83333"
+                      stroke="white"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span>Following</span>
+                </>
+              ) : (
+                <>
+                  <span>Follow</span>
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -179,18 +250,46 @@ export default function HomeMain() {
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          {musics.map((item, index) => (
+            <div
+              className={`card ${music == item && pouse ? "active" : ""}`}
+              key={index}
+              onClick={() => {
+                dispatch({ type: "SET_POUSE", payload: false });
+                setTimeout(
+                  () => dispatch({ type: "SET_CURRENT_MUSIC", payload: item }),
+                  100
+                );
+              }}
+            >
+              <div className="images">
+                <img
+                  className={`pouse ${pouse ? "active" : ""}`}
+                  src={pouses}
+                  alt="pouse"
+                />
+                <img className="play" src={play} alt="play" />
+                <img className="image" src={item.image} alt="image" />
+              </div>
+              <div className="title">
+                <h3>{item.name}</h3>
+                <p>{item.artist}</p>
+              </div>
+            </div>
+          ))}
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
         </div>
       </article>
+
       <article>
         <header>
           <h2>Recentky played</h2>
@@ -202,21 +301,23 @@ export default function HomeMain() {
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
         </div>
       </article>
+
       <article>
         <header>
           <h2>Recommended</h2>
+
           <Link>Show all</Link>
         </header>
         <div
@@ -225,16 +326,16 @@ export default function HomeMain() {
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
+          <div className="card"></div>
         </div>
       </article>
     </main>

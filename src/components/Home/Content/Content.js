@@ -7,9 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Content() {
   const user = useSelector((state) => state.confirmReducer.user);
-  const contentMusic = useSelector(
-    (state) => state.utilityReducer.contentMusic
-  );
+  const media = useSelector((state) => state.utilityReducer.media);
   const [userNav, setUserNav] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,10 +19,15 @@ export default function Content() {
   }
 
   return (
-    <aside className={!contentMusic ? "active" : "non-active"}>
+    <aside className={media == "full" ? "active" : "non-active"}>
       <div
         className="open"
-        onClick={() => dispatch({ type: "SET_CONTENT_MUSIC" })}
+        onClick={() =>
+          dispatch({
+            type: "SET_MEDIA",
+            payload: media == "basic" ? "full" : "basic",
+          })
+        }
       >
         <IoIosArrowBack />
       </div>

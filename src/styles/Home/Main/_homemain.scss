@@ -1,9 +1,19 @@
 main.homemain {
-  min-width: 700px;
+  min-width: 480px;
   width: calc(100% - 540px);
   background: $back;
   padding: 24px 24px 94px;
   overflow-y: auto;
+
+  @media (max-width: 920px) {
+    width: calc(100% - 70px) !important;
+  }
+
+  @media (max-width: 540px) {
+    width: 100% !important;
+    min-width: 300px!important;
+    padding: 12px 12px 82px!important;
+  }
 
   &.active {
     width: calc(100% - 240px);
@@ -199,14 +209,121 @@ main.homemain {
       grid-column: auto;
       min-width: 360px;
 
-      div {
+      @media (max-width: 540px) {
+        grid-gap: 12px!important;
+
+        .card{
+          min-width: 150px!important;
+          padding: 12px!important;
+        }
+      }
+
+      .card {
         width: 100%;
         height: 264px;
+        max-width: 200px;
+        min-width: 170px;
         -webkit-box-flex: 1;
         background: $view;
         isolation: isolate;
         padding: 16px;
         border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+          background: #11161e;
+
+          .images > .play {
+            visibility: visible;
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        &.active {
+          .images > .pouse {
+            z-index: 2;
+            visibility: visible;
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        &.active:hover {
+          .images > .play {
+            visibility: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+          }
+        }
+
+        .images {
+          width: 100%;
+          position: relative;
+          margin-bottom: 16px;
+          cursor: pointer;
+
+          .play {
+            width: 50px;
+            cursor: pointer;
+            position: absolute;
+            z-index: 1;
+            right: 2px;
+            bottom: 2px;
+
+            transition: 0.3s;
+            visibility: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+          }
+
+          .pouse {
+            width: 50px;
+            cursor: pointer;
+            position: absolute;
+            z-index: 0;
+            right: 2px;
+            bottom: 2px;
+
+            transition: 0.3s;
+            visibility: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+          }
+
+          .image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+          }
+        }
+
+        .title {
+          &,
+          h3,
+          p {
+            cursor: pointer;
+          }
+
+          h3:hover,
+          p:hover {
+            text-decoration: underline;
+          }
+
+          h3 {
+            font-size: 16px;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            padding-bottom: 4px;
+            overflow: hidden;
+            color: $text;
+          }
+          p {
+            font-size: 14px;
+            color: $bate;
+          }
+        }
       }
     }
   }

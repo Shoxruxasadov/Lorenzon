@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import i18next from "i18next";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,6 +18,7 @@ export default function Sidebar() {
   const [t, i18n] = useTranslation("global");
   const [lang, setLang] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [miniLang, setMiniLang] = useState(
     language === "en" ? 1 : language === "ru" ? 2 : language === "uz" ? 3 : 1
@@ -57,12 +58,6 @@ export default function Sidebar() {
     } else {
       setMiniLang((prev) => (prev += 1));
     }
-  }
-
-  function logout() {
-    localStorage.setItem("confirm", null);
-    localStorage.setItem("user", null);
-    document.location.reload(true);
   }
 
   return (
@@ -158,7 +153,7 @@ export default function Sidebar() {
               : "EN"}
           </li>
         </ul>
-        <div className="logout" onClick={logout}>
+        <div className="logout" onClick={() => navigate("/home")}>
           <div className="data">
             <img src={user && user.image} alt="User" />
             <div className="title">

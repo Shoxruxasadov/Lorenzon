@@ -3,10 +3,8 @@ import artist from "../../../images/Home/lxst.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Main() {
-  const contentMusic = useSelector(
-    (state) => state.utilityReducer.contentMusic
-  );
+export default function HomeSearch() {
+  const contentMusic = useSelector((state) => state.utilityReducer.contentMusic);
   const [columnCount, setColumnCount] = useState(6);
 
   useEffect(() => {
@@ -75,8 +73,8 @@ export default function Main() {
   }, [contentMusic]);
 
   return (
-    <main className={contentMusic ? "active" : "non-active"}>
-      <div className="banner">
+    <main className={contentMusic ? "homesearch active" : "homesearch non-active"}>
+      {/* <div className="banner">
         <div className="title">
           <div className="info">
             <div className="name">
@@ -168,12 +166,11 @@ export default function Main() {
         <div className="artist">
           <img src={artist} alt="S3BZS" />
         </div>
-      </div>
+      </div> */}
 
       <article>
         <header>
-          <h2>Jamp back in</h2>
-          <Link>Show all</Link>
+          <h2>Browse all</h2>
         </header>
         <div
           className="content"
@@ -191,19 +188,6 @@ export default function Main() {
           <div></div>
           <div></div>
           <div></div>
-        </div>
-      </article>
-      <article>
-        <header>
-          <h2>Recentky played</h2>
-          <Link>Show all</Link>
-        </header>
-        <div
-          className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
-        >
           <div></div>
           <div></div>
           <div></div>
@@ -214,19 +198,9 @@ export default function Main() {
           <div></div>
           <div></div>
           <div></div>
-        </div>
-      </article>
-      <article>
-        <header>
-          <h2>Recommended</h2>
-          <Link>Show all</Link>
-        </header>
-        <div
-          className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
-        >
+          <div></div>
+          <div></div>
+          <div></div>
           <div></div>
           <div></div>
           <div></div>
@@ -239,6 +213,8 @@ export default function Main() {
           <div></div>
         </div>
       </article>
+      
+
     </main>
   );
 }

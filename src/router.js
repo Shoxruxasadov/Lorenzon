@@ -5,7 +5,6 @@ import "./styles/global.scss";
 // ALL PAGES
 import Hero from "./router/Hero/Hero";
 import Error from "./router/Error/Error";
-import Home from "./router/Home/Home";
 import Setting from "./router/Setting/Setting";
 import Signin from "./router/Login/Signin";
 import Signup from "./router/Login/Signup";
@@ -19,6 +18,12 @@ import Singers from "./components/Admin/Music/Singers/Singer";
 import Playlist from "./components/Admin/Music/Playlists/Playlist";
 import Album from "./components/Admin/Music/Albums/Album";
 import AddMusic from "./components/Admin/Music/Musics/AddMusic";
+// HOME PAGES
+import Home from "./router/Home/Home";
+import HomeMain from "./components/Home/Main/HomeMain";
+import HomeSearch from "./components/Home/Main/HomeSearch";
+
+
 
 const Auth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
@@ -57,6 +62,16 @@ export const router = createBrowserRouter([
         <Home />
       </Auth>
     ),
+    children: [
+      {
+        path: "/home",
+        element: (
+          <Auth>
+            <HomeMain />
+          </Auth>
+        ),
+      },
+    ],
   },
   {
     path: "/search",
@@ -65,6 +80,16 @@ export const router = createBrowserRouter([
         <Home />
       </Auth>
     ),
+    children: [
+      {
+        path: "/search",
+        element: (
+          <Auth>
+            <HomeSearch />
+          </Auth>
+        ),
+      },
+    ],
   },
   {
     path: "/discover",

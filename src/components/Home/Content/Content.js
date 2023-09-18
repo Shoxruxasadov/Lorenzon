@@ -95,7 +95,7 @@ export default function Content() {
       </div>
       <div
         className={`user-nav ${userNav ? "active" : ""} ${
-          user && user.role == "Admin" ? "admin" : ""
+          user && user.role === "Admin" ? "admin" : "basic"
         }`}
       >
         <div className="list" onClick={() => navigate("/account")}>
@@ -108,7 +108,7 @@ export default function Content() {
           <p>Settings</p>
         </div>
         <hr />
-        {user.role == "Admin" && (
+        {user && user.role === "Admin" && (
           <div className="list" onClick={() => navigate("/admin")}>
             <p>Admin Panel</p>
           </div>
@@ -126,7 +126,7 @@ export default function Content() {
           <Link>Show all</Link>
         </header>
         <div className="content">
-          <div className="card">
+          {/* <div className="card">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/playlist%2Fphonk.jpg?alt=media&token=ae6bf60c-79a6-432c-9e69-a14106405388"
               alt="Phonk"
@@ -155,7 +155,8 @@ export default function Content() {
               <h4>Phonk</h4>
               <p>Playlist • Spotify</p>
             </div>
-          </div>
+          </div> */}
+          <p className="dontHave">You don't have a playlist!</p>
         </div>
       </article>
     </aside>

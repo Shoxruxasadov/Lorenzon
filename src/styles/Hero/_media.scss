@@ -142,8 +142,8 @@
   main {
     overflow: hidden;
     #heros {
-      padding-top: 100px !important;
-      
+      padding-top: 130px !important;
+
       .content {
         flex-direction: column;
 
@@ -152,7 +152,7 @@
           padding-bottom: 50px !important;
 
           .headline {
-            width: 100% !important;
+            width: 350px !important;
 
             h1 {
               font-size: 56px !important;
@@ -161,7 +161,7 @@
           }
 
           .subtitle {
-            width: 100% !important;
+            width: 350px !important;
             letter-spacing: 0.7px;
             text-wrap: balance;
 

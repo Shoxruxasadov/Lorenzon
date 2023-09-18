@@ -11,8 +11,8 @@ main.homemain {
 
   @media (max-width: 540px) {
     width: 100% !important;
-    min-width: 300px!important;
-    padding: 12px 12px 82px!important;
+    min-width: 300px !important;
+    padding: 12px 12px 82px !important;
   }
 
   &.active {
@@ -81,6 +81,7 @@ main.homemain {
             font-size: 50px;
             font-weight: 700;
             text-wrap: nowrap;
+            white-space: nowrap;
           }
         }
 
@@ -210,11 +211,11 @@ main.homemain {
       min-width: 360px;
 
       @media (max-width: 540px) {
-        grid-gap: 12px!important;
+        grid-gap: 12px !important;
 
-        .card{
-          min-width: 150px!important;
-          padding: 12px!important;
+        .card {
+          min-width: 150px !important;
+          padding: 12px !important;
         }
       }
 
@@ -314,6 +315,7 @@ main.homemain {
           h3 {
             font-size: 16px;
             text-wrap: nowrap;
+            white-space: nowrap;
             text-overflow: ellipsis;
             padding-bottom: 4px;
             overflow: hidden;

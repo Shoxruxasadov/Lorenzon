@@ -115,7 +115,7 @@
 
           .subtitle {
             width: 100% !important;
-            letter-spacing: .7px;
+            letter-spacing: 0.7px;
             text-wrap: balance;
 
             p {
@@ -142,14 +142,14 @@
   main {
     overflow: hidden;
     #heros {
-        padding-top: 130px!important;
+      padding-top: 100px !important;
+      
       .content {
         flex-direction: column;
 
         .title {
           width: 100%;
-          padding-bottom: 50px!important;
-
+          padding-bottom: 50px !important;
 
           .headline {
             width: 100% !important;
@@ -162,7 +162,7 @@
 
           .subtitle {
             width: 100% !important;
-            letter-spacing: .7px;
+            letter-spacing: 0.7px;
             text-wrap: balance;
 
             p {

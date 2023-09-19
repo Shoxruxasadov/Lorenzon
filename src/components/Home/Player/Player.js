@@ -13,8 +13,10 @@ export default function Player() {
   useEffect(() => setSong(music && music.song), [music]);
   useEffect(() => setPlay(pouse), [pouse]);
 
+  // onClick={() => dispatch({ type: "SET_POUSE", payload: !play })}
+
   return (
-    <footer onClick={() => dispatch({ type: "SET_POUSE", payload: !play })}>
+    <footer >
       {/* {play && (
         <audio autoPlay>
           <source src={song} type="audio/mpeg" />

@@ -13,18 +13,9 @@ export default function Player() {
   useEffect(() => setSong(music && music.song), [music]);
   useEffect(() => setPlay(pouse), [pouse]);
 
-  // var isChrome =
-  //   /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-  // if (!isChrome) {
-  //   $("#iframeAudio").remove();
-  // } else {
-  //   $("#playAudio").remove(); // just to make sure that it will not have 2x audio in the background
-  // }
-
   return (
     <footer>
       <div id="line" />
-
       <div className="content">
         <div className="song">
           <img src={music.image} alt="" />
@@ -54,27 +45,20 @@ export default function Player() {
           </svg>
         </div>
         <div className="controller">
-          <h3 onClick={() => dispatch({ type: "SET_POUSE", payload: !play })}>
+          {/* <h3 onClick={() => dispatch({ type: "SET_POUSE", payload: !play })}>
             POUSE
-          </h3>
+          </h3> */}
         </div>
         <div className="value"></div>
         {play && (
           <>
-            {/* <ReactAudioPlayer
+            <ReactAudioPlayer
               src={song}
               autoPlay
               controls
               loop
-              style={{ display: "none" }}
               id="playAudio"
-            /> */}
-            <iframe
-              src={song}
-              allow="autoplay"
-              style={{ display: "none" }}
-              id="iframeAudio"
-            ></iframe>
+            />
           </>
         )}
       </div>

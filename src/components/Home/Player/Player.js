@@ -18,10 +18,10 @@ export default function Player() {
       <div id="line" />
       <div className="content">
         <div className="song">
-          <img src={music.image} alt="" />
+          <img src={music && music.image} alt="" />
           <div className="title">
-            <h3>{music.name}</h3>
-            <p>{music.artist}</p>
+            <h3>{music && music.name}</h3>
+            <p>{music && music.artist}</p>
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,15 +51,7 @@ export default function Player() {
         </div>
         <div className="value"></div>
         {play && (
-          <>
-            <ReactAudioPlayer
-              src={song}
-              autoPlay
-              controls
-              loop
-              id="playAudio"
-            />
-          </>
+          <ReactAudioPlayer src={song} autoPlay controls loop />
         )}
       </div>
     </footer>

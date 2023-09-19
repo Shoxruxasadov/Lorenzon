@@ -304,6 +304,10 @@ main.homemain {
             & > circle {
               cursor: pointer;
             }
+
+            @media (max-width: 540px) {
+              width: 36px;
+            }
           }
 
           .pouse {
@@ -323,6 +327,10 @@ main.homemain {
             & > rect,
             & > circle {
               cursor: pointer;
+            }
+
+            @media (max-width: 540px) {
+              width: 36px;
             }
           }
 

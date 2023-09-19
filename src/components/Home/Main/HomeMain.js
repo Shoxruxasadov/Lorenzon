@@ -12,8 +12,6 @@ export default function HomeMain() {
   const [columnCount, setColumnCount] = useState(6);
   const dispatch = useDispatch();
 
-  console.log(media);
-
   useEffect(() => {
     const handleResize = () => {
       if (media == "full") {
@@ -263,6 +261,9 @@ export default function HomeMain() {
                   dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
                   // dispatch({ type: "SET_POUSE", payload: !pouse })
                 }, 100);
+
+                if (media == "mobile") {
+                }
               }}
             >
               <div className="images">

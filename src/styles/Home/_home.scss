@@ -7,22 +7,20 @@
   overflow: hidden;
 
   @media (max-width: 920px) {
-    nav{
-      min-width: 70px!important;
+    nav {
+      min-width: 70px !important;
     }
   }
 
   @media (max-width: 540px) {
-    nav{
+    nav {
       opacity: 0;
       visibility: hidden;
-      max-width: 0!important;
-      min-width: 0!important;
-      width: 0!important;
+      max-width: 0 !important;
+      min-width: 0 !important;
+      width: 0 !important;
     }
   }
-
-  
 
   nav {
     min-width: 240px;
@@ -30,7 +28,7 @@
     height: 100%;
     background: $view;
     overflow: hidden;
-    transition: .3s;
+    transition: 0.3s;
 
     display: flex;
     flex-direction: column;
@@ -410,6 +408,10 @@
       &:hover {
         opacity: 100%;
       }
+
+      @media (max-width: 540px) {
+        display: none;
+      }
     }
 
     .user {
@@ -672,6 +674,11 @@
     background: #080b0fa3;
     backdrop-filter: blur(64px);
 
+    @media (max-width: 540px) {
+      height: 70px;
+      padding: 0 12px;
+    }
+
     #line {
       all: unset;
       position: absolute;
@@ -682,6 +689,80 @@
       width: 100%;
       height: 4px;
       background: #212832;
+    }
+
+    .content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .song {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        @media (max-width: 540px) {
+          gap: 8px;
+        }
+
+        img {
+          border-radius: 12px;
+          width: 64px;
+          height: 64px;
+
+          @media (max-width: 540px) {
+            width: 48px;
+            height: 48px;
+          }
+        }
+
+        .title {
+          max-width: 150px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-right: 16px;
+
+          @media (max-width: 540px) {
+            max-width: 100px;
+            gap: 3px;
+            margin-right: 8px;
+          }
+
+          h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: $text;
+
+            text-wrap: nowrap;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            @media (max-width: 540px) {
+              font-size: 16px;
+            }
+          }
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            color: $bate;
+
+            text-wrap: nowrap;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            @media (max-width: 540px) {
+              font-size: 12px;
+            }
+          }
+        }
+      }
     }
   }
 }

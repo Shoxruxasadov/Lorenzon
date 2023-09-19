@@ -3,9 +3,6 @@ import artist from "../../../images/Home/lxst.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import play from "../../../images/Home/Play.svg";
-import pouses from "../../../images/Home/Pouse.svg";
-
 export default function HomeMain() {
   const musics = useSelector((state) => state.musicsReducer.musics);
   const music = useSelector((state) => state.utilityReducer.currentMusic);
@@ -86,7 +83,11 @@ export default function HomeMain() {
           setColumnCount(2);
         }
       } else if (media == "mobile") {
-        setColumnCount(2);
+        if (window.innerWidth >= 470) {
+          setColumnCount(3);
+        } else {
+          setColumnCount(2);
+        }
       }
 
       if (window.innerWidth < 1140) {
@@ -255,20 +256,52 @@ export default function HomeMain() {
               className={`card ${music == item && pouse ? "active" : ""}`}
               key={index}
               onClick={() => {
-                dispatch({ type: "SET_POUSE", payload: false });
-                setTimeout(
-                  () => dispatch({ type: "SET_CURRENT_MUSIC", payload: item }),
-                  100
-                );
+                if (music != item) {
+                  dispatch({ type: "SET_POUSE", payload: false });
+                }
+                setTimeout(() => {
+                  dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                  // dispatch({ type: "SET_POUSE", payload: !pouse })
+                }, 100);
               }}
             >
               <div className="images">
-                <img
+                <svg
                   className={`pouse ${pouse ? "active" : ""}`}
-                  src={pouses}
-                  alt="pouse"
-                />
-                <img className="play" src={play} alt="play" />
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                >
+                  <circle cx="50" cy="50" r="50" fill="#6940EE" />
+                  <rect
+                    x="30"
+                    y="30"
+                    width="15"
+                    height="40"
+                    rx="5"
+                    fill="#0D1219"
+                  />
+                  <rect
+                    x="55"
+                    y="30"
+                    width="15"
+                    height="40"
+                    rx="5"
+                    fill="#0D1219"
+                  />
+                </svg>
+                <svg
+                  className="play"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                >
+                  <circle cx="50" cy="50" r="50" fill="#6940EE" />
+                  <path
+                    d="M68.5 46.1699C71.8333 48.0944 71.8333 52.9056 68.5 54.8301L42.25 69.9856C38.9167 71.9101 34.75 69.5044 34.75 65.6554L34.75 35.3446C34.75 31.4956 38.9167 29.0899 42.25 31.0144L68.5 46.1699Z"
+                    fill="#0D1219"
+                  />
+                </svg>
                 <img className="image" src={item.image} alt="image" />
               </div>
               <div className="title">

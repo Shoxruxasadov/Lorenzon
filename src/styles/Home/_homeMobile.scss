@@ -1,0 +1,71 @@
+.home {
+  width: 100%;
+  height: 100svh;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+
+  @import "./Mobile/homemain";
+  @import "./Mobile/homesearch";
+
+  footer {
+    width: calc(100% - 16px);
+    height: 60px;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 80px;
+    z-index: 1;
+
+    color: #fff;
+    font-size: 16px;
+
+    margin: 0 8px;
+    padding: 8px;
+
+    background-color: $hero-click;
+  }
+
+  nav {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+
+    color: #fff;
+    font-size: 16px;
+
+    display: flex;
+
+    background-color: #fff;
+    background: linear-gradient(transparent, $view 80%);
+
+    a {
+      width: 25%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+
+      svg {
+        font-size: 24px;
+        color: $text;
+
+      }
+
+      span {
+        text-align: center;
+        box-sizing: border-box;
+        margin-block: 0px;
+        font-size: 0.6875rem;
+        font-weight: 400;
+        color: $text;
+        transition: transform 0.1s ease-in-out, color 0.1s ease-in-out,
+          -webkit-transform 0.1s ease-in-out;
+      }
+    }
+  }
+}

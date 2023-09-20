@@ -2,7 +2,7 @@
 $main: #582ddd;
 $text: #f3f3f3;
 $bate: #99999f;
-$view: #0D1219;
+$view: #0d1219;
 $back: #080b0f;
 // HERO PAGE ----------
 $hero-click: #6940ee;
@@ -82,17 +82,20 @@ textarea {
 body {
   font-family: Santello, sans-serif;
   scroll-behavior: smooth;
-
-  // Fixed Color  ----------
   background: $back;
   color: $text;
 
-  // Receiving ----------
   @import "./Hero/hero";
-  @import "./Login/login";
   @import "./Admin/admin";
-  @import "./Home/home";
-
+  @import "./Login/login";
   @import "./assets/checkbox";
   @import "./assets/button";
+}
+
+body.desktop-web-player {
+  @import "./Home/home";
+}
+
+body.mobile-web-player {
+  @import "./Home/homeMobile";
 }

@@ -71,55 +71,61 @@ export default function HomeSearch() {
   }, [media]);
 
   return (
-    <main
-      className={
-        media != "full" ? "homesearch active" : "homesearch non-active"
-      }
-    >
-      <article>
-        <header>
-          <h2>Browse all</h2>
-        </header>
-        <div
-          className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
+    <>
+      {isMobile() ? (
+        <main></main>
+      ) : (
+        <main
+          className={
+            media != "full" ? "homesearch active" : "homesearch non-active"
+          }
         >
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </article>
-    </main>
+          <article>
+            <header>
+              <h2>Browse all</h2>
+            </header>
+            <div
+              className="content"
+              style={{
+                gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+              }}
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </article>
+        </main>
+      )}
+    </>
   );
 }

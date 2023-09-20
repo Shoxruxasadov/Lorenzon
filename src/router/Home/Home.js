@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Player from "../../components/Home/Player/Player";
 import Sidebar from "../../components/Home/Sidebar/Sidebar";
 import Content from "../../components/Home/Content/Content";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -35,12 +35,24 @@ export default function Home() {
     }
   }, []);
 
+  console.log();
+
   return (
     <>
-      <Sidebar />
-      <Outlet />
-      <Content />
-      <Player />
+      {isMobile() ? (
+        <>
+          <Outlet />
+          <Player />
+          <Sidebar />
+        </>
+      ) : (
+        <>
+          <Sidebar />
+          <Outlet />
+          <Content />
+          <Player />
+        </>
+      )}
     </>
   );
 }

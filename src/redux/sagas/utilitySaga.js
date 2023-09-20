@@ -12,7 +12,7 @@ function* workSetSidebar(action) {
   return;
 }
 
-function* workSetContentMusic(action) {
+function* workSetMedia(action) {
   yield put(setMedia(action.payload));
   return;
 }
@@ -35,7 +35,7 @@ function* workSetFollow(action) {
 
 export default function* utilitySaga() {
   yield takeEvery("SET_SIDEBAR", workSetSidebar);
-  yield takeEvery("SET_MEDIA", workSetContentMusic);
+  yield takeEvery("SET_MEDIA", workSetMedia);
   yield takeEvery("SET_CURRENT_MUSIC", workSetCurrentMusic);
   yield takeEvery("SET_POUSE", workSetPouse);
   yield takeEvery("SET_FOLLOW", workSetFollow);

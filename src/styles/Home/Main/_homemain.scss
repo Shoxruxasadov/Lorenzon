@@ -1,19 +1,9 @@
 main.homemain {
-  min-width: 480px;
+  min-width: 630px;
   width: calc(100% - 540px);
   background: $back;
   padding: 24px 24px 94px;
   overflow-y: auto;
-
-  @media (max-width: 920px) {
-    width: calc(100% - 70px) !important;
-  }
-
-  @media (max-width: 540px) {
-    width: 100% !important;
-    min-width: 300px !important;
-    padding: 12px 12px 82px !important;
-  }
 
   &.active {
     width: calc(100% - 240px);
@@ -30,10 +20,6 @@ main.homemain {
     margin-bottom: 24px;
     overflow: hidden;
 
-    @media (max-width: 540px) {
-      height: 250px;
-    }
-
     display: flex;
     justify-content: space-between;
 
@@ -42,10 +28,6 @@ main.homemain {
       display: flex;
       flex-direction: column;
       gap: 32px;
-
-      @media (max-width: 540px) {
-        padding: 24px 0 0 22px;
-      }
 
       .info {
         display: flex;
@@ -56,10 +38,6 @@ main.homemain {
           display: flex;
           flex-direction: column;
           gap: 5px;
-
-          @media (max-width: 540px) {
-            gap: 10px;
-          }
 
           .verified {
             display: flex;
@@ -94,10 +72,6 @@ main.homemain {
             font-weight: 700;
             text-wrap: nowrap;
             white-space: nowrap;
-
-            @media (max-width: 540px) {
-              font-size: 44px;
-            }
           }
         }
 
@@ -195,10 +169,6 @@ main.homemain {
     height: 305px;
     margin-bottom: 24px;
 
-    @media (max-width: 540px) {
-      height: 270px;
-    }
-
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -229,17 +199,6 @@ main.homemain {
       grid-template-columns: repeat(5, minmax(0, 1fr));
       grid-column: auto;
       min-width: 360px;
-
-      @media (max-width: 540px) {
-        grid-gap: 12px !important;
-
-        .card {
-          max-width: 165px!important;
-          min-width: 150px!important;
-          height: 230px!important;
-          padding: 12px !important;
-        }
-      }
 
       .card {
         width: 100%;
@@ -304,10 +263,6 @@ main.homemain {
             & > circle {
               cursor: pointer;
             }
-
-            @media (max-width: 540px) {
-              width: 36px;
-            }
           }
 
           .pouse {
@@ -327,10 +282,6 @@ main.homemain {
             & > rect,
             & > circle {
               cursor: pointer;
-            }
-
-            @media (max-width: 540px) {
-              width: 36px;
             }
           }
 

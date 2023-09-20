@@ -153,7 +153,7 @@ export default function Sidebar() {
               : "EN"}
           </li>
         </ul>
-        <div className="logout" onClick={() => navigate("/home")}>
+        <div className="logout" onClick={() => navigate("/")}>
           <div className="data">
             <img src={user && user.image} alt="User" />
             <div className="title">

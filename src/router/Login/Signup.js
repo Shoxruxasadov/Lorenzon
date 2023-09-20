@@ -152,7 +152,7 @@ export default function Signup() {
         setTimeout(() => {
           dispatch({ type: "SET_CONFIRM", payload: confirm });
           dispatch({ type: "SET_USER", payload: user.data() });
-          role === "Admin" ? navigate("/admin") : navigate("/home");
+          role === "Admin" ? navigate("/admin") : navigate("/");
         }, 1000);
       })
       .catch((error) => {
@@ -194,7 +194,7 @@ export default function Signup() {
         // setTimeout(() => {
         //   dispatch({ type: "SET_CONFIRM", payload: confirm });
         //   dispatch({ type: "SET_USER", payload: user.data() });
-        //   role === "Admin" ? navigate("/admin") : navigate("/home");
+        //   role === "Admin" ? navigate("/admin") : navigate("/");
         // }, 1000);
       })
       .catch((error) => {

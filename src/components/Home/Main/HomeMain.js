@@ -9,8 +9,14 @@ export default function HomeMain() {
   const pouse = useSelector((state) => state.utilityReducer.pouse);
   const follow = useSelector((state) => state.utilityReducer.follow);
   const media = useSelector((state) => state.utilityReducer.media);
-  const [columnCount, setColumnCount] = useState(6);
+  const [columnCount, setColumnCount] = useState(5);
   const dispatch = useDispatch();
+
+  function isMobile() {
+    const regex =
+      /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return regex.test(navigator.userAgent);
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -36,13 +42,7 @@ export default function HomeMain() {
         if (window.innerWidth >= 1130 && window.innerWidth < 1340) {
           setColumnCount(3);
         }
-        if (window.innerWidth >= 930 && window.innerWidth < 1130) {
-          setColumnCount(2);
-        }
-        if (window.innerWidth < 930) {
-          setColumnCount(1);
-        }
-      } else if (media == "basic") {
+      } else if (media == "desktop") {
         if (window.innerWidth >= 2060) {
           setColumnCount(9);
         }
@@ -58,61 +58,23 @@ export default function HomeMain() {
         if (window.innerWidth >= 1260 && window.innerWidth < 1460) {
           setColumnCount(5);
         }
-        if (window.innerWidth >= 1060 && window.innerWidth < 1260) {
-          setColumnCount(4);
-        }
-        if (window.innerWidth >= 860 && window.innerWidth < 1060) {
-          setColumnCount(3);
-        }
-        if (window.innerWidth >= 660 && window.innerWidth < 860) {
-          setColumnCount(2);
-        }
-        if (window.innerWidth < 660) {
-          setColumnCount(1);
-        }
-      } else if (media == "table") {
-        if (window.innerWidth >= 860) {
-          setColumnCount(4);
-        }
-        if (window.innerWidth >= 660 && window.innerWidth < 860) {
-          setColumnCount(3);
-        }
-        if (window.innerWidth < 660) {
-          setColumnCount(2);
-        }
-      } else if (media == "mobile") {
-        if (window.innerWidth >= 470) {
-          setColumnCount(3);
-        } else {
-          setColumnCount(2);
-        }
       }
 
-      if (window.innerWidth < 1140) {
-        dispatch({
-          type: "SET_MEDIA",
-          payload: "basic",
-        });
-      }
-
-      if (window.innerWidth < 920) {
-        dispatch({
-          type: "SET_MEDIA",
-          payload: "table",
-        });
-      }
-
-      if (window.innerWidth < 540) {
-        dispatch({
-          type: "SET_MEDIA",
-          payload: "mobile",
-        });
+      if (isMobile()) {
+        dispatch({ type: "SET_MEDIA", payload: "mobile" });
+        document.querySelector("body").classList.add("mobile-web-player");
+        document.querySelector("body").classList.remove("desktop-web-player");
+      } else {
+        document.querySelector("body").classList.add("desktop-web-player");
+        document.querySelector("body").classList.remove("mobile-web-player");
       }
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [media]);
+
+  console.log(musics);
 
   return (
     <main
@@ -193,6 +155,13 @@ export default function HomeMain() {
                     dispatch({
                       type: "SET_CURRENT_MUSIC",
                       payload: {
+                        album: "ODIUM",
+                        artist: "LXST CXNTURY",
+                        id: 1693330726480,
+                        image:
+                          "https://savemusic.me/uploads/cover/artist_webp/03e618308e87c40c6c03900f12f47c2b.webp",
+                        name: "ODIUM",
+                        playlist: "Phonk",
                         song: "https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/songs%2FODIUM.mp3?alt=media&token=cd9d41c8-a91d-4d79-bdeb-eac59fe8d83c",
                       },
                     }),
@@ -317,10 +286,6 @@ export default function HomeMain() {
           <div className="card"></div>
           <div className="card"></div>
           <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
         </div>
       </article>
 
@@ -335,7 +300,6 @@ export default function HomeMain() {
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
         >
-          <div className="card"></div>
           <div className="card"></div>
           <div className="card"></div>
           <div className="card"></div>
@@ -360,7 +324,6 @@ export default function HomeMain() {
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
         >
-          <div className="card"></div>
           <div className="card"></div>
           <div className="card"></div>
           <div className="card"></div>

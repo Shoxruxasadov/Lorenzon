@@ -57,7 +57,7 @@ export default function Signin() {
         setTimeout(() => {
           dispatch({ type: "SET_CONFIRM", payload: confirm });
           dispatch({ type: "SET_USER", payload: user.data() });
-          role === "Admin" ? navigate("/admin") : navigate("/home");
+          role === "Admin" ? navigate("/admin") : navigate("/");
           setWait(false);
         }, 1000);
       })
@@ -93,7 +93,7 @@ export default function Signin() {
           setTimeout(() => {
             dispatch({ type: "SET_CONFIRM", payload: confirm });
             dispatch({ type: "SET_USER", payload: user.data() });
-            role === "Admin" ? navigate("/admin") : navigate("/home");
+            role === "Admin" ? navigate("/admin") : navigate("/");
           }, 1000);
         } else {
           await setDoc(doc(db, "users", confirm.localId), {
@@ -118,7 +118,7 @@ export default function Signin() {
           setTimeout(() => {
             dispatch({ type: "SET_CONFIRM", payload: confirm });
             dispatch({ type: "SET_USER", payload: user.data() });
-            role === "Admin" ? navigate("/admin") : navigate("/home");
+            role === "Admin" ? navigate("/admin") : navigate("/");
           }, 1000);
         }
       })
@@ -160,7 +160,7 @@ export default function Signin() {
         // setTimeout(() => {
         //   dispatch({ type: "SET_CONFIRM", payload: confirm });
         //   dispatch({ type: "SET_USER", payload: user.data() });
-        //   role === "Admin" ? navigate("/admin") : navigate("/home");
+        //   role === "Admin" ? navigate("/admin") : navigate("/");
         // }, 1000);
       })
       .catch((err) => wrong("QANDAYDIR XATOLIK YUZ BERDI"));

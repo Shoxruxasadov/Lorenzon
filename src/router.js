@@ -23,8 +23,6 @@ import Home from "./router/Home/Home";
 import HomeMain from "./components/Home/Main/HomeMain";
 import HomeSearch from "./components/Home/Main/HomeSearch";
 
-
-
 const Auth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
   return confirm ? children : (window.location.pathname = "/login");
@@ -33,16 +31,20 @@ const Auth = ({ children }) => {
 const NoAuth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
   const user = useSelector((state) => state.confirmReducer.user);
-  return confirm && user
-    ? (window.location.pathname = user.role === "Admin" ? "/admin" : "/home")
-    : children;
+  return confirm && user ? (
+    <Auth>
+      <Home />
+    </Auth>
+  ) : (
+    children
+  );
 };
 
 const ConfirmAdmin = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.user);
   return confirm && confirm.role === "Admin"
     ? children
-    : (window.location.pathname = "/home");
+    : (window.location.pathname = "/");
 };
 
 export const router = createBrowserRouter([
@@ -54,33 +56,15 @@ export const router = createBrowserRouter([
       </NoAuth>
     ),
     errorElement: <Error />,
-  },
-  {
-    path: "/home",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
     children: [
       {
-        path: "/home",
+        path: "/",
         element: (
           <Auth>
             <HomeMain />
           </Auth>
         ),
       },
-    ],
-  },
-  {
-    path: "/search",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-    children: [
       {
         path: "/search",
         element: (
@@ -89,64 +73,65 @@ export const router = createBrowserRouter([
           </Auth>
         ),
       },
+      {
+        path: "/discover",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
+      {
+        path: "/radio",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
+      {
+        path: "/albums",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
+      {
+        path: "/podcast",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
+      {
+        path: "/recently",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
+      {
+        path: "/favorite",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
+      {
+        path: "/localfiles",
+        element: (
+          <Auth>
+            <></>
+          </Auth>
+        ),
+      },
     ],
   },
-  {
-    path: "/discover",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
-  {
-    path: "/radio",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
-  {
-    path: "/albums",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
-  {
-    path: "/podcast",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
-  {
-    path: "/recently",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
-  {
-    path: "/favorite",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
-  {
-    path: "/localfiles",
-    element: (
-      <Auth>
-        <Home />
-      </Auth>
-    ),
-  },
+
   {
     path: "/admin",
     element: (

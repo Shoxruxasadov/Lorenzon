@@ -6,22 +6,6 @@
   position: relative;
   overflow: hidden;
 
-  @media (max-width: 920px) {
-    nav {
-      min-width: 70px !important;
-    }
-  }
-
-  @media (max-width: 540px) {
-    nav {
-      opacity: 0;
-      visibility: hidden;
-      max-width: 0 !important;
-      min-width: 0 !important;
-      width: 0 !important;
-    }
-  }
-
   nav {
     min-width: 240px;
     width: 70px;
@@ -408,10 +392,6 @@
       &:hover {
         opacity: 100%;
       }
-
-      @media (max-width: 540px) {
-        display: none;
-      }
     }
 
     .user {
@@ -422,6 +402,7 @@
       justify-content: space-between;
       gap: 21px;
       cursor: pointer;
+      overflow: hidden;
 
       .info {
         height: 100%;
@@ -566,6 +547,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      overflow: hidden;
 
       header {
         display: flex;
@@ -674,11 +656,6 @@
     background: #080b0fa3;
     backdrop-filter: blur(64px);
 
-    @media (max-width: 540px) {
-      height: 70px;
-      padding: 0 12px;
-    }
-
     #line {
       all: unset;
       position: absolute;
@@ -704,19 +681,10 @@
         align-items: center;
         gap: 16px;
 
-        @media (max-width: 540px) {
-          gap: 8px;
-        }
-
         img {
           border-radius: 12px;
           width: 64px;
           height: 64px;
-
-          @media (max-width: 540px) {
-            width: 48px;
-            height: 48px;
-          }
         }
 
         .title {
@@ -727,12 +695,6 @@
           gap: 8px;
           margin-right: 16px;
 
-          @media (max-width: 540px) {
-            max-width: 100px;
-            gap: 3px;
-            margin-right: 8px;
-          }
-
           h3 {
             font-size: 18px;
             font-weight: 600;
@@ -742,10 +704,6 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-
-            @media (max-width: 540px) {
-              font-size: 16px;
-            }
           }
           p {
             font-size: 14px;
@@ -756,10 +714,6 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-
-            @media (max-width: 540px) {
-              font-size: 12px;
-            }
           }
         }
       }

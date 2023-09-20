@@ -20,17 +20,19 @@ export default function Content() {
 
   return (
     <aside className={media == "full" ? "active" : "non-active"}>
-      <div
-        className="open"
-        onClick={() =>
-          dispatch({
-            type: "SET_MEDIA",
-            payload: media == "basic" ? "full" : "basic",
-          })
-        }
-      >
-        <IoIosArrowBack />
-      </div>
+      {media != "mobile" && (
+        <div
+          className="open"
+          onClick={() =>
+            dispatch({
+              type: "SET_MEDIA",
+              payload: media == "desktop" ? "full" : "desktop",
+            })
+          }
+        >
+          <IoIosArrowBack />
+        </div>
+      )}
       <div className="user" onClick={() => setUserNav(!userNav)}>
         <div className="info">
           <img src={user && user.image} alt="user" />

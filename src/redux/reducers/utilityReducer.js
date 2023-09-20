@@ -2,28 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sidebar: localStorage.getItem("sidebar") == "close" ? false : true,
-  contentMusic: localStorage.getItem("contentMusic") == "" ? false : true,
   pouse: false,
   media:
-    localStorage.getItem("media") == "basic"
-      ? "basic"
-      : localStorage.getItem("media") == "full"
-      ? "full"
-      : localStorage.getItem("media") == "table"
-      ? "table"
+    localStorage.getItem("media") == "desktop"
+      ? "desktop"
       : localStorage.getItem("media") == "mobile"
       ? "mobile"
-      : "basic",
+      : "full",
   currentMusic:
     localStorage.getItem("currentMusic") == ""
       ? null
       : JSON.parse(localStorage.getItem("currentMusic")),
-  follow:
-    localStorage.getItem("follow") == "false"
-      ? false
-      : localStorage.getItem("follow") == "true"
-      ? true
-      : true,
+  follow: localStorage.getItem("follow") == "false" ? false : true,
 };
 
 export const utilitySlice = createSlice({
@@ -52,12 +42,7 @@ export const utilitySlice = createSlice({
   },
 });
 
-export const {
-  setSidebar,
-  setMedia,
-  setCurrentMusic,
-  setPouse,
-  setFollow,
-} = utilitySlice.actions;
+export const { setSidebar, setMedia, setCurrentMusic, setPouse, setFollow } =
+  utilitySlice.actions;
 
 export default utilitySlice.reducer;

@@ -8,14 +8,14 @@ export default function Sidebar() {
 
   return (
     <nav>
-      <Link to={"/home"} className="logo">
+      <Link to={"/"} className="logo">
         <img src={icon} alt="Lorenzon" />
         <h1>{t("brand")}</h1>
       </Link>
       <div className="category">
         <div className="list">
           <NavLink
-            to="/home"
+            to="/"
             className={({ isActive, isPending }) =>
               isPending ? "pending" : isActive ? "active" : ""
             }

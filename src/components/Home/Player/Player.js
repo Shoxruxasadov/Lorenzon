@@ -22,7 +22,14 @@ export default function Player() {
   return (
     <>
       {isMobile() ? (
-        <footer></footer>
+        <footer>
+          <img src={music && music.image} alt="" />
+          {/* <div className="title">
+            <h3>{music && music.name}</h3>
+            <p>{music && music.artist}</p>
+          </div> */}
+          {play && <ReactAudioPlayer src={song} autoPlay controls loop />}
+        </footer>
       ) : (
         <footer>
           <div id="line" />

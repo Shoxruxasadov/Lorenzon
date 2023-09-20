@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
         path: "/discover",
         element: (
           <Auth>
-            <></>
+            <>Discover Page</>
           </Auth>
         ),
       },
@@ -85,7 +85,7 @@ export const router = createBrowserRouter([
         path: "/radio",
         element: (
           <Auth>
-            <></>
+            <>Radio Page</>
           </Auth>
         ),
       },
@@ -93,7 +93,7 @@ export const router = createBrowserRouter([
         path: "/albums",
         element: (
           <Auth>
-            <></>
+            <>Albums Page</>
           </Auth>
         ),
       },
@@ -101,7 +101,7 @@ export const router = createBrowserRouter([
         path: "/podcast",
         element: (
           <Auth>
-            <></>
+            <>Podcast Page</>
           </Auth>
         ),
       },
@@ -109,7 +109,7 @@ export const router = createBrowserRouter([
         path: "/recently",
         element: (
           <Auth>
-            <></>
+            <>Recently Page</>
           </Auth>
         ),
       },
@@ -117,7 +117,7 @@ export const router = createBrowserRouter([
         path: "/favorite",
         element: (
           <Auth>
-            <></>
+            <>Favorite Page</>
           </Auth>
         ),
       },
@@ -125,13 +125,44 @@ export const router = createBrowserRouter([
         path: "/localfiles",
         element: (
           <Auth>
-            <></>
+            <>Local Page</>
+          </Auth>
+        ),
+      },
+      {
+        path: "/settings",
+        element: (
+          <Auth>
+            <Setting />
+          </Auth>
+        ),
+      },
+      {
+        path: "/library",
+        element: (
+          <Auth>
+            <>Library Page</>
+          </Auth>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <Auth>
+            <>Profile Page</>
           </Auth>
         ),
       },
     ],
   },
-
+  {
+    path: "/account",
+    element: (
+      <Auth>
+        <>Account Page</>
+      </Auth>
+    ),
+  },
   {
     path: "/admin",
     element: (
@@ -230,31 +261,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/account",
-    element: (
-      <Auth>
-        <Setting />
-      </Auth>
-    ),
-  },
-  {
-    path: "/profile",
-    element: (
-      <Auth>
-        <Setting />
-      </Auth>
-    ),
-  },
-  {
-    path: "/settings",
-    element: (
-      <Auth>
-        <Setting />
-      </Auth>
-    ),
-  },
-
   {
     path: "/login",
     element: (

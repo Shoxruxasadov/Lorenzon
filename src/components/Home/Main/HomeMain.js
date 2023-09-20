@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import artist from "../../../images/Home/lxst.png";
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import artist from "../../../images/Home/lxst.png";
+import icon from "../../../images/Logo/white.png";
 
 export default function HomeMain() {
   const musics = useSelector((state) => state.musicsReducer.musics);
@@ -10,6 +12,7 @@ export default function HomeMain() {
   const follow = useSelector((state) => state.utilityReducer.follow);
   const media = useSelector((state) => state.utilityReducer.media);
   const [columnCount, setColumnCount] = useState(5);
+  const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
 
   function isMobile() {
@@ -77,7 +80,243 @@ export default function HomeMain() {
   return (
     <>
       {isMobile() ? (
-        <main></main>
+        <main className="homemobile">
+          <Link to={"/"} className="logo">
+            <img src={icon} alt=" " />
+            <h1>{t("brand")}</h1>
+          </Link>
+          <article>
+            <div className="content">
+              {musics.map((item, index) => (
+                <div
+                  className={`card ${music == item && pouse ? "active" : ""}`}
+                  key={index}
+                  onClick={() => {
+                    if (music != item) {
+                      dispatch({ type: "SET_POUSE", payload: false });
+                    }
+                    setTimeout(() => {
+                      dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                      // dispatch({ type: "SET_POUSE", payload: !pouse })
+                    }, 100);
+
+                    if (media == "mobile") {
+                    }
+                  }}
+                >
+                  <div className="images">
+                    <img className="image" src={item.image} alt="image" />
+                  </div>
+                  <div className="title">
+                    <h3>{item.name}</h3>
+                  </div>
+                </div>
+              ))}
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+            </div>
+          </article>
+          <article>
+            <header>
+              <h2>Jamp back in</h2>
+            </header>
+            <div className="content">
+              {musics.map((item, index) => (
+                <div
+                  className={`card ${music == item && pouse ? "active" : ""}`}
+                  key={index}
+                  onClick={() => {
+                    if (music != item) {
+                      dispatch({ type: "SET_POUSE", payload: false });
+                    }
+                    setTimeout(() => {
+                      dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                      // dispatch({ type: "SET_POUSE", payload: !pouse })
+                    }, 100);
+
+                    if (media == "mobile") {
+                    }
+                  }}
+                >
+                  <div className="images">
+                    <img className="image" src={item.image} alt="image" />
+                  </div>
+                  <div className="title">
+                    <h3>{item.name}</h3>
+                  </div>
+                </div>
+              ))}
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+            </div>
+          </article>
+          <article>
+            <header>
+              <h2>Recentky played</h2>
+            </header>
+            <div className="content">
+              {musics.map((item, index) => (
+                <div
+                  className={`card ${music == item && pouse ? "active" : ""}`}
+                  key={index}
+                  onClick={() => {
+                    if (music != item) {
+                      dispatch({ type: "SET_POUSE", payload: false });
+                    }
+                    setTimeout(() => {
+                      dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                      // dispatch({ type: "SET_POUSE", payload: !pouse })
+                    }, 100);
+
+                    if (media == "mobile") {
+                    }
+                  }}
+                >
+                  <div className="images">
+                    <img className="image" src={item.image} alt="image" />
+                  </div>
+                  <div className="title">
+                    <h3>{item.name}</h3>
+                  </div>
+                </div>
+              ))}
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+            </div>
+          </article>
+          <article>
+            <header>
+              <h2>Recommended</h2>
+            </header>
+            <div className="content">
+              {musics.map((item, index) => (
+                <div
+                  className={`card ${music == item && pouse ? "active" : ""}`}
+                  key={index}
+                  onClick={() => {
+                    if (music != item) {
+                      dispatch({ type: "SET_POUSE", payload: false });
+                    }
+                    setTimeout(() => {
+                      dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                      // dispatch({ type: "SET_POUSE", payload: !pouse })
+                    }, 100);
+
+                    if (media == "mobile") {
+                    }
+                  }}
+                >
+                  <div className="images">
+                    <img className="image" src={item.image} alt="image" />
+                  </div>
+                  <div className="title">
+                    <h3>{item.name}</h3>
+                  </div>
+                </div>
+              ))}
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+            </div>
+          </article>
+          <article>
+            <header>
+              <h2>Albums</h2>
+            </header>
+            <div className="content">
+              {musics.map((item, index) => (
+                <div
+                  className={`card ${music == item && pouse ? "active" : ""}`}
+                  key={index}
+                  onClick={() => {
+                    if (music != item) {
+                      dispatch({ type: "SET_POUSE", payload: false });
+                    }
+                    setTimeout(() => {
+                      dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                      // dispatch({ type: "SET_POUSE", payload: !pouse })
+                    }, 100);
+
+                    if (media == "mobile") {
+                    }
+                  }}
+                >
+                  <div className="images">
+                    <img className="image" src={item.image} alt="image" />
+                  </div>
+                  <div className="title">
+                    <h3>{item.name}</h3>
+                  </div>
+                </div>
+              ))}
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+            </div>
+          </article>
+          <article>
+            <header>
+              <h2>Playlists</h2>
+            </header>
+            <div className="content">
+              {musics.map((item, index) => (
+                <div
+                  className={`card ${music == item && pouse ? "active" : ""}`}
+                  key={index}
+                  onClick={() => {
+                    if (music != item) {
+                      dispatch({ type: "SET_POUSE", payload: false });
+                    }
+                    setTimeout(() => {
+                      dispatch({ type: "SET_CURRENT_MUSIC", payload: item });
+                      // dispatch({ type: "SET_POUSE", payload: !pouse })
+                    }, 100);
+
+                    if (media == "mobile") {
+                    }
+                  }}
+                >
+                  <div className="images">
+                    <img className="image" src={item.image} alt="image" />
+                  </div>
+                  <div className="title">
+                    <h3>{item.name}</h3>
+                  </div>
+                </div>
+              ))}
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+              <div className="card empty"></div>
+            </div>
+          </article>
+        </main>
       ) : (
         <main
           className={
@@ -280,7 +519,6 @@ export default function HomeMain() {
                   </div>
                   <div className="title">
                     <h3>{item.name}</h3>
-                    <p>{item.artist}</p>
                   </div>
                 </div>
               ))}

@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link, NavLink } from "react-router-dom";
-import icon from "../../../images/Logo/white.png";
 import { MdLocalLibrary, MdSettings } from "react-icons/md";
+import icon from "../../../images/Logo/white.png";
 
 export default function Sidebar() {
   const [t, i18n] = useTranslation("global");
@@ -30,11 +30,9 @@ export default function Sidebar() {
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
+                className="homebtn"
               >
-                <path
-                  d="M20.83 8.00999L14.28 2.76999C13 1.74999 11 1.73999 9.73002 2.75999L3.18002 8.00999C2.24002 8.75999 1.67002 10.26 1.87002 11.44L3.13002 18.98C3.42002 20.67 4.99002 22 6.70002 22H17.3C18.99 22 20.59 20.64 20.88 18.97L22.14 11.43C22.32 10.26 21.75 8.75999 20.83 8.00999ZM12.75 18C12.75 18.41 12.41 18.75 12 18.75C11.59 18.75 11.25 18.41 11.25 18V15C11.25 14.59 11.59 14.25 12 14.25C12.41 14.25 12.75 14.59 12.75 15V18Z"
-                  fill="#f3f3f3"
-                ></path>
+                <path d="M20.83 8.00999L14.28 2.76999C13 1.74999 11 1.73999 9.73002 2.75999L3.18002 8.00999C2.24002 8.75999 1.67002 10.26 1.87002 11.44L3.13002 18.98C3.42002 20.67 4.99002 22 6.70002 22H17.3C18.99 22 20.59 20.64 20.88 18.97L22.14 11.43C22.32 10.26 21.75 8.75999 20.83 8.00999ZM12.75 18C12.75 18.41 12.41 18.75 12 18.75C11.59 18.75 11.25 18.41 11.25 18V15C11.25 14.59 11.59 14.25 12 14.25C12.41 14.25 12.75 14.59 12.75 15V18Z"></path>
               </svg>
             </div>
             <span>Home</span>
@@ -45,28 +43,27 @@ export default function Sidebar() {
               isPending ? "pending" : isActive ? "active" : ""
             }
           >
-            <div className="svg" >
+            <div className="svg">
               <svg
-              style={{padding: "3px 0 0 2px", transform: "scale(1.1)"}}
+                style={{ padding: "3px 0 0 2px", transform: "scale(1.1)" }}
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
+                className="search"
               >
                 <path
                   d="M9.58333 17.5C13.9556 17.5 17.5 13.9556 17.5 9.58332C17.5 5.21107 13.9556 1.66666 9.58333 1.66666C5.21108 1.66666 1.66667 5.21107 1.66667 9.58332C1.66667 13.9556 5.21108 17.5 9.58333 17.5Z"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  stroke="#f3f3f3"
                 />
                 <path
                   d="M18.3333 18.3333L16.6667 16.6667"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  stroke="#f3f3f3"
                 />
               </svg>
             </div>
@@ -81,10 +78,10 @@ export default function Sidebar() {
             <div className="svg">
               <MdLocalLibrary />
             </div>
-            <span>Library</span>
+            <span>Your Library</span>
           </NavLink>
           <NavLink
-            to="/Settings"
+            to="/settings"
             className={({ isActive, isPending }) =>
               isPending ? "pending" : isActive ? "active" : ""
             }

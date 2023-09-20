@@ -73,7 +73,7 @@ export default function HomeSearch() {
   return (
     <>
       {isMobile() ? (
-        <main></main>
+        <main>Search Page</main>
       ) : (
         <main
           className={

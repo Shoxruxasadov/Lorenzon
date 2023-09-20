@@ -44,6 +44,14 @@ export default function Home() {
           <Outlet />
           <Player />
           <Sidebar />
+          <div class="gradient-blur">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </>
       ) : (
         <>

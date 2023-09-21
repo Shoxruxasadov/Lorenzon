@@ -23,7 +23,8 @@
     margin: 0 8px;
     padding: 8px;
 
-    background-color: #2b2842;
+    background-color: #2c2142;
+
 
     display: flex;
     align-items: center;
@@ -33,6 +34,7 @@
       width: 40px;
       height: 40px;
       border-radius: 4px;
+      box-shadow: 0 0 10px #00000070;
     }
 
     .title {
@@ -70,6 +72,7 @@
       height: 100%;
       border-radius: 6px!important;
       background: #3c3c3c;
+      box-shadow: 0 0 10px #00000070;
     }
 
   }

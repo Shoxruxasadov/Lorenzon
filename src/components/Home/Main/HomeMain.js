@@ -6,6 +6,7 @@ import artist from "../../../images/Home/lxst.png";
 import icon from "../../../images/Logo/white.png";
 
 export default function HomeMain() {
+  const user = useSelector((state) => state.confirmReducer.user);
   const musics = useSelector((state) => state.musicsReducer.musics);
   const music = useSelector((state) => state.utilityReducer.currentMusic);
   const pouse = useSelector((state) => state.utilityReducer.pouse);
@@ -81,10 +82,16 @@ export default function HomeMain() {
     <>
       {isMobile() ? (
         <main className="homemobile">
-          <Link to={"/"} className="logo">
-            <img src={icon} alt=" " />
-            <h1>{t("brand")}</h1>
-          </Link>
+          <header className="navHeader">
+            <Link to={"/"} className="logo">
+              <img src={icon} alt=" " />
+              <h1>{t("brand")}</h1>
+            </Link>
+            <Link to={"/settings"} className="userSettigns">
+              <img src={user && user.image} alt=" " />
+            </Link>
+          </header>
+
           <article>
             <div className="content">
               {musics.map((item, index) => (

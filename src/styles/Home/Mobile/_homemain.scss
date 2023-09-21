@@ -5,32 +5,53 @@ main.homemobile {
   overflow-y: auto;
   padding-bottom: 120px;
 
-  .logo {
-    all: unset;
+  .navHeader {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    height: 48px;
     margin-bottom: 48px;
+    height: 72px;
 
-    color: #fff;
-    font-size: 16px;
-    padding: 12px;
+    .logo {
+      all: unset;
+      display: flex;
+      align-items: center;
+      height: 48px;
 
-    img {
-      height: 32px;
+      color: #fff;
+      font-size: 16px;
+      padding: 12px;
+
+      img {
+        height: 32px;
+      }
+
+      h1 {
+        margin-block: 0px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text;
+      }
+
+      &,
+      img,
+      h1 {
+        cursor: pointer;
+      }
     }
 
-    h1 {
-      margin-block: 0px;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: $text;
-    }
+    .userSettigns{
+      display: flex;
+      align-items: center;
+      height: 48px;
+      margin: 12px;
 
-    &,
-    img,
-    h1 {
-      cursor: pointer;
+      img{
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid $view;
+        box-shadow: 0 0 10px #000;
+      }
     }
   }
 

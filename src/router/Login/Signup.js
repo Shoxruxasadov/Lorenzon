@@ -114,6 +114,7 @@ export default function Signup() {
           name: `${data.firstName} ${data.lastName}`,
           password: data.password,
           role: "User",
+          status: "basic",
           timeStamp: serverTimestamp(),
         });
 
@@ -142,6 +143,7 @@ export default function Signup() {
           name: confirm.displayName,
           password: "GOOGLE",
           role: "User",
+          status: "basic",
           timeStamp: serverTimestamp(),
         });
 
@@ -184,6 +186,7 @@ export default function Signup() {
         //   name: confirm.displayName,
         //   password: "GOOGLE",
         //   role: "User",
+        //   status: "basic",
         //   timeStamp: serverTimestamp(),
         // });
 

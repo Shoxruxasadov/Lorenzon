@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import { getUsers, getSort } from "../reducers/userReducer";
+import { getUsers, getField, getSort } from "../reducers/userReducer";
 
 function* workGetUsers(action) {
   for (let i = 0; i < action.payload.length; i++) {
@@ -13,6 +13,11 @@ function* workGetUsers(action) {
   return;
 }
 
+function* workSetField(action) {
+  yield put(getField(action.payload));
+  return;
+}
+
 function* workSetSort(action) {
   yield put(getSort());
   return;
@@ -20,5 +25,6 @@ function* workSetSort(action) {
 
 export default function* userSaga() {
   yield takeEvery("GET_USERS", workGetUsers);
+  yield takeEvery("SET_FIELD", workSetField);
   yield takeEvery("SET_SORT", workSetSort);
 }

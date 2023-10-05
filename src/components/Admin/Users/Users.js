@@ -404,7 +404,12 @@ export default function Users() {
             <table>
               <thead>
                 <tr>
-                  <th onClick={() => dispatch({ type: "SET_SORT" })}>
+                  <th
+                    onClick={() => {
+                      dispatch({ type: "SET_SORT" });
+                      dispatch({ type: "SET_FIELD", payload: "timeStamp" });
+                    }}
+                  >
                     {sort == "desc" ? (
                       <HiSortDescending />
                     ) : (
@@ -412,7 +417,19 @@ export default function Users() {
                     )}
                     {t("admin.users.name")}
                   </th>
-                  <th>{t("admin.users.birthday")}</th>
+                  <th
+                    onClick={() => {
+                      dispatch({ type: "SET_SORT" });
+                      dispatch({ type: "SET_FIELD", payload: "birthday" });
+                    }}
+                  >
+                    {sort == "desc" ? (
+                      <HiSortDescending />
+                    ) : (
+                      <HiSortAscending />
+                    )}
+                    {t("admin.users.birthday")}
+                  </th>
                   <th>{t("admin.users.country")}</th>
                   <th>{t("admin.users.gender")}</th>
                   <th>{t("admin.users.role")}</th>

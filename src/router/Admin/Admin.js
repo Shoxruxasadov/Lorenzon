@@ -6,6 +6,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 export default function Admin() {
+  const field = useSelector((state) => state.userReducer.field);
   const sort = useSelector((state) => state.userReducer.sort);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Admin() {
     const fetchData = async () => {
       try {
         onSnapshot(
-          query(collection(db, "users"), orderBy("timeStamp", sort)),
+          query(collection(db, "users"), orderBy(field, sort)),
           (snapshot) => {
             let list = [];
             snapshot.docs.map(
@@ -44,7 +45,7 @@ export default function Admin() {
       }
     };
     fetchData();
-  }, [sort]);
+  }, [field, sort]);
 
   return (
     <div id="admin">

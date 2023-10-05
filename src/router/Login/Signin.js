@@ -105,6 +105,7 @@ export default function Signin() {
             name: confirm.displayName,
             password: "GOOGLE",
             role: "User",
+            status: "basic",
             timeStamp: serverTimestamp(),
           });
 
@@ -150,6 +151,7 @@ export default function Signin() {
         //   name: confirm.displayName,
         //   password: "GOOGLE",
         //   role: "User",
+        //   status: "basic",
         //   timeStamp: serverTimestamp(),
         // });
 

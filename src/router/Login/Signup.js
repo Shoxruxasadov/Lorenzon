@@ -49,7 +49,10 @@ import {
 } from "../../firebase/firebase";
 
 export default function Signup() {
-  useEffect(() => document.getElementById("root").setAttribute("class", "register"), []);
+  useEffect(
+    () => document.getElementById("root").setAttribute("class", "register"),
+    []
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");

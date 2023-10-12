@@ -49,20 +49,16 @@ import {
 } from "../../firebase/firebase";
 
 export default function Signup() {
-  const confirmUser = useSelector((state) => state.confirmReducer.confirm);
-  const user = useSelector((state) => state.confirmReducer.user);
+  useEffect(
+    () => document.getElementById("root").setAttribute("class", "register"),
+    []
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
   const pos = "top-left";
-
-  useEffect(() => {
-    document.getElementById("root").setAttribute("class", "register");
-    if (confirmUser && user) {
-      navigate("/");
-    }
-  }, []);
 
   const [allCountry, setAllCountry] = useState(country);
   const [newCountry, setNewCountry] = useState([]);

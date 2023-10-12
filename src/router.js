@@ -31,6 +31,7 @@ const Auth = ({ children }) => {
 const NoAuth = ({ children }) => {
   const confirm = useSelector((state) => state.confirmReducer.confirm);
   const user = useSelector((state) => state.confirmReducer.user);
+
   return confirm && user ? (
     <Auth>
       <Home />
@@ -38,6 +39,12 @@ const NoAuth = ({ children }) => {
   ) : (
     children
   );
+};
+
+const AuthDone = ({ children }) => {
+  const confirm = useSelector((state) => state.confirmReducer.confirm);
+  const user = useSelector((state) => state.confirmReducer.user);
+  return confirm && user ? (window.location.pathname = "/") : children;
 };
 
 const ConfirmAdmin = ({ children }) => {
@@ -264,17 +271,17 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <NoAuth>
+      <AuthDone>
         <Signin />
-      </NoAuth>
+      </AuthDone>
     ),
   },
   {
     path: "/register",
     element: (
-      <NoAuth>
+      <AuthDone>
         <Signup />
-      </NoAuth>
+      </AuthDone>
     ),
   },
 ]);

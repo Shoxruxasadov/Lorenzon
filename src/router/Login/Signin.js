@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { BiSolidLock } from "react-icons/bi";
@@ -26,20 +26,16 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Signin() {
-  const confirm = useSelector((state) => state.confirmReducer.confirm);
-  const user = useSelector((state) => state.confirmReducer.user);
+  useEffect(
+    () => document.getElementById("root").setAttribute("class", "login"),
+    []
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
   const [wait, setWait] = useState(false);
-
-  useEffect(() => {
-    document.getElementById("root").setAttribute("class", "login");
-    if (confirm && user) {
-      navigate("/");
-    }
-  }, []);
 
   const {
     register,

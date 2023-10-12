@@ -26,16 +26,20 @@ import {
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Signin() {
-  useEffect(
-    () => document.getElementById("root").setAttribute("class", "login"),
-    []
-  );
-
+  const confirm = useSelector((state) => state.confirmReducer.confirm);
+  const user = useSelector((state) => state.confirmReducer.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [t, i18n] = useTranslation("global");
   const [eye, setEye] = useState(false);
   const [wait, setWait] = useState(false);
+
+  useEffect(() => {
+    document.getElementById("root").setAttribute("class", "login");
+    if (confirm && user) {
+      navigate("/");
+    }
+  }, []);
 
   const {
     register,

@@ -4,6 +4,14 @@ import { motion } from "framer-motion";
 import { Link as Scroll } from "react-scroll"
 
 export default function Header() {
+  const lists = [
+    { name: "Home", link: "hero", position: 0 },
+    { name: "Blog", link: "blog", position: -150 },
+    { name: "Service", link: "service", position: -130 },
+    { name: "About Us", link: "about", position: -100 },
+    { name: "Support", link: "footer", position: 0 },
+  ]
+
   return (
     <header>
       <div className="container">
@@ -17,58 +25,22 @@ export default function Header() {
           <Image src="/lorenzon/logo.svg" width={170} height={40} alt="Lorenzon" />
         </Link>
         <nav className="navbar">
-          <div className="list">
-            <Scroll
-              activeClass="active"
-              to="hero"
-              spy={true}
-              smooth={true}
-              offset={0}
-              duration={500}
-            >
-              Home
-            </Scroll>
-            <Scroll
-              activeClass="active"
-              to="blog"
-              spy={true}
-              smooth={true}
-              offset={-150}
-              duration={500}
-            >
-              Blog
-            </Scroll>
-            <Scroll
-              activeClass="active"
-              to="service"
-              spy={true}
-              smooth={true}
-              offset={-130}
-              duration={500}
-            >
-              Service
-            </Scroll>
-            <Scroll
-              activeClass="active"
-              to="about"
-              spy={true}
-              smooth={true}
-              offset={-100}
-              duration={500}
-            >
-              About Us
-            </Scroll>
-            <Scroll
-              activeClass="active"
-              to="footer"
-              spy={true}
-              smooth={true}
-              offset={0}
-              duration={500}
-            >
-              Support
-            </Scroll>
-          </div>
+          <ul className="list">
+            {lists.map((list, i) => (
+              <li key={i}>
+                <Scroll
+                  activeClass="active"
+                  to={list.link}
+                  spy={true}
+                  smooth={true}
+                  offset={list.position}
+                  duration={500}
+                >
+                  {list.name}
+                </Scroll>
+              </li>
+            ))}
+          </ul>
           <div className="download">
             <Link href={"/"}>Download Now</Link>
           </div>

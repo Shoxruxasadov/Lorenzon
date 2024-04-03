@@ -19,7 +19,6 @@ export default function Passages() {
                     <div className="headtitle">
                         <h2>More variants of features that you can get</h2>
                     </div>
-
                     <div className="images">
                         <div className="shadow" />
                         <hr />

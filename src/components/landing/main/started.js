@@ -21,7 +21,7 @@ export default function Started() {
                     </div>
                     <div className="image">
                         <Image src="/landing/started/play.svg" width={60} height={60} alt="play" className="play" />
-                        <Image src="/landing/started/disco.jpg" width={1200} height={400} alt="background" className="background" />
+                        <Image src="/landing/started/disco.webp" width={1200} height={400} alt="background" className="background" />
                     </div>
                 </div>
             </div>

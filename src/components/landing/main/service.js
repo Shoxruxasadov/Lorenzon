@@ -14,24 +14,24 @@ export default function Service() {
                 </div>
                 <div className="wrapper">
                     <div className="card">
-                        <Image src="/landing/service/energy.png" width={80} height={80} alt="energy" />
+                        <Image src="/landing/service/energy.webp" width={80} height={80} alt="energy" />
                         <h3>Lorem Ipsum is simply</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum pariatur quos maiores?</p>
                     </div>
                     <div className="card">
-                        <Image src="/landing/service/wifi.png" width={80} height={80} alt="wifi" />
+                        <Image src="/landing/service/wifi.webp" width={80} height={80} alt="wifi" />
                         <h3>It is a long established</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum pariatur quos maiores?</p>
                     </div>
                     <div className="card">
-                        <Image src="/landing/service/health.png" width={80} height={80} alt="health" />
+                        <Image src="/landing/service/health.webp" width={80} height={80} alt="health" />
                         <h3>Contrary to pop belief</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum pariatur quos maiores?</p>
                     </div>
                 </div>
                 <div className="wrapper">
                     <div className="card">
-                        <Image src="/landing/service/dj.png" width={640} height={400} alt="dj" />
+                        <Image src="/landing/service/dj.webp" width={640} height={400} alt="dj" />
                         <div className="content">
                             <div className="round">
                                 <h3>At vero eos et accusamus et.</h3>
@@ -41,7 +41,7 @@ export default function Service() {
                         </div>
                     </div>
                     <div className="card">
-                        <Image src="/landing/service/party.png" width={640} height={400} alt="party" />
+                        <Image src="/landing/service/party.webp" width={640} height={400} alt="party" />
                         <div className="content">
                             <div className="round">
                                 <h3>At vero eos et accusamus et.</h3>

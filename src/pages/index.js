@@ -31,7 +31,7 @@ export default function Landing() {
     ).then(({ data }) => {
       // return data[0].role == "admin" ? router.push('/admin') : router.push('/home')
       return router.push('/home')
-    }).catch(() => router.push('/')).finally(() => setWait(false))
+    }).catch().finally(() => setWait(false))
   }, [])
 
   if (wait) return <Wait />

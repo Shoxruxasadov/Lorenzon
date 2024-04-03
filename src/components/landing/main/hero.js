@@ -35,7 +35,7 @@ export default function Hero() {
             animate={{ x: "-72px", y: "32px", opacity: 1, scale: "1.1" }}
             transition={{ duration: 2, type: "spring" }}>
             <Image
-              src="/landing/hero/webapp.png"
+              src="/landing/hero/webapp.webp"
               alt="WebApp"
               width={350}
               height={505}
@@ -55,8 +55,8 @@ export default function Hero() {
                 <p>Collaboration Partners</p>
               </div>
               <div className="brands">
-                <Image src="/landing/hero/regular.png" alt="regular" width={80} height={30} />
-                <Image src="/landing/hero/spotify.png" alt="spotify" width={80} height={30} />
+                <Image src="/landing/hero/regular.webp" alt="regular" width={80} height={30} />
+                <Image src="/landing/hero/spotify.webp" alt="spotify" width={80} height={30} />
               </div>
             </div>
           </div>

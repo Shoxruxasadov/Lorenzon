@@ -12,7 +12,7 @@ export default function Tempor() {
                     </div>
                 </div>
                 <div className="wrapper">
-                    <Image src="/landing/service/phone.png" width={350} height={700} className="phone" alt="phone" />
+                    <Image src="/landing/tempor/phone.webp" width={350} height={700} className="phone" alt="phone" />
                     <div className="content">
                         <div className="top">
                             <h3>At vero eos et accusamus et iusto odio dignissimos ducimus quit.</h3>
@@ -20,19 +20,19 @@ export default function Tempor() {
                         </div>
                         <div className="round">
                             <div className="card">
-                                <Image src="/landing/tempor/vibes.png" width={270} height={270} alt="vibes" />
+                                <Image src="/landing/tempor/vibes.webp" width={270} height={270} alt="vibes" />
                                 <p>In a free hour. when our power of choice is untrammelled</p>
                             </div>
                             <div className="card">
-                                <Image src="/landing/tempor/party.png" width={270} height={270} alt="party" />
+                                <Image src="/landing/tempor/party.webp" width={270} height={270} alt="party" />
                                 <p>Lorem ipsum dolor sit amet a consectetur adipisicing elit.</p>
                             </div>
                             <div className="card">
-                                <Image src="/landing/tempor/training.png" width={270} height={270} alt="training" />
+                                <Image src="/landing/tempor/training.webp" width={270} height={270} alt="training" />
                                 <p>Lorem ipsum dolor sit amet a consectetur adipisicing elit.</p>
                             </div>
                             <div className="card">
-                                <Image src="/landing/tempor/summer.png" width={270} height={270} alt="training" />
+                                <Image src="/landing/tempor/summer.webp" width={270} height={270} alt="training" />
                                 <p>This is one of my favorite flowers, I love to give flowers.</p>
                             </div>
                         </div>

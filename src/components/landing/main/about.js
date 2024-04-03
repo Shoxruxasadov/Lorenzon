@@ -16,7 +16,7 @@ export default function About() {
                     </div>
                 </div>
                 <div className="image">
-                    <Image src="/landing/hero/background.png" width={1000} height={600} className="about" alt="background" />
+                    <Image src="/landing/about/background.webp" width={1000} height={600} className="about" alt="background" />
                 </div>
                 <div className="wrapper">
                     <div className="top">

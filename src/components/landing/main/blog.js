@@ -31,7 +31,7 @@ export default function Blog() {
           <div className="image" >
             <div className="blur" />
             <Image
-              src="/landing/blog/phone.png"
+              src="/landing/blog/phone.webp"
               alt="WebApp"
               width={520}
               height={350}

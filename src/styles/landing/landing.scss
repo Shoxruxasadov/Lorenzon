@@ -95,6 +95,10 @@ $click: #6940ee;
             &:hover::before {
               width: 100%;
             }
+
+            &.active::before{
+              width: 100%;
+            }
           }
         }
 

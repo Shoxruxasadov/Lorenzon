@@ -9,7 +9,7 @@ export default function Passages() {
                     <h3 className="headtitle">There are many variation of passages of Lorem Ipsum<span> available</span>.</h3>
                     <p className="subtitle">The standart chank of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
                     <hr />
-                    <p>'Lorem ipsum dolor sit amet.</p>
+                    <p>&#39;Lorem ipsum dolor sit amet.</p>
                     <hr />
                     <p>Sed ut persoiciatis unde omnis iste nat.</p>
                     <hr />

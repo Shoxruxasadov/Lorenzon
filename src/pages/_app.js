@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
-import { SpeedInsights } from "@vercel/speed-insights/react"
 import { SessionProvider } from 'next-auth/react';
+
+import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react"
 
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useStore } from "../store/zustand";
@@ -35,6 +37,7 @@ export default function MyApp({ Component, pageProps, }) {
             <Component {...pageProps} />
             <ToastContainer />
             <SpeedInsights />
+            <Analytics />
         </SessionProvider>
     </>
 }

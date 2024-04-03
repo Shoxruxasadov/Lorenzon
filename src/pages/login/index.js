@@ -64,7 +64,7 @@ export default function Login() {
       } else {
         wrong("Wrong email or password");
       }
-    }).finally(() => setLoading(false))
+    }).catch(({message})=> wrong(message)).finally(() => setLoading(false))
   }
 
   const authGoogle = () => {

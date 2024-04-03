@@ -1,0 +1,524 @@
+$main: #582ddd;
+$text: #f3f3f3;
+$back: #080b0f;
+$hero-click: #6940ee;
+
+$view: #0d1219;
+$bate: #99999f;
+$login-bor: #1a1a1d;
+$login-inp: #131314;
+
+#login {
+  background: $back;
+  color: $text;
+  overflow: hidden;
+  display: flex;
+  height: 100svh;
+  padding: 32px 32px 32px 0;
+  gap: 32px;
+
+  .formes {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 12px;
+
+    .logo {
+      all: unset;
+      display: flex;
+      align-items: center;
+      height: 32px;
+      overflow: hidden;
+      transition: 0.2s ease;
+      position: absolute;
+      top: 0;
+      left: 30px;
+
+      &:hover {
+        transform: scale(1.01);
+      }
+
+      &,
+      img,
+      h1 {
+        cursor: pointer;
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+
+    .wrapper {
+      width: 360px;
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        color: $bate;
+        font-size: 36px;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.4px;
+        text-align: center;
+      }
+
+      p {
+        color: $bate;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .username,
+        .password {
+          width: 100%;
+          height: 44px;
+          position: relative;
+
+          svg {
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            color: $bate;
+
+            &,
+            & > path {
+              cursor: pointer;
+            }
+          }
+
+          .eye {
+            left: auto;
+            right: 14px;
+          }
+
+          input {
+            width: 100%;
+            height: 100%;
+            padding-left: 42px;
+            border-radius: 8px;
+            border: 1px solid $login-bor;
+            background: $login-inp;
+            color: $text;
+
+            &::placeholder {
+              color: $bate;
+              padding-top: 1px;
+
+              font-size: 14px;
+              font-weight: 400;
+              line-height: 24px;
+            }
+          }
+        }
+
+        ::selection {
+          background: transparent;
+        }
+
+        .remember {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 20px;
+          cursor: pointer;
+
+          .checkbox {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            input[type="checkbox"] {
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+              -webkit-tap-highlight-color: transparent;
+              cursor: pointer;
+              margin: 0;
+            }
+            input[type="checkbox"]:focus {
+              outline: 0;
+            }
+            .cbx {
+              width: 24px;
+              height: 24px;
+              transform: scale(0.6666666666666667);
+            }
+            .cbx input {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 24px;
+              height: 24px;
+              border: 2px solid #bfbfc0;
+              border-radius: 50%;
+            }
+            .cbx label {
+              width: 24px;
+              height: 24px;
+              background: none;
+              border-radius: 50%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              transform: trasnlate3d(0, 0, 0);
+              pointer-events: none;
+            }
+            .cbx svg {
+              position: absolute;
+              top: 5px;
+              left: 4px;
+              z-index: 1;
+              pointer-events: none;
+            }
+            .cbx svg path {
+              stroke: #fff;
+              stroke-width: 3;
+              stroke-linecap: round;
+              stroke-linejoin: round;
+              stroke-dasharray: 19;
+              stroke-dashoffset: 19;
+              transition: stroke-dashoffset 0.3s ease;
+              transition-delay: 0.2s;
+            }
+            .cbx input:checked + label {
+              animation: splash 0.6s ease forwards;
+            }
+            .cbx input:checked + label + svg path {
+              stroke-dashoffset: 0;
+            }
+            @-moz-keyframes splash {
+              40% {
+                background: $main;
+                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
+                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+              }
+              100% {
+                background: $main;
+                box-shadow: 0 -36px 0 -10px transparent,
+                  32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
+                  0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
+                  -32px -16px 0 -10px transparent;
+              }
+            }
+            @-webkit-keyframes splash {
+              40% {
+                background: $main;
+                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
+                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+              }
+              100% {
+                background: $main;
+                box-shadow: 0 -36px 0 -10px transparent,
+                  32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
+                  0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
+                  -32px -16px 0 -10px transparent;
+              }
+            }
+            @-o-keyframes splash {
+              40% {
+                background: $main;
+                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
+                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+              }
+              100% {
+                background: $main;
+                box-shadow: 0 -36px 0 -10px transparent,
+                  32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
+                  0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
+                  -32px -16px 0 -10px transparent;
+              }
+            }
+            @keyframes splash {
+              40% {
+                background: $main;
+                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
+                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
+                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+              }
+              100% {
+                background: $main;
+                box-shadow: 0 -36px 0 -10px transparent,
+                  32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
+                  0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
+                  -32px -16px 0 -10px transparent;
+              }
+            }
+          }
+
+          .checkbox .rememberme {
+            color: $bate;
+            cursor: pointer;
+
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            padding-top: 1px;
+          }
+
+          a {
+            color: $main;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+          }
+        }
+
+        button {
+          transition: 0.2s;
+
+          &[type="submit"] {
+            height: 44px;
+            border: none;
+            border-radius: 8px;
+            background: $main;
+            color: $back;
+
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 20px;
+          }
+
+          &:disabled,
+          &[disabled] {
+            opacity: 30%;
+          }
+        }
+      }
+    }
+
+    .lines {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0;
+
+      div {
+        width: 45%;
+        height: 1px;
+      }
+
+      span {
+        color: #24242a;
+      }
+
+      .line-start {
+        background: linear-gradient(to right, transparent, #24242a 40%);
+      }
+
+      .line-end {
+        background: linear-gradient(to left, transparent, #24242a 40%);
+      }
+    }
+
+    .providers {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        height: 44px;
+
+        border-radius: 8px;
+        border: 1px solid $login-bor;
+        background: $login-inp;
+        cursor: pointer;
+
+        svg,
+        svg > path {
+          cursor: pointer;
+        }
+
+        span {
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 20px;
+          padding-top: 2px;
+          cursor: pointer;
+
+          &:first-of-type {
+            padding-left: 4px;
+          }
+
+          &:last-of-type {
+            padding-top: 2px;
+            padding-right: 1px;
+          }
+        }
+      }
+    }
+
+    .replacement {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+
+      span {
+        color: $bate;
+        font-weight: 400;
+      }
+
+      a {
+        color: $main;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .images {
+    width: 50%;
+    height: 100%;
+    border-radius: 40px;
+    background: $view;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      cursor: pointer;
+      position: absolute;
+      bottom: -345px;
+      left: 25px;
+
+      h1 {
+        height: 40px;
+        font-size: 30px;
+        color: $back;
+        padding-top: 1px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+//======================================= MEDIA ====================================== \\
+
+@media (max-width: 920px) {
+  #login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+
+    .images {
+      display: none !important;
+    }
+    .formes {
+      width: 100%;
+
+      .logo {
+        top: 16px;
+        left: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 920px) and (min-height: 1000px) {
+  #login {
+    .formes {
+      width: 150%;
+      transform: scale(1.3) !important;
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  #login {
+    .formes {
+      width: 110%;
+      transform: scale(0.9) !important;
+      padding-top: 64px;
+
+      .logo {
+        top: 64px;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: column;
+        height: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  #login {
+    .formes {
+      width: 120%;
+      transform: scale(0.85) !important;
+
+      .wrapper {
+        h1 {
+          font-size: 32px;
+        }
+        form {
+          font-size: 17px;
+          input,
+          button {
+            font-size: 16px;
+            padding-top: 1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  #login {
+    .formes {
+      width: 130%;
+      transform: scale(0.75) !important;
+
+      .wrapper {
+        h1 {
+          font-size: 30px;
+        }
+        form {
+          font-size: 16px;
+          input,
+          button {
+            font-size: 15px;
+            padding-top: 1px;
+          }
+        }
+      }
+    }
+  }
+}

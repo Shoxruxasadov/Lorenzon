@@ -1,0 +1,187 @@
+#tempor {
+  width: 100%;
+  margin-top: 100px;
+
+  .title {
+    margin-bottom: 80px;
+
+    @media (max-width: 780px) {
+      margin-bottom: 20px;
+    }
+
+    .headtitle {
+      max-width: 1030px;
+
+      h2 {
+        line-height: 70px;
+        font-size: 54px;
+        font-family: BelfastGrotesk600;
+
+        @media (max-width: 780px) {
+          line-height: 40px;
+          font-size: 28px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .wrapper:nth-child(2) {
+    display: flex;
+    gap: 80px;
+
+    @media (max-width: 780px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    img.phone {
+      transform: translateX(-10px);
+
+      @media (max-width: 780px) {
+        transform: translateX(0);
+        height: 700px;
+      }
+    }
+
+    .content {
+      width: calc(100% - 350px);
+      padding-top: 48px;
+
+      @media (max-width: 780px) {
+        width: 100%;
+        padding: 0;
+      }
+
+      .top {
+        max-width: 500px;
+        margin-bottom: 100px;
+
+        @media (max-width: 780px) {
+          width: 100%;
+          max-width: none;
+          margin-bottom: 40px;
+        }
+
+        h3 {
+          font-size: 28px;
+          font-family: BelfastGrotesk600;
+          margin-bottom: 12px;
+
+          @media (max-width: 780px) {
+            font-size: 24px;
+            text-align: center;
+          }
+        }
+
+        p {
+          font-size: 18px;
+          font-family: BelfastGrotesk500;
+          opacity: 50%;
+
+          @media (max-width: 780px) {
+            font-size: 16px;
+            text-align: center;
+          }
+        }
+      }
+
+      .round {
+        display: flex;
+        gap: 5%;
+
+        @media (max-width: 780px) {
+          flex-wrap: wrap;
+          column-gap: 6%;
+          row-gap: 30px;
+        }
+
+        .card {
+          width: 32%;
+
+          @media (max-width: 780px) {
+            width: 47%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          &:last-of-type {
+            display: none;
+
+            @media (max-width: 780px) {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+          }
+
+          img {
+            border-radius: 24px;
+            margin-bottom: 12px;
+          }
+
+          p {
+            font-size: 17px;
+            font-family: BelfastGrotesk500;
+            opacity: 80%;
+
+            @media (max-width: 780px) {
+              font-size: 14px;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wrapper:nth-child(3) {
+    width: 100%;
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @media (max-width: 780px) {
+      margin-top: 60px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .card {
+      width: 170px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      @media (max-width: 780px) {
+        width: 40%;
+      }
+
+      h4 {
+        line-height: 70px;
+        font-size: 54px;
+        font-family: BelfastGrotesk700;
+
+        @media (max-width: 780px) {
+          line-height: 60px;
+          font-size: 48px;
+        }
+      }
+
+      p {
+        font-family: BelfastGrotesk500;
+        font-size: 18px;
+        opacity: 50%;
+
+        @media (max-width: 780px) {
+          font-size: 16px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

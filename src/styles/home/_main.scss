@@ -1,0 +1,160 @@
+main#home-main {
+  article {
+    overflow: hidden;
+    height: 280px;
+    margin-bottom: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding-left: 3px;
+      }
+
+      a {
+        color: #896aee;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .content {
+      grid-gap: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-column: auto;
+      min-width: 360px;
+
+      .card {
+        width: 100%;
+        max-width: 180px;
+        min-width: 150px;
+        min-height: 225px;
+        -webkit-box-flex: 1;
+        background: #0a0d12;
+        isolation: isolate;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+          background: $analog;
+
+          .images > .play {
+            visibility: visible;
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        &.active {
+          .images > .pouse {
+            z-index: 2;
+            visibility: visible;
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        &.active:hover {
+          .images > .play {
+            visibility: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+          }
+        }
+
+        .images {
+          width: 100%;
+          position: relative;
+          margin-bottom: 16px;
+          cursor: pointer;
+
+          .play {
+            width: 44px;
+            position: absolute;
+            z-index: 1;
+            right: 6px;
+            bottom: 10px;
+
+            transition: 0.3s;
+            visibility: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+
+            &,
+            & > path,
+            & > rect,
+            & > circle {
+              cursor: pointer;
+            }
+          }
+
+          .pouse {
+            width: 44px;
+            position: absolute;
+            z-index: 0;
+            right: 6px;
+            bottom: 10px;
+
+            transition: 0.3s;
+            visibility: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+
+            &,
+            & > path,
+            & > rect,
+            & > circle {
+              cursor: pointer;
+            }
+          }
+
+          .image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+          }
+        }
+
+        .title {
+          &,
+          h3,
+          p {
+            cursor: pointer;
+          }
+
+          h3:hover,
+          p:hover {
+            text-decoration: underline;
+          }
+
+          h3 {
+            font-size: 16px;
+            text-wrap: nowrap;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-bottom: 4px;
+            overflow: hidden;
+            color: $text;
+          }
+          p {
+            font-size: 14px;
+            color: $bate;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,215 @@
+#passages {
+  width: 100%;
+  padding-top: 150px;
+  overflow: hidden;
+
+  .container {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 80px;
+
+    @media (max-width: 780px) {
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 80px;
+    max-width: 600px;
+
+    @media (max-width: 780px) {
+      width: 100%;
+      max-width: none;
+
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .headtitle {
+      width: 520px;
+
+      @media (max-width: 780px) {
+        display: none;
+      }
+
+      h2 {
+        line-height: 72px;
+        font-size: 64px;
+        font-family: BelfastGrotesk500;
+        padding-bottom: 10px;
+        text-align: end;
+      }
+    }
+
+    .images {
+      transform: translateX(36.36px);
+      position: relative;
+
+      @media (max-width: 780px) {
+        transform: translateX(0);
+      }
+
+      .shadow {
+        width: 102%;
+        height: 102%;
+        position: absolute;
+        top: -1%;
+        left: -1%;
+        background: linear-gradient(
+          to right,
+          $back 5%,
+          transparent 50%,
+          $back 95%
+        );
+        z-index: 10;
+
+        @media (max-width: 780px) {
+          background: linear-gradient(
+            to right,
+            $back 0%,
+            transparent 50%,
+            $back 100%
+          );
+        }
+      }
+
+      hr {
+        opacity: 2%;
+        margin-bottom: 20px;
+      }
+
+      .wrapper {
+        display: flex;
+        gap: 40px;
+
+        @media (max-width: 780px) {
+          gap: 12px;
+        }
+
+        .card {
+          width: 150px;
+          height: 150px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          border-radius: 24px;
+          overflow: hidden;
+
+          @media (max-width: 780px) {
+            width: 160px;
+            height: 160px;
+          }
+
+          &:nth-child(1) {
+            background-image: url("../../../public/landing/variants/summer.jpg");
+          }
+
+          &:nth-child(2) {
+            background-image: url("../../../public/landing/variants/vibes.jpg");
+          }
+
+          &:nth-child(3) {
+            background-image: url("../../../public/landing/variants/party.avif");
+          }
+
+          &:nth-child(4) {
+            background-image: url("../../../public/landing/variants/training.jpeg");
+          }
+
+          p {
+            line-height: 16px;
+            text-align: center;
+            position: sticky;
+            z-index: 2;
+            opacity: 75%;
+          }
+
+          .card-shadow {
+            width: 102%;
+            height: 102%;
+            background: radial-gradient(#000000bb 10%, black 120%);
+            position: absolute;
+            top: -1%;
+            left: -1%;
+          }
+        }
+      }
+    }
+  }
+
+  .passages {
+    max-width: 440px;
+
+    @media (max-width: 780px) {
+      width: 100%;
+      max-width: none;
+    }
+
+    .headline {
+      display: none;
+
+      @media (max-width: 780px) {
+        display: block;
+      }
+
+      h2 {
+        line-height: 48px;
+        font-size: 40px;
+        font-family: BelfastGrotesk500;
+        padding-bottom: 10px;
+        // text-align: center;
+        margin-bottom: 40px;
+      }
+    }
+
+    .headtitle {
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-family: BelfastGrotesk500;
+
+      @media (max-width: 780px) {
+        font-size: 22px;
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    .subtitle {
+      font-size: 16px;
+    }
+
+    hr {
+      width: 100%;
+      opacity: 30%;
+      margin: 24px 0;
+
+      &:last-of-type {
+        width: 94%;
+      }
+    }
+
+    p {
+      font-size: 20px;
+      font-family: BelfastGrotesk500;
+      opacity: 30%;
+
+      @media (max-width: 780px) {
+        font-size: 17px;
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+#team {
+  width: 100%;
+  margin-top: 120px;
+
+  .title {
+    gap: 40px;
+    margin-bottom: 20px;
+
+    .headtitle {
+      h2 {
+        line-height: 72px;
+        font-size: 64px;
+        font-family: BelfastGrotesk600;
+        padding-bottom: 16px;
+        text-align: center;
+
+        @media (max-width: 780px) {
+          line-height: 48px;
+          font-size: 32px;
+        }
+      }
+    }
+
+    .subtitle {
+      display: flex;
+      justify-content: center;
+
+      p {
+        font-size: 24px;
+        font-family: BelfastGrotesk500;
+        opacity: 50%;
+        text-align: center;
+        max-width: 800px;
+
+        @media (max-width: 780px) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  img.world {
+    width: 100%;
+    border-radius: 50%;
+
+    @media (max-width: 780px) {
+      margin-bottom: 24px;
+    }
+  }
+
+  .wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+
+    @media (max-width: 780px) {
+      gap: 32px;
+    }
+
+    .card {
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 16px;
+      border-radius: 16px;
+
+      img {
+        width: 100%;
+        border-radius: 50%;
+        padding: 16px;
+
+        @media (max-width: 780px) {
+          padding: 8px;
+        }
+      }
+
+      h4 {
+        line-height: 20px;
+        font-size: 16px;
+        font-family: BelfastGrotesk600;
+        margin-bottom: 4px;
+        text-align: center;
+      }
+
+      p {
+        font-size: 14px;
+        font-family: BelfastGrotesk500;
+        opacity: 50%;
+        text-align: center;
+      }
+    }
+  }
+}

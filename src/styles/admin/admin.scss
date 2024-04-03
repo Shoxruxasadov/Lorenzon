@@ -1,0 +1,620 @@
+$main: #582ddd;
+$shadow: #582ddda6;
+$click: #6940ee;
+$text: #f3f3f3;
+$bate: #99999f;
+$view: #0c1016;
+$analog: #0e1520;
+$hover: #141e30;
+$back: #080b0f;
+$login-bor: #333333;
+// ADMIN PAGE ----------
+$admin-tabhead: #121822;
+$admin-inpbor: #282729;
+$admin-butowe: #ffffff;
+$admin-line: #3b393d;
+$admin-shadbar: #00000026;
+
+#admin {
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  color: $text;
+  overflow: hidden;
+
+  nav#admin-sidebar {
+    width: 240px;
+    height: 100%;
+    background: $view;
+    position: fixed;
+    transition: 0.15s;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      .logo {
+        all: unset;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        margin: 30px 32px 0;
+        cursor: pointer;
+
+        img {
+          height: 40px;
+          cursor: pointer;
+        }
+      }
+
+      .category {
+        .list {
+          &,
+          a {
+            cursor: pointer;
+          }
+
+          a {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 24px;
+            position: relative;
+            overflow: hidden;
+
+            &.active {
+              background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0) 100%
+              );
+
+              &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 5px;
+                height: 100%;
+                background: $main;
+                border-radius: 3px 0 0 3px;
+                box-shadow: 0 0 20px $main;
+              }
+
+              .svg svg {
+                color: $text;
+              }
+
+              span {
+                color: $text;
+              }
+            }
+
+            .svg {
+              display: flex;
+              width: 24px;
+              height: 24px;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
+
+              &,
+              svg,
+              svg > path {
+                cursor: pointer;
+              }
+
+              svg {
+                color: #777;
+                font-size: 22px;
+              }
+            }
+
+            span {
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+              color: #777;
+              letter-spacing: 0.8px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .sidebar-bottom {
+      width: 100%;
+      padding: 20px;
+
+      .logout {
+        width: 100%;
+        height: 48px;
+        background: $shadow;
+        border-radius: 0.5em;
+        cursor: pointer;
+        padding: 0 8px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .data {
+          width: calc(100% - 20px);
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          cursor: pointer;
+
+          img {
+            width: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+
+          .title {
+            width: calc(100% - 48px);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+
+            h3 {
+              font-size: 14px;
+              font-weight: 500;
+              color: #fff;
+              cursor: pointer;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              line-height: 16px;
+            }
+
+            h4 {
+              font-size: 12px;
+              font-weight: 400;
+              color: #fff;
+              cursor: pointer;
+              line-height: 14px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              line-height: 12px;
+            }
+          }
+        }
+
+        .back {
+          display: flex;
+          align-items: center;
+
+          svg {
+            rotate: 180deg;
+            font-size: 17px;
+            color: #fff;
+
+            &,
+            & > path {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @import "../loading/admin";
+  @import "./main";
+  @import "./users";
+  @import "./adduser";
+
+  main {
+    width: 100%;
+    background: $back;
+    padding: 30px;
+    margin-left: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    transition: 0.15s;
+
+    .link {
+      cursor: pointer;
+      color: $bate !important;
+      outline: none;
+
+      &:focus {
+        opacity: 70%;
+      }
+    }
+
+    .part {
+      box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
+      border-radius: 0.5em;
+      background: $view;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 100%;
+      height: 40px;
+
+      .category {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        h1 {
+          line-height: 40px;
+          font-size: 28px;
+          font-weight: 600;
+          color: $admin-butowe;
+        }
+        h2 {
+          line-height: 40px;
+          font-size: 28px;
+          font-weight: 600;
+          color: $main;
+        }
+        h3 {
+          line-height: 40px;
+          font-size: 20px;
+          font-weight: 600;
+          color: $bate;
+        }
+      }
+
+      .others {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .search {
+          position: relative;
+
+          input {
+            padding: 0 36px 0 20px;
+            width: 240px;
+            height: 40px;
+            border: none;
+            border-radius: 2em;
+            background: $view;
+            box-shadow: -0.5px -0.5px 0px $admin-shadbar,
+              2px 2px 5px -1px #00000026;
+            color: $text;
+            font-size: 15px;
+
+            &::placeholder {
+              color: $bate;
+            }
+          }
+
+          svg {
+            transform: translateY(-50%);
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            color: $bate;
+            font-size: 17px;
+
+            &,
+            & > path {
+              cursor: pointer;
+            }
+          }
+        }
+
+        .addUser button {
+          background: $main;
+          border-radius: 2em;
+          border: none;
+          box-shadow: -0.5px -0.5px 0px $admin-shadbar,
+            2px 2px 5px -1px #00000026;
+          color: #ffffff;
+          padding: 0 25px;
+          height: 39px;
+          font-size: 15px;
+        }
+
+        .addUserProgress {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          .profile {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: $admin-line;
+
+            .number {
+              width: 24px;
+              height: 24px;
+              border-radius: 50%;
+              color: #fff;
+              background: $admin-line;
+              text-align: center;
+              line-height: 25px;
+              font-size: 14px;
+              font-weight: 600;
+            }
+
+            p {
+              font-weight: 600;
+              font-size: 22px;
+              padding-top: 2px;
+            }
+          }
+
+          .line {
+            width: 120px;
+            height: 3px;
+            background: $admin-line;
+            border-radius: 10em;
+          }
+
+          .confirmation {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: $admin-line;
+
+            .number {
+              width: 24px;
+              height: 24px;
+              border-radius: 50%;
+              color: #fff;
+              background: $admin-line;
+              text-align: center;
+              line-height: 25px;
+              font-size: 14px;
+              font-weight: 600;
+            }
+
+            p {
+              font-weight: 600;
+              font-size: 22px;
+              padding-top: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .musics,
+  .singers,
+  .playlists,
+  .albums {
+    height: 100svh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+    ::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .musics .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .top {
+      display: flex;
+      gap: 25px;
+      width: 100%;
+      height: 170px;
+
+      .userPart {
+        padding: 20px;
+        width: 33%;
+        display: flex;
+
+        &,
+        img,
+        .title,
+        .title h1 {
+          cursor: pointer;
+        }
+
+        img {
+          height: 100%;
+          border-radius: 0.5em;
+          box-shadow: 0 0 5px -5px #000000;
+        }
+
+        .title {
+          width: calc(100% - 130px);
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+
+    .table-wrapper {
+      box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
+      border-radius: 0.5em;
+      overflow: hidden;
+    }
+
+    .table-wrapper .table {
+      width: 100% !important;
+      font-size: 15px;
+      text-align: center;
+
+      .th:nth-child(2) {
+        padding-left: 2px;
+      }
+
+      .th,
+      .td {
+        &:nth-child(1) {
+          width: 3%;
+        }
+        &:nth-child(2) {
+          width: 28%;
+          text-align: start;
+        }
+        &:nth-child(3) {
+          width: 24%;
+          text-align: start;
+        }
+        &:nth-child(4) {
+          width: 20%;
+          text-align: start;
+        }
+        &:nth-child(5) {
+          width: 15%;
+          text-align: start;
+        }
+        &:nth-child(6) {
+          width: 10%;
+          text-align: end;
+
+          span svg {
+            animation: rotating 2s linear infinite;
+
+            @keyframes rotating {
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+          }
+        }
+      }
+
+      .thead .tr {
+        background: $admin-tabhead;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        padding: 20px 16px;
+        gap: 16px;
+
+        .th {
+          font-weight: 500;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+
+      .tbody .tr {
+        background: $view;
+        display: flex;
+        align-items: center;
+        padding: 10px 16px;
+        gap: 16px;
+
+        &:hover {
+          background: $admin-tabhead;
+          opacity: background-color 50%;
+        }
+
+        .td:nth-child(2) {
+          display: flex;
+          align-items: start;
+          text-align: start;
+          gap: 10px;
+
+          img {
+            width: 45px;
+            border-radius: 0.5em;
+          }
+
+          .name {
+            height: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            gap: 4px;
+
+            h1 {
+              font-size: 15px;
+              font-weight: 400;
+            }
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .singers .content .card-wrapper,
+  .playlists .content .card-wrapper,
+  .albums .content .card-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .card {
+      width: 230px;
+      height: 280px;
+      background: $view;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0 1em 1em 1em;
+
+      span {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        background: $main;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 35px;
+        font-size: 14px;
+        padding-left: 3px;
+      }
+
+      img {
+        width: 100%;
+        border-radius: 1em;
+      }
+
+      h1 {
+        height: calc(100% - 210px);
+        line-height: 57px;
+        text-align: center;
+        font-size: 20px;
+      }
+    }
+
+    .loading {
+      width: 100%;
+      text-align: center;
+      padding-top: 10px;
+    }
+  }
+}

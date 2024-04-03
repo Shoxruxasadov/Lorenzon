@@ -1,0 +1,73 @@
+$main: #582ddd;
+$text: #f3f3f3;
+$back: #080b0f;
+$hero-click: #6940ee;
+
+main#home-user {
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 20px;
+
+    &.active {
+      transform: translateY(-24px);
+      height: 100px;
+    }
+
+    .user-image {
+      border-radius: 50%;
+      border: 10px solid $back;
+    }
+
+    .content {
+      .name {
+        font-size: 36px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: -0.5px;
+      }
+
+      .username {
+        color: #aaaaaa;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+
+        span {
+          max-width: 160px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .verify {
+          height: 15px;
+          position: relative;
+          width: 15px;
+
+          svg {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+
+    .secret {
+      margin-left: 40px;
+      overflow: hidden;
+      
+      h1{
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .emptyScreen{
+    width: 100%;
+    height: 40vh;
+  }
+}

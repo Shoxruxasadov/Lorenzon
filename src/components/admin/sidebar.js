@@ -1,0 +1,60 @@
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+
+import { info } from "../../utils/toastify";
+import { useStore } from "../../store/zustand";
+
+import { HiMiniMusicalNote, HiMiniMicrophone, HiMiniFolder } from "react-icons/hi2";
+import { FaUserFriends } from "react-icons/fa";
+import { LuLogOut } from "react-icons/lu";
+import { HiHome } from "react-icons/hi";
+
+export default function Sidebar() {
+    const user = useStore(state => state.user)
+    const pathname = usePathname()
+    const links = [
+        { open: true, title: "Users", path: "/admin/users", icon: (<FaUserFriends />) },
+        { open: false, title: "Musics", path: "/admin/musics", icon: (<HiMiniMusicalNote />) },
+        { open: false, title: "Albums", path: "/admin/albums", icon: (<HiMiniFolder />) },
+        { open: false, title: "Singers", path: "/admin/singers", icon: (<HiMiniMicrophone />) },
+    ]
+
+    return (
+        <nav id="admin-sidebar">
+            <div className="wrapper">
+                <Link href={"/"} className="logo">
+                    <Image src="/lorenzon/white.svg" width={170} height={40} alt="Lorenzon" />
+                </Link>
+                <div className="category">
+                    <div className="list">
+                        <Link key={"Dashboard"} href={"/admin"} className={pathname == "/admin" ? "active" : ""} >
+                            <div className="svg"><HiHome /></div>
+                            <span>Dashboard</span>
+                        </Link>
+                        {links.map(link => (
+                            <Link key={link.title} href={link.open ? link.path : pathname ? pathname : "/admin"} className={`/${pathname.split('/')[1]}/${pathname.split('/')[2]}` === link.path ? "active" : ""} onClick={() => !link.open && info(`${link.title} no available!`)}>
+                                <div className="svg">{link.icon}</div>
+                                <span>{link.title}</span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <div className="sidebar-bottom">
+                <Link href={"/home"} className="logout">
+                    <div className="data">
+                        <img src={user ? (user.image ? user.image : "/other/not.user.png") : "/other/not.user.png"} alt="User" />
+                        <div className="title">
+                            <h3>{user.name ? user.name : "Lorenzon"}</h3>
+                            <h4>@{user.username}</h4>
+                        </div>
+                    </div>
+                    <div className="back">
+                        <LuLogOut />
+                    </div>
+                </Link>
+            </div>
+        </nav>
+    );
+}

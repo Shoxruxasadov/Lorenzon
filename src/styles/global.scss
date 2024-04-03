@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// ===== MAIN COLORS ===== \\
+$main: #582ddd;
+$text: #f3f3f3;
+$bate: #99999f;
+$view: #0d1219;
+$back: #080b0f;
+// HERO PAGE ----------
+$hero-click: #6940ee;
+$hero-header: #222222;
+$hero-toggle: #222222;
+// LOGIN PAGE ----------
+$login-base: #24242a;
+$login-prov: #222222;
+$login-bor: #333333;
+$login-inp: #171717;
+// ADMIN PAGE ----------
+$admin-tabhead: #121822;
+$admin-inpbor: #282729;
+$admin-butowe: #ffffff;
+$admin-line: #3b393d;
+$admin-shadbar: #00000026;
+
+// ===== FONT FACE ===== \\
+@font-face {
+  font-family: Santello;
+  src: url("./fonts/Santello/Santello.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk300;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk300.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk400;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk400.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk500;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk500.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk600;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk600.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk700;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk700.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk800;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk800.ttf");
+}
+@font-face {
+  font-family: BelfastGrotesk900;
+  src: url("./fonts/BelfastGrotesk/BelfastGrotesk900.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+a,
+input,
+button,
+textarea {
+  outline: none;
+  cursor: pointer;
+  font-family: Santello;
+  text-decoration: none;
+}
+
+::selection {
+  background: #f3f3f30a;
+}
+::-webkit-scrollbar {
+  all: unset;
+  width: 0;
+  height: 0;
+}
+
+body {
+  font-family: Santello, sans-serif;
+  scroll-behavior: smooth;
+  background: $back;
+  color: $text;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+#__next{
+  min-height: 100vh;
+  background: $back;
+  color: $text;
+}

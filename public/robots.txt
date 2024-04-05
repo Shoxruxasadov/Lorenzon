@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /home/
+Disallow: /login/
+Disallow: /register/
+Sitemap: https://lorenzon.uz/sitemap.xml

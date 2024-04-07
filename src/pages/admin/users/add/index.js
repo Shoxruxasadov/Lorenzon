@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid';
 import axios from "axios";
 
+import { storage } from "../../../../lib/firebase/firebase"
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 import { warning, wrong, success } from "../../../../utils/toastify";
 import AdminLayout from "../../../../layouts/admin";
 import country from "../../../../utils/country";
@@ -21,6 +24,7 @@ import { FaAt } from "react-icons/fa6";
 export default function AdminAddUser() {
     const { register, handleSubmit } = useForm();
     const [nextProfile, setNextProfile] = useState(false);
+    const [loadImage, setLoadImage] = useState(false);
     const [eye, setEye] = useState(false);
     const router = useRouter()
 
@@ -48,6 +52,7 @@ export default function AdminAddUser() {
     const [photo, setPhoto] = useState("");
     const [per, setPer] = useState(null);
     const [disable, setDisable] = useState(false);
+    const radomID = uuid().split('-')[4]
 
     const imagebase64 = (file) => {
         const render = new FileReader()
@@ -60,14 +65,36 @@ export default function AdminAddUser() {
     }
 
     const handeUploadImage = async (e) => {
-        const image = await imagebase64(e.target.files[0])
-        setPhoto(image);
+        const photo = e.target.files[0]
+
+        // Make Image Base64
+        // const image = await imagebase64(photo)
+        // setPhoto(image);
+
+        if (photo) {
+            const storageRef = ref(storage, `users/${radomID}.${photo.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, photo);
+
+            uploadTask.on("state_changed",
+                () => setLoadImage(true),
+                (error) => {
+                    wrong("Error");
+                    console.log(error);
+                    setLoadImage(false)
+                }, () => getDownloadURL(uploadTask.snapshot.ref).then(
+                    async (downloadURL) => {
+                        setPhoto(downloadURL)
+                        setLoadImage(false)
+                    }
+                )
+            );
+        } else {
+            warning('Not image selected')
+        }
     }
 
     const onSubmit = async (data) => {
-        if (photo.length > 100000) {
-            warning("Photo too large");
-        } else if (!data.name) {
+        if (!data.name) {
             warning("Enter Name");
         } else if (!data.email) {
             warning("Enter Email");
@@ -91,7 +118,7 @@ export default function AdminAddUser() {
                 password: data.password,
                 status: selectStatus,
                 role: selectRole,
-                username: data.username || uuid().split('-')[4],
+                username: data.username || radomID,
                 gender: selectGender == "gender" ? null : selectGender,
                 country: selectCountry == "country" ? null : selectCountry,
                 birthday: happy.length < 10 ? null : happy,
@@ -196,7 +223,7 @@ export default function AdminAddUser() {
                         <div className="top">
                             <div className="img" onClick={() => imageRef.current.click()}>
                                 <div className="image">
-                                    <img src={photo ? photo : "/other/not.user.png"} alt="User Photo" />
+                                    <img src={photo ? photo : "/other/not.user.webp"} alt="User Photo" />
                                     <input type="file" onChange={handeUploadImage} ref={imageRef} />
                                 </div>
                                 <div className="change">
@@ -240,7 +267,7 @@ export default function AdminAddUser() {
                         <label className="status">
                             {selectStatus == "basic" ? (<PiStarFill onClick={() => openProp("status")} />) : selectStatus == "premium" ? (<PiCrownSimpleFill onClick={() => openProp("status")} />) : (<SiInstatus onClick={() => openProp("status")} />)}
                             <div id="select" className="select" onClick={() => openProp("status")}>
-                                <span style={{textTransform: "capitalize"}} className={selectStatus == "status" ? "" : "active"} >{selectStatus}</span>
+                                <span style={{ textTransform: "capitalize" }} className={selectStatus == "status" ? "" : "active"} >{selectStatus}</span>
                             </div>
                             <div id="content" className={ocStatus ? "content active" : "content"}>
                                 <ul id="options">
@@ -266,7 +293,7 @@ export default function AdminAddUser() {
                         <label className="gender">
                             {selectGender == "male" ? (<FaMale onClick={() => openProp("gender")} />) : selectGender == "female" ? (<FaFemale onClick={() => openProp("gender")} />) : (<PiGenderIntersexBold onClick={() => openProp("gender")} />)}
                             <div id="select" className="select" onClick={() => openProp("gender")}>
-                                <span style={{textTransform: "capitalize"}} className={selectGender == "gender" ? "" : "active"} >{selectGender}</span>
+                                <span style={{ textTransform: "capitalize" }} className={selectGender == "gender" ? "" : "active"} >{selectGender}</span>
                             </div>
                             <div id="content" className={ocGender ? "content active" : "content"}>
                                 <ul id="options">
@@ -284,7 +311,7 @@ export default function AdminAddUser() {
                         <label className="country">
                             <BiSolidFlag onClick={() => openProp("country")} />
                             <div id="select" className="select" onClick={() => openProp("country")}>
-                                <span style={{textTransform: "capitalize"}} className={selectCountry == "country" ? "" : "active"} >{selectCountry}</span>
+                                <span style={{ textTransform: "capitalize" }} className={selectCountry == "country" ? "" : "active"} >{selectCountry}</span>
                                 <i id="arrow" className="fa-solid fa-angle-down"></i>
                             </div>
                             <div id="content" className={ocCountry ? "content active" : "content"}>
@@ -295,13 +322,13 @@ export default function AdminAddUser() {
                                 <ul id="options">
                                     {searchInput === "" ? (
                                         allCountry.map((item, index) => (
-                                            <li style={{textTransform: "capitalize"}} key={index} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
+                                            <li style={{ textTransform: "capitalize" }} key={index} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
                                         ))
                                     ) : newCountry.length == 0 ? (
                                         <li className="found">Country not found 😕</li>
                                     ) : (
                                         newCountry.map((item, index) => (
-                                            <li style={{textTransform: "capitalize"}} key={index} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
+                                            <li style={{ textTransform: "capitalize" }} key={index} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
                                         ))
                                     )}
                                 </ul>
@@ -310,7 +337,7 @@ export default function AdminAddUser() {
                         <label className="role">
                             {selectRole === "user" ? (<RiUser2Fill onClick={() => openProp("role")} />) : selectRole === "admin" ? (<RiAdminFill onClick={() => openProp("role")} />) : (<MdVerifiedUser onClick={() => openProp("role")} />)}
                             <div id="selectRole" className="selectRole" onClick={() => openProp("role")}>
-                                <span style={{textTransform: "capitalize"}} className={selectRole == "role" ? "" : "active"}>{selectRole}</span>
+                                <span style={{ textTransform: "capitalize" }} className={selectRole == "role" ? "" : "active"}>{selectRole}</span>
                             </div>
 
                             <div id="content" className={ocRole ? "content active" : "content"} >
@@ -358,6 +385,11 @@ export default function AdminAddUser() {
                     </div>
                 </form>
             </div >
+            {
+                loadImage && <div className="loading">
+                    <span className="loader"></span>
+                </div>
+            }
         </AdminLayout >
     );
 }

@@ -44,7 +44,7 @@ export default function Sidebar() {
             <div className="sidebar-bottom">
                 <Link href={"/home"} className="logout">
                     <div className="data">
-                        <img src={user ? (user.image ? user.image : "/other/not.user.png") : "/other/not.user.png"} alt="User" />
+                        <img src={user ? (user.image ? user.image : "/other/not.user.webp") : "/other/not.user.webp"} alt="User" />
                         <div className="title">
                             <h3>{user.name ? user.name : "Lorenzon"}</h3>
                             <h4>@{user.username}</h4>

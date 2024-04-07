@@ -1,4 +1,5 @@
 $main: #582ddd;
+$click: #6940ee;
 $text: #f3f3f3;
 $bate: #99999f;
 // $view: #0d1219;
@@ -412,6 +413,11 @@ $back: #080b0f;
         width: auto;
         max-width: none;
         height: 100%;
+        filter: blur(20px);
+
+        &.unblur {
+          filter: blur(0);
+        }
       }
     }
 
@@ -618,6 +624,7 @@ $back: #080b0f;
         cursor: pointer;
 
         img {
+          width: 48px;
           height: 100%;
           border-radius: 50%;
           cursor: pointer;
@@ -981,16 +988,57 @@ $back: #080b0f;
     background: #080b0fa3;
     backdrop-filter: blur(64px);
 
-    #line {
-      all: unset;
-      position: absolute;
-      z-index: 1000;
-      top: -4px;
-      left: 0;
+    #bar {
+      cursor: pointer;
 
-      width: 100%;
-      height: 4px;
-      background: #212832;
+      &:hover {
+        #line:after {
+          opacity: 1;
+        }
+      }
+
+      #line {
+        all: unset;
+        position: absolute;
+        z-index: 1000;
+        background: #212832;
+        top: -4px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          transition: 1s;
+          background: #cccccc;
+          border-radius: 0 8px 8px 0;
+        }
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: -6px;
+          width: 15.5px;
+          height: 15px;
+          border-radius: 50%;
+          background: linear-gradient(to right, #cccccc, $main);
+          transform: translateX(-50%);
+          opacity: 0;
+        }
+      }
+
+      #control {
+        position: absolute;
+        z-index: 2000;
+        top: -10px;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+      }
     }
 
     .content {
@@ -1042,6 +1090,17 @@ $back: #080b0f;
             overflow: hidden;
           }
         }
+
+        svg {
+          &,
+          path {
+            cursor: pointer;
+          }
+
+          &:hover path {
+            fill: gray;
+          }
+        }
       }
 
       .controller {
@@ -1055,20 +1114,68 @@ $back: #080b0f;
         rect {
           cursor: pointer;
         }
+
+        .play,
+        .shuffle,
+        .loop,
+        .prev,
+        .next {
+          transition: transform 0.2s;
+          position: relative;
+
+          &:active {
+            transform: scale(0.85);
+          }
+
+          &.active::before {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #896aee;
+          }
+        }
+
+        .shuffle.active {
+          svg path {
+            fill: #896aee;
+          }
+
+          &::before {
+            width: 5.5px;
+          }
+        }
+
+        .loop.active {
+          svg path {
+            fill: #896aee;
+          }
+
+          &::before {
+            width: 5.5px;
+          }
+        }
       }
 
-      .values {
+      .volume {
         width: 300px;
         display: flex;
         align-items: center;
-        gap: 32px;
+        gap: 30px;
 
         .time {
           p {
+            width: 80px;
             color: rgba(243, 243, 243, 0.72);
             text-align: right;
             font-size: 16px;
             font-weight: 400;
+            white-space: nowrap;
+            text-align: center;
           }
         }
 
@@ -1077,23 +1184,74 @@ $back: #080b0f;
           align-items: center;
           gap: 12px;
 
-          .highlow {
-            width: 100px;
-            height: 4px;
-            background: #212832;
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
+          .icon{
+            width: 24px;
+            height: 24px;
+        
+            &, svg, svg path{
+              cursor: pointer;
+            }
 
-            &::before {
-              content: "";
+            .zero-volume{
+              transform: scale(1.1)
+            }
+          }
+
+          #barVolume {
+            width: 100px;
+            transform: translateY(2px);
+            cursor: pointer;
+            position: relative;
+
+            &:hover {
+              #lineVolume:after {
+                opacity: 1;
+              }
+            }
+
+            #lineVolume {
+              all: unset;
               position: absolute;
+              z-index: 1000;
+              background: #212832;
+              top: -4px;
               left: 0;
-              width: 80%;
-              height: 100%;
-              background: #cccccc;
+              width: 100%;
+              height: 4px;
               border-radius: 8px;
-              overflow: hidden;
+
+              &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 80%;
+                height: 100%;
+                background: #cccccc;
+                border-radius: 8px;
+              }
+
+              &:after {
+                content: "";
+                position: absolute;
+                left: 80%;
+                top: -4px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: linear-gradient(to right, #cccccc, $main);
+                transform: translateX(-50%);
+                opacity: 0;
+              }
+            }
+
+            #controlVolume {
+              position: absolute;
+              z-index: 2000;
+              top: -10px;
+              left: 0;
+              width: 100%;
+              opacity: 0;
             }
           }
         }

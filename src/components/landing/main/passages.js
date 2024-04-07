@@ -2,7 +2,7 @@ export default function Passages() {
     return (
         <section id="passages">
             <div className="container">
-                <div className="passages">
+                <div className="passages" data-aos="zoom-out-right">
                     <div className="headline">
                         <h2>More variants of features that you can get</h2>
                     </div>
@@ -15,7 +15,7 @@ export default function Passages() {
                     <hr />
                     <p>At vero eos et accusamus.</p>
                 </div>
-                <div className="title">
+                <div className="title" data-aos="zoom-out-left">
                     <div className="headtitle">
                         <h2>More variants of features that you can get</h2>
                     </div>

@@ -1,15 +1,41 @@
 import useLocalStorage from '../hooks/useLocalStorage'
 import HomeLayout from './home'
 import Banner from './banner'
+import { useState } from 'react';
+import Image from 'next/image'
 
 export default function UserLayout({ user }) {
     const [token, setToken] = useLocalStorage("token", "null")
+    const [loadedImage, setLoadedImage] = useState(false);
 
     return (
         <HomeLayout page="home-user" title={user.name}>
             {(user.banner || user._id == token.id) && <Banner src={user.banner || "empty"} />}
             <div className={`profile ${(user.banner || user._id == token.id) ? "active" : ""}`}>
-                <img src={user.image ? `${user.image}` : "/other/not.user.png"} alt="user" width={155} height={155} className="user-image" />
+                <Image
+                    src={user.image || "/other/not.user.webp"}
+                    alt="user"
+                    width={155}
+                    height={155}
+                    placeholder="blur"
+                    blurDataURL="/other/unblur.webp"
+                    className={loadedImage ? 'user-image unblur' : 'user-image'}
+                    onLoadingComplete={() => setLoadedImage(true)}
+                />
+                <style jsx global>{`
+                    .unblur {
+                      animation: unblur 0.3s linear;
+                    }
+                
+                    @keyframes unblur {
+                      from {
+                        filter: blur(10px);
+                      }
+                      to {
+                        filter: blur(0);
+                      }
+                    }
+                `}</style>
                 <div className="content">
                     <h1 className="name">{user.name}</h1>
                     <p className="username">

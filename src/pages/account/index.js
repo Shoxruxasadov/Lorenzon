@@ -67,7 +67,7 @@ export default function Account() {
                             </div>
                             <div className="open" onClick={() => signin(user)}>
                                 <div className="card-body">
-                                    <img src={user.image ? user.image : "/other/not.user.png"} alt={user.name} />
+                                    <img src={user.image ? user.image : "/other/not.user.webp"} alt={user.name} />
                                 </div>
                                 <div className="card-footer">
                                     <p>{user.name.split(" ")[0]}</p>

@@ -64,7 +64,7 @@ export default function AdminUsers() {
                             {allUsers.map(user => (
                                 <tr key={user._id}>
                                     <td onClick={() => router.push(`/@${user.username}`)}>
-                                        <img src={user.image ? user.image : "/other/not.user.png"} alt={user.name} />
+                                        <img src={user.image ? user.image : "/other/not.user.webp"} alt={user.name} />
                                         <div className="user">
                                             <div className="name">
                                                 <h1>{user.name}</h1>

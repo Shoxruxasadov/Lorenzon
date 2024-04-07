@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Started() {
     return (
         <section id="started">
-            <div className="container">
+            <div className="container" data-aos="zoom-out-up">
                 <div className="wrapper">
                     <div className="shadow" />
                     <div className="shadow" />

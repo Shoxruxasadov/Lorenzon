@@ -1,6 +1,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { useTheme } from 'next-themes'
 
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useStore } from "../../store/zustand";
@@ -16,8 +18,12 @@ export default function Content() {
     const user = useStore((state) => state.user);
     const [token, setToken] = useLocalStorage("token", "null")
     const [userNavigate, setUserNavigate] = useState(false);
+    const [loadedImage, setLoadedImage] = useState(false);
     const [navigate, setNavigate] = useState("");
+    const { theme, setTheme, resolvedTheme } = useTheme()
     const router = useRouter();
+
+    // console.log(resolvedTheme);
 
     function switchAccount() {
         setToken("null")
@@ -36,7 +42,12 @@ export default function Content() {
                 setNavigate("")
             }}>
                 <div className="info">
-                    <img src={(user && user.image) ? user.image : "/other/not.user.png"} alt="user" />
+                    <Image
+                        src={user.image || "/other/not.user.webp"}
+                        alt="user"
+                        width={100}
+                        height={100}
+                    />
                     <div className="name">
                         <h3>{user && user.name ? user.name : "Lorenzon"}</h3>
                         <div className="status">
@@ -155,17 +166,17 @@ export default function Content() {
                         <p>Theme</p>
                     </div>
                     <hr />
-                    <div className="list selecting">
+                    <div className="list selecting" onChange={() => setTheme('dark')}>
                         <PiMoon />
                         <p>Dark theme</p>
                         <PiCheckBold className="end" />
                     </div>
-                    <div className="list error" onClick={() => info("Not available yet!")}>
+                    <div className="list error" onClick={() => { info("Not available yet!"); setTheme('light') }} >
                         <PiSun />
                         <p>Light theme</p>
                         <BsPatchExclamationFill className="end" />
                     </div>
-                    <div className="list error" onClick={() => info("Not available yet!")}>
+                    <div className="list error" onClick={() => { info("Not available yet!"); setTheme('system') }} >
                         <PiDevices />
                         <p>Device theme</p>
                         <BsPatchExclamationFill className="end" />
@@ -178,17 +189,17 @@ export default function Content() {
                     </div>
                     <hr />
                     <div className="list error" onClick={() => info("Not available yet!")}>
-                        <img src="/language/uz.svg" alt="uz" />
+                        <Image src="/language/uz.svg" alt="uz" width={21} height={21} />
                         <p>Uzbek</p>
                         <BsPatchExclamationFill className="end" />
                     </div>
                     <div className="list error" onClick={() => info("Not available yet!")}>
-                        <img src="/language/ru.svg" alt="ru" />
+                        <Image src="/language/ru.svg" alt="ru" width={21} height={21} />
                         <p>Russian</p>
                         <BsPatchExclamationFill className="end" />
                     </div>
                     <div className="list selecting">
-                        <img src="/language/en.svg" alt="en" />
+                        <Image src="/language/en.svg" alt="en" width={21} height={21} />
                         <p>English</p>
                         <PiCheckBold className="end" />
                     </div>
@@ -204,70 +215,70 @@ export default function Content() {
                 </header>
                 <div className="content">
                     <div className="card">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/playlist%2Fphonk.jpg?alt=media&token=ae6bf60c-79a6-432c-9e69-a14106405388" />
+                        <img alt="library" src="https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/playlist%2Fphonk.jpg?alt=media&token=ae6bf60c-79a6-432c-9e69-a14106405388" />
                         <div className="title">
                             <h4>Phonk</h4>
                             <p>Playlist • Lorenzon</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://i2o.scdn.co/image/ab67706c0000cfa31dce058bce8a49b949c48a66" />
+                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa31dce058bce8a49b949c48a66" />
                         <div className="title">
                             <h4>BRAZILIAN PHONK 😈 Phonk Brasileño 2024 🇧🇷 Viral TikTok Funk</h4>
                             <p>Playlist • HOUSE OF PHONK</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84175c629832f7cee13f7ff395" />
+                        <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84175c629832f7cee13f7ff395" />
                         <div className="title">
                             <h4>Brazilian Phonk // Viral TikTok</h4>
                             <p>Playlist • AV</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://i2o.scdn.co/image/ab67706c0000cfa343cfa7f56864a5314a40c755" />
+                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa343cfa7f56864a5314a40c755" />
                         <div className="title">
                             <h4>💯🔱PHONK 🔱💯</h4>
                             <p>Playlist • JORDI GR</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84dfc1b943196eebfb0c4534f0" />
+                        <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84dfc1b943196eebfb0c4534f0" />
                         <div className="title">
                             <h4>PHONK AGRESIVO 💀</h4>
                             <p>Playlist • 𝕮𝖆𝖒𝖎𝖑𝖔ᴳᵒᵈ〗</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://i2o.scdn.co/image/ab67706c0000cfa31000fa118c9244c22d96c579" />
+                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa31000fa118c9244c22d96c579" />
                         <div className="title">
                             <h4>phonk 💀</h4>
                             <p>Playlist • theonlyMajed</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84bc0d7dddac407ce260f0f7b5" />
+                        <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84bc0d7dddac407ce260f0f7b5" />
                         <div className="title">
                             <h4>GYM PHONK 2024 😈 AGGRESSIVE WORKOUT PHONK MUSIC</h4>
                             <p>Playlist • Magic Records</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://i2o.scdn.co/image/ab67706c0000cfa3ad4c22bc29f8fa3e37a14b70" />
+                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa3ad4c22bc29f8fa3e37a14b70" />
                         <div className="title">
                             <h4>Phonk Éxitos 2024 💀 Brazilian Phonk Mano</h4>
                             <p>Playlist • Filtr Éxitos</p>
                         </div>
                     </div>
                     <div className="card artist">
-                        <img src="https://i.scdn.co/image/ab6761610000101fab8a761d12b6cbb5c164a102" />
+                        <img alt="library" src="https://i.scdn.co/image/ab6761610000101fab8a761d12b6cbb5c164a102" />
                         <div className="title">
                             <h4>S3BZS</h4>
                             <p>Artist</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img src="https://misc.scdn.co/liked-songs/liked-songs-64.png" />
+                        <img alt="library" src="https://misc.scdn.co/liked-songs/liked-songs-64.png" />
                         <div className="title">
                             <h4>Liked Songs</h4>
                             <p>Playlist • 6 songs</p>

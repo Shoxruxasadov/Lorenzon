@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function Banner({ src }) {
     const bannerRef = useRef(null)
     const [bannerHeight, setBannerHeight] = useState("173.9375px")
     const [bannerRadius, setBannerRadius] = useState("12.65px")
+    const [loadedImage, setLoadedImage] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -17,7 +19,30 @@ export default function Banner({ src }) {
 
     return (
         <div id="banner" ref={bannerRef} style={{ height: bannerHeight, borderRadius: bannerRadius }}>
-            {src != "empty" && <img src={src} alt="banner" />}
+            {src != "empty" && <Image
+                src={src}
+                alt="banner"
+                width={2560}
+                height={440}
+                placeholder="blur"
+                blurDataURL="/other/unblur.webp"
+                className={loadedImage ? 'unblur' : ''}
+                onLoadingComplete={() => setLoadedImage(true)}
+            />}
+            <style jsx global>{`
+               .unblur {
+                 animation: unblur 0.3s linear;
+               }
+              
+               @keyframes unblur {
+                 from {
+                   filter: blur(20px);
+                 }
+                 to {
+                   filter: blur(0);
+                 }
+               }
+            `}</style>
         </div>
     )
 }

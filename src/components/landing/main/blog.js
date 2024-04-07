@@ -4,7 +4,7 @@ import { Link as Scroll } from "react-scroll"
 export default function Blog() {
   return (
     <section id="blog">
-      <div className="container">
+      <div className="container" data-aos="zoom-out-up">
         <div className="title">
           <div className="headtitle">
             <h2>Lorem Ipsum is simply dummy text of the printing and typeset.</h2>

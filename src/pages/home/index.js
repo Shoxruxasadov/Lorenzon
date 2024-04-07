@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import axios from "axios";
 
 import HomeLayout from "../../layouts/home";
@@ -7,6 +8,9 @@ import Banner from "../../layouts/banner";
 import { useMusic } from "../../store/zustand";
 
 export default function HomeMain() {
+  const render = useMusic((state) => state.render);
+  const setRender = useMusic((state) => state.setRender);
+
   const playPouse = useMusic((state) => state.playPouse);
   const setPlayPouse = useMusic((state) => state.setPlayPouse);
   const musics = useMusic((state) => state.musics);
@@ -17,15 +21,7 @@ export default function HomeMain() {
 
   const [articleHeight, setArticleHeight] = useState(`280px`);
   const [columnCount, setColumnCount] = useState(5);
-
-  // console.log({
-  //   album: "METAMORPHOSIS",
-  //   artist: "InterWorld",
-  //   image: "",
-  //   name: "METAMORPHOSIS",
-  //   playlist: "Phonk",
-  //   song: ""
-  // });
+  const [loadedImage, setLoadedImage] = useState(false);
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_FIREBASE_API}/musics.json`).then(({ data }) => setMusics(data))
@@ -64,7 +60,7 @@ export default function HomeMain() {
 
   return (
     <HomeLayout page="home-main" title="Home">
-      <Banner src={"/other/space.ads.png"} />
+      <Banner src={"/other/space.ads.webp"} />
 
       <article style={{ height: articleHeight }}>
         <header>
@@ -79,7 +75,7 @@ export default function HomeMain() {
         >
           {musics.map((item, index) => (
             <div
-              className={`card ${currentMusic == item && playPouse ? "active" : ""}`}
+              className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`}
               key={index}
               ref={cardRef}
               onClick={() => {
@@ -89,6 +85,9 @@ export default function HomeMain() {
                 } else {
                   setPlayPouse(true)
                 }
+                setTimeout(() => {
+                  setRender(!render)
+                }, 10)
               }}
             >
               <div className="images">
@@ -128,20 +127,37 @@ export default function HomeMain() {
                     fill="#0D1219"
                   />
                 </svg>
-                <img className="image" src={item.image} alt="image" />
+                <Image
+                  src={item.image}
+                  alt="image"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                  blurDataURL="/other/unblur.webp"
+                  className={`image ${loadedImage ? 'unblur' : ''}`}
+                  onLoadingComplete={() => setLoadedImage(true)}
+                />
+                <style jsx global>{`
+                  .unblur {
+                    animation: unblur 0.3s linear;
+                  }
+                
+                  @keyframes unblur {
+                    from {
+                      filter: blur(10px);
+                    }
+                    to {
+                      filter: blur(0);
+                    }
+                  }
+                `}</style>
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
               </div>
             </div>
           ))}
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
-          <div className="card"></div>
+   
         </div>
       </article>
     </HomeLayout>

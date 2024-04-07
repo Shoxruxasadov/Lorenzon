@@ -11,10 +11,13 @@
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
     "@vercel/speed-insights": "^1.0.10",
+    "aos": "^2.3.4",
     "axios": "^1.6.7",
+    "firebase": "^10.10.0",
     "framer-motion": "^11.0.8",
     "next": "14.1.2",
     "next-auth": "^4.24.7",
+    "next-themes": "^0.3.0",
     "react": "^18",
     "react-countup": "^6.5.0",
     "react-dom": "^18",
@@ -25,6 +28,7 @@
     "react-visibility-sensor": "^5.1.1",
     "rodal": "^2.1.0",
     "sass": "^1.71.1",
+    "styled-components": "^6.1.8",
     "uuid": "^9.0.1",
     "zustand": "^4.5.2"
   },

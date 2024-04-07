@@ -18,6 +18,11 @@ main#home-user {
     .user-image {
       border-radius: 50%;
       border: 10px solid $back;
+      filter: blur(10px);
+
+      &.unblur{
+        filter: blur(0);
+      }
     }
 
     .content {

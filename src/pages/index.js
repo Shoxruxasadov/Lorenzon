@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Aos from 'aos';
 
 import Root from "../layouts/root";
 import Wait from '../components/loading/wait';
@@ -23,10 +24,8 @@ export default function Landing() {
   const router = useRouter()
 
   useEffect(() => {
-    if (token === "null") {
-      setWait(false)
-      return
-    }
+    Aos.init({duration: 500})
+    if (token === "null") { setWait(false); return }
     axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }
     ).then(({ data }) => {
       // return data[0].role == "admin" ? router.push('/admin') : router.push('/home')
@@ -36,7 +35,7 @@ export default function Landing() {
 
   if (wait) return <Wait />
   return (
-    <Root page="landing" title="Enjoy the music">
+    <Root page="landing" title="Enjoy the music • Music streaming service">
       <Header />
       <main>
         <Hero />

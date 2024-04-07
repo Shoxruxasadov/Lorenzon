@@ -5,7 +5,7 @@ import { FaXTwitter, FaInstagram, FaFacebook } from "react-icons/fa6";
 export default function Footer() {
   return (
     <footer id="footer">
-      <div className="container">
+      <div className="container" data-aos="fade-up">
         <div className="footer-top">
           <div className="bar">
             <div className="module">

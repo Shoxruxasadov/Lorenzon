@@ -5,7 +5,7 @@ import axios from "axios";
 
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useMusic } from "../../store/zustand";
+import { useHomeModels, useMusic } from "../../store/zustand";
 import { GetSingerItem } from "../../hooks/useSingers";
 import { useRouter } from "next/router";
 
@@ -21,6 +21,11 @@ export default function HomeMain() {
   const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
   const cardRef = useRef(null);
 
+  const RECOMMENDED_SONGS = useHomeModels((state) => state.RECOMMENDED_SONGS);
+  const SET_RECOMMENDED_SONGS = useHomeModels((state) => state.SET_RECOMMENDED_SONGS);
+  const YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.YOUR_FAVORITE_SINGERS);
+  const SET_YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.SET_YOUR_FAVORITE_SINGERS);
+
   const [articleHeight, setArticleHeight] = useState(`280px`);
   const [columnCount, setColumnCount] = useState(5);
   const [loadedImage, setLoadedImage] = useState(false)
@@ -28,7 +33,9 @@ export default function HomeMain() {
   const router = useRouter();
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => setMusics(data))
+    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => { setMusics(data); SET_RECOMMENDED_SONGS(data) })
+    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get`).then(({ data }) => SET_YOUR_FAVORITE_SINGERS(data))
+
 
     const handleResize = () => {
       setArticleHeight(cardRef.current && `${cardRef.current.offsetHeight + 45}px`)
@@ -68,7 +75,7 @@ export default function HomeMain() {
 
       <article style={{ height: articleHeight }}>
         <header>
-          <h2>Jamp back in</h2>
+          <h2>Recommended songs</h2>
           <Link href={"/home"}>Show all</Link>
         </header>
         <div
@@ -77,7 +84,7 @@ export default function HomeMain() {
             gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
           }}
         >
-          {musics.map((item, index) => (
+          {RECOMMENDED_SONGS.map((item, index) => (
             <div
               className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`}
               key={index}
@@ -159,7 +166,61 @@ export default function HomeMain() {
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
-                <p>{item.singer.map(item => <span key={item._id} onClick={()=>router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
+                <p>{item.singer.map(item => <span key={item._id} onClick={() => router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article style={{ height: articleHeight }}>
+        <header>
+          <h2>Your favorite singers</h2>
+          <Link href={"/home"}>Show all</Link>
+        </header>
+        <div
+          className="content"
+          style={{
+            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+          }}
+        >
+          {YOUR_FAVORITE_SINGERS.map((item, index) => (
+            <div
+              className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`}
+              key={index}
+              ref={cardRef}
+              onClick={() => router.push(`@${item.username}`)}
+            >
+              <div className="images">
+                <Image
+                  src={item.image || "/other/unknown.user.webp"}
+                  alt="image"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                  blurDataURL="/other/unknown.user.blur.webp"
+                  className={`image ${loadedImage ? 'unblur' : ''}`}
+                  onLoadingComplete={() => setLoadedImage(true)}
+                  style={{ borderRadius: "50%" }}
+                />
+                <style jsx global>{`
+                  .unblur {
+                    animation: unblur 0.3s linear;
+                  }
+                
+                  @keyframes unblur {
+                    from {
+                      filter: blur(10px);
+                    }
+                    to {
+                      filter: blur(0);
+                    }
+                  }
+                `}</style>
+              </div>
+              <div className="title">
+                <h2>{item.name}</h2>
+                <p>Singer</p>
               </div>
             </div>
           ))}

@@ -59,3 +59,17 @@ export const useMusic = create((set) => ({
     percentage: 0,
     setPercentage: (percentage) => set(() => ({ percentage: percentage })),
 }));
+
+export const useHomeModels = create((set) => ({
+    RECOMMENDED_SONGS: [],
+    SET_RECOMMENDED_SONGS: (songs) => set(() => ({ RECOMMENDED_SONGS: songs })),
+    RECENTLY_PLAYED: [],
+    SET_RECENTLY_PLAYED: (songs) => set(() => ({ RECENTLY_PLAYED: songs })),
+    YOUR_FAVORITE_SINGERS: [],
+    SET_YOUR_FAVORITE_SINGERS: (singers) => set(() => ({ YOUR_FAVORITE_SINGERS: singers })),
+    DISCOVER_PICK_SONGS: [],
+    SET_DISCOVER_PICK_SONGS: (songs) => set(() => ({ DISCOVER_PICK_SONGS: songs })),
+    POPULAR_SONGS: [],
+    SET_POPULAR_SONGS: (songs) => set(() => ({ POPULAR_SONGS: songs })),
+}));
+

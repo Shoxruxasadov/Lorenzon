@@ -185,7 +185,7 @@ export default function AddMusic() {
                         <label className="country">
                             <BiSolidFlag onClick={() => openProp("singer")} />
                             <div id="select" className="select" onClick={() => openProp("singer")}>
-                                {selectSinger.map(singer => <span style={{ textTransform: "capitalize", cursor: "crosshair" }} className={selectSinger[0].name == "Singer" ? "" : "active"} onClick={() => {
+                                {selectSinger.map((singer, index) => <span key={index} style={{ textTransform: "capitalize", cursor: "crosshair" }} className={selectSinger[0].name == "Singer" ? "" : "active"} onClick={() => {
                                     setSelectSinger(selectSinger.filter(item => item._id != singer._id))
                                 }}>{singer.name}</span>)}
                             </div>

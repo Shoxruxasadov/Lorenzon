@@ -13,13 +13,14 @@ import Root from './root'
 
 export default function HomeLayout({ children, page, title }) {
     const getUserFromToken = useStore(state => state.getUserFromToken);
+    const isVerifyToken = useStore(state => state.isVerifyToken);
     const [token, setToken] = useLocalStorage("token", "null")
     const [isLoading, setLoading] = useState(true)
     const router = useRouter()
 
     useEffect(() => {
         if (token === "null") { router.push('/'); return }
-        getUserFromToken(token, router).finally(() => setLoading(false))
+        isVerifyToken ? setLoading(false) : getUserFromToken(token, router, setLoading)
     }, [])
 
     if (isLoading) return <Loading />

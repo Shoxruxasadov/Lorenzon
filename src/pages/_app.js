@@ -45,9 +45,6 @@ export default function MyApp({ Component, pageProps, }) {
     const setPercentage = useMusic((state) => state.setPercentage);
 
     useEffect(() => {
-        if (token === "null") { return }
-        getUserFromToken(token, router)
-
         let variablePlaying = !isPlaying
         const handleSpacePress = ({ keyCode }) => {
             if (keyCode === 32) {

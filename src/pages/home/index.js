@@ -19,6 +19,7 @@ export default function HomeMain() {
   const setMusics = useMusic((state) => state.setMusics);
   const currentMusic = useMusic((state) => state.currentMusic);
   const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
+  const setReadTime = useMusic((state) => state.setReadTime);
   const cardRef = useRef(null);
 
   const RECOMMENDED_SONGS = useHomeModels((state) => state.RECOMMENDED_SONGS);
@@ -97,6 +98,7 @@ export default function HomeMain() {
                   if (playPouse && (currentMusic == item)) {
                     setPlayPouse(false)
                   } else {
+                    setReadTime(0)
                     setPlayPouse(true)
                   }
                   setTimeout(() => {

@@ -17,6 +17,7 @@ import { IoIosArrowBack } from "react-icons/io";
 
 export default function Content() {
     const user = useStore((state) => state.user);
+    const setVerifyToken = useStore((state) => state.setVerifyToken);
     const [token, setToken] = useLocalStorage("token", "null")
     const [userNavigate, setUserNavigate] = useState(false);
     const [loadedImage, setLoadedImage] = useState(false);
@@ -28,10 +29,12 @@ export default function Content() {
 
     function switchAccount() {
         setToken("null")
+        setVerifyToken(false)
         router.push('/account')
     }
 
     function logout() {
+        setVerifyToken(false)
         setToken("null")
         signOut()
     }

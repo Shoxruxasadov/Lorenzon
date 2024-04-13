@@ -4,6 +4,7 @@ import { create } from "zustand";
 export const useStore = create((set) => ({
     user: {},
     isVerifyToken: false,
+    setVerifyToken: (is)=> set(() => ({ isVerifyToken: is })),
     getUserFromToken: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({data}) => { set(() => ({ user: data[0] })); set(() => ({ isVerifyToken: true })); setLoading(false) }).catch(() => router.push('/')),
     isAdmin: false,
     verifyAdmin: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {

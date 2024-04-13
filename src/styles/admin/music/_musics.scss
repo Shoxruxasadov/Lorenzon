@@ -33,19 +33,23 @@ main#admin-musics {
           font-size: 18px;
 
           th:nth-child(1) {
-            padding: 18px 60px 18px 25px;
             display: flex;
             align-items: center;
             justify-content: start;
           }
 
           th {
-            padding: 18px 70px 18px 30px;
+            padding: 18px 70px 18px 25px;
             font-weight: 500;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            text-align: start;
+            text-align: center;
+          }
+
+          th:nth-child(4) {
+            display: flex;
+            justify-content: center;
           }
         }
 
@@ -59,7 +63,7 @@ main#admin-musics {
 
           td {
             padding: 12px 70px 12px 25px;
-            text-align: start;
+            text-align: center;
           }
 
           td:nth-child(1) {

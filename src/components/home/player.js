@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { useMusic } from "../../store/zustand";
 import styled from 'styled-components';
 import { GetSingerItem } from "../../hooks/useSingers";
+import { useRouter } from "next/navigation";
 
 export default function Player() {
-    const songs = useMusic((state) => state.musics);
-    const setSongs = useMusic((state) => state.setMusics);
+    const router = useRouter()
+    const render = useMusic((state) => state.render);
+    const setRender = useMusic((state) => state.setRender);
+    const allSongs = useMusic((state) => state.musics);
     const music = useMusic((state) => state.currentMusic);
+    const setMusic = useMusic((state) => state.setCurrentMusic);
 
     const isPlaying = useMusic((state) => state.playPouse);
     const setPlaying = useMusic((state) => state.setPlayPouse);
@@ -67,7 +71,7 @@ export default function Player() {
                     <img src={music.image || "/logo.png"} alt="music" />
                     <div className="title">
                         <h3>{music.name || "Lorenzon"}</h3>
-                        <p>{music.singer && <GetSingerItem singerId={music.singer[0]}/>}</p>
+                        <p>{music.singer && music.singer.map(item => <span onClick={() => router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
                     </div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +102,24 @@ export default function Player() {
                             <path d="M21.74 6.07999C21.74 6.05999 21.75 6.04 21.75 6.03C21.75 5.93 21.73 5.82996 21.69 5.73996C21.65 5.64996 21.6 5.56997 21.53 5.49997L19.53 3.49997C19.24 3.20997 18.76 3.20997 18.47 3.49997C18.18 3.78997 18.18 4.26997 18.47 4.55997L19.18 5.26999L16.45 5.25998C16.44 5.25998 16.44 5.25998 16.43 5.25998C15.28 5.25998 14.2 5.82996 13.56 6.79996L7.17001 16.38C6.81001 16.92 6.19999 17.25 5.54999 17.25H5.54001L2.98999 17.24C2.57999 17.24 2.23999 17.57 2.23999 17.99C2.23999 18.4 2.56999 18.74 2.98999 18.74L5.54001 18.75C5.55001 18.75 5.55 18.75 5.56 18.75C6.72 18.75 7.78999 18.18 8.42999 17.21L14.82 7.62998C15.18 7.08998 15.79 6.75998 16.44 6.75998H16.45L21 6.78C21.1 6.78 21.19 6.75994 21.29 6.71994C21.38 6.67994 21.46 6.62997 21.53 6.55997C21.53 6.55997 21.53 6.54996 21.54 6.54996C21.6 6.47996 21.66 6.40998 21.69 6.31998C21.72 6.23998 21.73 6.15999 21.74 6.07999Z" fill="#F3F3F3" />
                         </svg>
                     </div>
-                    <div className="prev">
+                    <div className="prev" onClick={() => allSongs.map((item, index) => {
+                        if (item._id == music._id) {
+                            if ((index == 0) || (+read.substring(0, 1) != 0) || (+read.substring(2) > 9)) {
+                                setReadTime(0)
+                                setPlaying(true)
+                                setTimeout(() => {
+                                    setRender(!render)
+                                }, 10)
+                            } else {
+                                setMusic(allSongs[index - 1])
+                                setPlaying(true)
+                                setTimeout(() => {
+                                    setRender(!render)
+                                }, 10)
+                            }
+                        }
+                    })
+                    }>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path opacity="0.4" d="M22 8.33998V15.66C22 17.16 20.37 18.1 19.07 17.35L15.9 15.52L12.73 13.69L12.24 13.41V10.59L12.73 10.31L15.9 8.48L19.07 6.64998C20.37 5.89998 22 6.83998 22 8.33998Z" fill="#F3F3F3" />
                             <path d="M12.24 8.33998V15.66C12.24 17.16 10.61 18.1 9.32001 17.35L6.14002 15.52L2.97 13.69C1.68 12.94 1.68 11.06 2.97 10.31L6.14002 8.48L9.32001 6.64998C10.61 5.89998 12.24 6.83998 12.24 8.33998Z" fill="#F3F3F3" />
@@ -126,7 +147,20 @@ export default function Player() {
                             </defs>
                         </svg>}
                     </div>
-                    <div className="next">
+                    <div className="next" onClick={() => allSongs.map((item, index) => {
+                        if (item._id == music._id) {
+                            if (allSongs.length == index + 1) {
+                                return
+                            } else {
+                                setMusic(allSongs[index + 1])
+                                setPlaying(true)
+                                setTimeout(() => {
+                                    setRender(!render)
+                                }, 10)
+                            }
+                        }
+                    })
+                    }>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path opacity="0.4" d="M2 8.33998V15.66C2 17.16 3.62999 18.1 4.92999 17.35L8.10001 15.52L11.27 13.69L11.76 13.41V10.59L11.27 10.31L8.10001 8.48L4.92999 6.64998C3.62999 5.89998 2 6.83998 2 8.33998Z" fill="#F3F3F3" />
                             <path d="M11.76 8.33998V15.66C11.76 17.16 13.39 18.1 14.68 17.35L17.86 15.52L21.03 13.69C22.32 12.94 22.32 11.06 21.03 10.31L17.86 8.48L14.68 6.64998C13.39 5.89998 11.76 6.83998 11.76 8.33998Z" fill="#F3F3F3" />

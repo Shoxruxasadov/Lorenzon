@@ -13,7 +13,7 @@ import country from "../../../../utils/country";
 
 import { BiSolidLockAlt, BiSolidPencil, BiSolidLock, BiSolidFlag, BiSolidCake, } from "react-icons/bi";
 import { PiCrownSimpleFill, PiStarFill, PiGenderIntersexBold } from "react-icons/pi";
-import { RiAdminFill, RiUser2Fill, RiNeteaseCloudMusicFill  } from "react-icons/ri";
+import { RiAdminFill, RiUser2Fill, RiNeteaseCloudMusicFill } from "react-icons/ri";
 import { FaMale, FaFemale, FaEye, FaEyeSlash, FaUser, } from "react-icons/fa";
 import { MdVerifiedUser } from "react-icons/md"; 4
 import { TbMailFilled } from "react-icons/tb";
@@ -206,7 +206,14 @@ export default function AdminAddUser() {
                     </div>
                 </div>
             </header>
-            <div className="content">
+            <div
+                className="content"
+                onDragOver={event => event.preventDefault()}
+                onDrop={event => {
+                    event.preventDefault();
+                    const { files } = event.dataTransfer;
+                    files.length > 0 && setPhoto(files[0]);
+                }}>
                 <div className="head">
                     <h1>Basic Information</h1>
                 </div>
@@ -331,7 +338,7 @@ export default function AdminAddUser() {
                             </div>
                         </label>
                         <label className="role">
-                            {selectRole === "user" ? (<RiUser2Fill onClick={() => openProp("role")} />) : selectRole === "admin" ? (<RiAdminFill onClick={() => openProp("role")} />) : selectRole === "singer" ? (<RiNeteaseCloudMusicFill  onClick={() => openProp("role")} />) : (<MdVerifiedUser onClick={() => openProp("role")} />)}
+                            {selectRole === "user" ? (<RiUser2Fill onClick={() => openProp("role")} />) : selectRole === "admin" ? (<RiAdminFill onClick={() => openProp("role")} />) : selectRole === "singer" ? (<RiNeteaseCloudMusicFill onClick={() => openProp("role")} />) : (<MdVerifiedUser onClick={() => openProp("role")} />)}
                             <div id="selectRole" className="selectRole" onClick={() => openProp("role")}>
                                 <span style={{ textTransform: "capitalize" }} className={selectRole == "role" ? "" : "active"}>{selectRole}</span>
                             </div>
@@ -347,7 +354,7 @@ export default function AdminAddUser() {
                                         <span>Admin</span>
                                     </li>
                                     <li onClick={() => { setSelectRole("singer"); setOcRole(false); }} id="selectedItem" >
-                                        <RiNeteaseCloudMusicFill  />
+                                        <RiNeteaseCloudMusicFill />
                                         <span>Singer</span>
                                     </li>
                                 </ul>

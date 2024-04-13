@@ -159,11 +159,10 @@ export default function HomeMain() {
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
-                <h3><GetSingerItem singerId={item.singer[0]} /></h3>
+                <p>{item.singer.map(item => <span onClick={()=>router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
               </div>
             </div>
           ))}
-
         </div>
       </article>
     </HomeLayout>

@@ -67,7 +67,7 @@ export default function MyApp({ Component, pageProps, }) {
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return
         audioElem.current.currentTime = readTime;
-    }, [readTime])
+    }, [readTime, render])
 
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return

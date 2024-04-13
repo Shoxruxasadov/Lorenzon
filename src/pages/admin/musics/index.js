@@ -48,6 +48,7 @@ export default function Music() {
             <thead className="thead">
               <tr className="tr">
                 <th className="th">Music</th>
+                <th className="th">Listen</th>
                 <th className="th">Album</th>
                 <th className="th"><IoTimeOutline /></th>
               </tr>
@@ -59,9 +60,10 @@ export default function Music() {
                     <img src={item.image} alt={item.name} />
                     <div className="name">
                       <h1>{item.name}</h1>
-                      <p>{item.singer}</p>
+                      <p>{item.singer.map(item => <span>{item.name + ", "}</span>)}</p>
                     </div>
                   </td>
+                  <td className="td">{item.listenCount}</td>
                   <td className="td">{item.album}</td>
                   <td className="td"><GetAudioDuration audioUrl={item.song} /></td>
                 </tr>

@@ -47,31 +47,72 @@ main#home-main {
         padding: 12px;
         border-radius: 8px;
         cursor: pointer;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        &::before {
+          position: absolute;
+          content: "";
+          width: 50%;
+          height: 180%;
+          background: $analog;
+          transform: rotate(45deg);
+        }
+
+        @keyframes animate {
+          from {
+            transform: rotate(40deg);
+          }
+          to {
+            transform: rotate(400deg);
+          }
+        }
+
+        &::after {
+          position: absolute;
+          content: "";
+          width: 92%;
+          height: 94%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+          border-radius: 4px;
+          background: #0a0d12;
+        }
 
         &:hover {
-          background: $analog;
-
           .images > .play {
             visibility: visible;
             transform: translateY(0);
             opacity: 1;
+          }
+
+          &:before {
+            animation: animate 2s linear infinite;
           }
         }
 
         &.active {
           .images > .pouse {
-            z-index: 2;
+            z-index: 4;
             visibility: visible;
             transform: translateY(0);
             opacity: 1;
           }
-        }
-
-        &.active:hover {
-          .images > .play {
-            visibility: hidden;
-            transform: translateY(10px);
-            opacity: 0;
+          &:hover {
+            .images > .play {
+              visibility: hidden;
+              transform: translateY(10px);
+              opacity: 0;
+            }
+          }
+          &:before {
+            animation: animate 2s linear infinite;
           }
         }
 
@@ -85,7 +126,7 @@ main#home-main {
           .play {
             width: 44px;
             position: absolute;
-            z-index: 1;
+            z-index: 4;
             right: 6px;
             bottom: 10px;
 
@@ -105,7 +146,7 @@ main#home-main {
           .pouse {
             width: 44px;
             position: absolute;
-            z-index: 0;
+            z-index: 3;
             right: 6px;
             bottom: 10px;
 
@@ -123,6 +164,8 @@ main#home-main {
           }
 
           .image {
+            position: sticky;
+            z-index: 2;
             width: 100%;
             border-radius: 8px;
             box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
@@ -136,14 +179,19 @@ main#home-main {
         }
 
         .title {
+          width: 100%;
+          position: sticky;
+          z-index: 2;
+
           &,
           h3,
-          p {
+          p,
+          span {
             cursor: pointer;
           }
 
           h3:hover,
-          p:hover {
+          span:hover {
             text-decoration: underline;
           }
 
@@ -157,7 +205,7 @@ main#home-main {
             color: $text;
           }
           p {
-            font-size: 14px;
+            font-size: 13px;
             color: $bate;
           }
         }

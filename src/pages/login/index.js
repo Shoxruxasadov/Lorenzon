@@ -31,8 +31,6 @@ export default function Login() {
   const { data } = useSession()
   const router = useRouter()
 
-  console.log(data);
-
   const auth = async (userData) => {
     setLoading(true)
     userData.login = "username"

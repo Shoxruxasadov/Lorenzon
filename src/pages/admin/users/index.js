@@ -6,26 +6,21 @@ import axios from "axios";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import { success, wrong } from "../../../utils/toastify";
 import AdminLayout from "../../../layouts/admin";
-
 import { HiSearch } from "react-icons/hi";
 
 export default function AdminUsers() {
-    const [user, setUser] = useState({})
     const [allUsers, setAllUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [userDeleted, setUserDeleted] = useState({})
     const [rodalDelete, setRodalDelete] = useState(false)
-    const [token, setToken] = useLocalStorage("token", "null")
     const router = useRouter()
 
     useEffect(() => {
-        verifyUser()
         getUsers()
     }, [])
 
     const getUsers = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users`).then(({ data }) => setAllUsers(data)).finally(() => setLoading(false))
     const removeUser = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/users/${userDeleted._id}`).then(() => success("Deleted user")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getUsers() })
-    const verifyUser = () => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => data[0].role == "admin" ? setUser(data[0]) : router.push('/')).catch(() => router.push('/'))
 
     return (
         <AdminLayout page="admin-users" title="Users">
@@ -64,7 +59,7 @@ export default function AdminUsers() {
                             {allUsers.map(user => (
                                 <tr key={user._id}>
                                     <td onClick={() => router.push(`/@${user.username}`)}>
-                                        <img src={user.image ? user.image : "/other/not.user.webp"} alt={user.name} />
+                                        <img src={user.image || "/other/unknown.user.webp"} alt={user.name} />
                                         <div className="user">
                                             <div className="name">
                                                 <h1>{user.name}</h1>

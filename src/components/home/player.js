@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMusic } from "../../store/zustand";
 import styled from 'styled-components';
+import { GetSingerItem } from "../../hooks/useSingers";
 
 export default function Player() {
     const songs = useMusic((state) => state.musics);
@@ -66,7 +67,7 @@ export default function Player() {
                     <img src={music.image || "/logo.png"} alt="music" />
                     <div className="title">
                         <h3>{music.name || "Lorenzon"}</h3>
-                        <p>{music.artist}</p>
+                        <p>{music.singer && <GetSingerItem singerId={music.singer[0]}/>}</p>
                     </div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

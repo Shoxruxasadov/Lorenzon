@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from 'next-themes'
+import { signOut } from "next-auth/react";
 
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useStore } from "../../store/zustand";
@@ -32,7 +33,7 @@ export default function Content() {
 
     function logout() {
         setToken("null")
-        router.push("/")
+        signOut()
     }
 
     return (
@@ -43,7 +44,7 @@ export default function Content() {
             }}>
                 <div className="info">
                     <Image
-                        src={user.image || "/other/not.user.webp"}
+                        src={user.image || "/other/unknown.user.webp"}
                         alt="user"
                         width={100}
                         height={100}

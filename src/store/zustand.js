@@ -3,7 +3,12 @@ import { create } from "zustand";
 
 export const useStore = create((set) => ({
     user: {},
-    getUserFromToken: (token, router) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => set(() => ({ user: data[0] }))).catch(() => router.push('/'))
+    getUserFromToken: (token, router) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => set(() => ({ user: data[0] }))).catch(() => router.push('/')),
+    isAdmin: false,
+    verifyAdmin: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {
+        if (data[0].role == 'admin') { set(() => ({ isAdmin: true })); setLoading(false) }
+          else { router.push('/') }
+    }).catch(() => router.push('/'))
 }));
 
 export const useSearch = create((set) => ({

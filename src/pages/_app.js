@@ -27,14 +27,17 @@ export default function MyApp({ Component, pageProps, }) {
     const [token, setToken] = useLocalStorage("token", "null")
     const router = useRouter()
 
+    const allSongs = useMusic((state) => state.musics);
     const isPlaying = useMusic((state) => state.playPouse);
     const setPlaying = useMusic((state) => state.setPlayPouse);
     const isLoop = useMusic((state) => state.loop);
     const volume = useMusic((state) => state.volume);
     const currentSong = useMusic((state) => state.currentMusic);
+    const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
     const audioElem = useRef()
 
     const render = useMusic((state) => state.render);
+    const setRender = useMusic((state) => state.setRender);
     const setRead = useMusic((state) => state.setRead);
     const readTime = useMusic((state) => state.readTime);
     const setDuration = useMusic((state) => state.setDuration);
@@ -80,6 +83,21 @@ export default function MyApp({ Component, pageProps, }) {
         if (seconds < 10) seconds = "0" + seconds.toString();
         setRead(`${minutes}:${seconds}`)
         setPercentage(+percent)
+
+        if (!isLoop && e.currentTarget.currentTime == e.currentTarget.duration) {
+            allSongs.map((item, index) => {
+                if (item._id == currentSong._id) {
+                    if (allSongs.length == index + 1) {
+                        setPlaying(false)
+                    } else {
+                        setCurrentMusic(allSongs[index + 1])
+                        setTimeout(() => {
+                            setRender(!render)
+                        }, 10)
+                    }
+                }
+            })
+        }
     }
 
     const getDuration = (e) => {

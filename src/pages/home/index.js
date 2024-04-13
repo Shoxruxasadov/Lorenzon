@@ -6,6 +6,8 @@ import axios from "axios";
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
 import { useMusic } from "../../store/zustand";
+import { GetSingerItem } from "../../hooks/useSingers";
+import { useRouter } from "next/router";
 
 export default function HomeMain() {
   const render = useMusic((state) => state.render);
@@ -21,10 +23,12 @@ export default function HomeMain() {
 
   const [articleHeight, setArticleHeight] = useState(`280px`);
   const [columnCount, setColumnCount] = useState(5);
-  const [loadedImage, setLoadedImage] = useState(false);
+  const [loadedImage, setLoadedImage] = useState(false)
+
+  const router = useRouter();
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_FIREBASE_API}/musics.json`).then(({ data }) => setMusics(data))
+    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => setMusics(data))
 
     const handleResize = () => {
       setArticleHeight(cardRef.current && `${cardRef.current.offsetHeight + 45}px`)
@@ -78,19 +82,20 @@ export default function HomeMain() {
               className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`}
               key={index}
               ref={cardRef}
-              onClick={() => {
-                setCurrentMusic(item)
-                if (playPouse && (currentMusic == item)) {
-                  setPlayPouse(false)
-                } else {
-                  setPlayPouse(true)
-                }
-                setTimeout(() => {
-                  setRender(!render)
-                }, 10)
-              }}
             >
-              <div className="images">
+              <div
+                className="images"
+                onClick={() => {
+                  setCurrentMusic(item)
+                  if (playPouse && (currentMusic == item)) {
+                    setPlayPouse(false)
+                  } else {
+                    setPlayPouse(true)
+                  }
+                  setTimeout(() => {
+                    setRender(!render)
+                  }, 10)
+                }}>
                 <svg
                   className={`pouse ${playPouse ? "active" : ""}`}
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,12 +133,12 @@ export default function HomeMain() {
                   />
                 </svg>
                 <Image
-                  src={item.image}
+                  src={item.image || "/other/unknown.music.webp"}
                   alt="image"
                   width={200}
                   height={200}
                   placeholder="blur"
-                  blurDataURL="/other/unblur.webp"
+                  blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
                   onLoadingComplete={() => setLoadedImage(true)}
                 />
@@ -154,10 +159,11 @@ export default function HomeMain() {
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
+                <h3><GetSingerItem singerId={item.singer[0]} /></h3>
               </div>
             </div>
           ))}
-   
+
         </div>
       </article>
     </HomeLayout>

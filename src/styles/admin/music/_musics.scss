@@ -1,0 +1,199 @@
+main#admin-musics {
+  min-height: 100svh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .table {
+      border-radius: 0.5em;
+      overflow: hidden;
+
+      table {
+        width: 100% !important;
+        font-size: 15px;
+        text-align: center;
+        border-collapse: collapse;
+        box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
+
+        thead tr {
+          background: $admin-tabhead;
+          font-size: 18px;
+
+          th:nth-child(1) {
+            padding: 18px 60px 18px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+          }
+
+          th {
+            padding: 18px 70px 18px 30px;
+            font-weight: 500;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            text-align: start;
+          }
+        }
+
+        tbody tr {
+          background: $view;
+
+          &:hover {
+            background: $admin-tabhead;
+            opacity: background-color 50%;
+          }
+
+          td {
+            padding: 12px 70px 12px 25px;
+            text-align: start;
+          }
+
+          td:nth-child(1) {
+            display: flex;
+            align-items: start;
+            text-align: start;
+            gap: 10px;
+
+            img {
+              width: 45px;
+              border-radius: 0.5em;
+            }
+
+            .name {
+              height: 45px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: start;
+              gap: 4px;
+
+              h1 {
+                font-size: 15px;
+                font-weight: 400;
+              }
+              p {
+                font-size: 13px;
+              }
+            }
+          }
+
+          td:nth-child(4) {
+            svg {
+              animation: rotating 0.8s linear infinite;
+
+              @keyframes rotating {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(360deg);
+                }
+              }
+            }
+          }
+
+          &.loadingTable td:nth-child(1) {
+            display: table-cell;
+            padding: 100px 0;
+
+            .waiting {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: $text;
+            }
+
+            .loader {
+              transform: rotateZ(45deg);
+              perspective: 1000px;
+              border-radius: 50%;
+              width: 64px;
+              height: 64px;
+              color: #fff;
+
+              &:before,
+              &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: inherit;
+                height: inherit;
+                border-radius: 50%;
+                transform: rotateX(64deg);
+                animation: 1s wait-loading linear infinite;
+              }
+
+              &:after {
+                color: $main;
+                transform: rotateY(64deg);
+                animation-delay: 0.4s;
+              }
+            }
+
+            @keyframes rotate {
+              0% {
+                transform: translate(-50%, -50%) rotateZ(0deg);
+              }
+              100% {
+                transform: translate(-50%, -50%) rotateZ(360deg);
+              }
+            }
+
+            @keyframes rotateccw {
+              0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+              }
+              100% {
+                transform: translate(-50%, -50%) rotate(-360deg);
+              }
+            }
+
+            @keyframes wait-loading {
+              0%,
+              100% {
+                box-shadow: 0.2em 0px 0 0px currentcolor;
+              }
+              12% {
+                box-shadow: 0.2em 0.2em 0 0 currentcolor;
+              }
+              25% {
+                box-shadow: 0 0.2em 0 0px currentcolor;
+              }
+              37% {
+                box-shadow: -0.2em 0.2em 0 0 currentcolor;
+              }
+              50% {
+                box-shadow: -0.2em 0 0 0 currentcolor;
+              }
+              62% {
+                box-shadow: -0.2em -0.2em 0 0 currentcolor;
+              }
+              75% {
+                box-shadow: 0px -0.2em 0 0 currentcolor;
+              }
+              87% {
+                box-shadow: 0.2em -0.2em 0 0 currentcolor;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

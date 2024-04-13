@@ -71,7 +71,8 @@ export default function RegisterAbout() {
                 country: selectCountry,
                 birthday: `${birthyear}/${selectBirthMonthNumber}/${selectBirthDay}`,
                 image: null,
-                banner: null
+                banner: null,
+                lastedSong: null
             }).then(({ data }) => {
                 const account = { id: data._id, password: data.password }
                 setToken(account)

@@ -13,12 +13,12 @@ export default function UserLayout({ user }) {
             {(user.banner || user._id == token.id) && <Banner src={user.banner || "empty"} />}
             <div className={`profile ${(user.banner || user._id == token.id) ? "active" : ""}`}>
                 <Image
-                    src={user.image || "/other/not.user.webp"}
+                    src={user.image || "/other/unknown.user.webp"}
                     alt="user"
                     width={155}
                     height={155}
                     placeholder="blur"
-                    blurDataURL="/other/unblur.webp"
+                    blurDataURL="/other/unknown.user.blur.webp"
                     className={loadedImage ? 'user-image unblur' : 'user-image'}
                     onLoadingComplete={() => setLoadedImage(true)}
                 />

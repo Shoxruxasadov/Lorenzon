@@ -60,19 +60,6 @@ export default function GoogleAbout() {
         } else if (selectBirthMonthNumber == 2 && selectBirthDay > 29) {
             warning("You entered the wrong birthday");
         } else {
-            console.log({
-                name: name,
-                email: email,
-                password: password,
-                status: "basic",
-                role: "user",
-                username: uuid().split('-')[4],
-                gender: selectGender,
-                country: selectCountry,
-                birthday: `${birthyear}/${selectBirthMonthNumber}/${selectBirthDay}`,
-                image: image,
-                banner: null
-            });
             setLoading(true);
             axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, {
                 name: name,
@@ -85,7 +72,8 @@ export default function GoogleAbout() {
                 country: selectCountry,
                 birthday: `${birthyear}/${selectBirthMonthNumber}/${selectBirthDay}`,
                 image: image,
-                banner: null
+                banner: null,
+                lastedSong: null
             }).then(({ data }) => {
                 const account = { id: data._id, password: data.password }
                 setToken(account)

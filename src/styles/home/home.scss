@@ -1012,8 +1012,8 @@ $back: #080b0f;
           position: absolute;
           top: 0;
           left: 0;
+          width: 0%;
           height: 100%;
-          transition: 1s;
           background: #cccccc;
           border-radius: 0 8px 8px 0;
         }
@@ -1235,13 +1235,14 @@ $back: #080b0f;
                 content: "";
                 position: absolute;
                 left: 80%;
-                top: -4px;
-                width: 12px;
-                height: 12px;
+                top: -7px;
+                width: 16.5px;
+                height: 17px;
                 border-radius: 50%;
                 background: linear-gradient(to right, #cccccc, $main);
                 transform: translateX(-50%);
                 opacity: 0;
+                border: 3px solid $back;
               }
             }
 

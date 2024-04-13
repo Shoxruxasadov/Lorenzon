@@ -13,8 +13,8 @@ import country from "../../../../utils/country";
 
 import { BiSolidLockAlt, BiSolidPencil, BiSolidLock, BiSolidFlag, BiSolidCake, } from "react-icons/bi";
 import { PiCrownSimpleFill, PiStarFill, PiGenderIntersexBold } from "react-icons/pi";
+import { RiAdminFill, RiUser2Fill, RiNeteaseCloudMusicFill  } from "react-icons/ri";
 import { FaMale, FaFemale, FaEye, FaEyeSlash, FaUser, } from "react-icons/fa";
-import { RiAdminFill, RiUser2Fill } from "react-icons/ri";
 import { MdVerifiedUser } from "react-icons/md"; 4
 import { TbMailFilled } from "react-icons/tb";
 import { SiInstatus } from "react-icons/si";
@@ -24,7 +24,6 @@ import { FaAt } from "react-icons/fa6";
 export default function AdminAddUser() {
     const { register, handleSubmit } = useForm();
     const [nextProfile, setNextProfile] = useState(false);
-    const [loadImage, setLoadImage] = useState(false);
     const [eye, setEye] = useState(false);
     const router = useRouter()
 
@@ -48,50 +47,25 @@ export default function AdminAddUser() {
     const trimmedData = birthdayData.replace(/\s+/g, "");
     const happy = trimmedData.substring(6, 10) + "/" + trimmedData.substring(3, 5) + "/" + trimmedData.substring(0, 2);
 
-    const imageRef = useRef(null);
-    const [photo, setPhoto] = useState("");
-    const [per, setPer] = useState(null);
     const [disable, setDisable] = useState(false);
-    const radomID = uuid().split('-')[4]
+    const [photo, setPhoto] = useState("");
+    const randomID = uuid().split('-')[4];
+    const imageRef = useRef(null);
 
-    const imagebase64 = (file) => {
-        const render = new FileReader()
-        render.readAsDataURL(file)
-        const data = new Promise((resolve, reject) => {
-            render.onload = () => resolve(render.result)
-            render.onerror = error => reject(error)
-        })
-        return data
-    }
+    // const imagebase64 = (file) => {
+    //     const render = new FileReader()
+    //     render.readAsDataURL(file)
+    //     const data = new Promise((resolve, reject) => {
+    //         render.onload = () => resolve(render.result)
+    //         render.onerror = error => reject(error)
+    //     })
+    //     return data
+    // }
 
-    const handeUploadImage = async (e) => {
-        const photo = e.target.files[0]
-
-        // Make Image Base64
-        // const image = await imagebase64(photo)
-        // setPhoto(image);
-
-        if (photo) {
-            const storageRef = ref(storage, `users/${radomID}.${photo.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, photo);
-
-            uploadTask.on("state_changed",
-                () => setLoadImage(true),
-                (error) => {
-                    wrong("Error");
-                    console.log(error);
-                    setLoadImage(false)
-                }, () => getDownloadURL(uploadTask.snapshot.ref).then(
-                    async (downloadURL) => {
-                        setPhoto(downloadURL)
-                        setLoadImage(false)
-                    }
-                )
-            );
-        } else {
-            warning('Not image selected')
-        }
-    }
+    // const handeUploadImage = async (e) => {
+    //     const image = await imagebase64(e.target.files[0])
+    //     setPhoto(image);
+    // }
 
     const onSubmit = async (data) => {
         if (!data.name) {
@@ -112,17 +86,18 @@ export default function AdminAddUser() {
             warning("No equal password");
         } else {
             setDisable(true);
-            axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, {
+
+            const addUserRequest = (image) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, {
                 name: data.name,
                 email: data.email,
                 password: data.password,
                 status: selectStatus,
                 role: selectRole,
-                username: data.username || radomID,
+                username: data.username || randomID,
                 gender: selectGender == "gender" ? null : selectGender,
                 country: selectCountry == "country" ? null : selectCountry,
                 birthday: happy.length < 10 ? null : happy,
-                image: photo || null,
+                image: image || null,
                 banner: null
             }).then(() => {
                 success("Created user");
@@ -131,6 +106,24 @@ export default function AdminAddUser() {
                 err.response.data.message[0] ? wrong(err.response.data.message[0]) : wrong("error")
                 console.log(err.response.data);
             }).finally(() => setDisable(false))
+
+
+            if (photo) {
+                const storageRef = ref(storage, `users/${randomID}.${photo.name}`);
+                const uploadTask = uploadBytesResumable(storageRef, photo);
+
+                uploadTask.on("state_changed",
+                    (snapshot) => console.log(snapshot),
+                    (error) => {
+                        wrong("Error: no upload image");
+                        console.log(error);
+                    }, () => getDownloadURL(uploadTask.snapshot.ref).then(
+                        async (downloadURL) => addUserRequest(downloadURL)
+                    )
+                );
+            } else {
+                addUserRequest()
+            }
         }
     }
 
@@ -170,7 +163,6 @@ export default function AdminAddUser() {
             setOcGender(false);
             setOcRole(false);
             setOcStatus(false);
-
         }
         if (prop == "gender") {
             setOcGender(!ocGender);
@@ -223,8 +215,8 @@ export default function AdminAddUser() {
                         <div className="top">
                             <div className="img" onClick={() => imageRef.current.click()}>
                                 <div className="image">
-                                    <img src={photo ? photo : "/other/not.user.webp"} alt="User Photo" />
-                                    <input type="file" onChange={handeUploadImage} ref={imageRef} />
+                                    <img src={photo ? URL.createObjectURL(photo) : "/other/unknown.user.webp"} alt="User Photo" />
+                                    <input type="file" onChange={({ target }) => setPhoto(target.files[0])} ref={imageRef} />
                                 </div>
                                 <div className="change">
                                     <BiSolidPencil />
@@ -236,7 +228,7 @@ export default function AdminAddUser() {
                             </div>
                         </div>
                         <div className="submit">
-                            <button disabled={(per !== null && per < 100) || disable} type="submit">Continue</button>
+                            <button disabled={disable} type="submit">Continue</button>
                         </div>
                     </div>
                     <div className="terminal">
@@ -246,6 +238,7 @@ export default function AdminAddUser() {
                                 {...register("name")}
                                 placeholder="Name"
                                 type="text"
+                                id="name"
                             />
                         </label>
                         <label htmlFor="email">
@@ -254,6 +247,7 @@ export default function AdminAddUser() {
                                 {...register("email")}
                                 placeholder="Email"
                                 type="email"
+                                id="email"
                             />
                         </label>
                         <label htmlFor="username">
@@ -262,6 +256,7 @@ export default function AdminAddUser() {
                                 {...register("username")}
                                 placeholder="Username"
                                 type="text"
+                                id="username"
                             />
                         </label>
                         <label className="status">
@@ -288,6 +283,7 @@ export default function AdminAddUser() {
                                 onChange={(e) => { inpBithday(e); setBirthdayData(e.target.value); }}
                                 placeholder="DD - MM - YYYY"
                                 type="tel"
+                                id="birthday"
                             />
                         </label>
                         <label className="gender">
@@ -335,7 +331,7 @@ export default function AdminAddUser() {
                             </div>
                         </label>
                         <label className="role">
-                            {selectRole === "user" ? (<RiUser2Fill onClick={() => openProp("role")} />) : selectRole === "admin" ? (<RiAdminFill onClick={() => openProp("role")} />) : (<MdVerifiedUser onClick={() => openProp("role")} />)}
+                            {selectRole === "user" ? (<RiUser2Fill onClick={() => openProp("role")} />) : selectRole === "admin" ? (<RiAdminFill onClick={() => openProp("role")} />) : selectRole === "singer" ? (<RiNeteaseCloudMusicFill  onClick={() => openProp("role")} />) : (<MdVerifiedUser onClick={() => openProp("role")} />)}
                             <div id="selectRole" className="selectRole" onClick={() => openProp("role")}>
                                 <span style={{ textTransform: "capitalize" }} className={selectRole == "role" ? "" : "active"}>{selectRole}</span>
                             </div>
@@ -350,6 +346,10 @@ export default function AdminAddUser() {
                                         <RiAdminFill />
                                         <span>Admin</span>
                                     </li>
+                                    <li onClick={() => { setSelectRole("singer"); setOcRole(false); }} id="selectedItem" >
+                                        <RiNeteaseCloudMusicFill  />
+                                        <span>Singer</span>
+                                    </li>
                                 </ul>
                             </div>
                         </label>
@@ -359,6 +359,7 @@ export default function AdminAddUser() {
                                 {...register("password")}
                                 placeholder="Password"
                                 type={eye ? "text" : "password"}
+                                id="password"
                             />
                             {eye ? (
                                 <FaEye className="eye" onClick={() => setEye(!eye)} />
@@ -372,6 +373,7 @@ export default function AdminAddUser() {
                                 {...register("confirmPassword")}
                                 placeholder="Confirm Password"
                                 type={eye ? "text" : "password"}
+                                id="conpass"
                             />
                             {eye ? (
                                 <FaEye className="eye" onClick={() => setEye(!eye)} />
@@ -380,16 +382,11 @@ export default function AdminAddUser() {
                             )}
                         </label>
                         <div className="submit">
-                            <button disabled={(per !== null && per < 100) || disable} type="submit">Continue</button>
+                            <button disabled={disable} type="submit">Continue</button>
                         </div>
                     </div>
                 </form>
             </div >
-            {
-                loadImage && <div className="loading">
-                    <span className="loader"></span>
-                </div>
-            }
         </AdminLayout >
     );
 }

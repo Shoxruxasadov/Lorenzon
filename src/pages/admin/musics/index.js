@@ -60,7 +60,7 @@ export default function Music() {
                     <img src={item.image} alt={item.name} />
                     <div className="name">
                       <h1>{item.name}</h1>
-                      <p>{item.singer.map(item => <span>{item.name + ", "}</span>)}</p>
+                      <p>{item.singer.map(item => <span key={item._id}>{item.name + ", "}</span>)}</p>
                     </div>
                   </td>
                   <td className="td">{item.listenCount}</td>

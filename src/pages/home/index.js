@@ -159,7 +159,7 @@ export default function HomeMain() {
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
-                <p>{item.singer.map(item => <span onClick={()=>router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
+                <p>{item.singer.map(item => <span key={item._id} onClick={()=>router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
               </div>
             </div>
           ))}

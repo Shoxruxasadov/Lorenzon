@@ -71,7 +71,7 @@ export default function Player() {
                     <img src={music.image || "/logo.png"} alt="music" />
                     <div className="title">
                         <h3>{music.name || "Lorenzon"}</h3>
-                        <p>{music.singer && music.singer.map(item => <span onClick={() => router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
+                        <p>{music.singer && music.singer.map(item => <span key={item._id} onClick={() => router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
                     </div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

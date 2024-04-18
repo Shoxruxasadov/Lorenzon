@@ -68,7 +68,7 @@ export default function MyApp({ Component, pageProps, }) {
     }, [])
 
     useEffect(() => {
-        if (user._id) {
+        if (user.lastSong) {
             setCurrentMusic(user.lastSong[0])
             setAllSongs(user.recently)
         }

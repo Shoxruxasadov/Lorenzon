@@ -4,8 +4,8 @@ import { create } from "zustand";
 export const useStore = create((set) => ({
     user: {},
     isVerifyToken: false,
-    setVerifyToken: (is)=> set(() => ({ isVerifyToken: is })),
-    getUserFromToken: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({data}) => { set(() => ({ user: data[0] })); set(() => ({ isVerifyToken: true })); setLoading(false) }).catch(() => router.push('/')),
+    setVerifyToken: (is) => set(() => ({ isVerifyToken: is })),
+    getUserFromToken: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => { set(() => ({ user: data[0] })); set(() => ({ isVerifyToken: true })); setLoading(false) }).catch(() => router.push('/')),
     isAdmin: false,
     verifyAdmin: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {
         if (data[0].role == 'admin') { set(() => ({ isAdmin: true })); setLoading(false) }
@@ -45,6 +45,8 @@ export const useMusic = create((set) => ({
 
     render: false,
     setRender: (render) => set(() => ({ render: render })),
+    readRender: false,
+    setReadRender: (render) => set(() => ({ readRender: render })),
     musics: [],
     setMusics: (musics) => set(() => ({ musics: musics })),
     currentMusic: {},
@@ -73,5 +75,16 @@ export const useHomeModels = create((set) => ({
     SET_DISCOVER_PICK_SONGS: (songs) => set(() => ({ DISCOVER_PICK_SONGS: songs })),
     POPULAR_SONGS: [],
     SET_POPULAR_SONGS: (songs) => set(() => ({ POPULAR_SONGS: songs })),
+}));
+
+export const useHomeDetails = create((set) => ({
+    lyrics: false,
+    setLyrics: (is) => set(() => ({ lyrics: is })),
+    comment: false,
+    setComment: (is) => set(() => ({ comment: is })),
+    queue: false,
+    setQueue: (is) => set(() => ({ queue: is })),
+    fullScreen: false,
+    setFullScreen: (is) => set(() => ({ fullScreen: is })),
 }));
 

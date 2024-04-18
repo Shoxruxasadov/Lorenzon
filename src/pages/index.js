@@ -24,13 +24,12 @@ export default function Landing() {
   const router = useRouter()
 
   useEffect(() => {
-    Aos.init({duration: 500})
+    Aos.init({ duration: 500 })
+
     if (token === "null") { setWait(false); return }
+
     axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }
-    ).then(({ data }) => {
-      // return data[0].role == "admin" ? router.push('/admin') : router.push('/home')
-      return router.push('/home')
-    }).catch().finally(() => setWait(false))
+    ).then(({ data }) => router.push('/home')).catch().finally(() => setWait(false))
   }, [])
 
   if (wait) return <Wait />

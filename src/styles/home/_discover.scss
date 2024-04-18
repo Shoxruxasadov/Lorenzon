@@ -1,0 +1,60 @@
+main#home-discover {
+    article {
+      overflow: hidden;
+      max-width: 1900px;
+      margin-bottom: 24px;
+  
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        h2 {
+          font-size: 20px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          padding-left: 3px;
+        }
+  
+        a {
+          color: #896aee;
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+      }
+  
+      .content {
+        grid-gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-column: auto;
+        min-width: 360px;
+  
+        div {
+          width: 100%;
+          max-width: 200px;
+          min-width: 180px;
+          min-height: 225px;
+          -webkit-box-flex: 1;
+          background: #0a0d12;
+          isolation: isolate;
+          padding: 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+  
+        }
+      }
+    }
+  }
+  

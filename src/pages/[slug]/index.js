@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 
-import Error from "../../components/other/error";
 import Loading from "../../components/loading/home";
+import Error from "../../components/other/error";
 import UserLayout from "../../layouts/user";
 
 export default function User() {
@@ -12,7 +12,7 @@ export default function User() {
     const [isLoading, setLoading] = useState(true)
     const username = pathname && pathname.substring(2)
 
-    const getUser = async () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${username}`).then(({ data }) => setUser(data[0])).finally(() => setLoading(false));
+    const getUser = async () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${username}`).then(({ data }) => setUser(data[0])).catch((res) => setUser(undefined)).finally(() => setLoading(false));
 
     useEffect(() => {
         if (pathname) getUser()
@@ -20,7 +20,7 @@ export default function User() {
 
     if (isLoading) return <Loading />
     if (!user) return <Error />
-    if (pathname.substring(1).startsWith("@")) return <UserLayout user={user}/>
+    if (pathname.substring(1).startsWith("@")) return <UserLayout user={user} />
     return <Error />
 }
 

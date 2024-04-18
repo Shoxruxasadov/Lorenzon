@@ -9,7 +9,7 @@ export default function Banner({ src }) {
 
     useEffect(() => {
         const handleResize = () => {
-            setBannerHeight(`${bannerRef.current.offsetWidth * 0.171875}px`)
+            setBannerHeight(`${bannerRef.current.offsetWidth * 0.14844375}px`) // banner with (1012) / height 150.21875px = 0.14844375 / ( 2560х380px )
             if (bannerRef.current.offsetWidth > 650) setBannerRadius(`${bannerRef.current.offsetWidth * 0.0125}px`)
         }
         handleResize();
@@ -29,20 +29,6 @@ export default function Banner({ src }) {
                 className={loadedImage ? 'unblur' : ''}
                 onLoadingComplete={() => setLoadedImage(true)}
             />}
-            <style jsx global>{`
-               .unblur {
-                 animation: unblur 0.3s linear;
-               }
-              
-               @keyframes unblur {
-                 from {
-                   filter: blur(20px);
-                 }
-                 to {
-                   filter: blur(0);
-                 }
-               }
-            `}</style>
         </div>
     )
 }

@@ -57,7 +57,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="copyright">
-            <p><span className="brand">&copy; Lorenzon 2023-{new Date().getFullYear()} | </span><a href="https://shoxruxasadov.uz" target="_blank">Powered by</a></p>
+            <p><span className="brand">&copy; Lorenzon 2023-{new Date().getFullYear()} | </span><a href="https://shoxrux.site" target="_blank">Powered by</a></p>
           </div>
         </div>
       </div>

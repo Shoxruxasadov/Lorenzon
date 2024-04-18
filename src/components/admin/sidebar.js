@@ -8,12 +8,13 @@ import { FaUserFriends } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { HiHome } from "react-icons/hi";
 
-export default function Sidebar() {
+export default function AdminSidebar() {
     const user = useStore(state => state.user)
     const pathname = usePathname()
     const links = [
         { title: "Users", path: "/admin/users", icon: (<FaUserFriends />) },
-        { title: "Musics", path: "/admin/musics", icon: (<HiMiniMusicalNote />) },
+        { title: "Songs", path: "/admin/songs", icon: (<HiMiniMusicalNote />) },
+        { title: "Singers", path: "/admin/singers", icon: (<HiMiniMicrophone />) },
         { title: "Albums", path: "/admin/albums", icon: (<HiMiniFolder />) },
         { title: "Playlists", path: "/admin/playlists", icon: (<HiMiniFolderMinus />) },
     ]

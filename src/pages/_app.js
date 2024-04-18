@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import { SessionProvider } from 'next-auth/react';
@@ -9,6 +9,7 @@ import { ThemeProvider } from 'next-themes' // https://github.com/pacocoursey/ne
 
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useMusic, useStore } from "../store/zustand";
+import Wait from "../components/loading/wait"
 
 import "..//styles/global.scss" // global
 import "..//styles/assets/error.scss"; // error
@@ -21,15 +22,20 @@ import "..//styles/auth/account.scss"; // account
 import "..//styles/admin/admin.scss"; // admin
 import 'rodal/lib/rodal.css'; // rodal
 import 'aos/dist/aos.css'; // aos animation
+import axios from "axios";
 
 export default function MyApp({ Component, pageProps, }) {
     const getUserFromToken = useStore(state => state.getUserFromToken);
+    const user = useStore(state => state.user);
+    const [isLoading, setLoading] = useState(true)
     const [token, setToken] = useLocalStorage("token", "null")
     const router = useRouter()
 
     const allSongs = useMusic((state) => state.musics);
+    const setAllSongs = useMusic((state) => state.setMusics);
     const isPlaying = useMusic((state) => state.playPouse);
     const setPlaying = useMusic((state) => state.setPlayPouse);
+    const isShuffle = useMusic((state) => state.shuffle);
     const isLoop = useMusic((state) => state.loop);
     const volume = useMusic((state) => state.volume);
     const currentSong = useMusic((state) => state.currentMusic);
@@ -38,11 +44,14 @@ export default function MyApp({ Component, pageProps, }) {
 
     const render = useMusic((state) => state.render);
     const setRender = useMusic((state) => state.setRender);
+    const readRender = useMusic((state) => state.readRender);
     const setRead = useMusic((state) => state.setRead);
     const readTime = useMusic((state) => state.readTime);
+    const setReadTime = useMusic((state) => state.setReadTime);
     const setDuration = useMusic((state) => state.setDuration);
     const setDurationSec = useMusic((state) => state.setDurationTime);
     const setPercentage = useMusic((state) => state.setPercentage);
+    const randomInteger = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 
     useEffect(() => {
         let variablePlaying = !isPlaying
@@ -52,9 +61,18 @@ export default function MyApp({ Component, pageProps, }) {
                 setPlaying(variablePlaying)
             }
         }
+
+        if (token.id && !user._id) getUserFromToken(token, router, setLoading)
         document.addEventListener("keyup", handleSpacePress);
         return () => { document.removeEventListener("keyup", handleSpacePress); };
     }, [])
+
+    useEffect(() => {
+        if (user._id) {
+            setCurrentMusic(user.lastSong[0])
+            setAllSongs(user.recently)
+        }
+    }, [user])
 
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return
@@ -64,7 +82,7 @@ export default function MyApp({ Component, pageProps, }) {
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return
         audioElem.current.currentTime = readTime;
-    }, [readTime, render])
+    }, [readTime, readRender])
 
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return
@@ -82,18 +100,28 @@ export default function MyApp({ Component, pageProps, }) {
         setPercentage(+percent)
 
         if (!isLoop && e.currentTarget.currentTime == e.currentTarget.duration) {
-            allSongs.map((item, index) => {
-                if (item._id == currentSong._id) {
-                    if (allSongs.length == index + 1) {
-                        setPlaying(false)
-                    } else {
-                        setCurrentMusic(allSongs[index + 1])
-                        setTimeout(() => {
-                            setRender(!render)
-                        }, 10)
+            if (isShuffle) {
+                setReadTime(0)
+                setPlaying(true)
+                const song = allSongs[randomInteger(0, allSongs.length - 1)]
+                setCurrentMusic(song)
+                setTimeout(() => setRender(!render), 10)
+                axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: song._id })
+            } else {
+                allSongs.map((item, index) => {
+                    if (item._id == currentSong._id) {
+                        if (allSongs.length == index + 1) {
+                            setPlaying(false)
+                        } else {
+                            const song = allSongs[index + 1]
+                            setCurrentMusic(song)
+                            setTimeout(() => setRender(!render), 10)
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: song._id })
+                        }
+                        setReadTime(0)
                     }
-                }
-            })
+                })
+            }
         }
     }
 
@@ -118,6 +146,7 @@ export default function MyApp({ Component, pageProps, }) {
       }
     `
 
+    if (isLoading) return <Wait />
     return <>
         <SessionProvider session={pageProps.session}>
             <GlobalStyle />

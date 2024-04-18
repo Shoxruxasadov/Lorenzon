@@ -23,7 +23,6 @@ import { FaAt } from "react-icons/fa6";
 
 export default function AdminAddUser() {
     const { register, handleSubmit } = useForm();
-    const [nextProfile, setNextProfile] = useState(false);
     const [eye, setEye] = useState(false);
     const router = useRouter()
 
@@ -191,19 +190,6 @@ export default function AdminAddUser() {
                     <h1 onClick={() => router.push("/admin/users")} className="link">Users</h1>
                     <h3>/</h3>
                     <h2>Add user</h2>
-                </div>
-                <div className="others">
-                    <div className="addUserProgress">
-                        <div className="profile" style={!nextProfile ? { color: "#0f54f0" } : { color: "#3b393D" }} >
-                            <div className="number" style={!nextProfile ? { background: "#0f54f0" } : { background: "#3b393D" }} >1</div>
-                            <p>Profile</p>
-                        </div>
-                        <div className="line" />
-                        <div className="confirmation" style={nextProfile ? { color: "#0f54f0" } : { color: "#3b393D" }} >
-                            <div className="number" style={nextProfile ? { background: "#0f54f0" } : { background: "#3b393D" }} >2</div>
-                            <p>Confirmation</p>
-                        </div>
-                    </div>
                 </div>
             </header>
             <div

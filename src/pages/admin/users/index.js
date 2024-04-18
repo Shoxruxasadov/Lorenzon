@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import Rodal from "rodal";
 import axios from "axios";
 
-import useLocalStorage from "../../../hooks/useLocalStorage";
 import { success, wrong } from "../../../utils/toastify";
 import AdminLayout from "../../../layouts/admin";
 import { HiSearch } from "react-icons/hi";

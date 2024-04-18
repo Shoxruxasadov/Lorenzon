@@ -3,14 +3,27 @@ import HomeLayout from './home'
 import Banner from './banner'
 import { useState } from 'react';
 import Image from 'next/image'
+import { useRouter } from 'next/navigation';
+import GetAudioDuration from '../hooks/useDuration';
+import { useMusic, useStore } from '../store/zustand';
+import axios from 'axios';
 
 export default function UserLayout({ user }) {
-    const [token, setToken] = useLocalStorage("token", "null")
+    const myuser = useStore((state) => state.user);
+    const render = useMusic((state) => state.render);
+    const setRender = useMusic((state) => state.setRender);
+    const setReadTime = useMusic((state) => state.setReadTime);
+    const playPouse = useMusic((state) => state.playPouse);
+    const setPlayPouse = useMusic((state) => state.setPlayPouse);
+    const setMusics = useMusic((state) => state.setMusics);
+    const currentSong = useMusic((state) => state.currentMusic);
+    const setCurrentSong = useMusic((state) => state.setCurrentMusic);
     const [loadedImage, setLoadedImage] = useState(false);
+    const router = useRouter()
 
     return (
         <HomeLayout page="home-user" title={user.name}>
-            {(user.banner || user._id == token.id) && <Banner src={user.banner || "empty"} />}
+            {(user.banner || user._id == myuser._id) && <Banner src={user.banner || "empty"} />}
             <div className={`profile ${(user.banner || user._id == token.id) ? "active" : ""}`}>
                 <Image
                     src={user.image || "/other/unknown.user.webp"}
@@ -22,20 +35,6 @@ export default function UserLayout({ user }) {
                     className={loadedImage ? 'user-image unblur' : 'user-image'}
                     onLoadingComplete={() => setLoadedImage(true)}
                 />
-                <style jsx global>{`
-                    .unblur {
-                      animation: unblur 0.3s linear;
-                    }
-                
-                    @keyframes unblur {
-                      from {
-                        filter: blur(10px);
-                      }
-                      to {
-                        filter: blur(0);
-                      }
-                    }
-                `}</style>
                 <div className="content">
                     <h1 className="name">{user.name}</h1>
                     <p className="username">
@@ -53,7 +52,156 @@ export default function UserLayout({ user }) {
                     </p>
                 </div>
             </div>
-            <div className='emptyScreen' />
+            {user.role == "singer" && <div className="panel"></div>}
+            {user.role == "singer" ? <div className="popular">
+                <p className='title'>Songs</p>
+                <ul className='list'>
+                    {user.songs.map((item, index) => (
+                        <li
+                            key={item._id}
+                            className={`${currentSong.song == item.song && playPouse ? "active" : ""} ${currentSong.song == item.song ? "selected" : ""}`}
+                            onClick={() => {
+                                if (playPouse && (currentSong.song == item.song)) {
+                                    setPlayPouse(false)
+                                } else {
+                                    setMusics(user.songs);
+                                    setCurrentSong(item)
+                                    if (currentSong.song != item.song) setReadTime(0)
+                                    setPlayPouse(true)
+                                    setTimeout(() => setRender(!render), 10)
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${myuser._id}`, { id: item._id })
+                                }
+                            }}>
+                            <div className='index'>
+                                <span className='in'>{index + 1}</span>
+                                <div className="icon">{
+                                    playPouse && (currentSong.song == item.song) ? <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">
+                                        <rect width="4.5" height="12" rx="1.6" fill="#D9D9D9" />
+                                        <rect x="6" width="4.5" height="12" rx="1.6" fill="#D9D9D9" />
+                                    </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
+                                        <path d="M9.41769 5.32274C10.6318 6.11134 10.6318 7.88866 9.4177 8.67726L3.08941 12.7876C1.75887 13.6518 0 12.6969 0 11.1103V2.88965C0 1.30308 1.75887 0.348189 3.08941 1.2124L9.41769 5.32274Z" fill="#D9D9D9" />
+                                    </svg>
+                                }</div>
+                                <div className="wave">
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                </div>
+                            </div>
+                            <div className='another'>
+                                <div className='music'>
+                                    <div className='image'><img src={item.image} alt={item.name} /></div>
+                                    <div className="music-title">
+                                        <h3>{item.name}</h3>
+                                        <p>{item.singerName.map(n => n + ', ')}</p>
+                                    </div>
+                                </div>
+                                <div className='listen'><p>{item.listenCount}</p></div>
+                                <div className='duration'><p><GetAudioDuration audioUrl={item.song} /></p></div>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div> : <div className="popular">
+                <p className='title'>Listened last 50 songs </p>
+                <ul className='list'>
+                    {user._id == myuser._id ? myuser.recently.slice(0, 5).map((item, index) => (
+                        <li
+                            key={item._id}
+                            className={`${currentSong.song == item.song && playPouse ? "active" : ""} ${currentSong.song == item.song ? "selected" : ""}`}
+                            onClick={() => {
+                                if (playPouse && (currentSong.song == item.song)) {
+                                    setPlayPouse(false)
+                                } else {
+                                    setMusics(user.recently);
+                                    setCurrentSong(item)
+                                    if (currentSong.song != item.song) setReadTime(0)
+                                    setPlayPouse(true)
+                                    setTimeout(() => setRender(!render), 10)
+                                }
+                            }}>
+                            <div className='index'>
+                                <span className='in'>{index + 1}</span>
+                                <div className="icon">{
+                                    playPouse && (currentSong.song == item.song) ? <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">
+                                        <rect width="4.5" height="12" rx="1.6" fill="#D9D9D9" />
+                                        <rect x="6" width="4.5" height="12" rx="1.6" fill="#D9D9D9" />
+                                    </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
+                                        <path d="M9.41769 5.32274C10.6318 6.11134 10.6318 7.88866 9.4177 8.67726L3.08941 12.7876C1.75887 13.6518 0 12.6969 0 11.1103V2.88965C0 1.30308 1.75887 0.348189 3.08941 1.2124L9.41769 5.32274Z" fill="#D9D9D9" />
+                                    </svg>
+                                }</div>
+                                <div className="wave">
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                </div>
+                            </div>
+                            <div className='another'>
+                                <div className='music'>
+                                    <div className='image'><img src={item.image} alt={item.name} /></div>
+                                    <div className="music-title">
+                                        <h3>{item.name}</h3>
+                                        <p>{item.singerName.map(n => n + ', ')}</p>
+                                    </div>
+                                </div>
+                                <div className='listen'><p>{item.listenCount}</p></div>
+                                <div className='duration'><p><GetAudioDuration audioUrl={item.song} /></p></div>
+                            </div>
+                        </li>
+                    )) : user.recently.slice(0, 5).map((item, index) => (
+                        <li
+                            key={item._id}
+                            className={`${currentSong.song == item.song && playPouse ? "active" : ""} ${currentSong.song == item.song ? "selected" : ""}`}
+                            onClick={() => {
+                                if (playPouse && (currentSong.song == item.song)) {
+                                    setPlayPouse(false)
+                                } else {
+                                    setMusics(user.recently);
+                                    setCurrentSong(item)
+                                    if (currentSong.song != item.song) setReadTime(0)
+                                    setPlayPouse(true)
+                                    setTimeout(() => setRender(!render), 10)
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${myuser._id}`, { id: item._id })
+                                }
+                            }}>
+                            <div className='index'>
+                                <span className='in'>{index + 1}</span>
+                                <div className="icon">{
+                                    playPouse && (currentSong.song == item.song) ? <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12" fill="none">
+                                        <rect width="4.5" height="12" rx="1.6" fill="#D9D9D9" />
+                                        <rect x="6" width="4.5" height="12" rx="1.6" fill="#D9D9D9" />
+                                    </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
+                                        <path d="M9.41769 5.32274C10.6318 6.11134 10.6318 7.88866 9.4177 8.67726L3.08941 12.7876C1.75887 13.6518 0 12.6969 0 11.1103V2.88965C0 1.30308 1.75887 0.348189 3.08941 1.2124L9.41769 5.32274Z" fill="#D9D9D9" />
+                                    </svg>
+                                }</div>
+                                <div className="wave">
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                    <div className="wavel"></div>
+                                </div>
+                            </div>
+                            <div className='another'>
+                                <div className='music'>
+                                    <div className='image'><img src={item.image} alt={item.name} /></div>
+                                    <div className="music-title">
+                                        <h3>{item.name}</h3>
+                                        <p>{item.singerName.map(n => n + ', ')}</p>
+                                    </div>
+                                </div>
+                                <div className='listen'><p>{item.listenCount}</p></div>
+                                <div className='duration'><p><GetAudioDuration audioUrl={item.song} /></p></div>
+                            </div>
+                        </li>
+                    ))}
+
+                </ul>
+            </div>}
         </HomeLayout>
     )
 }

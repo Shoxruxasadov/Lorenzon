@@ -275,8 +275,11 @@ $back: #080b0f;
 
   @import "../loading/home";
   @import "./main";
+  @import "./library";
+  @import "./discover";
   @import "./search";
   @import "./user";
+  @import "./album";
 
   main {
     min-width: 484px;
@@ -419,6 +422,23 @@ $back: #080b0f;
           filter: blur(0);
         }
       }
+
+      .unblur {
+        animation: unblur 0.3s linear;
+      }
+
+      @keyframes unblur {
+        from {
+          filter: blur(20px);
+        }
+        to {
+          filter: blur(0);
+        }
+      }
+    }
+
+    #main {
+      min-height: calc(100vh - 435px);
     }
 
     footer#main-footer {
@@ -870,6 +890,7 @@ $back: #080b0f;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        padding-left: 7px;
 
         .title {
           display: flex;
@@ -887,18 +908,22 @@ $back: #080b0f;
           }
         }
 
-        a {
-          color: #896aee;
-          font-size: 16px;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-          text-wrap: nowrap;
+        button svg{
+          color: $bate;
+          font-size: 27px;
+
+          &, &>path{
+            cursor: pointer;
+          }
+
+          &:hover{
+            color: $text;
+          }
         }
       }
 
       .content {
         width: 100%;
-        grid-gap: 14px;
         display: grid;
         grid-template-columns: repeat(1, minmax(0, 1fr));
         overflow-y: auto;
@@ -914,10 +939,40 @@ $back: #080b0f;
           text-wrap: nowrap;
         }
 
+        &.comment{
+          min-height: calc(100vh - (118px + 24px + 145px + 24px ));
+        }
+
+        &.queue .card {
+          &:hover {
+            background: linear-gradient(to right, $hover 50%, transparent);
+
+            .image {
+              &::before {
+                content: "";
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background-color: black;
+                opacity: 50%;
+              }
+
+              svg {
+                visibility: visible;
+              }
+            }
+          }
+
+          .title h4:hover {
+            text-decoration: underline;
+          }
+        }
+
         .card {
           width: 100%;
-          height: 50px;
+          height: 64px;
           border-radius: 8px;
+          padding: 7px;
 
           display: flex;
           align-items: center;
@@ -925,13 +980,40 @@ $back: #080b0f;
           cursor: pointer;
 
           &:hover {
-            background: linear-gradient(to right, #592ddd44 50%, transparent);
+            background: linear-gradient(to right, $hover 50%, transparent);
           }
 
-          img {
+          .image {
+            width: 50px;
             height: 100%;
             border-radius: 6px;
+            overflow: hidden;
             cursor: pointer;
+            position: relative;
+            background-color: $hover;
+
+            img {
+              height: 100%;
+              cursor: pointer;
+            }
+
+            svg {
+              visibility: hidden;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+
+              &.play {
+                transform: translate(-50%, -50%) translateX(1.5px);
+              }
+
+              &,
+              & > path,
+              & > rect {
+                cursor: pointer;
+              }
+            }
           }
 
           &.artist {
@@ -958,6 +1040,10 @@ $back: #080b0f;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
+
+              &.active {
+                color: $main;
+              }
             }
 
             p {
@@ -970,6 +1056,19 @@ $back: #080b0f;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
+
+              &.active {
+                color: #ffffff;
+              }
+
+              span {
+                cursor: pointer;
+
+                &:hover {
+                  text-decoration: underline;
+                  color: $text;
+                }
+              }
             }
           }
         }
@@ -987,6 +1086,11 @@ $back: #080b0f;
     padding: 0 24px;
     background: #080b0fa3;
     backdrop-filter: blur(64px);
+    transition: 0.4s;
+
+    &.active {
+      height: 100svh;
+    }
 
     #bar {
       cursor: pointer;
@@ -1049,7 +1153,7 @@ $back: #080b0f;
       justify-content: space-between;
 
       .song {
-        width: 300px;
+        width: 400px;
         height: 100%;
         display: flex;
         align-items: center;
@@ -1059,6 +1163,7 @@ $back: #080b0f;
           border-radius: 12px;
           width: 64px;
           height: 64px;
+          cursor: pointer;
         }
 
         .title {
@@ -1078,6 +1183,12 @@ $back: #080b0f;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+
+            &:hover {
+              color: $text;
+              text-decoration: underline;
+              cursor: pointer;
+            }
           }
           p {
             font-size: 14px;
@@ -1088,6 +1199,12 @@ $back: #080b0f;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+
+            span:hover {
+              color: $text;
+              text-decoration: underline;
+              cursor: pointer;
+            }
           }
         }
 
@@ -1162,9 +1279,10 @@ $back: #080b0f;
       }
 
       .volume {
-        width: 300px;
+        width: 400px;
         display: flex;
         align-items: center;
+        justify-content: end;
         gap: 30px;
 
         .time {
@@ -1184,16 +1302,18 @@ $back: #080b0f;
           align-items: center;
           gap: 12px;
 
-          .icon{
+          .icon {
             width: 24px;
             height: 24px;
-        
-            &, svg, svg path{
+
+            &,
+            svg,
+            svg path {
               cursor: pointer;
             }
 
-            .zero-volume{
-              transform: scale(1.1)
+            .zero-volume {
+              transform: scale(1.1);
             }
           }
 
@@ -1253,6 +1373,63 @@ $back: #080b0f;
               left: 0;
               width: 100%;
               opacity: 0;
+            }
+          }
+        }
+
+        .details {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding-right: 1px;
+
+          .lyrics {
+            margin-right: 2px;
+
+            &,
+            svg,
+            svg > path {
+              cursor: pointer;
+            }
+
+            svg {
+              font-size: 21px;
+              transform: translateY(2px);
+            }
+          }
+
+          .comment {
+            &,
+            svg,
+            svg > path {
+              cursor: pointer;
+            }
+
+            svg {
+              font-size: 20px;
+              transform: translateY(2px);
+            }
+          }
+
+          .queue {
+            margin-right: 2px;
+
+            &,
+            svg,
+            svg > path {
+              cursor: pointer;
+            }
+
+            svg {
+              font-size: 22px;
+            }
+          }
+
+          .screen {
+            &,
+            svg,
+            svg > path {
+              cursor: pointer;
             }
           }
         }

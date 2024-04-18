@@ -47,7 +47,7 @@ main#admin-musics {
             text-align: center;
           }
 
-          th:nth-child(4) {
+          th:nth-child(3) {
             display: flex;
             justify-content: center;
           }
@@ -95,7 +95,7 @@ main#admin-musics {
             }
           }
 
-          td:nth-child(4) {
+          td:nth-child(3) {
             svg {
               animation: rotating 0.8s linear infinite;
 
@@ -197,7 +197,70 @@ main#admin-musics {
             }
           }
         }
+
+        button {
+          padding: 3px 12px;
+          border: none;
+          border-radius: 5px;
+          background: #ff3822a6;
+        }
       }
+    }
+  }
+
+  .rodal-delete {
+    .rodal-mask {
+      background: $back;
+      opacity: 70%;
+    }
+
+    .rodal-dialog {
+      background: #141c27;
+      height: 150px !important;
+      border-radius: 14px !important;
+      padding: 20px !important;
+      box-shadow: 0 0 100px #1f283569;
+
+      h1 {
+        line-height: 19px;
+        font-size: 17px;
+        color: #e5e7eb;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+
+      .sure {
+        width: 100%;
+        margin-top: 15px;
+        height: calc(100% - 35px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        p {
+          font-size: 18px;
+          font-weight: 500;
+        }
+
+        button {
+          padding: 3px 12px;
+          border: none;
+          border-radius: 5px;
+          background: #ff3822a6;
+          margin-left: 70%;
+        }
+      }
+    }
+
+    .rodal-close {
+      position: absolute;
+      cursor: pointer;
+      top: 20px;
+      right: 20px;
+      width: 18px;
+      height: 18px;
     }
   }
 }

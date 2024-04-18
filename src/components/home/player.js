@@ -1,66 +1,114 @@
-import { useEffect, useState } from "react";
-import { useMusic } from "../../store/zustand";
 import styled from 'styled-components';
-import { GetSingerItem } from "../../hooks/useSingers";
 import { useRouter } from "next/navigation";
+import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
+
+import { MdOutlineLyrics, MdLyrics } from "react-icons/md";
+import { PiQueue, PiQueueFill } from "react-icons/pi";
+import { BiCommentDetail, BiSolidCommentDetail } from "react-icons/bi";
+import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
+import axios from 'axios';
+
+const RedingTime = styled.div`
+    transition: 0.2s;
+    &::before{
+        transition: width 0.2s;
+        width: ${props => props.percentage}%!important;
+    } 
+    &::after{
+        transition: left 0.2s;
+        left: ${props => props.percentage}%!important;
+    }`;
+const VolumeControl = styled.div`
+    transition: 0.15s;
+    &::before{
+        transition: width 0.15s;
+        width: ${props => props.volume}%!important;
+    } 
+    &::after{
+        transition: left 0.15s;
+        left: ${props => props.volume}%!important;
+    }`;
 
 export default function Player() {
+    const user = useStore((state) => state.user);
     const router = useRouter()
     const render = useMusic((state) => state.render);
     const setRender = useMusic((state) => state.setRender);
-    const allSongs = useMusic((state) => state.musics);
+    const readRender = useMusic((state) => state.readRender);
+    const setReadRender = useMusic((state) => state.setReadRender);
+    const songs = useMusic((state) => state.musics);
     const music = useMusic((state) => state.currentMusic);
-    const setMusic = useMusic((state) => state.setCurrentMusic);
+    const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
 
     const isPlaying = useMusic((state) => state.playPouse);
     const setPlaying = useMusic((state) => state.setPlayPouse);
     const playPouse = () => music.song && setPlaying(!isPlaying)
+    const randomInteger = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 
     const isShuffle = useMusic((state) => state.shuffle);
     const setShuffle = useMusic((state) => state.setShuffle);
-    const shuffle = () => music.song && setShuffle(!isShuffle)
+    const shuffle = () => {
+        if (music.song) {
+            setShuffle(!isShuffle)
+            setLoop(false)
+        }
+    }
 
     const isLoop = useMusic((state) => state.loop);
     const setLoop = useMusic((state) => state.setLoop);
-    const loop = () => music.song && setLoop(!isLoop)
+    const loop = () => {
+        if (music.song) {
+            setLoop(!isLoop)
+            setShuffle(false)
+        }
+    }
 
     const volume = useMusic((state) => state.volume);
     const setVolume = useMusic((state) => state.setVolume);
-
     const read = useMusic((state) => state.read);
     const duration = useMusic((state) => state.duration);
     const percentage = useMusic((state) => state.percentage);
-
     const setReadTime = useMusic((state) => state.setReadTime);
     const durationTime = useMusic((state) => state.durationTime);
     const setPercentage = useMusic((state) => state.setPercentage);
 
-    const RedingTime = styled.div`
-    transition: 0.2s;
-    &::before{
-        transition: 0.2s;
-        width: ${percentage}%!important;
-    } 
-    &::after{
-        transition: 0.1s;
-        left: ${percentage}%!important;
-    }`;
+    const lyrics = useHomeDetails((state) => state.lyrics);
+    const setLyrics = useHomeDetails((state) => state.setLyrics);
+    const comment = useHomeDetails((state) => state.comment);
+    const setComment = useHomeDetails((state) => state.setComment);
+    const queue = useHomeDetails((state) => state.queue);
+    const setQueue = useHomeDetails((state) => state.setQueue);
+    const fullScreen = useHomeDetails((state) => state.fullScreen);
+    const setFullScreen = useHomeDetails((state) => state.setFullScreen);
 
-    const VolumeControl = styled.div`
-    transition: 0.2s;
-    &::before{
-        transition: 0.2s;
-        width: ${volume}%!important;
-    } 
-    &::after{
-        transition: 0.1s;
-        left: ${volume}%!important;
-    }`;
+    function setDetails(prop) {
+        if (prop == "lyrics") {
+            if (!music.song) return
+            setLyrics(!lyrics)
+            setComment(false)
+            setQueue(false)
+        }
+        if (prop == "comment") {
+            if (!music.song) return
+            setComment(!comment)
+            setLyrics(false)
+            setQueue(false)
+        }
+        if (prop == "queue") {
+            if (songs.length == 0) return
+            setQueue(!queue)
+            setLyrics(false)
+            setComment(false)
+        }
+        if (prop == "screen") {
+            setFullScreen(!fullScreen)
+        }
+    }
 
     return (
-        <footer id="player">
+        <footer id="player" className={`${fullScreen ? 'active' : ''}`}>
             <div id="bar">
-                <RedingTime id="line" />
+                <RedingTime id="line" percentage={percentage} />
                 <input type="range" id="control" value={percentage} max={100} min={0} onChange={(e) => {
                     setPercentage(e.target.value)
                     setReadTime(e.target.value * durationTime / 100)
@@ -68,10 +116,10 @@ export default function Player() {
             </div>
             <div className="content">
                 <div className="song">
-                    <img src={music.image || "/logo.png"} alt="music" />
+                    <img src={music.image || "/logo.png"} alt="music" onClick={() => music.album && router.push(`/album/${music.album}`)} />
                     <div className="title">
-                        <h3>{music.name || "Lorenzon"}</h3>
-                        <p>{music.singer && music.singer.map(item => <span key={item._id} onClick={() => router.push(`@${item.username}`)}>{item.name + ", "}</span>)}</p>
+                        {music.album ? <h3 onClick={() => router.push(`/album/${music.album}`)}>{music.name}</h3> : <h3>Lorenzon</h3>}
+                        <p>{music.singerName && music.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${music.singerUsername[i]}`)}>{n + ", "} </span>)}</p>
                     </div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -102,24 +150,35 @@ export default function Player() {
                             <path d="M21.74 6.07999C21.74 6.05999 21.75 6.04 21.75 6.03C21.75 5.93 21.73 5.82996 21.69 5.73996C21.65 5.64996 21.6 5.56997 21.53 5.49997L19.53 3.49997C19.24 3.20997 18.76 3.20997 18.47 3.49997C18.18 3.78997 18.18 4.26997 18.47 4.55997L19.18 5.26999L16.45 5.25998C16.44 5.25998 16.44 5.25998 16.43 5.25998C15.28 5.25998 14.2 5.82996 13.56 6.79996L7.17001 16.38C6.81001 16.92 6.19999 17.25 5.54999 17.25H5.54001L2.98999 17.24C2.57999 17.24 2.23999 17.57 2.23999 17.99C2.23999 18.4 2.56999 18.74 2.98999 18.74L5.54001 18.75C5.55001 18.75 5.55 18.75 5.56 18.75C6.72 18.75 7.78999 18.18 8.42999 17.21L14.82 7.62998C15.18 7.08998 15.79 6.75998 16.44 6.75998H16.45L21 6.78C21.1 6.78 21.19 6.75994 21.29 6.71994C21.38 6.67994 21.46 6.62997 21.53 6.55997C21.53 6.55997 21.53 6.54996 21.54 6.54996C21.6 6.47996 21.66 6.40998 21.69 6.31998C21.72 6.23998 21.73 6.15999 21.74 6.07999Z" fill="#F3F3F3" />
                         </svg>
                     </div>
-                    <div className="prev" onClick={() => allSongs.map((item, index) => {
-                        if (item._id == music._id) {
-                            if ((index == 0) || (+read.substring(0, 1) != 0) || (+read.substring(2) > 9)) {
-                                setReadTime(0)
-                                setPlaying(true)
-                                setTimeout(() => {
-                                    setRender(!render)
-                                }, 10)
-                            } else {
-                                setMusic(allSongs[index - 1])
-                                setPlaying(true)
-                                setTimeout(() => {
-                                    setRender(!render)
-                                }, 10)
-                            }
+                    <div className="prev" onClick={() => {
+                        if (isShuffle) {
+                            setReadTime(0)
+                            setPlaying(true)
+                            const randomSong = songs[randomInteger(0, songs.length - 1)]
+                            setCurrentMusic(randomSong)
+                            setTimeout(() => {
+                                setReadRender(!readRender)
+                                setRender(!render)
+                            }, 10)
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: randomSong._id })
+                        } else {
+                            songs.map((item, index) => {
+                                if (item._id == music._id) {
+                                    setReadTime(0)
+                                    setPlaying(true)
+                                    if (!((index == 0) || (+read.substring(0, 1) != 0) || (+read.substring(2) > 5.99))) {
+                                        const prevSong = songs[index - 1]
+                                        setCurrentMusic(prevSong)
+                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: prevSong._id })
+                                    }
+                                    setTimeout(() => {
+                                        setReadRender(!readRender)
+                                        setRender(!render)
+                                    }, 10)
+                                }
+                            })
                         }
-                    })
-                    }>
+                    }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path opacity="0.4" d="M22 8.33998V15.66C22 17.16 20.37 18.1 19.07 17.35L15.9 15.52L12.73 13.69L12.24 13.41V10.59L12.73 10.31L15.9 8.48L19.07 6.64998C20.37 5.89998 22 6.83998 22 8.33998Z" fill="#F3F3F3" />
                             <path d="M12.24 8.33998V15.66C12.24 17.16 10.61 18.1 9.32001 17.35L6.14002 15.52L2.97 13.69C1.68 12.94 1.68 11.06 2.97 10.31L6.14002 8.48L9.32001 6.64998C10.61 5.89998 12.24 6.83998 12.24 8.33998Z" fill="#F3F3F3" />
@@ -147,19 +206,35 @@ export default function Player() {
                             </defs>
                         </svg>}
                     </div>
-                    <div className="next" onClick={() => allSongs.map((item, index) => {
-                        if (item._id == music._id) {
-                            if (allSongs.length == index + 1) {
-                                return
-                            } else {
-                                setMusic(allSongs[index + 1])
-                                setPlaying(true)
-                                setTimeout(() => {
-                                    setRender(!render)
-                                }, 10)
-                            }
+                    <div className="next" onClick={() => {
+                        if (isShuffle) {
+                            setReadTime(0)
+                            setPlaying(true)
+                            const randomSong = songs[randomInteger(0, songs.length - 1)]
+                            setCurrentMusic(randomSong)
+                            setTimeout(() => {
+                                setReadRender(!readRender)
+                                setRender(!render)
+                            }, 10)
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: randomSong._id })
+                        } else {
+                            songs.map((item, index) => {
+                                if (item._id == music._id) {
+                                    if (songs.length != index + 1) {
+                                        setReadTime(0)
+                                        setPlaying(true)
+                                        const nextSong = songs[index + 1]
+                                        setCurrentMusic(nextSong)
+                                        setTimeout(() => {
+                                            setReadRender(!readRender)
+                                            setRender(!render)
+                                        }, 10)
+                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: nextSong._id })
+                                    }
+                                }
+                            })
                         }
-                    })
+                    }
                     }>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path opacity="0.4" d="M2 8.33998V15.66C2 17.16 3.62999 18.1 4.92999 17.35L8.10001 15.52L11.27 13.69L11.76 13.41V10.59L11.27 10.31L8.10001 8.48L4.92999 6.64998C3.62999 5.89998 2 6.83998 2 8.33998Z" fill="#F3F3F3" />
@@ -178,7 +253,7 @@ export default function Player() {
                         <p>{read} / {duration}</p>
                     </div>
                     <div className="sound">
-                        <div className="icon">
+                        <div className="icon" onClick={() => volume != 0 ? setVolume(0) : setVolume(100)}>
                             {volume == 0 ? <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="zero-volume">
                                 <path d="M20.7673 12.1761C20.7659 12.1775 20.7651 12.1794 20.7651 12.1814C20.7647 13.2635 20.5303 14.3095 20.0967 15.2575C19.9595 15.5574 19.5679 15.6103 19.3346 15.3771L18.9005 14.9429C18.7507 14.7931 18.7135 14.5659 18.7929 14.3695C19.0704 13.6831 19.2176 12.94 19.2176 12.1739C19.2176 9.8351 17.8372 7.71611 15.6919 6.76213C15.4105 6.63903 15.2302 6.35767 15.2302 6.05873C15.2302 5.79496 15.3577 5.55316 15.5819 5.40809C15.8018 5.26741 16.0743 5.24103 16.3161 5.35094C19.0189 6.54629 20.7683 9.22214 20.7695 12.1708C20.7695 12.1728 20.7687 12.1747 20.7673 12.1761V12.1761Z" fill="#808080" />
                                 <path d="M17.635 12.1871C17.635 12.3623 17.6227 12.5348 17.5986 12.7035C17.5473 13.0621 17.1172 13.1596 16.861 12.9034L15.3767 11.4191C15.2829 11.3253 15.2302 11.1981 15.2302 11.0655V9.48313C15.2302 9.13791 15.5732 8.89917 15.8696 9.07601C16.9275 9.70698 17.635 10.8648 17.635 12.1871Z" fill="#808080" />
@@ -192,18 +267,26 @@ export default function Player() {
                             </svg>}
                         </div>
                         <div id="barVolume">
-                            <VolumeControl id="lineVolume" />
+                            <VolumeControl id="lineVolume" volume={volume} />
                             <input type="range" id="controlVolume" value={volume} max={100} min={0} onChange={(e) => setVolume(e.target.value)} />
                         </div>
                     </div>
-                    <div className="screen">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M7.88007 11.37C7.47417 11.2372 7.14945 11.0114 6.9059 10.6926C6.66236 10.3472 6.52706 9.97533 6.5 9.57685C6.5 9.17837 6.60824 8.79317 6.82472 8.42125C7.06827 8.02277 7.43358 7.6907 7.92066 7.42505C8.70541 7 9.38192 6.89374 9.95018 7.10626C10.5455 7.31879 10.9785 7.63757 11.2491 8.06262C11.3844 8.27514 11.4791 8.56736 11.5332 8.93928C11.6144 9.28463 11.6415 9.66983 11.6144 10.0949C11.6144 10.4934 11.5738 10.8918 11.4926 11.2903C11.4114 11.6888 11.2897 12.0209 11.1273 12.2865C10.992 12.4991 10.8296 12.7116 10.6402 12.9241C10.4779 13.1101 10.2749 13.296 10.0314 13.482C9.81488 13.6679 9.55781 13.8406 9.26015 14L7.79889 13.8805C7.98831 13.6679 8.16421 13.482 8.32657 13.3226C8.48893 13.1366 8.62423 12.9772 8.73247 12.8444C8.84071 12.7116 8.94895 12.592 9.0572 12.4858C9.21956 12.2998 9.35486 12.1139 9.4631 11.9279C9.57134 11.7685 9.66605 11.6091 9.74723 11.4497C9.82841 11.2638 9.84194 11.0778 9.78782 10.8918C9.57134 11.1044 9.35486 11.2505 9.13838 11.3302C8.92189 11.4099 8.71894 11.4497 8.52952 11.4497C8.31304 11.4763 8.09656 11.4497 7.88007 11.37ZM13.4815 11.1309C13.1027 10.945 12.8186 10.6793 12.6292 10.334C12.4668 9.96205 12.4127 9.57685 12.4668 9.17837C12.5209 8.77989 12.6833 8.40797 12.9539 8.06262C13.2245 7.71727 13.6304 7.45161 14.1716 7.26565C15.0105 6.97343 15.7005 6.98672 16.2417 7.3055C16.7829 7.62429 17.1617 8.00949 17.3782 8.4611C17.4594 8.70019 17.5 9.00569 17.5 9.37761C17.5 9.74953 17.4594 10.1347 17.3782 10.5332C17.297 10.9317 17.1753 11.3169 17.0129 11.6888C16.8776 12.0607 16.7153 12.3662 16.5258 12.6053C16.3635 12.7913 16.174 12.9639 15.9576 13.1233C15.7681 13.2562 15.5381 13.4023 15.2675 13.5617C15.024 13.7211 14.7399 13.8539 14.4151 13.9602L12.9945 13.6414C13.2109 13.4554 13.4004 13.296 13.5627 13.1632C13.7522 13.0038 13.9145 12.871 14.0498 12.7647C14.1851 12.6584 14.3204 12.5655 14.4557 12.4858C14.6451 12.3264 14.8075 12.167 14.9428 12.0076C15.0781 11.8748 15.1863 11.7287 15.2675 11.5693C15.3758 11.3833 15.4299 11.1841 15.4299 10.9715C15.2134 11.1575 14.9834 11.277 14.7399 11.3302C14.5234 11.3567 14.3204 11.3567 14.131 11.3302C13.9145 11.3036 13.698 11.2372 13.4815 11.1309Z" fill="#F3F3F3" />
-                            <path d="M17 18.43H13L8.54999 21.39C7.88999 21.83 7 21.36 7 20.56V18.43C4 18.43 2 16.43 2 13.43V7.42999C2 4.42999 4 2.42999 7 2.42999H17C20 2.42999 22 4.42999 22 7.42999V13.43C22 16.43 20 18.43 17 18.43Z" stroke="#F3F3F3" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                    <div className="details">
+                        <div className="lyrics" onClick={() => setDetails('lyrics')}>
+                            {lyrics ? <MdLyrics /> : <MdOutlineLyrics />}
+                        </div>
+                        <div className='comment' onClick={() => setDetails('comment')}>
+                            {comment ? <BiSolidCommentDetail /> : <BiCommentDetail />}
+                        </div>
+                        <div className='queue' onClick={() => setDetails('queue')}>
+                            {queue ? <PiQueueFill /> : <PiQueue />}
+                        </div>
+                        <div className='screen' onClick={() => setDetails('screen')}>
+                            {fullScreen ? <BsFullscreenExit /> : <BsFullscreen />}
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer >
     )
 }

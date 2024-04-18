@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes'
 import { signOut } from "next-auth/react";
 
 import useLocalStorage from "../../hooks/useLocalStorage";
-import { useStore } from "../../store/zustand";
+import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
 import { info } from "../../utils/toastify";
 
 import { PiUserSwitch, PiUserCircle, PiSignOut, PiFeather, PiGear, PiGavel, PiMoon, PiSun, PiDevices, PiCheckBold } from "react-icons/pi";
@@ -14,6 +14,12 @@ import { IoLanguageOutline, IoChevronBack, IoChevronForward } from "react-icons/
 import { BsPatchExclamationFill } from "react-icons/bs";
 import { MdLocalLibrary } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
+import { TbPlaylistAdd } from "react-icons/tb";
+
+import { MdOutlineLyrics, MdLyrics } from "react-icons/md";
+import { BiCommentDetail, BiSolidCommentDetail } from "react-icons/bi";
+import { PiQueue, PiQueueFill } from "react-icons/pi";
+import axios from "axios";
 
 export default function Content() {
     const user = useStore((state) => state.user);
@@ -24,6 +30,20 @@ export default function Content() {
     const [navigate, setNavigate] = useState("");
     const { theme, setTheme, resolvedTheme } = useTheme()
     const router = useRouter();
+
+    const songs = useMusic((state) => state.musics);
+    const currentSong = useMusic((state) => state.currentMusic);
+    const setCurrentSong = useMusic((state) => state.setCurrentMusic);
+
+    const render = useMusic((state) => state.render);
+    const setRender = useMusic((state) => state.setRender);
+    const setReadTime = useMusic((state) => state.setReadTime);
+    const playPouse = useMusic((state) => state.playPouse);
+    const setPlayPouse = useMusic((state) => state.setPlayPouse);
+
+    const lyrics = useHomeDetails((state) => state.lyrics);
+    const comment = useHomeDetails((state) => state.comment);
+    const queue = useHomeDetails((state) => state.queue);
 
     // console.log(resolvedTheme);
 
@@ -140,13 +160,9 @@ export default function Content() {
                         <IoChevronForward className="end" />
                     </div>
                     <hr />
-                    <div className="list error" onClick={() => {
-                        info("Not available yet!")
-                        // router.push('/settings')
-                    }}>
+                    <div className="list error" onClick={() => router.push('/settings')}>
                         <PiGear />
                         <p>Settings</p>
-                        <BsPatchExclamationFill className="end" />
                     </div>
                     {user && user.role === "admin" && (
                         <div className="list" onClick={() => router.push('/admin')}>
@@ -154,13 +170,9 @@ export default function Content() {
                             <p>Admin Panel</p>
                         </div>
                     )}
-                    <div className="list error" onClick={() => {
-                        info("Not available yet!")
-                        // router.push('/feedback')
-                    }}>
+                    <div className="list error" onClick={() => router.push('/feedback')}>
                         <PiFeather />
                         <p>Send Feedback</p>
-                        <BsPatchExclamationFill className="end" />
                     </div>
                 </div>
 
@@ -209,90 +221,137 @@ export default function Content() {
                     </div>
                 </div>
             </div>
-            <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
+            {queue && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
+                <header>
+                    <div className="title">
+                        <PiQueueFill />
+                        <h4>Queue</h4>
+                    </div>
+                </header>
+                <div className="content queue">
+                    {songs.map((item, i) => (
+                        <div className="card" key={i}>
+                            <div className="image" onClick={() => {
+                                if (playPouse && (currentSong.song == item.song)) {
+                                    setPlayPouse(false)
+                                } else {
+                                    setPlayPouse(true)
+                                    setCurrentSong(item)
+                                    setTimeout(() => setRender(!render), 10)
+                                    if (currentSong.song != item.song) setReadTime(0)
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                                }
+
+                            }}>
+                                <img alt={item.name} src={item.image} />
+                                {
+                                    playPouse && (currentSong.song == item.song) ? <svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" viewBox="0 0 13 16" fill="none">
+                                        <rect width="5.41667" height="16" rx="1.6" fill="#D9D9D9" />
+                                        <rect width="5.41667" height="16" rx="1.6" fill="#D9D9D9" x="7.41666" />
+                                    </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16" fill="none" className="play">
+                                        <path d="M12.3416 6.3117C13.5787 7.09733 13.5787 8.90267 12.3416 9.6883L3.07222 15.5752C1.74069 16.4208 0 15.4642 0 13.8869L0 2.11314C0 0.535778 1.74069 -0.420796 3.07221 0.424839L12.3416 6.3117Z" fill="#D9D9D9" />
+                                    </svg>
+                                }
+                            </div>
+                            <div className="title">
+                                <h4 className={`${currentSong.song == item.song ? "active" : ""}`} onClick={() => router.push(`/album/${item.album}`)}>{item.name}</h4>
+                                <p className={`singers ${currentSong.song == item.song ? "active" : ""}`}>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </article>}
+            {lyrics && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
+                <header>
+                    <div className="title">
+                        <MdLyrics />
+                        <h4>Lyrics</h4>
+                    </div>
+                </header>
+                <div className="content queue">
+                    {currentSong.lyrics ? '' : <p className="dontHave">The music has no lyrics!</p>}
+                </div>
+            </article>}
+            {comment && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
+                <header>
+                    <div className="title">
+                        <BiSolidCommentDetail />
+                        <h4>Comments</h4>
+                    </div>
+                </header>
+                <div className="content comment">
+                    <p className="dontHave">Music has no comments!</p>
+                </div>
+                {/* Chat Input for Typing Comment in Song */}
+                {/* <footer>
+                    <div className="typin">
+                        <input type="text" />
+                    </div>
+                </footer> */}
+            </article>}
+            {(!lyrics && !comment && !queue) && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
                 <header>
                     <div className="title">
                         <MdLocalLibrary />
-                        <h4>Your Library</h4>
+                        <h4>Library</h4>
                     </div>
-                    <Link href={"/home"}>Show all</Link>
+                    <button><TbPlaylistAdd /></button>
                 </header>
                 <div className="content">
+                    {/* {user.playlists.length > 0 ? (
+                        user.playlists.map((playlist, i) => (
+                            <div className="card" onClick={() => router.push(`/playlist/${playlist._id}`)}>
+                                <div className="image">
+                                    <img alt={playlist.name} src={playlist.image} />
+                                </div>
+                                <div className="title">
+                                    <h4>{playlist.name}</h4>
+                                    <p>Playlist • {playlist.creator.name}</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : <p className="dontHave">You don't have a playlist!</p>} */}
+
+                    {/* THIS DOWN DELETED */}{/* THIS DOWN DELETED */}{/* THIS DOWN DELETED */}{/* THIS DOWN DELETED */}
+
                     <div className="card">
-                        <img alt="library" src="https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/playlist%2Fphonk.jpg?alt=media&token=ae6bf60c-79a6-432c-9e69-a14106405388" />
+                        <div className="image">
+                            <img alt="library" src="https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/playlist%2Fphonk.jpg?alt=media&token=ae6bf60c-79a6-432c-9e69-a14106405388" />
+                        </div>
                         <div className="title">
                             <h4>Phonk</h4>
                             <p>Playlist • Lorenzon</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa31dce058bce8a49b949c48a66" />
-                        <div className="title">
-                            <h4>BRAZILIAN PHONK 😈 Phonk Brasileño 2024 🇧🇷 Viral TikTok Funk</h4>
-                            <p>Playlist • HOUSE OF PHONK</p>
+                        <div className="image">
+                            <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa343cfa7f56864a5314a40c755" />
                         </div>
-                    </div>
-                    <div className="card">
-                        <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84175c629832f7cee13f7ff395" />
-                        <div className="title">
-                            <h4>Brazilian Phonk // Viral TikTok</h4>
-                            <p>Playlist • AV</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa343cfa7f56864a5314a40c755" />
                         <div className="title">
                             <h4>💯🔱PHONK 🔱💯</h4>
                             <p>Playlist • JORDI GR</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84dfc1b943196eebfb0c4534f0" />
+                        <div className="image">
+                            <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84dfc1b943196eebfb0c4534f0" />
+                        </div>
                         <div className="title">
                             <h4>PHONK AGRESIVO 💀</h4>
                             <p>Playlist • 𝕮𝖆𝖒𝖎𝖑𝖔ᴳᵒᵈ〗</p>
                         </div>
                     </div>
                     <div className="card">
-                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa31000fa118c9244c22d96c579" />
+                        <div className="image">
+                            <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa31000fa118c9244c22d96c579" />
+                        </div>
                         <div className="title">
                             <h4>phonk 💀</h4>
                             <p>Playlist • theonlyMajed</p>
                         </div>
                     </div>
-                    <div className="card">
-                        <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84bc0d7dddac407ce260f0f7b5" />
-                        <div className="title">
-                            <h4>GYM PHONK 2024 😈 AGGRESSIVE WORKOUT PHONK MUSIC</h4>
-                            <p>Playlist • Magic Records</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa3ad4c22bc29f8fa3e37a14b70" />
-                        <div className="title">
-                            <h4>Phonk Éxitos 2024 💀 Brazilian Phonk Mano</h4>
-                            <p>Playlist • Filtr Éxitos</p>
-                        </div>
-                    </div>
-                    <div className="card artist">
-                        <img alt="library" src="https://i.scdn.co/image/ab6761610000101fab8a761d12b6cbb5c164a102" />
-                        <div className="title">
-                            <h4>S3BZS</h4>
-                            <p>Artist</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <img alt="library" src="https://misc.scdn.co/liked-songs/liked-songs-64.png" />
-                        <div className="title">
-                            <h4>Liked Songs</h4>
-                            <p>Playlist • 6 songs</p>
-                        </div>
-                    </div>
-
-
-                    {/* <p className="dontHave">You don't have a playlist!</p> */}
                 </div>
-            </article>
+            </article>}
         </aside>
     );
 }

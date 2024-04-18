@@ -20,7 +20,7 @@ export default function MainFooter() {
             <div className="module">
               <p>Communities</p>
               <ul>
-                <li>For Artists</li>
+                <li>For Singers</li>
                 <li>Developers</li>
                 <li>Advertising</li>
               </ul>
@@ -50,7 +50,7 @@ export default function MainFooter() {
           <div className="policy">
             <ul>
               <li>Legal</li>
-              <li>Safety & Privacy Center</li>
+              <li>Safety</li>
               <li>Privacy Policy</li>
               <li>Cookies</li>
               <li>About Ads</li>
@@ -58,7 +58,7 @@ export default function MainFooter() {
             </ul>
           </div>
           <div className="copyright">
-            <p><span className="brand">&copy; Lorenzon 2023-{new Date().getFullYear()} | </span><a href="https://shoxruxasadov.uz" target="_blank">Powered by</a></p>
+            <p><span className="brand">&copy; Lorenzon 2023-{new Date().getFullYear()} | </span><a href="https://shoxrux.site" target="_blank">Powered by</a></p>
           </div>
         </div>
       </div>

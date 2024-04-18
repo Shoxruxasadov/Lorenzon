@@ -27,9 +27,9 @@ export default function HomeLayout({ children, page, title }) {
     return (
         <Root page="home" title={title}>
             <Sidebar />
-            <main id={page} >
+            <main id={page}>
                 <MainHeader />
-                {children}
+                <div id="main">{children}</div>
                 <MainFooter />
             </main>
             <Content />

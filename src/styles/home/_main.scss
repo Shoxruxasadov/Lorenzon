@@ -1,7 +1,7 @@
 main#home-main {
   article {
     overflow: hidden;
-    height: 278px;
+    height: 270px;
     max-width: 1900px;
     margin-bottom: 24px;
 
@@ -123,6 +123,19 @@ main#home-main {
           margin-bottom: 16px;
           cursor: pointer;
 
+          .unblur {
+            animation: unblur 0.3s linear;
+          }
+
+          @keyframes unblur {
+            from {
+              filter: blur(10px);
+            }
+            to {
+              filter: blur(0);
+            }
+          }
+
           .play {
             width: 44px;
             position: absolute;
@@ -208,6 +221,9 @@ main#home-main {
           p {
             font-size: 12px;
             color: $bate;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }

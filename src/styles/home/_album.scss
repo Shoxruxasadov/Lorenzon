@@ -1,0 +1,355 @@
+main#home-album {
+  .profile {
+    display: flex;
+    align-items: end;
+    margin-bottom: 24px;
+    gap: 20px;
+
+    .album-image {
+      border-radius: 12px;
+      filter: blur(10px);
+
+      &.unblur {
+        filter: blur(0);
+      }
+    }
+
+    .unblur {
+      animation: unblur 0.3s linear;
+    }
+    
+    @keyframes unblur {
+      from {
+        filter: blur(10px);
+      }
+      to {
+        filter: blur(0);
+      }
+    }
+
+    .content {
+      .title {
+        color: $bate;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+      }
+
+      .name {
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 36px;
+        letter-spacing: -0.5px;
+        margin-top: 16px;
+      }
+
+      .singers {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        margin-top: 20px;
+
+        span {
+          &.dot {
+            transform: scale(1.5) translateY(-1px);
+            padding: 0 4px;
+          }
+
+          &.singer {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+
+            &:hover {
+              text-decoration: underline;
+              color: $text;
+            }
+          }
+        }
+
+        p {
+          color: #aaaaaa;
+        }
+
+        .verify {
+          height: 15px;
+          position: relative;
+          width: 15px;
+
+          svg {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+
+    .secret {
+      margin-left: 40px;
+      overflow: hidden;
+
+      h1 {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .panel {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 24px;
+  }
+
+  .songs {
+    .head {
+      width: 100%;
+      display: flex;
+      border-bottom: 1px solid $bate;
+
+      div {
+        height: 48px;
+
+        &.numero {
+          width: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $bate;
+        }
+
+        &.another {
+          width: calc(100% - 48px);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 48px;
+
+          .name {
+            width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            color: $bate;
+          }
+
+          .listen {
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            color: $bate;
+          }
+
+          .duration {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            color: $bate;
+          }
+        }
+      }
+    }
+
+    .list {
+      width: 100%;
+
+      li {
+        width: 100%;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        transition: 0.2s;
+
+        &:nth-child(1) {
+          border-radius: 0 0 6px 6px;
+        }
+
+        &.active {
+          background: $analog !important;
+
+          span.in {
+            display: none !important;
+          }
+          .icon {
+            display: none !important;
+          }
+          .wave {
+            display: flex !important;
+          }
+        }
+
+        &:hover {
+          background: $view;
+
+          .index {
+            span.in {
+              display: none !important;
+            }
+            .icon {
+              display: block !important;
+            }
+            .wave {
+              display: none !important;
+            }
+          }
+        }
+
+        &.selected {
+          background: $view;
+        }
+
+        .index {
+          width: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          span.in {
+            color: $bate;
+          }
+
+          .icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+            position: relative;
+
+            svg {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+
+          .wave {
+            display: none;
+            justify-content: space-between;
+            width: 20px;
+            height: 25px;
+
+            .wavel {
+              height: 100%;
+              width: 2px;
+              border-radius: 1rem;
+              transform: scaleY(0.4);
+              background-color: $main;
+              animation-duration: 1.2s;
+              animation-iteration-count: infinite;
+              animation-timing-function: ease-in-out;
+
+              &:nth-child(1) {
+                animation-name: quiet;
+              }
+
+              &:nth-child(2) {
+                animation-name: normal;
+              }
+
+              &:nth-child(3) {
+                animation-name: quiet;
+              }
+
+              &:nth-child(4) {
+                animation-name: loud;
+              }
+
+              &:nth-child(5) {
+                animation-name: quiet;
+              }
+
+              @keyframes quiet {
+                25% {
+                  transform: scaleY(0.6);
+                }
+
+                50% {
+                  transform: scaleY(0.4);
+                }
+
+                75% {
+                  transform: scaleY(0.8);
+                }
+              }
+
+              @keyframes normal {
+                25% {
+                  transform: scaleY(1);
+                }
+
+                50% {
+                  transform: scaleY(0.4);
+                }
+
+                75% {
+                  transform: scaleY(0.6);
+                }
+              }
+
+              @keyframes loud {
+                25% {
+                  transform: scaleY(1);
+                }
+
+                50% {
+                  transform: scaleY(0.4);
+                }
+
+                75% {
+                  transform: scaleY(1.2);
+                }
+              }
+            }
+          }
+        }
+
+        .another {
+          width: calc(100% - 48px);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 48px;
+
+          .music {
+            width: 300px;
+            display: flex;
+            align-items: center;
+
+            .music-title p {
+              font-size: 14px;
+              color: $bate;
+            }
+          }
+
+          .listen {
+            width: 100px;
+            text-align: end;
+
+            p {
+              color: $bate;
+            }
+          }
+
+          .duration {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            p {
+              color: $bate;
+            }
+          }
+        }
+      }
+    }
+  }
+}

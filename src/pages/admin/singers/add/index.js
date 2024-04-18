@@ -277,14 +277,14 @@ export default function AdminAddSinger() {
                                 </div>
                                 <ul id="options">
                                     {searchInput === "" ? (
-                                        allCountry.map((item, index) => (
-                                            <li style={{ textTransform: "capitalize" }} key={index} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
+                                        allCountry.map((item, i) => (
+                                            <li key={i} style={{ textTransform: "capitalize" }} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
                                         ))
                                     ) : newCountry.length == 0 ? (
                                         <li className="found">Country not found 😕</li>
                                     ) : (
-                                        newCountry.map((item, index) => (
-                                            <li style={{ textTransform: "capitalize" }} key={index} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
+                                        newCountry.map((item, i) => (
+                                            <li key={i} style={{ textTransform: "capitalize" }} onClick={() => { setSelectCountry(item); setOcCountry(false); }} id="selectedItem">{item}</li>
                                         ))
                                     )}
                                 </ul>

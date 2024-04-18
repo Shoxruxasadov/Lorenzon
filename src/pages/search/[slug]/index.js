@@ -80,7 +80,7 @@ export default function HomeSearching() {
                 {searchData.topSong != null && <div className="top">
                     <article className="top-result">
                         <header>
-                            <h1>Top Result&nbsp;</h1>
+                            <h1>Top Result</h1>
                         </header>
                         <div className="content" >
                             <div

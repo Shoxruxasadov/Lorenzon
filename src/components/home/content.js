@@ -300,7 +300,7 @@ export default function Content() {
                 <div className="content">
                     {/* {user.playlists.length > 0 ? (
                         user.playlists.map((playlist, i) => (
-                            <div className="card" onClick={() => router.push(`/playlist/${playlist._id}`)}>
+                            <div key={i} className="card" onClick={() => router.push(`/playlist/${playlist._id}`)}>
                                 <div className="image">
                                     <img alt={playlist.name} src={playlist.image} />
                                 </div>

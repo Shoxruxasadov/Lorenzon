@@ -52,7 +52,7 @@ export default function HomeAlbum() {
                     <p className="title">{album.songs.length > 1 ? 'Album' : 'Single'}</p>
                     <h1 className="name">{album.name}</h1>
                     <div className="singers">
-                        <p>{album.singerName.map((s, i) => <span onClick={() => router.push(`/@${album.singerUsername[i]}`)} className="singer">{s + ', '}</span>)}</p>
+                        <p>{album.singerName.map((s, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)} className="singer">{s + ', '}</span>)}</p>
                         <span className="dot"> • </span>
                         <p>{album.songs[0].createdDay.substring(0, 4)}</p>
                         <span className="dot"> • </span>

@@ -456,7 +456,7 @@ export default function HomeSearching() {
                     </div>
                 </article>}
             </> : <div className="no">
-                <h2>No result found "{pathname.split('/')[2].replaceAll('%20', ' ')}"</h2>
+                <h2>No result found &quot;{pathname.split('/')[2].replaceAll('%20', ' ')}&quot;</h2>
                 <p>Please make sure you words are spelled correctly, or use fewer or different keywords.</p>
             </div>
             }

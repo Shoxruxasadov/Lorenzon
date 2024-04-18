@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import HomeLayout from "../../../../layouts/home";
 import Banner from "../../../../layouts/banner";
-import { useMusic } from "../../../../store/zustand";
+import { useMusic, useStore } from "../../../../store/zustand";
 import { usePathname } from "next/navigation";
 import Loading from "../../../../components/loading/home";
 

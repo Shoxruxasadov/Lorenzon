@@ -24,7 +24,7 @@ export default function UserLayout({ user }) {
     return (
         <HomeLayout page="home-user" title={user.name}>
             {(user.banner || user._id == myuser._id) && <Banner src={user.banner || "empty"} />}
-            <div className={`profile ${(user.banner || user._id == token.id) ? "active" : ""}`}>
+            <div className={`profile ${(user.banner || user._id == myuser.id) ? "active" : ""}`}>
                 <Image
                     src={user.image || "/other/unknown.user.webp"}
                     alt="user"

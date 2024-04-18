@@ -5,7 +5,7 @@ import axios from "axios";
 
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useHomeModels, useMusic } from "../../store/zustand";
+import { useHomeModels, useMusic, useStore } from "../../store/zustand";
 import { useRouter } from "next/router";
 
 export default function HomeRecommended() {

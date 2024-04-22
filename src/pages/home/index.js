@@ -21,46 +21,22 @@ export default function HomeMain() {
   const setReadTime = useMusic((state) => state.setReadTime);
 
   const RECOMMENDED_SONGS = useHomeModels((state) => state.RECOMMENDED_SONGS);
-  const SET_RECOMMENDED_SONGS = useHomeModels((state) => state.SET_RECOMMENDED_SONGS);
   const YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.YOUR_FAVORITE_SINGERS);
-  const SET_YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.SET_YOUR_FAVORITE_SINGERS);
 
-  const [articleHeight, setArticleHeight] = useState(`275px`);
   const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
-  const cardRef = useRef(null);
   const router = useRouter();
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/random`).then(({ data }) => SET_RECOMMENDED_SONGS(data))
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get/random`).then(({ data }) => SET_YOUR_FAVORITE_SINGERS(data))
-
     const handleResize = () => {
-      setArticleHeight(cardRef.current && `${cardRef.current.offsetHeight + 45}px`)
-      if (window.innerWidth >= 2330) {
-        setColumnCount(10);
-      }
-      if (window.innerWidth >= 2130 && window.innerWidth < 2330) {
-        setColumnCount(9);
-      }
-      if (window.innerWidth >= 1930 && window.innerWidth < 2130) {
-        setColumnCount(8);
-      }
-      if (window.innerWidth >= 1730 && window.innerWidth < 1930) {
-        setColumnCount(7);
-      }
-      if (window.innerWidth >= 1560 && window.innerWidth < 1730) {
-        setColumnCount(6);
-      }
-      if (window.innerWidth >= 1400 && window.innerWidth < 1560) {
-        setColumnCount(5);
-      }
-      if (window.innerWidth >= 1230 && window.innerWidth < 1400) {
-        setColumnCount(4);
-      }
-      if (window.innerWidth >= 1024 && window.innerWidth < 1230) {
-        setColumnCount(3);
-      }
+      if (window.innerWidth >= 2330) setColumnCount(10);
+      if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
+      if (window.innerWidth >= 1930 && window.innerWidth < 2130) setColumnCount(8);
+      if (window.innerWidth >= 1730 && window.innerWidth < 1930) setColumnCount(7);
+      if (window.innerWidth >= 1560 && window.innerWidth < 1730) setColumnCount(6);
+      if (window.innerWidth >= 1400 && window.innerWidth < 1560) setColumnCount(5);
+      if (window.innerWidth >= 1230 && window.innerWidth < 1400) setColumnCount(4);
+      if (window.innerWidth >= 1024 && window.innerWidth < 1230) setColumnCount(3);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -71,22 +47,19 @@ export default function HomeMain() {
     <HomeLayout page="home-main" title="Home">
       <Banner src={"/other/space.ads.webp"} />
 
-      <article style={{ height: articleHeight }}>
+      <article>
         <header>
           <h2>Recommended songs</h2>
           <Link href={"/recommended"}>Show all</Link>
         </header>
         <div
           className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
+          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
-          {RECOMMENDED_SONGS.map((item, index) => (
+          {RECOMMENDED_SONGS.slice(0, columnCount).map((item, index) => (
             <div
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
               key={index}
-              ref={cardRef}
             >
               <div
                 className="images"
@@ -158,23 +131,20 @@ export default function HomeMain() {
         </div>
       </article>
 
-      <article style={{ height: articleHeight }}>
+      <article>
         <header>
           <h2>Favorite singers</h2>
           <Link href={"/singers"}>Show all</Link>
         </header>
         <div
           className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
+          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
-          {YOUR_FAVORITE_SINGERS.map((item, index) => (
+          {YOUR_FAVORITE_SINGERS.slice(0, columnCount).map((item, index) => (
             <div
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
-              key={index}
-              ref={cardRef}
               onClick={() => router.push(`/@${item.username}`)}
+              key={index}
             >
               <div className="images">
                 <Image
@@ -198,22 +168,19 @@ export default function HomeMain() {
         </div>
       </article>
 
-      {user && user.recently.length > 0 && <article style={{ height: articleHeight }}>
+      {user.recently && user.recently.length > 0 && <article>
         <header>
           <h2>Recently Played</h2>
           <Link href={"/recently"}>Show all</Link>
         </header>
         <div
           className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
+          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
-          {user.recently.map((item, index) => (
+          {user.recently.slice(0, columnCount).map((item, index) => (
             <div
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
               key={index}
-              ref={cardRef}
             >
               <div
                 className="images"

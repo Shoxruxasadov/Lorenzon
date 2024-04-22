@@ -37,7 +37,7 @@ main#home-search {
           width: 100%;
           height: 100%;
           -webkit-box-flex: 1;
-          background: #0a0d12;
+          background: var(--background-card);
           isolation: isolate;
           padding: 20px;
           border-radius: 8px;
@@ -49,7 +49,7 @@ main#home-search {
           overflow: hidden;
 
           &:hover {
-            background: $view;
+            background: var(--viewer-color);
 
             .images > .play {
               visibility: visible;
@@ -63,7 +63,7 @@ main#home-search {
           }
 
           &.active {
-            background: $analog !important;
+            background: var(--analog-color) !important;
 
             .images > .pouse {
               z-index: 4;
@@ -120,7 +120,7 @@ main#home-search {
               z-index: 2;
               height: 100%;
               border-radius: 8px;
-              box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+              box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
               cursor: pointer;
               filter: blur(10px);
 
@@ -156,11 +156,11 @@ main#home-search {
               text-overflow: ellipsis;
               padding-bottom: 4px;
               overflow: hidden;
-              color: $text;
+              color: var(--text-color);
             }
             p {
               font-size: 16px;
-              color: $bate;
+              color: var(--medium-color);
             }
           }
         }
@@ -193,10 +193,10 @@ main#home-search {
           border-radius: 6px;
           padding: 8px 0;
           transition: 0.2s;
-          background: #0a0d12;
+          background: var(--background-card);
 
           &.active {
-            background: $analog !important;
+            background: var(--analog-color) !important;
 
             span.in {
               display: none !important;
@@ -210,7 +210,7 @@ main#home-search {
           }
 
           &:hover {
-            background: $view;
+            background: var(--viewer-color);
 
             .index {
               span.in {
@@ -226,7 +226,7 @@ main#home-search {
           }
 
           &.selected{
-            background: $view;
+            background: var(--viewer-color);
           }
 
           .index {
@@ -236,7 +236,7 @@ main#home-search {
             justify-content: center;
 
             span.in {
-              color: $bate;
+              color: var(--medium-color);
             }
 
             .icon {
@@ -267,7 +267,7 @@ main#home-search {
                 width: 2px;
                 border-radius: 1rem;
                 transform: scaleY(0.4);
-                background-color: $main;
+                background-color: var(--main-color);
                 animation-duration: 1.2s;
                 animation-iteration-count: infinite;
                 animation-timing-function: ease-in-out;
@@ -365,7 +365,7 @@ main#home-search {
 
                 p {
                   font-size: 12px;
-                  color: $bate;
+                  color: var(--medium-color);
                 }
               }
             }
@@ -375,7 +375,7 @@ main#home-search {
               text-align: end;
 
               p {
-                color: $bate;
+                color: var(--medium-color);
               }
             }
 
@@ -385,7 +385,7 @@ main#home-search {
               text-align: end;
 
               p {
-                color: $bate;
+                color: var(--medium-color);
               }
             }
           }
@@ -437,7 +437,7 @@ main#home-search {
         min-width: 150px;
         min-height: 225px;
         -webkit-box-flex: 1;
-        background: #0a0d12;
+        background: var(--background-card);
         isolation: isolate;
         padding: 12px;
         border-radius: 8px;
@@ -454,8 +454,9 @@ main#home-search {
           content: "";
           width: 50%;
           height: 180%;
-          background: $analog;
           transform: rotate(45deg);
+          background: var(--analog-color);
+          box-shadow: 0 0 12px var(--analog-color);
         }
 
         @keyframes animate {
@@ -477,7 +478,7 @@ main#home-search {
           transform: translate(-50%, -50%);
           z-index: 1;
           border-radius: 4px;
-          background: #0a0d12;
+          background: var(--background-card);
         }
 
         &:hover {
@@ -598,11 +599,11 @@ main#home-search {
             text-overflow: ellipsis;
             padding-bottom: 4px;
             overflow: hidden;
-            color: $text;
+            color: var(--text-color);
           }
           p {
             font-size: 12px;
-            color: $bate;
+            color: var(--medium-color);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -638,7 +639,7 @@ main#home-search {
 
     p {
       font-size: 16px;
-      color: $bate;
+      color: var(--medium-color);
 
       text-transform: none;
       line-height: normal;

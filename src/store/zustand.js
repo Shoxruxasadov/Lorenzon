@@ -5,12 +5,17 @@ export const useStore = create((set) => ({
     user: {},
     isVerifyToken: false,
     setVerifyToken: (is) => set(() => ({ isVerifyToken: is })),
-    getUserFromToken: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => { set(() => ({ user: data[0] })); set(() => ({ isVerifyToken: true })); setLoading(false) }).catch(() => router.push('/')),
+    getUserFromToken: (token, router) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {
+        set(() => ({ user: data[0] }));
+        set(() => ({ isVerifyToken: true }));
+    }).catch(() => router.push('/')),
     isAdmin: false,
     verifyAdmin: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {
         if (data[0].role == 'admin') { set(() => ({ isAdmin: true })); setLoading(false) }
         else { router.push('/') }
     }).catch(() => router.push('/')),
+    loading: false,
+    setLoading: (is) => set(() => ({ loading: is }))
 }));
 
 export const useSearch = create((set) => ({
@@ -65,6 +70,19 @@ export const useMusic = create((set) => ({
 }));
 
 export const useHomeModels = create((set) => ({
+    RECOMMENDED_SONGS: [],
+    SET_RECOMMENDED_SONGS: (songs) => set(() => ({ RECOMMENDED_SONGS: songs })),
+    RECENTLY_PLAYED: [],
+    SET_RECENTLY_PLAYED: (songs) => set(() => ({ RECENTLY_PLAYED: songs })),
+    YOUR_FAVORITE_SINGERS: [],
+    SET_YOUR_FAVORITE_SINGERS: (singers) => set(() => ({ YOUR_FAVORITE_SINGERS: singers })),
+    DISCOVER_PICK_SONGS: [],
+    SET_DISCOVER_PICK_SONGS: (songs) => set(() => ({ DISCOVER_PICK_SONGS: songs })),
+    POPULAR_SONGS: [],
+    SET_POPULAR_SONGS: (songs) => set(() => ({ POPULAR_SONGS: songs })),
+}));
+
+export const useAnotherModels = create((set) => ({
     RECOMMENDED_SONGS: [],
     SET_RECOMMENDED_SONGS: (songs) => set(() => ({ RECOMMENDED_SONGS: songs })),
     RECENTLY_PLAYED: [],

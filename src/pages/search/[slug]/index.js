@@ -22,11 +22,9 @@ export default function HomeSearching() {
         playlists: [],
         profiles: [],
     })
-    const [articleHeight, setArticleHeight] = useState(`280px`);
     const [columnCount, setColumnCount] = useState(6);
     const [loadedImage, setLoadedImage] = useState(false)
     const pathname = usePathname()
-    const cardRef = useRef(null);
     const router = useRouter()
 
     const render = useMusic((state) => state.render);
@@ -42,31 +40,14 @@ export default function HomeSearching() {
         pathname && axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/${pathname.split('/')[2].replaceAll('%20', ' ')}`).then(({ data }) => setSearchData(data)).finally(() => setLoading(false))
 
         const handleResize = () => {
-            setArticleHeight(cardRef.current && `${cardRef.current.offsetHeight + 45}px`)
-            if (window.innerWidth >= 2330) {
-                setColumnCount(10);
-            }
-            if (window.innerWidth >= 2130 && window.innerWidth < 2330) {
-                setColumnCount(9);
-            }
-            if (window.innerWidth >= 1930 && window.innerWidth < 2130) {
-                setColumnCount(8);
-            }
-            if (window.innerWidth >= 1730 && window.innerWidth < 1930) {
-                setColumnCount(7);
-            }
-            if (window.innerWidth >= 1560 && window.innerWidth < 1730) {
-                setColumnCount(6);
-            }
-            if (window.innerWidth >= 1400 && window.innerWidth < 1560) {
-                setColumnCount(5);
-            }
-            if (window.innerWidth >= 1230 && window.innerWidth < 1400) {
-                setColumnCount(4);
-            }
-            if (window.innerWidth >= 1024 && window.innerWidth < 1230) {
-                setColumnCount(3);
-            }
+            if (window.innerWidth >= 2330) setColumnCount(10);
+            if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
+            if (window.innerWidth >= 1930 && window.innerWidth < 2130) setColumnCount(8);
+            if (window.innerWidth >= 1730 && window.innerWidth < 1930) setColumnCount(7);
+            if (window.innerWidth >= 1560 && window.innerWidth < 1730) setColumnCount(6);
+            if (window.innerWidth >= 1400 && window.innerWidth < 1560) setColumnCount(5);
+            if (window.innerWidth >= 1230 && window.innerWidth < 1400) setColumnCount(4);
+            if (window.innerWidth >= 1024 && window.innerWidth < 1230) setColumnCount(3);
         };
         handleResize();
         window.addEventListener("resize", handleResize);
@@ -146,7 +127,7 @@ export default function HomeSearching() {
                                     />
                                 </div>
                                 <div className="title">
-                                    <h3 onClick={()=>router.push(`/album/${searchData.topSong.album}`)}>{searchData.topSong.name}</h3>
+                                    <h3 onClick={() => router.push(`/album/${searchData.topSong.album}`)}>{searchData.topSong.name}</h3>
                                     <p>{searchData.topSong.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${searchData.topSong.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
                                 </div>
                             </div>
@@ -206,17 +187,16 @@ export default function HomeSearching() {
                         </ul>
                     </article>}
                 </div>}
-                {searchData.otherSongs.length > 0 && <article style={{ height: articleHeight }} className="column">
+                {searchData.otherSongs.length > 0 && <article className="column">
                     <header>
                         <h1>Songs</h1>
                         <Link href={`${pathname}/songs`}>Show all</Link>
                     </header>
                     <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>
-                        {searchData.otherSongs.map((item, index) => (
+                        {searchData.otherSongs.slice(0, columnCount).map((item, index) => (
                             <div
                                 className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
                                 key={index}
-                                ref={cardRef}
                             >
                                 <div
                                     className="images"
@@ -285,17 +265,16 @@ export default function HomeSearching() {
                         ))}
                     </div>
                 </article>}
-                {searchData.singers.length > 0 && <article style={{ height: articleHeight }} className="column">
+                {searchData.singers.length > 0 && <article className="column">
                     <header>
                         <h1>Singers</h1>
                         <Link href={`${pathname}/singers`}>Show all</Link>
                     </header>
                     <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>
-                        {searchData.singers.map((item, index) => (
+                        {searchData.singers.slice(0, columnCount).map((item, index) => (
                             <div
                                 className="card"
                                 key={index}
-                                ref={cardRef}
                                 onClick={() => router.push(`/@${item.username}`)}
                             >
                                 <div className="images">
@@ -319,17 +298,16 @@ export default function HomeSearching() {
                         ))}
                     </div>
                 </article>}
-                {searchData.albums.length > 0 && <article style={{ height: articleHeight }} className="column">
+                {searchData.albums.length > 0 && <article className="column">
                     <header>
                         <h1>Albums</h1>
                         <Link href={`${pathname}/albums`}>Show all</Link>
                     </header>
                     <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>
-                        {searchData.albums.map((item, index) => (
+                        {searchData.albums.slice(0, columnCount).map((item, index) => (
                             <div
                                 className='card'
                                 key={index}
-                                ref={cardRef}
                                 onClick={() => router.push(`/album/${item._id}`)}
                             >
                                 <div className="images">
@@ -352,17 +330,16 @@ export default function HomeSearching() {
                         ))}
                     </div>
                 </article>}
-                {searchData.playlists.length > 0 && <article style={{ height: articleHeight }} className="column">
+                {searchData.playlists.length > 0 && <article className="column">
                     <header>
                         <h1>Playlists</h1>
                         <Link href={`${pathname}/playlists`}>Show all</Link>
                     </header>
                     <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>
-                        {searchData.playlists.map((item, index) => (
+                        {searchData.playlists.slice(0, columnCount).map((item, index) => (
                             <div
                                 className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
                                 key={index}
-                                ref={cardRef}
                                 onClick={() => router.push(`/album/${item._id}`)}
                             >
                                 <div className="images">
@@ -421,17 +398,16 @@ export default function HomeSearching() {
                         ))}
                     </div>
                 </article>}
-                {searchData.profiles.length > 0 && <article style={{ height: articleHeight }} className="column">
+                {searchData.profiles.length > 0 && <article className="column">
                     <header>
                         <h1>Profiles</h1>
                         <Link href={`${pathname}/profiles`}>Show all</Link>
                     </header>
                     <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>
-                        {searchData.profiles.map((item, index) => (
+                        {searchData.profiles.slice(0, columnCount).map((item, index) => (
                             <div
                                 className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
                                 key={index}
-                                ref={cardRef}
                                 onClick={() => router.push(`/@${item.username}`)}
                             >
                                 <div className="images" >

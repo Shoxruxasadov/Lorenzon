@@ -41,7 +41,7 @@ main#home-library {
         min-width: 150px;
         min-height: 225px;
         -webkit-box-flex: 1;
-        background: #0a0d12;
+        background: var(--background-card);
         isolation: isolate;
         padding: 12px;
         border-radius: 8px;
@@ -58,8 +58,9 @@ main#home-library {
           content: "";
           width: 50%;
           height: 180%;
-          background: $analog;
           transform: rotate(45deg);
+          background: var(--analog-color);
+          box-shadow: 0 0 12px var(--analog-color);
         }
 
         @keyframes animate {
@@ -81,7 +82,7 @@ main#home-library {
           transform: translate(-50%, -50%);
           z-index: 1;
           border-radius: 4px;
-          background: #0a0d12;
+          background: var(--background-card);
         }
 
         &:hover {
@@ -180,7 +181,7 @@ main#home-library {
             z-index: 2;
             width: 100%;
             border-radius: 8px;
-            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             filter: blur(10px);
 
@@ -215,11 +216,11 @@ main#home-library {
             text-overflow: ellipsis;
             padding-bottom: 4px;
             overflow: hidden;
-            color: $text;
+            color: var(--text-color);
           }
           p {
             font-size: 12px;
-            color: $bate;
+            color: var(--medium-color);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

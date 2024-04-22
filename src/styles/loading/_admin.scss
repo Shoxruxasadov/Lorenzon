@@ -1,13 +1,9 @@
-$main: #582ddd;
-$text: #f3f3f3;
-$back: #080b0f;
-
 main#admin-loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $back;
-  color: $text;
+  background: var(--background-color);
+  color: var(--text-color);
 
   .loader {
     transform: rotateZ(45deg);
@@ -27,12 +23,16 @@ main#admin-loading {
       width: inherit;
       height: inherit;
       border-radius: 50%;
-      transform: rotateX(64deg);
       animation: 1s admin-loading linear infinite;
     }
 
+    &:before {
+      color: var(--text-color);
+      transform: rotateX(64deg);
+    }
+
     &:after {
-      color: $main;
+      color: var(--main-color);
       transform: rotateY(64deg);
       animation-delay: 0.4s;
     }
@@ -84,4 +84,3 @@ main#admin-loading {
     }
   }
 }
-

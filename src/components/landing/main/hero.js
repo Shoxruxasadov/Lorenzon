@@ -2,9 +2,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import useLocalStorage from "../../../hooks/useLocalStorage";
+import { useTheme } from "next-themes";
 
 export default function Hero() {
   const [accounts, setAccounts] = useLocalStorage("accounts", "null");
+  const { resolvedTheme } = useTheme()
+
+  let regular
+  switch (resolvedTheme) {
+    case 'light':
+      regular = '/landing/hero/regular.black.webp'
+      break
+    case 'dark':
+      regular = '/landing/hero/regular.white.webp'
+      break
+    default:
+      regular = '/landing/hero/regular.white.webp'
+      break
+  }
+
+  let spotify
+  switch (resolvedTheme) {
+    case 'light':
+      spotify = '/landing/hero/spotify.black.webp'
+      break
+    case 'dark':
+      spotify = '/landing/hero/spotify.white.webp'
+      break
+    default:
+      spotify = '/landing/hero/spotify.white.webp'
+      break
+  }
 
   return (
     <section id="hero">
@@ -55,8 +83,8 @@ export default function Hero() {
                 <p>Collaboration Partners</p>
               </div>
               <div className="brands">
-                <Image src="/landing/hero/regular.webp" alt="regular" width={80} height={30} />
-                <Image src="/landing/hero/spotify.webp" alt="spotify" width={80} height={30} />
+                <Image src={regular} alt="regular" width={80} height={30} />
+                <Image src={spotify} alt="spotify" width={80} height={30} />
               </div>
             </div>
           </div>

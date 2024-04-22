@@ -64,11 +64,6 @@
         margin-top: 10px;
       }
 
-      .signup {
-        background: $main;
-        border-color: $main;
-      }
-
       a {
         padding: 0 36px;
         height: 48px;
@@ -78,16 +73,17 @@
         display: inline-block;
 
         background: transparent;
-        border: 1px solid $text;
-        color: $text;
+        border: 1px solid var(--text-color);
+        color: var(--text-color);
 
         text-align: center;
         line-height: 48px;
         transition: 0.2s ease;
 
         &:hover {
-          background: $click;
-          border: 1px solid $click;
+          background: var(--main-click-color);
+          border: 1px solid var(--main-click-color);
+          color: white;
         }
 
         @media (max-width: 780px) {
@@ -156,7 +152,7 @@
         top: 0;
         left: 0;
         z-index: 2;
-        background: linear-gradient(to bottom, transparent, $back 92%);
+        background: linear-gradient(to bottom, transparent, var(--background-color) 92%);
       }
 
       img {
@@ -167,7 +163,7 @@
       .blur {
         width: 50px;
         height: 50px;
-        background: $main;
+        background: var(--main-color);
         border-radius: 50%;
         filter: blur(50px);
         position: absolute;

@@ -1,8 +1,3 @@
-$main: #582ddd;
-$text: #f3f3f3;
-$back: #080b0f;
-$hero-click: #6940ee;
-
 main#home-user {
   .profile {
     display: flex;
@@ -17,7 +12,7 @@ main#home-user {
 
     .user-image {
       border-radius: 50%;
-      border: 10px solid $back;
+      border: 10px solid var(--background-color);
       filter: blur(10px);
 
       &.unblur {
@@ -112,7 +107,7 @@ main#home-user {
         transition: 0.2s;
 
         &.active {
-          background: $analog !important;
+          background: var(--analog-color) !important;
 
           span.in {
             display: none !important;
@@ -126,7 +121,7 @@ main#home-user {
         }
 
         &:hover {
-          background: $view;
+          background: var(--viewer-color);
 
           .index {
             span.in {
@@ -142,7 +137,7 @@ main#home-user {
         }
 
         &.selected {
-          background: $view;
+          background: var(--viewer-color);
         }
 
         .index {
@@ -152,7 +147,7 @@ main#home-user {
           justify-content: center;
 
           span.in {
-            color: $bate;
+            color: var(--madium-color);
           }
 
           .icon {
@@ -183,7 +178,7 @@ main#home-user {
               width: 2px;
               border-radius: 1rem;
               transform: scaleY(0.4);
-              background-color: $main;
+              background-color: var(--main-color);
               animation-duration: 1.2s;
               animation-iteration-count: infinite;
               animation-timing-function: ease-in-out;
@@ -278,7 +273,7 @@ main#home-user {
 
               p {
                 font-size: 14px;
-                color: $bate;
+                color: var(--madium-color);
               }
             }
           }
@@ -288,7 +283,7 @@ main#home-user {
             text-align: end;
 
             p {
-              color: $bate;
+              color: var(--madium-color);
             }
           }
 
@@ -298,7 +293,7 @@ main#home-user {
             text-align: end;
 
             p {
-              color: $bate;
+              color: var(--madium-color);
             }
           }
         }

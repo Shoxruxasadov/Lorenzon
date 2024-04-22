@@ -2,27 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-// ===== MAIN COLORS ===== \\
-$main: #582ddd;
-$text: #f3f3f3;
-$bate: #99999f;
-$view: #0d1219;
-$back: #080b0f;
-// HERO PAGE ----------
-$hero-click: #6940ee;
-$hero-header: #222222;
-$hero-toggle: #222222;
-// LOGIN PAGE ----------
-$login-base: #24242a;
-$login-prov: #222222;
-$login-bor: #333333;
-$login-inp: #171717;
-// ADMIN PAGE ----------
-$admin-tabhead: #121822;
-$admin-inpbor: #282729;
-$admin-butowe: #ffffff;
-$admin-line: #3b393d;
-$admin-shadbar: #00000026;
+:root {
+  --main-color: #582ddd;
+  --main-click-color: #6940ee;
+  --text-color: #f3f3f3;
+  --medium-color: #f3f3f3a3;
+
+  --background-color: #080b0f;
+  --medium-back-color: #080b0fa3;
+  --slow-back-color: #080b0fbb;
+  --background-card: #0a0d12;
+  --viewer-color: #0c1016;
+  --analog-color: #0e1520;
+  --hover-color: #141e30;
+}
+
+[data-theme='light']:root {
+  --main-color: #582ddd;
+  --main-click-color: #6940ee;
+  --text-color: #080b0f;
+  --medium-color: #080b0fa3;
+
+  --background-color: #ffffff;
+  --medium-back-color: #ffffffa3;
+  --slow-back-color: #ffffff50;
+  --background-card: #f9f9f9;
+  --viewer-color: #f3f3f3;
+  --analog-color: #e5e4e7;
+  --hover-color: #dddae2;
+}
+
+// // HERO PAGE ----------
+// $hero - click: #6940ee;
+// $hero - header: #222222;
+// $hero - toggle: #222222;
+// // LOGIN PAGE ----------
+// $login - base: #24242a;
+// $login - prov: #222222;
+// $login - bor: #333333;
+// $login - inp: #171717;
+// // ADMIN PAGE ----------
+// $admin - tabhead: #121822;
+// $admin - inpbor: #282729;
+// $admin - butowe: #ffffff;
+// $admin - line: #3b393d;
+// $admin - shadbar: #00000026;
 
 // ===== FONT FACE ===== \\
 @font-face {
@@ -76,7 +100,7 @@ textarea {
 }
 
 ::selection {
-  background: #f3f3f30a;
+  background: rgba($color: #6940ee, $alpha: 0.15);
 }
 ::-webkit-scrollbar {
   all: unset;
@@ -87,22 +111,8 @@ textarea {
 body {
   font-family: Santello, sans-serif;
   scroll-behavior: smooth;
-  background: $back;
-  color: $text;
-}
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 @layer utilities {
@@ -111,8 +121,8 @@ body {
   }
 }
 
-#__next{
+#__next {
   min-height: 100vh;
-  background: $back;
-  color: $text;
+  background: var(--background-color);
+  color: var(--text-color);
 }

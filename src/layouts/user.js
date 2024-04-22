@@ -1,12 +1,13 @@
-import useLocalStorage from '../hooks/useLocalStorage'
-import HomeLayout from './home'
-import Banner from './banner'
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Image from 'next/image'
-import { useRouter } from 'next/navigation';
-import GetAudioDuration from '../hooks/useDuration';
-import { useMusic, useStore } from '../store/zustand';
 import axios from 'axios';
+
+import { useMusic, useStore } from '../store/zustand';
+import useLocalStorage from '../hooks/useLocalStorage'
+import GetAudioDuration from '../hooks/useDuration';
+import HomeLayout from './home'
+import Banner from './banner'
 
 export default function UserLayout({ user }) {
     const myuser = useStore((state) => state.user);
@@ -19,12 +20,11 @@ export default function UserLayout({ user }) {
     const currentSong = useMusic((state) => state.currentMusic);
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
     const [loadedImage, setLoadedImage] = useState(false);
-    const router = useRouter()
 
     return (
         <HomeLayout page="home-user" title={user.name}>
             {(user.banner || user._id == myuser._id) && <Banner src={user.banner || "empty"} />}
-            <div className={`profile ${(user.banner || user._id == myuser.id) ? "active" : ""}`}>
+            <div className={`profile ${(user.banner || user._id == myuser._id) ? "active" : ""}`}>
                 <Image
                     src={user.image || "/other/unknown.user.webp"}
                     alt="user"

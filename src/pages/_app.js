@@ -4,11 +4,15 @@ import { ToastContainer } from "react-toastify";
 import { SessionProvider } from 'next-auth/react';
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
-import { createGlobalStyle } from 'styled-components'
-import { ThemeProvider } from 'next-themes' // https://github.com/pacocoursey/next-themes
+import { ThemeProvider } from 'next-themes'
+import axios from "axios";
+
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+const queryClient = new QueryClient()
 
 import useLocalStorage from "../hooks/useLocalStorage";
-import { useMusic, useStore } from "../store/zustand";
+import { useHomeModels, useMusic, useStore } from "../store/zustand";
 import Wait from "../components/loading/wait"
 
 import "..//styles/global.scss" // global
@@ -22,11 +26,10 @@ import "..//styles/auth/account.scss"; // account
 import "..//styles/admin/admin.scss"; // admin
 import 'rodal/lib/rodal.css'; // rodal
 import 'aos/dist/aos.css'; // aos animation
-import axios from "axios";
 
 export default function MyApp({ Component, pageProps, }) {
-    const getUserFromToken = useStore(state => state.getUserFromToken);
     const user = useStore(state => state.user);
+    const getUserFromToken = useStore(state => state.getUserFromToken);
     const [isLoading, setLoading] = useState(true)
     const [token, setToken] = useLocalStorage("token", "null")
     const router = useRouter()
@@ -53,35 +56,56 @@ export default function MyApp({ Component, pageProps, }) {
     const setPercentage = useMusic((state) => state.setPercentage);
     const randomInteger = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+    const SET_RECOMMENDED_SONGS = useHomeModels((state) => state.SET_RECOMMENDED_SONGS);
+    const SET_YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.SET_YOUR_FAVORITE_SINGERS);
+
     useEffect(() => {
-        let variablePlaying = !isPlaying
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/random`).then(({ data }) => SET_RECOMMENDED_SONGS(data));
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get/random`).then(({ data }) => SET_YOUR_FAVORITE_SINGERS(data));
+
+        let variablePlaying = isPlaying;
         const handleSpacePress = ({ keyCode }) => {
-            if (keyCode === 32) {
-                variablePlaying ? variablePlaying = false : variablePlaying = true
-                setPlaying(variablePlaying)
+            if (keyCode === 32 || keyCode === 179) {
+                variablePlaying ? variablePlaying = false : variablePlaying = true;
+                setPlaying(variablePlaying);
             }
         }
 
-        if (token.id && !user._id) getUserFromToken(token, router, setLoading)
+        if (token === 'null') { setLoading(false); router.push('/'); };
+        if (token.id && !user._id) getUserFromToken(token, router).finally(() => setLoading(false));
         document.addEventListener("keyup", handleSpacePress);
         return () => { document.removeEventListener("keyup", handleSpacePress); };
     }, [])
 
     useEffect(() => {
-        if (user.lastSong) {
-            setCurrentMusic(user.lastSong[0])
-            setAllSongs(user.recently)
+        if (user.lastSong && user.lastSong.length > 0) {
+            setCurrentMusic(user.lastSong[0]);
+            setAllSongs(user.recently);
         }
     }, [user])
 
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return
-        isPlaying ? audioElem.current.play() : audioElem.current.pause()
+        isPlaying ? audioElem.current.play() : audioElem.current.pause();
     }, [isPlaying, render])
 
     useEffect(() => {
         if (!audioElem.current || !currentSong.song) return
         audioElem.current.currentTime = readTime;
+
+        const handleSpacePress = ({ keyCode }) => {
+            if (keyCode === 37) {
+                if (!audioElem.current || !currentSong.song) return
+                audioElem.current.currentTime = audioElem.current.currentTime - 2;
+            }
+            if (keyCode === 39) {
+                if (!audioElem.current || !currentSong.song) return
+                audioElem.current.currentTime = audioElem.current.currentTime + 2;
+            }
+        }
+
+        document.addEventListener("keyup", handleSpacePress);
+        return () => { document.removeEventListener("keyup", handleSpacePress); };
     }, [readTime, readRender])
 
     useEffect(() => {
@@ -134,24 +158,14 @@ export default function MyApp({ Component, pageProps, }) {
         setDurationSec(time)
     }
 
-    const GlobalStyle = createGlobalStyle`
-      :root {
-        --fg: #000;
-        --bg: #fff;
-      }
-
-      [data-theme="dark"] {
-        --fg: #fff;
-        --bg: #000;
-      }
-    `
-
     if (isLoading) return <Wait />
     return <>
         <SessionProvider session={pageProps.session}>
-            <GlobalStyle />
             <ThemeProvider>
-                <Component {...pageProps} />
+                <QueryClientProvider client={queryClient}>
+                    <Component {...pageProps} />
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </QueryClientProvider>
             </ThemeProvider>
             <ToastContainer />
             <SpeedInsights />

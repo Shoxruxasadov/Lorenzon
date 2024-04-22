@@ -1,11 +1,6 @@
-$main: #582ddd;
-$text: #f3f3f3;
-$back: #080b0f;
-$click: #6940ee;
-
 #landing {
-  background: $back;
-  color: $text;
+  background: var(--background-color);
+  color: var(--text-color);
 
   .container {
     max-width: 1360px;
@@ -17,10 +12,10 @@ $click: #6940ee;
   header {
     width: 100%;
     padding: 16px 0;
-    background: #080b0faa;
+    background: var(--medium-back-color);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
-    border-bottom: 1px solid #080b0f1a;
+    border-bottom: 1px solid var(--medium-back-color);;
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -35,7 +30,7 @@ $click: #6940ee;
 
       .ellipse {
         opacity: 0.4;
-        background: $main;
+        background: var(--main-color);
         border-radius: 50%;
         filter: blur(40px);
         transform: translateX(3vw);
@@ -84,7 +79,7 @@ $click: #6940ee;
               content: "";
               width: 0%;
               height: 2px;
-              background: $main;
+              background: var(--main-color);
               position: absolute;
               bottom: -2px;
               left: 0;
@@ -123,8 +118,8 @@ $click: #6940ee;
             white-space: nowrap;
 
             background: transparent;
-            border: 1px solid $text;
-            color: $text;
+            border: 1px solid var(--text-color);
+            color: var(--text-color);
 
             text-align: center;
             line-height: 38px;
@@ -132,8 +127,9 @@ $click: #6940ee;
             cursor: not-allowed;
 
             &:hover {
-              background: $click;
-              border: 1px solid $click;
+              background: var(--main-click-color);
+              border: 1px solid var(--main-click-color);
+              color: white;
             }
           }
 
@@ -194,7 +190,7 @@ $click: #6940ee;
           width: 42px;
           height: 42px;
           background: transparent;
-          box-shadow: 0 5px 10px #00000012;
+          box-shadow: 0 5px 10px var(--hover-color);
           border-radius: 0.5em;
           position: relative;
           overflow: hidden;
@@ -207,7 +203,7 @@ $click: #6940ee;
             position: absolute;
             width: 25px;
             height: 3px;
-            background: $text;
+            background: var(--text-color);
             border-radius: 4px;
             transition: 0.4s;
             cursor: pointer;
@@ -236,7 +232,7 @@ $click: #6940ee;
       display: inline-block;
       height: 3px;
       width: 100%;
-      background: #0a0d12;
+      background: var(--viewer-color);
       margin: 120px 0;
 
       @media (max-width: 400px) {
@@ -261,7 +257,7 @@ $click: #6940ee;
   footer {
     width: 100%;
     padding: 40px 0 60px;
-    background: $back;
+    background: var(--background-color);
     overflow: hidden;
 
     hr {
@@ -352,7 +348,7 @@ $click: #6940ee;
             align-items: center;
             height: 30px;
             overflow: hidden;
-            transition: 0.2s ease;
+            transition: transform 0.2s ease;
             transform: translateX(-5px);
             cursor: pointer;
 
@@ -387,7 +383,7 @@ $click: #6940ee;
               justify-content: center;
               align-items: center;
               gap: 20px;
-              background-color: rgb(41, 41, 41);
+              background-color: var(--viewer-color);
               margin-right: 12px;
 
               &:last-of-type {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import Loading from "../../components/loading/home";
@@ -8,19 +9,19 @@ import UserLayout from "../../layouts/user";
 
 export default function User() {
     const pathname = usePathname()
-    const [user, setUser] = useState({})
-    const [isLoading, setLoading] = useState(true)
-    const username = pathname && pathname.substring(2)
 
-    const getUser = async () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${username}`).then(({ data }) => setUser(data[0])).catch((res) => setUser(undefined)).finally(() => setLoading(false));
+    const { data: user, isLoading, isError, isSuccess, refetch } = useQuery({
+        queryKey: "user",
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${pathname.substring(2)}`).then(({ data }) => data[0]),
+    })
 
     useEffect(() => {
-        if (pathname) getUser()
-    }, [username])
+        if (pathname) refetch()
+    }, [pathname])
 
     if (isLoading) return <Loading />
-    if (!user) return <Error />
-    if (pathname.substring(1).startsWith("@")) return <UserLayout user={user} />
+    if (isError) return <Error />
+    if (pathname.substring(1).startsWith("@") && isSuccess && user) return <UserLayout user={user} />
     return <Error />
 }
 

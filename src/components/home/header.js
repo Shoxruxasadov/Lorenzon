@@ -39,7 +39,7 @@ export default function MainHeader() {
                 <Link href={`/${back()}`} name="back"><FiChevronLeft /></Link>
                 <div className="path">
                     <p className={pathname && (pathname.split('/').length == 2 || pathname.startsWith('/album') || pathname.startsWith('/playlist')) ? "active" : ""}><span className={pathname && pathname.split('/')[1].startsWith("@") ? "username" : "page"}>{pathname && pathname.split('/')[1]}</span></p>
-                    {pathname != '/album' || pathname != '/playlist' && (pathname && pathname.split('/').map((p, i) => (
+                    {pathname && !pathname.startsWith('/album') && !pathname.startsWith('/playlist') && (pathname.split('/').map((p, i) => (
                         (p && i > 1) && <p key={i} className={pathname.split('/').length - 1 == i ? "active" : ""}><FiChevronRight /><span>{p.replaceAll("%20", " ")}</span></p>
                     )))}
                 </div>

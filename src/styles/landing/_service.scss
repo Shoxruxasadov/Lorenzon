@@ -55,9 +55,9 @@
     .card {
       width: 30%;
       height: 350px;
-      border: 1px solid #0a0d12;
-      box-shadow: 0 0 10px #0a0d12a8;
-      background: #0a0d12;
+      border: 1px solid var(--analog-color);
+      box-shadow: 0 0 10px var(--hover-color);
+      background: var(--viewer-color);
       border-radius: 16px;
 
       display: flex;

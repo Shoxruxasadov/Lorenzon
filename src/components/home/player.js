@@ -9,23 +9,23 @@ import { BsFullscreen, BsFullscreenExit } from "react-icons/bs";
 import axios from 'axios';
 
 const RedingTime = styled.div`
-    transition: 0.2s;
+    transition: 0.2s linear;
     &::before{
-        transition: width 0.2s;
+        transition: width 0.2s linear;
         width: ${props => props.percentage}%!important;
     } 
     &::after{
-        transition: left 0.2s;
+        transition: left 0.2s linear;
         left: ${props => props.percentage}%!important;
     }`;
 const VolumeControl = styled.div`
-    transition: 0.15s;
+    transition: 0.15s linear;
     &::before{
-        transition: width 0.15s;
+        transition: width 0.15s linear;
         width: ${props => props.volume}%!important;
     } 
     &::after{
-        transition: left 0.15s;
+        transition: left 0.15s linear;
         left: ${props => props.volume}%!important;
     }`;
 

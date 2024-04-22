@@ -1,12 +1,11 @@
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from 'next-themes'
 import { signOut } from "next-auth/react";
 
-import useLocalStorage from "../../hooks/useLocalStorage";
 import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { info } from "../../utils/toastify";
 
 import { PiUserSwitch, PiUserCircle, PiSignOut, PiFeather, PiGear, PiGavel, PiMoon, PiSun, PiDevices, PiCheckBold } from "react-icons/pi";
@@ -16,19 +15,21 @@ import { MdLocalLibrary } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import { TbPlaylistAdd } from "react-icons/tb";
 
-import { MdOutlineLyrics, MdLyrics } from "react-icons/md";
-import { BiCommentDetail, BiSolidCommentDetail } from "react-icons/bi";
-import { PiQueue, PiQueueFill } from "react-icons/pi";
+import { MdLyrics } from "react-icons/md";
+import { BiSolidCommentDetail } from "react-icons/bi";
+import { PiQueueFill } from "react-icons/pi";
 import axios from "axios";
 
 export default function Content() {
     const user = useStore((state) => state.user);
+    const getUserFromToken = useStore(state => state.getUserFromToken);
     const setVerifyToken = useStore((state) => state.setVerifyToken);
+    const setLoading = useStore((state) => state.setLoading);
     const [token, setToken] = useLocalStorage("token", "null")
     const [userNavigate, setUserNavigate] = useState(false);
     const [loadedImage, setLoadedImage] = useState(false);
     const [navigate, setNavigate] = useState("");
-    const { theme, setTheme, resolvedTheme } = useTheme()
+    const { theme, setTheme } = useTheme()
     const router = useRouter();
 
     const songs = useMusic((state) => state.musics);
@@ -45,17 +46,17 @@ export default function Content() {
     const comment = useHomeDetails((state) => state.comment);
     const queue = useHomeDetails((state) => state.queue);
 
-    // console.log(resolvedTheme);
-
     function switchAccount() {
         setToken("null")
+        setPlayPouse(false)
         setVerifyToken(false)
         router.push('/account')
     }
 
     function logout() {
-        setVerifyToken(false)
         setToken("null")
+        setPlayPouse(false)
+        setVerifyToken(false)
         signOut()
     }
 
@@ -134,7 +135,7 @@ export default function Content() {
                     <IoIosArrowBack />
                 </div>
             </div>
-            <div className={`nav ${userNavigate ? "active" : ""} ${user && user.role === "admin" ? "admin" : ""} ${navigate}`} >
+            <div className={`nav ${userNavigate ? "active" : ""} ${user && (user.role == "admin" || user.role === "singer") ? "admin" : ""} ${navigate}`} >
                 <div className="lists">
                     <div className="list" onClick={() => switchAccount()}>
                         <PiUserSwitch />
@@ -170,6 +171,12 @@ export default function Content() {
                             <p>Admin Panel</p>
                         </div>
                     )}
+                    {user && user.role === "singer" && (
+                        <div className="list" onClick={() => router.push('/singer')}>
+                            <PiGavel />
+                            <p>Singer Panel</p>
+                        </div>
+                    )}
                     <div className="list error" onClick={() => router.push('/feedback')}>
                         <PiFeather />
                         <p>Send Feedback</p>
@@ -182,20 +189,20 @@ export default function Content() {
                         <p>Theme</p>
                     </div>
                     <hr />
-                    <div className="list selecting" onChange={() => setTheme('dark')}>
+                    <div className={`list${theme == 'dark' ? ' selecting' : ''}`} onClick={() => setTheme('dark')}>
                         <PiMoon />
                         <p>Dark theme</p>
-                        <PiCheckBold className="end" />
+                        {theme == 'dark' && <PiCheckBold className="end" />}
                     </div>
-                    <div className="list error" onClick={() => { info("Not available yet!"); setTheme('light') }} >
+                    <div className={`list${theme == 'light' ? ' selecting' : ''}`} onClick={() => setTheme('light')} >
                         <PiSun />
                         <p>Light theme</p>
-                        <BsPatchExclamationFill className="end" />
+                        {theme == 'light' && <PiCheckBold className="end" />}
                     </div>
-                    <div className="list error" onClick={() => { info("Not available yet!"); setTheme('system') }} >
+                    <div className={`list${theme == 'system' ? ' selecting' : ''}`} onClick={() => setTheme('system')} >
                         <PiDevices />
                         <p>Device theme</p>
-                        <BsPatchExclamationFill className="end" />
+                        {theme == 'system' && <PiCheckBold className="end" />}
                     </div>
                 </div>
                 <div className="language-lists">
@@ -241,7 +248,6 @@ export default function Content() {
                                     if (currentSong.song != item.song) setReadTime(0)
                                     axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
                                 }
-
                             }}>
                                 <img alt={item.name} src={item.image} />
                                 {
@@ -295,61 +301,34 @@ export default function Content() {
                         <MdLocalLibrary />
                         <h4>Library</h4>
                     </div>
-                    <button><TbPlaylistAdd /></button>
+                    <button onClick={() => {
+                        setLoading(true)
+                        axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists`, {
+                            name: `My playlist № ${user.playlists.length + 1}`,
+                            creatorId: user._id,
+                            creatorName: user.name,
+                            creatorUsername: user.username,
+                            image: null,
+                            description: null,
+                            subscribers: [user._id],
+                            songs: [],
+                        }).then(() => getUserFromToken(token, router)).catch((res) => console.log(res)).finally(() => setLoading(false))
+                    }}><TbPlaylistAdd /></button>
                 </header>
                 <div className="content">
-                    {/* {user.playlists.length > 0 ? (
+                    {user.playlists && user.playlists.length > 0 ? (
                         user.playlists.map((playlist, i) => (
                             <div key={i} className="card" onClick={() => router.push(`/playlist/${playlist._id}`)}>
                                 <div className="image">
-                                    <img alt={playlist.name} src={playlist.image} />
+                                    <img alt={playlist.name} src={playlist.image || '/other/unknown.music.webp'} />
                                 </div>
                                 <div className="title">
                                     <h4>{playlist.name}</h4>
-                                    <p>Playlist • {playlist.creator.name}</p>
+                                    <p>Playlist • {playlist.creatorName}</p>
                                 </div>
                             </div>
                         ))
-                    ) : <p className="dontHave">You don't have a playlist!</p>} */}
-
-                    {/* THIS DOWN DELETED */}{/* THIS DOWN DELETED */}{/* THIS DOWN DELETED */}{/* THIS DOWN DELETED */}
-
-                    <div className="card">
-                        <div className="image">
-                            <img alt="library" src="https://firebasestorage.googleapis.com/v0/b/lorezoz.appspot.com/o/playlist%2Fphonk.jpg?alt=media&token=ae6bf60c-79a6-432c-9e69-a14106405388" />
-                        </div>
-                        <div className="title">
-                            <h4>Phonk</h4>
-                            <p>Playlist • Lorenzon</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="image">
-                            <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa343cfa7f56864a5314a40c755" />
-                        </div>
-                        <div className="title">
-                            <h4>💯🔱PHONK 🔱💯</h4>
-                            <p>Playlist • JORDI GR</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="image">
-                            <img alt="library" src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84dfc1b943196eebfb0c4534f0" />
-                        </div>
-                        <div className="title">
-                            <h4>PHONK AGRESIVO 💀</h4>
-                            <p>Playlist • 𝕮𝖆𝖒𝖎𝖑𝖔ᴳᵒᵈ〗</p>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="image">
-                            <img alt="library" src="https://i2o.scdn.co/image/ab67706c0000cfa31000fa118c9244c22d96c579" />
-                        </div>
-                        <div className="title">
-                            <h4>phonk 💀</h4>
-                            <p>Playlist • theonlyMajed</p>
-                        </div>
-                    </div>
+                    ) : <p className="dontHave">You don't have a playlist!</p>}
                 </div>
             </article>}
         </aside>

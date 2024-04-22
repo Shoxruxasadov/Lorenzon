@@ -1,9 +1,11 @@
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Sidebar() {
     const pathname = usePathname()
+    const { resolvedTheme } = useTheme()
     const mainLinks = [
         { title: "Home", path: "/home", icon: (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className="home-svg"><path d="M20.83 8.00999L14.28 2.76999C13 1.74999 11 1.73999 9.73002 2.75999L3.18002 8.00999C2.24002 8.75999 1.67002 10.26 1.87002 11.44L3.13002 18.98C3.42002 20.67 4.99002 22 6.70002 22H17.3C18.99 22 20.59 20.64 20.88 18.97L22.14 11.43C22.32 10.26 21.75 8.75999 20.83 8.00999ZM12.75 18C12.75 18.41 12.41 18.75 12 18.75C11.59 18.75 11.25 18.41 11.25 18V15C11.25 14.59 11.59 14.25 12 14.25C12.41 14.25 12.75 14.59 12.75 15V18Z"></path></svg>) },
         { title: "Discover", path: "/discover", icon: (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28 28" fill="none" className="discover-svg"><path d="M23.9999 9.99991C23.9999 15.5229 19.5229 19.9999 13.9999 19.9999C8.47688 19.9999 3.99988 15.5229 3.99988 9.99991C3.99988 4.47791 8.47688 -9.15527e-05 13.9999 -9.15527e-05C19.5229 -9.15527e-05 23.9999 4.47791 23.9999 9.99991Z"></path><path d="M17.8598 6.7049L16.2398 11.8249C16.1798 12.0349 16.0098 12.2049 15.7998 12.2659L10.6998 13.8649C10.3598 13.9759 10.0298 13.6449 10.1398 13.3049L11.7398 8.1749C11.7998 7.9649 11.9698 7.8049 12.1798 7.7349L17.2998 6.1349C17.6498 6.0249 17.9698 6.3549 17.8598 6.7049Z"></path></svg>) },
@@ -18,10 +20,23 @@ export default function Sidebar() {
         { title: "Liked Songs", path: "/favorite", icon: (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none" className="favorite-svg"><path d="M9.77596 18.8374C7.49292 17.4273 5.37062 15.7645 3.44789 13.8796C2.0905 12.5338 1.05386 10.8905 0.417162 9.07526C-0.72047 5.53523 0.603805 1.48948 4.30111 0.288397C6.25262 -0.324469 8.37505 0.0517545 10.007 1.29983C11.6396 0.0531503 13.7614 -0.322951 15.713 0.288397C19.4103 1.48948 20.7435 5.53523 19.6058 9.07526C18.9743 10.8888 17.9438 12.5319 16.5929 13.8796C14.6684 15.7625 12.5463 17.4251 10.2648 18.8374L10.0159 19L9.77596 18.8374Z"></path><path d="M10.0109 19L9.77598 18.8374C7.49013 17.4274 5.36487 15.7647 3.43902 13.8796C2.0752 12.5356 1.03238 10.8922 0.390519 9.07526C-0.738225 5.53523 0.58605 1.48948 4.28335 0.288397C6.23486 -0.324468 8.38528 0.0520434 10.0109 1.31057V19Z"></path><path d="M16.2304 6.99922C16.0296 6.98629 15.8425 6.8859 15.7131 6.72157C15.5836 6.55723 15.5232 6.3434 15.5459 6.13016C15.5677 5.4278 15.168 4.78851 14.5517 4.53977C14.1609 4.43309 13.9243 4.00987 14.022 3.59249C14.1148 3.18182 14.4993 2.92647 14.8858 3.0189C14.9346 3.027 14.9816 3.04468 15.0244 3.07105C16.2601 3.54658 17.0601 4.82641 16.9965 6.22576C16.9944 6.43785 16.9117 6.63998 16.7673 6.78581C16.6229 6.93164 16.4291 7.00866 16.2304 6.99922Z"></path></svg>) },
     ]
 
+    let src
+    switch (resolvedTheme) {
+        case 'light':
+            src = '/lorenzon/logo.svg'
+            break
+        case 'dark':
+            src = '/lorenzon/white.svg'
+            break
+        default:
+            src = '/lorenzon/logo.svg'
+            break
+    }
+
     return (
         <nav id="sidebar">
-            <Link href={"/"} className="logo">
-                <Image src="/lorenzon/white.svg" width={170} height={40} alt="Lorenzon" />
+            <Link href={'/'} className="logo">
+                <Image src={src} width={170} height={40} alt="Lorenzon" />
             </Link>
             <div className="category">
                 <div className="list">

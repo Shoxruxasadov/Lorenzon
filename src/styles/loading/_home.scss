@@ -1,15 +1,11 @@
-$main: #582ddd;
-$text: #f3f3f3;
-$back: #080b0f;
-
 main#home-loading {
   min-width: 630px;
   width: calc(100% - 540px);
   height: calc(100svh - 90px);
-  background: $back;
-  color: $text;
+  background: var(--background-color);
+  color: var(--text-color);
 
-  .waiting{
+  .waiting {
     width: 100%;
     height: calc(100svh - 280px);
     display: flex;
@@ -23,7 +19,7 @@ main#home-loading {
     border-radius: 50%;
     width: 64px;
     height: 64px;
-    color: #fff;
+    color: var(--text-color);
 
     &:before,
     &:after {
@@ -39,8 +35,13 @@ main#home-loading {
       animation: 1s home-loading linear infinite;
     }
 
+    &:before {
+      color: var(--text-color);
+      transform: rotateX(64deg);
+    }
+
     &:after {
-      color: $main;
+      color: var(--main-color);
       transform: rotateY(64deg);
       animation-delay: 0.4s;
     }
@@ -92,4 +93,3 @@ main#home-loading {
     }
   }
 }
-

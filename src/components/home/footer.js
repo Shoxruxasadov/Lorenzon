@@ -1,9 +1,24 @@
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-
 import { FaXTwitter, FaInstagram, FaFacebook } from "react-icons/fa6";
 
 export default function MainFooter() {
+  const { resolvedTheme } = useTheme()
+
+  let src
+  switch (resolvedTheme) {
+    case 'light':
+      src = '/lorenzon/black.svg'
+      break
+    case 'dark':
+      src = '/lorenzon/white.svg'
+      break
+    default:
+      src = '/lorenzon/white.svg'
+      break
+  }
+
   return (
     <footer id="main-footer">
       <div className="container">
@@ -36,7 +51,7 @@ export default function MainFooter() {
           </div>
           <div className="info">
             <Link href={"/@lorenzon"} className="logo">
-              <Image src="/lorenzon/white.svg" width={136} height={32} alt="Lorenzon" />
+              <Image src={src} width={136} height={32} alt="Lorenzon" />
             </Link>
             <div className="social">
               <a href="https://www.instagram.com/lorenzon.uz" target="_blank" rel="noreferrer" name="instagram"><FaInstagram /></a>

@@ -10,6 +10,7 @@ import MainFooter from '../components/home/footer';
 import MainHeader from '../components/home/header';
 import { useStore } from '../store/zustand';
 import Root from './root'
+import RodalLoading from '../components/loading/rodal';
 
 export default function HomeLayout({ children, page, title }) {
     const getUserFromToken = useStore(state => state.getUserFromToken);
@@ -19,8 +20,8 @@ export default function HomeLayout({ children, page, title }) {
     const router = useRouter()
 
     useEffect(() => {
-        if (token === "null") { router.push('/'); return }
-        isVerifyToken ? setLoading(false) : getUserFromToken(token, router, setLoading)
+        if (token === "null") router.push('/');
+        else isVerifyToken ? setLoading(false) : getUserFromToken(token, router).finally(() => setLoading(false))
     }, [])
 
     if (isLoading) return <Loading />
@@ -34,6 +35,7 @@ export default function HomeLayout({ children, page, title }) {
             </main>
             <Content />
             <Player />
+            <RodalLoading />
         </Root>
     )
 }

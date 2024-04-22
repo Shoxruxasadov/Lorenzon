@@ -11,7 +11,7 @@ import Error from "../../../components/other/error";
 import HomeLayout from "../../../layouts/home";
 import { IoTimeOutline } from "react-icons/io5";
 
-export default function HomeAlbum() {
+export default function HomePlaylist() {
     const [loadedImage, setLoadedImage] = useState(false);
     const pathname = usePathname()
     const router = useRouter()
@@ -25,12 +25,10 @@ export default function HomeAlbum() {
     const currentSong = useMusic((state) => state.currentMusic);
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
 
-    const { data: album, isLoading, isError, isSuccess, refetch } = useQuery({
-        queryKey: "album",
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/${pathname.split('/')[2]}`).then(({ data }) => data[0]),
+    const { data: playlist, isLoading, isError, isSuccess, refetch } = useQuery({
+        queryKey: "playlist",
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`).then(({ data }) => data),
     })
-
-    console.log(isLoading, isSuccess);
 
     useEffect(() => {
         if (pathname) refetch()
@@ -38,11 +36,11 @@ export default function HomeAlbum() {
 
     if (isLoading) return <Loading />
     if (isError) return <Error />
-    if (isSuccess && album) return (
-        <HomeLayout page="home-album" title="Album">
+    if (isSuccess && playlist) return (
+        <HomeLayout page="home-album" title="Playlist">
             <div className="profile">
                 <Image
-                    src={album.image || "/other/unknown.music.webp"}
+                    src={playlist.image || "/other/unknown.music.webp"}
                     alt="user"
                     width={180}
                     height={180}
@@ -52,14 +50,14 @@ export default function HomeAlbum() {
                     onLoadingComplete={() => setLoadedImage(true)}
                 />
                 <div className="content">
-                    <p className="title">{album.songs.length > 1 ? 'Album' : 'Single'}</p>
-                    <h1 className="name">{album.name}</h1>
+                    <p className="title">Playlist</p>
+                    <h1 className="name">{playlist.name}</h1>
                     <div className="singers">
-                        <p>{album.singerName.map((s, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)} className="singer">{s + ', '}</span>)}</p>
-                        <span className="dot"> • </span>
-                        <p>{album.songs[0].createdDay.substring(0, 4)}</p>
-                        <span className="dot"> • </span>
-                        <p>{album.songs.length} track</p>
+                        {/* <p>{playlist.singerName.map((s, i) => <span key={i} onClick={() => router.push(`/@${playlist.singerUsername[i]}`)} className="singer">{s + ', '}</span>)}</p>
+                        <span className="dot"> • </span> */}
+                        {playlist.songs.length > 0 && <><p>{playlist.songs[0].createdDay.substring(0, 4)}</p>
+                            <span className="dot"> • </span></>}
+                        <p>{playlist.songs.length} track</p>
                     </div>
                 </div>
             </div>
@@ -74,7 +72,7 @@ export default function HomeAlbum() {
                     </div>
                 </div>
                 <ul className='list'>
-                    {album.songs.map((item, index) => (
+                    {playlist.songs.map((item, index) => (
                         <li
                             key={item._id}
                             className={`${currentSong.song == item.song && playPouse ? "active" : ""} ${currentSong.song == item.song ? "selected" : ""}`}
@@ -82,7 +80,7 @@ export default function HomeAlbum() {
                                 if (playPouse && (currentSong.song == item.song)) {
                                     setPlayPouse(false)
                                 } else {
-                                    setMusics(album.songs);
+                                    setMusics(playlist.songs);
                                     setCurrentSong(item)
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)

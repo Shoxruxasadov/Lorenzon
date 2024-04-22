@@ -5,19 +5,18 @@ import axios from "axios";
 
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useHomeModels, useMusic, useStore } from "../../store/zustand";
+import { useAnotherModels, useMusic, useStore } from "../../store/zustand";
 import { useRouter } from "next/router";
 
 export default function HomeRecommended() {
   const user = useStore(state => state.user);
   const render = useMusic((state) => state.render);
   const setRender = useMusic((state) => state.setRender);
-  const RECOMMENDED_SONGS = useHomeModels((state) => state.RECOMMENDED_SONGS);
-  const SET_RECOMMENDED_SONGS = useHomeModels((state) => state.SET_RECOMMENDED_SONGS);
+  const RECOMMENDED_SONGS = useAnotherModels((state) => state.RECOMMENDED_SONGS);
+  const SET_RECOMMENDED_SONGS = useAnotherModels((state) => state.SET_RECOMMENDED_SONGS);
 
   const playPouse = useMusic((state) => state.playPouse);
   const setPlayPouse = useMusic((state) => state.setPlayPouse);
-  const musics = useMusic((state) => state.musics);
   const setMusics = useMusic((state) => state.setMusics);
   const currentMusic = useMusic((state) => state.currentMusic);
   const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
@@ -25,37 +24,20 @@ export default function HomeRecommended() {
 
   const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
-
   const router = useRouter();
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => { setMusics(data); SET_RECOMMENDED_SONGS(data) })
+    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => { SET_RECOMMENDED_SONGS(data) })
 
     const handleResize = () => {
-      if (window.innerWidth >= 2330) {
-        setColumnCount(10);
-      }
-      if (window.innerWidth >= 2130 && window.innerWidth < 2330) {
-        setColumnCount(9);
-      }
-      if (window.innerWidth >= 1930 && window.innerWidth < 2130) {
-        setColumnCount(8);
-      }
-      if (window.innerWidth >= 1730 && window.innerWidth < 1930) {
-        setColumnCount(7);
-      }
-      if (window.innerWidth >= 1560 && window.innerWidth < 1730) {
-        setColumnCount(6);
-      }
-      if (window.innerWidth >= 1400 && window.innerWidth < 1560) {
-        setColumnCount(5);
-      }
-      if (window.innerWidth >= 1230 && window.innerWidth < 1400) {
-        setColumnCount(4);
-      }
-      if (window.innerWidth >= 1024 && window.innerWidth < 1230) {
-        setColumnCount(3);
-      }
+      if (window.innerWidth >= 2330) setColumnCount(10);
+      if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
+      if (window.innerWidth >= 1930 && window.innerWidth < 2130) setColumnCount(8);
+      if (window.innerWidth >= 1730 && window.innerWidth < 1930) setColumnCount(7);
+      if (window.innerWidth >= 1560 && window.innerWidth < 1730) setColumnCount(6);
+      if (window.innerWidth >= 1400 && window.innerWidth < 1560) setColumnCount(5);
+      if (window.innerWidth >= 1230 && window.innerWidth < 1400) setColumnCount(4);
+      if (window.innerWidth >= 1024 && window.innerWidth < 1230) setColumnCount(3);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -65,22 +47,16 @@ export default function HomeRecommended() {
   return (
     <HomeLayout page="home-library" title="Recommended songs">
       <Banner src={"/other/space.ads.webp"} />
-
       <article>
         <header>
           <h2>Recommended songs</h2>
         </header>
         <div
           className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
+          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
           {RECOMMENDED_SONGS.map((item, index) => (
-            <div
-              className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`}
-              key={index}
-            >
+            <div className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`} key={index}>
               <div
                 className="images"
                 onClick={() => {
@@ -88,6 +64,7 @@ export default function HomeRecommended() {
                     setPlayPouse(false)
                   } else {
                     setPlayPouse(true)
+                    setMusics(RECOMMENDED_SONGS)
                     setCurrentMusic(item)
                     setTimeout(() => setRender(!render), 10)
                     if (currentMusic.song != item.song) setReadTime(0)

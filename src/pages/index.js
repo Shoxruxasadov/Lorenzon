@@ -1,11 +1,6 @@
-import { useRouter } from 'next/router'
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Aos from 'aos';
-
+import { useEffect } from "react";
+import Aos from "aos"
 import Root from "../layouts/root";
-import Wait from '../components/loading/wait';
-import useLocalStorage from "../hooks/useLocalStorage";
 
 import Header from "../components/landing/header";
 import Footer from "../components/landing/footer";
@@ -19,20 +14,10 @@ import Team from '../components/landing/main/team';
 import Started from '../components/landing/main/started';
 
 export default function Landing() {
-  const [token, setToken] = useLocalStorage("token", "null")
-  const [wait, setWait] = useState(true)
-  const router = useRouter()
-
   useEffect(() => {
     Aos.init({ duration: 500 })
+  })
 
-    if (token === "null") { setWait(false); return }
-
-    axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }
-    ).then(({ data }) => router.push('/home')).catch().finally(() => setWait(false))
-  }, [])
-
-  if (wait) return <Wait />
   return (
     <Root page="landing" title="Enjoy the music • Music streaming service">
       <Header />
@@ -54,3 +39,23 @@ export default function Landing() {
     </Root>
   );
 }
+
+// import Document, { Head, Html, Main, NextScript } from 'next/document';
+// class MyDocument extends Document {
+//     static async getInitialProps(context) {
+//         const initialProps = await Document.getInitialProps(context);
+//         return { ...initialProps };
+//     }
+//     render() {
+//         return (
+//             <Html lang={this.props.locale}>
+//                 <Head />
+//                 <body>
+//                     <Main />
+//                     <NextScript />
+//                 </body>
+//             </Html>
+//         );
+//     }
+// }
+// export default MyDocument;

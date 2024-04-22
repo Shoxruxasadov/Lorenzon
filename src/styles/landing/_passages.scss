@@ -64,18 +64,18 @@
         left: -1%;
         background: linear-gradient(
           to right,
-          $back 5%,
+          var(--background-color) 5%,
           transparent 50%,
-          $back 95%
+          var(--background-color) 95%
         );
         z-index: 10;
 
         @media (max-width: 780px) {
           background: linear-gradient(
             to right,
-            $back 0%,
+            var(--background-color) 0%,
             transparent 50%,
-            $back 100%
+            var(--background-color) 100%
           );
         }
       }
@@ -139,7 +139,7 @@
           .card-shadow {
             width: 102%;
             height: 102%;
-            background: radial-gradient(#000000bb 10%, black 120%);
+            background: radial-gradient(var(--slow-back-color) 10%, var(--background-color) 120%);
             position: absolute;
             top: -1%;
             left: -1%;

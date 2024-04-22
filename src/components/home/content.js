@@ -328,7 +328,7 @@ export default function Content() {
                                 </div>
                             </div>
                         ))
-                    ) : <p className="dontHave">You don't have a playlist!</p>}
+                    ) : <p className="dontHave">You don&#39;t have a playlist!</p>}
                 </div>
             </article>}
         </aside>

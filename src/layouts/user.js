@@ -16,10 +16,19 @@ export default function UserLayout({ user }) {
     const setReadTime = useMusic((state) => state.setReadTime);
     const playPouse = useMusic((state) => state.playPouse);
     const setPlayPouse = useMusic((state) => state.setPlayPouse);
-    const setMusics = useMusic((state) => state.setMusics);
+    const queue = useMusic(state => state.musics)
+    const setQueue = useMusic((state) => state.setMusics);
     const currentSong = useMusic((state) => state.currentMusic);
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
     const [loadedImage, setLoadedImage] = useState(false);
+
+    function arraysEqual(a, b) {
+        if (a === b) return true;
+        if (a == null || b == null) return false;
+        if (a.length !== b.length) return false;
+        for (let i = 0; i < a.length; ++i) { if (a[i]._id !== b[i]._id) return false; }
+        return true;
+    }
 
     return (
         <HomeLayout page="home-user" title={user.name}>
@@ -52,7 +61,65 @@ export default function UserLayout({ user }) {
                     </p>
                 </div>
             </div>
-            {user.role == "singer" && <div className="panel"></div>}
+            {user.role == "singer" && <div className="panel">
+                <button className="play" onClick={() => {
+                    if (arraysEqual(queue, user.songs)) {
+                        if (playPouse) {
+                            setPlayPouse(false)
+                        } else {
+                            setPlayPouse(true)
+                            setTimeout(() => setRender(!render), 10)
+                        }
+                    } else {
+                        setQueue(user.songs);
+                        setCurrentSong(user.songs[0])
+                        setReadTime(0)
+                        setPlayPouse(true)
+                        setTimeout(() => setRender(!render), 10)
+                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: user.songs[0]._id })
+                    }
+                }}>
+                    {arraysEqual(queue, user.songs) && playPouse ? <svg
+                        className={`pouse ${playPouse ? "active" : ""}`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={55}
+                        height={55}
+                        viewBox="0 0 100 100"
+                        fill="none"
+                    >
+                        <circle cx="50" cy="50" r="50" fill="#6940EE" />
+                        <rect
+                            x="30"
+                            y="30"
+                            width="15"
+                            height="40"
+                            rx="5"
+                            fill="#0D1219"
+                        />
+                        <rect
+                            x="55"
+                            y="30"
+                            width="15"
+                            height="40"
+                            rx="5"
+                            fill="#0D1219"
+                        />
+                    </svg> : <svg
+                        className="play"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={55}
+                        height={55}
+                        viewBox="0 0 100 100"
+                        fill="none"
+                    >
+                        <circle cx="50" cy="50" r="50" fill="#6940EE" />
+                        <path
+                            d="M68.5 46.1699C71.8333 48.0944 71.8333 52.9056 68.5 54.8301L42.25 69.9856C38.9167 71.9101 34.75 69.5044 34.75 65.6554L34.75 35.3446C34.75 31.4956 38.9167 29.0899 42.25 31.0144L68.5 46.1699Z"
+                            fill="#0D1219"
+                        />
+                    </svg>}
+                </button>
+            </div>}
             {user.role == "singer" ? <div className="popular">
                 <p className='title'>Songs</p>
                 <ul className='list'>
@@ -64,7 +131,7 @@ export default function UserLayout({ user }) {
                                 if (playPouse && (currentSong.song == item.song)) {
                                     setPlayPouse(false)
                                 } else {
-                                    setMusics(user.songs);
+                                    setQueue(user.songs);
                                     setCurrentSong(item)
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
@@ -95,10 +162,10 @@ export default function UserLayout({ user }) {
                                     <div className='image'><img src={item.image} alt={item.name} /></div>
                                     <div className="music-title">
                                         <h3>{item.name}</h3>
-                                        <p>{item.singerName.map(n => n + ', ')}</p>
+                                        <p>{item.singerName.map((n, i) => item.singerName.length == i + 1 ? n : n + ', ')}</p>
                                     </div>
                                 </div>
-                                <div className='listen'><p>{item.listenCount}</p></div>
+                                <div className='listen'><p>{item.listenCount.toString().split('').map((c, i) => i % 3 == 1 ? `${c} ` : c)}</p></div>
                                 <div className='duration'><p><GetAudioDuration audioUrl={item.song} /></p></div>
                             </div>
                         </li>
@@ -115,7 +182,7 @@ export default function UserLayout({ user }) {
                                 if (playPouse && (currentSong.song == item.song)) {
                                     setPlayPouse(false)
                                 } else {
-                                    setMusics(user.recently);
+                                    setQueue(user.recently);
                                     setCurrentSong(item)
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
@@ -160,7 +227,7 @@ export default function UserLayout({ user }) {
                                 if (playPouse && (currentSong.song == item.song)) {
                                     setPlayPouse(false)
                                 } else {
-                                    setMusics(user.recently);
+                                    setQueue(user.recently);
                                     setCurrentSong(item)
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)

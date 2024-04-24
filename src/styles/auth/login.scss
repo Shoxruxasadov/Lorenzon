@@ -1,16 +1,6 @@
-$main: #582ddd;
-$text: #f3f3f3;
-$back: #080b0f;
-$hero-click: #6940ee;
-
-$view: #0d1219;
-$bate: #99999f;
-$login-bor: #1a1a1d;
-$login-inp: #131314;
-
 #login {
-  background: $back;
-  color: $text;
+  background: var(--background-color);
+  color: var(--text-color);
   overflow: hidden;
   display: flex;
   height: 100svh;
@@ -59,7 +49,7 @@ $login-inp: #131314;
       flex-direction: column;
 
       h1 {
-        color: $bate;
+        color: var(--medium-color);
         font-size: 36px;
         font-weight: 700;
         line-height: normal;
@@ -68,7 +58,7 @@ $login-inp: #131314;
       }
 
       p {
-        color: $bate;
+        color: var(--medium-color);
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
@@ -92,7 +82,7 @@ $login-inp: #131314;
             position: absolute;
             top: 50%;
             left: 14px;
-            color: $bate;
+            color: var(--medium-color);
 
             &,
             & > path {
@@ -110,12 +100,12 @@ $login-inp: #131314;
             height: 100%;
             padding-left: 42px;
             border-radius: 8px;
-            border: 1px solid $login-bor;
-            background: $login-inp;
-            color: $text;
+            border: 1px solid var(--login-bor);
+            background: var(--login-inp);
+            color: var(--text-color);
 
             &::placeholder {
-              color: $bate;
+              color: var(--medium-color);
               padding-top: 1px;
 
               font-size: 14px;
@@ -203,13 +193,13 @@ $login-inp: #131314;
             }
             @-moz-keyframes splash {
               40% {
-                background: $main;
-                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
-                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
-                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+                background: var(--main-color);
+                box-shadow: 0 -18px 0 -8px var(--main-color), 16px -8px 0 -8px var(--main-color),
+                  16px 8px 0 -8px var(--main-color), 0 18px 0 -8px var(--main-color),
+                  -16px 8px 0 -8px var(--main-color), -16px -8px 0 -8px var(--main-color);
               }
               100% {
-                background: $main;
+                background: var(--main-color);
                 box-shadow: 0 -36px 0 -10px transparent,
                   32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
                   0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
@@ -218,13 +208,13 @@ $login-inp: #131314;
             }
             @-webkit-keyframes splash {
               40% {
-                background: $main;
-                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
-                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
-                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+                background: var(--main-color);
+                box-shadow: 0 -18px 0 -8px var(--main-color), 16px -8px 0 -8px var(--main-color),
+                  16px 8px 0 -8px var(--main-color), 0 18px 0 -8px var(--main-color),
+                  -16px 8px 0 -8px var(--main-color), -16px -8px 0 -8px var(--main-color);
               }
               100% {
-                background: $main;
+                background: var(--main-color);
                 box-shadow: 0 -36px 0 -10px transparent,
                   32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
                   0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
@@ -233,13 +223,13 @@ $login-inp: #131314;
             }
             @-o-keyframes splash {
               40% {
-                background: $main;
-                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
-                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
-                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+                background: var(--main-color);
+                box-shadow: 0 -18px 0 -8px var(--main-color), 16px -8px 0 -8px var(--main-color),
+                  16px 8px 0 -8px var(--main-color), 0 18px 0 -8px var(--main-color),
+                  -16px 8px 0 -8px var(--main-color), -16px -8px 0 -8px var(--main-color);
               }
               100% {
-                background: $main;
+                background: var(--main-color);
                 box-shadow: 0 -36px 0 -10px transparent,
                   32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
                   0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
@@ -248,13 +238,13 @@ $login-inp: #131314;
             }
             @keyframes splash {
               40% {
-                background: $main;
-                box-shadow: 0 -18px 0 -8px $main, 16px -8px 0 -8px $main,
-                  16px 8px 0 -8px $main, 0 18px 0 -8px $main,
-                  -16px 8px 0 -8px $main, -16px -8px 0 -8px $main;
+                background: var(--main-color);
+                box-shadow: 0 -18px 0 -8px var(--main-color), 16px -8px 0 -8px var(--main-color),
+                  16px 8px 0 -8px var(--main-color), 0 18px 0 -8px var(--main-color),
+                  -16px 8px 0 -8px var(--main-color), -16px -8px 0 -8px var(--main-color);
               }
               100% {
-                background: $main;
+                background: var(--main-color);
                 box-shadow: 0 -36px 0 -10px transparent,
                   32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent,
                   0 36px 0 -10px transparent, -32px 16px 0 -10px transparent,
@@ -264,7 +254,7 @@ $login-inp: #131314;
           }
 
           .checkbox .rememberme {
-            color: $bate;
+            color: var(--medium-color);
             cursor: pointer;
 
             font-size: 14px;
@@ -274,7 +264,7 @@ $login-inp: #131314;
           }
 
           a {
-            color: $main;
+            color: var(--main-color);
             font-size: 14px;
             font-weight: 500;
             line-height: 20px;
@@ -288,10 +278,10 @@ $login-inp: #131314;
             height: 44px;
             border: none;
             border-radius: 8px;
-            background: $main;
-            color: $back;
+            background: var(--main-color);
+            color: var(--background-color);
 
-            color: #fff;
+            color: white;
             font-size: 16px;
             font-weight: 500;
             line-height: 20px;
@@ -318,15 +308,15 @@ $login-inp: #131314;
       }
 
       span {
-        color: #24242a;
+        color: var(--hover-color)
       }
 
       .line-start {
-        background: linear-gradient(to right, transparent, #24242a 40%);
+        background: linear-gradient(to right, transparent, var(--hover-color) 40%);
       }
 
       .line-end {
-        background: linear-gradient(to left, transparent, #24242a 40%);
+        background: linear-gradient(to left, transparent, var(--hover-color) 40%);
       }
     }
 
@@ -344,8 +334,8 @@ $login-inp: #131314;
         height: 44px;
 
         border-radius: 8px;
-        border: 1px solid $login-bor;
-        background: $login-inp;
+        border: 1px solid var(--login-bor);
+        background: var(--login-inp);
         cursor: pointer;
 
         svg,
@@ -354,7 +344,7 @@ $login-inp: #131314;
         }
 
         span {
-          color: white;
+          color: var(--text-color);
           font-size: 16px;
           font-weight: 500;
           line-height: 20px;
@@ -380,12 +370,12 @@ $login-inp: #131314;
       line-height: 20px;
 
       span {
-        color: $bate;
+        color: var(--medium-color);
         font-weight: 400;
       }
 
       a {
-        color: $main;
+        color: var(--main-color);
         font-weight: 500;
       }
     }
@@ -395,7 +385,7 @@ $login-inp: #131314;
     width: 50%;
     height: 100%;
     border-radius: 40px;
-    background: $view;
+    background: var(--viewer-color);
     position: relative;
 
     display: flex;
@@ -419,7 +409,7 @@ $login-inp: #131314;
       h1 {
         height: 40px;
         font-size: 30px;
-        color: $back;
+        color: var(--background-color);
         padding-top: 1px;
         cursor: pointer;
       }

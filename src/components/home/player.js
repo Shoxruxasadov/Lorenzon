@@ -119,7 +119,7 @@ export default function Player() {
                     <img src={music.image || "/logo.png"} alt="music" onClick={() => music.album && router.push(`/album/${music.album}`)} />
                     <div className="title">
                         {music.album ? <h3 onClick={() => router.push(`/album/${music.album}`)}>{music.name}</h3> : <h3>Lorenzon</h3>}
-                        <p>{music.singerName && music.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${music.singerUsername[i]}`)}>{n + ", "} </span>)}</p>
+                        <p>{music.singerName && music.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${music.singerUsername[i]}`)}>{music.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
                     </div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -5,7 +5,7 @@ import axios from "axios";
 
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useHomeModels, useMusic, useStore } from "../../store/zustand";
+import { useContextMenu, useHomeModels, useMusic, useStore } from "../../store/zustand";
 import { useRouter } from "next/router";
 
 export default function HomeMain() {
@@ -22,6 +22,10 @@ export default function HomeMain() {
 
   const RECOMMENDED_SONGS = useHomeModels((state) => state.RECOMMENDED_SONGS);
   const YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.YOUR_FAVORITE_SINGERS);
+
+  const setCursor = useContextMenu((state) => state.setCursor);
+  const setIsShow = useContextMenu((state) => state.setIsShow);
+  const setIsHover = useContextMenu((state) => state.setIsHover);
 
   const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
@@ -43,6 +47,14 @@ export default function HomeMain() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const onMouseMove = (e) => {
+    let rect = e.currentTarget.getBoundingClientRect();
+    let x = e.clientX;
+    let y = e.clientY;
+    return { x, y }
+    
+  };
+
   return (
     <HomeLayout page="home-main" title="Home">
       <Banner src={"/other/space.ads.webp"} />
@@ -60,6 +72,13 @@ export default function HomeMain() {
             <div
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
               key={index}
+              onContextMenu={(e) =>{
+                setIsShow(item)
+                setCursor(onMouseMove(e))
+              }}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              onMouseMove={onMouseMove}
             >
               <div
                 className="images"

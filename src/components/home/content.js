@@ -60,6 +60,14 @@ export default function Content() {
         signOut()
     }
 
+    function arraysEqual(a, b) {
+        if (a === b) return true;
+        if (a == null || b == null) return false;
+        if (a.length !== b.length) return false;
+        for (let i = 0; i < a.length; ++i) { if (a[i]._id !== b[i]) return false; }
+        return true;
+    }
+
     return (
         <aside id="content">
             <div className="user" onClick={() => {
@@ -135,7 +143,7 @@ export default function Content() {
                     <IoIosArrowBack />
                 </div>
             </div>
-            <div className={`nav ${userNavigate ? "active" : ""} ${user && (user.role == "admin" || user.role === "singer") ? "admin" : ""} ${navigate}`} >
+            <div className={`nav${userNavigate ? " active" : ""}${user && (user.role == "admin" || user.role === "singer") ? " admin" : ""} ${navigate}`} >
                 <div className="lists">
                     <div className="list" onClick={() => switchAccount()}>
                         <PiUserSwitch />
@@ -315,10 +323,14 @@ export default function Content() {
                         }).then(() => getUserFromToken(token, router)).catch((res) => console.log(res)).finally(() => setLoading(false))
                     }}><TbPlaylistAdd /></button>
                 </header>
-                <div className="content">
+                <div className="content library">
                     {user.playlists && user.playlists.length > 0 ? (
                         user.playlists.map((playlist, i) => (
-                            <div key={i} className="card" onClick={() => router.push(`/playlist/${playlist._id}`)}>
+                            <div
+                                className={`card${arraysEqual(songs, playlist.songs) && playPouse ? ' active' : ''}`}
+                                onClick={() => router.push(`/playlist/${playlist._id}`)}
+                                key={i}
+                            >
                                 <div className="image">
                                     <img alt={playlist.name} src={playlist.image || '/other/unknown.music.webp'} />
                                 </div>

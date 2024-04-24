@@ -1,31 +1,14 @@
-$main: #582ddd;
-$shadow: #582ddda6;
-$click: #6940ee;
-$text: #f3f3f3;
-$bate: #99999f;
-$view: #0c1016;
-$analog: #0e1520;
-$hover: #141e30;
-$back: #080b0f;
-$login-bor: #333333;
-// ADMIN PAGE ----------
-$admin-tabhead: #121822;
-$admin-inpbor: #282729;
-$admin-butowe: #ffffff;
-$admin-line: #3b393d;
-$admin-shadbar: #00000026;
-
 #admin {
   width: 100%;
   height: 100svh;
   display: flex;
-  color: $text;
+  color: var(--text-color);
   overflow: hidden;
 
   nav#admin-sidebar {
     width: 240px;
     height: 100%;
-    background: $view;
+    background: var(--viewer-color);
     position: fixed;
     transition: 0.15s;
 
@@ -72,13 +55,23 @@ $admin-shadbar: #00000026;
             position: relative;
             overflow: hidden;
 
-            &.active {
+            [data-theme="dark"] &.active {
               background: linear-gradient(
                 to right,
                 rgba(255, 255, 255, 0.06) 0%,
                 rgba(255, 255, 255, 0) 100%
               );
+            }
 
+            [data-theme="light"] &.active {
+              background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.06) 0%,
+                rgba(0, 0, 0, 0) 100%
+              );
+            }
+
+            &.active {
               &::before {
                 content: "";
                 position: absolute;
@@ -86,17 +79,17 @@ $admin-shadbar: #00000026;
                 right: 0;
                 width: 5px;
                 height: 100%;
-                background: $main;
+                background: var(--main-color);
                 border-radius: 3px 0 0 3px;
-                box-shadow: 0 0 20px $main;
+                box-shadow: 0 0 20px var(--main-color);
               }
 
               .svg svg {
-                color: $text;
+                color: var(--text-color);
               }
 
               span {
-                color: $text;
+                color: var(--text-color);
               }
             }
 
@@ -115,7 +108,7 @@ $admin-shadbar: #00000026;
               }
 
               svg {
-                color: #777;
+                color: var(--medium-color);
                 font-size: 22px;
               }
             }
@@ -125,7 +118,7 @@ $admin-shadbar: #00000026;
               font-style: normal;
               font-weight: 600;
               line-height: normal;
-              color: #777;
+              color: var(--medium-color);
               letter-spacing: 0.8px;
               cursor: pointer;
             }
@@ -141,7 +134,7 @@ $admin-shadbar: #00000026;
       .logout {
         width: 100%;
         height: 48px;
-        background: $shadow;
+        background: #582ddda6;
         border-radius: 0.5em;
         cursor: pointer;
         padding: 0 8px;
@@ -224,7 +217,7 @@ $admin-shadbar: #00000026;
 
   main {
     width: 100%;
-    background: $back;
+    background: var(--background-color);
     padding: 30px;
     margin-left: 240px;
     display: flex;
@@ -234,7 +227,7 @@ $admin-shadbar: #00000026;
 
     .link {
       cursor: pointer;
-      color: $bate !important;
+      color: var(--medium-color) !important;
       outline: none;
 
       &:focus {
@@ -243,9 +236,10 @@ $admin-shadbar: #00000026;
     }
 
     .part {
-      box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
+      box-shadow: -0.5px -0.5px 0px var(--admin-shadbar),
+        1px 1px 5px -1px #00000026;
       border-radius: 0.5em;
-      background: $view;
+      background: var(--viewer-color);
     }
 
     header {
@@ -264,19 +258,19 @@ $admin-shadbar: #00000026;
           line-height: 40px;
           font-size: 28px;
           font-weight: 600;
-          color: $admin-butowe;
+          color: var(--admin-butowe);
         }
         h2 {
           line-height: 40px;
           font-size: 28px;
           font-weight: 600;
-          color: $main;
+          color: var(--main-color);
         }
         h3 {
           line-height: 40px;
           font-size: 20px;
           font-weight: 600;
-          color: $bate;
+          color: var(--medium-color);
         }
       }
 
@@ -294,14 +288,14 @@ $admin-shadbar: #00000026;
             height: 40px;
             border: none;
             border-radius: 2em;
-            background: $view;
-            box-shadow: -0.5px -0.5px 0px $admin-shadbar,
+            background: var(--viewer-color);
+            box-shadow: -0.5px -0.5px 0px var(--admin-shadbar),
               2px 2px 5px -1px #00000026;
-            color: $text;
+            color: var(--text-color);
             font-size: 15px;
 
             &::placeholder {
-              color: $bate;
+              color: var(--medium-color);
             }
           }
 
@@ -310,7 +304,7 @@ $admin-shadbar: #00000026;
             position: absolute;
             top: 50%;
             right: 14px;
-            color: $bate;
+            color: var(--medium-color);
             font-size: 17px;
 
             &,
@@ -321,10 +315,10 @@ $admin-shadbar: #00000026;
         }
 
         .addUser button {
-          background: $main;
+          background: var(--main-color);
           border-radius: 2em;
           border: none;
-          box-shadow: -0.5px -0.5px 0px $admin-shadbar,
+          box-shadow: -0.5px -0.5px 0px var(--admin-shadbar),
             2px 2px 5px -1px #00000026;
           color: #ffffff;
           padding: 0 25px;
@@ -341,14 +335,14 @@ $admin-shadbar: #00000026;
             display: flex;
             align-items: center;
             gap: 7px;
-            color: $admin-line;
+            color: var(--admin-line);
 
             .number {
               width: 24px;
               height: 24px;
               border-radius: 50%;
               color: #fff;
-              background: $admin-line;
+              background: var(--admin-line);
               text-align: center;
               line-height: 25px;
               font-size: 14px;
@@ -365,7 +359,7 @@ $admin-shadbar: #00000026;
           .line {
             width: 120px;
             height: 3px;
-            background: $admin-line;
+            background: var(--admin-line);
             border-radius: 10em;
           }
 
@@ -373,14 +367,14 @@ $admin-shadbar: #00000026;
             display: flex;
             align-items: center;
             gap: 7px;
-            color: $admin-line;
+            color: var(--admin-line);
 
             .number {
               width: 24px;
               height: 24px;
               border-radius: 50%;
               color: #fff;
-              background: $admin-line;
+              background: var(--admin-line);
               text-align: center;
               line-height: 25px;
               font-size: 14px;

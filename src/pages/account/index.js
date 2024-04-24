@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
@@ -11,41 +12,50 @@ import Wait from "../../components/loading/wait";
 import Root from "../../layouts/root";
 
 import { PiUserCirclePlusFill, PiXBold } from "react-icons/pi";
+import { wrong } from "../../utils/toastify";
+import Error from "../../components/other/error";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Account() {
     const setPage = useAuthCreate(state => state.setPage);
-    const [users, setUsers] = useState([])
-    const [wait, setWait] = useState(true)
     const [token, setToken] = useLocalStorage("token", "null")
     const [accounts, setAccounts] = useLocalStorage("accounts", "null")
+    const { resolvedTheme } = useTheme()
     const router = useRouter()
 
-    const remove = (user) => setAccounts(accounts.filter((account) => account.id !== user._id))
-
-    function getUsers() {
-        const collectorUsers = []
-        const end = () => { setUsers(collectorUsers); setWait(false); }
-        axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${accounts[0].id}`, { password: accounts[0].password }
-        ).then(({ data }) => collectorUsers.push(data[0])
-        ).finally(() => accounts.length > 1 ? axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${accounts[1].id}`, { password: accounts[1].password }
-        ).then(({ data }) => collectorUsers.push(data[0])
-        ).finally(() => accounts.length > 2 ? axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${accounts[2].id}`, { password: accounts[2].password }
-        ).then(({ data }) => collectorUsers.push(data[0])
-        ).finally(() => end()) : end()) : end())
-    }
+    const { data: users, isLoading, isError, isSuccess, error, refetch } = useQuery({
+        queryKey: "accounts",
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth`, { headers: { 'accounts': JSON.stringify(accounts) } }).then(({ data }) => data)
+    })
 
     useEffect(() => {
         if (accounts == "null" || accounts.length == 0) { router.push('/login'); return; }
-        getUsers()
-    }, [accounts])
+        if (isError) wrong(error.response.data.message)
+        refetch()
+    }, [accounts, isError])
 
-    function signin(user) {
+    const remove = (user) => setAccounts(accounts.filter((account) => account.id !== user._id))
+    const signin = (user) => {
         setToken({ id: user._id, password: user.password })
         router.push("/home")
     }
 
-    if (wait) return <Wait />
-    return (
+    let src
+    switch (resolvedTheme) {
+        case 'light':
+            src = '/lorenzon/logo.svg'
+            break
+        case 'dark':
+            src = '/lorenzon/white.svg'
+            break
+        default:
+            src = '/lorenzon/white.svg'
+            break
+    }
+
+    if (isLoading) return <Wait />
+    if (isError) return <Error />
+    if (isSuccess) return (
         <Root page="account" title="Switch account">
             <motion.div className="wrapper"
                 initial={{ x: 0, opacity: 0 }}
@@ -53,7 +63,7 @@ export default function Account() {
                 transition={{ duration: 1, type: "spring" }}
             >
                 <Link href={"/"} className="logo">
-                    <Image src="/lorenzon/white.svg" width={136} height={32} alt="Lorenzon" />
+                    <Image src={src} width={136} height={32} alt="Lorenzon" />
                 </Link>
                 <main>
                     {users.map(user => (
@@ -102,7 +112,7 @@ export default function Account() {
             </motion.div>
         </Root>
     )
-
+    return <Error />
 }
 
 

@@ -29,7 +29,7 @@ export default function Sidebar() {
             src = '/lorenzon/white.svg'
             break
         default:
-            src = '/lorenzon/logo.svg'
+            src = '/lorenzon/white.svg'
             break
     }
 
@@ -40,11 +40,11 @@ export default function Sidebar() {
             </Link>
             <div className="category">
                 <div className="list">
-                    {mainLinks.map(link => (
+                    {mainLinks.map((link, i) => (
                         <Link
-                            key={link.title}
+                            key={i}
                             href={link.path}
-                            className={`/${pathname && pathname.split('/')[1]}` == link.path ? "active" : ""}
+                            className={`${pathname == link.path ? "active" : ""}`}
                         >
                             <div className="svg">{link.icon}</div>
                             <span>{link.title}</span>
@@ -59,7 +59,7 @@ export default function Sidebar() {
                         <Link
                             key={link.title}
                             href={link.path}
-                            className={`/${pathname && pathname.split('/')[1]}` == link.path ? "active" : ""}
+                            className={`${pathname == link.path ? "active" : ""}`}
                         >
                             <div className="svg">{link.icon}</div>
                             <span>{link.title}</span>

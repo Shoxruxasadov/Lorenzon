@@ -5,13 +5,13 @@ export const useStore = create((set) => ({
     user: {},
     isVerifyToken: false,
     setVerifyToken: (is) => set(() => ({ isVerifyToken: is })),
-    getUserFromToken: (token, router) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {
-        set(() => ({ user: data[0] }));
+    getUserFromToken: (token, router) => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { headers: { 'password': token.password } }).then(({ data }) => {
+        set(() => ({ user: data }));
         set(() => ({ isVerifyToken: true }));
     }).catch(() => router.push('/')),
     isAdmin: false,
-    verifyAdmin: (token, router, setLoading) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { password: token.password }).then(({ data }) => {
-        if (data[0].role == 'admin') { set(() => ({ isAdmin: true })); setLoading(false) }
+    verifyAdmin: (token, router, setLoading) => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { headers: { 'password': token.password } }).then(({ data }) => {
+        if (data.role == 'admin') { set(() => ({ isAdmin: true })); setLoading(false) }
         else { router.push('/') }
     }).catch(() => router.push('/')),
     loading: false,
@@ -105,4 +105,15 @@ export const useHomeDetails = create((set) => ({
     fullScreen: false,
     setFullScreen: (is) => set(() => ({ fullScreen: is })),
 }));
+
+export const useContextMenu = create((set) => ({
+    cursor: { x: 0, y: 0, },
+    setCursor: (cursor) => set(() => ({ cursor: cursor })),
+    isShow: false,
+    setIsShow: (isShow) => set(() => ({ isShow: isShow })),
+    isHover: false,
+    setIsHover: (isHover) => set(() => ({ isHover: isHover })),
+}));
+
+
 

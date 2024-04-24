@@ -1,5 +1,8 @@
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Aos from "aos"
+
+import { useStore } from "../store/zustand";
 import Root from "../layouts/root";
 
 import Header from "../components/landing/header";
@@ -14,8 +17,12 @@ import Team from '../components/landing/main/team';
 import Started from '../components/landing/main/started';
 
 export default function Landing() {
+  const user = useStore(state => state.user);
+  const router = useRouter()
+
   useEffect(() => {
     Aos.init({ duration: 500 })
+    if (user._id) router.push('/home')
   })
 
   return (

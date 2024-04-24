@@ -15,6 +15,7 @@ import Root from "../../layouts/root";
 
 import { MdAccountCircle, MdOutlinePassword } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useTheme } from "next-themes";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -26,45 +27,37 @@ export default function Login() {
   const setName = useAuthCreate(state => state.setName);
   const setImage = useAuthCreate(state => state.setImage);
   const [loading, setLoading] = useState(false);
-  const [wait, setWait] = useState(true)
   const [eye, setEye] = useState(false);
+  const { resolvedTheme } = useTheme()
   const { data } = useSession()
   const router = useRouter()
 
   const auth = async (userData) => {
     setLoading(true)
-    userData.login = "username"
-    userData.user.split("").map(item => {
-      if (item == "@") userData.login = "email"
-    })
+    userData.method = "username"
+    userData.user.split("").map(item => { if (item == "@") userData.method = "email" })
 
-    const user = {
-      login: userData.login,
-      user: userData.user,
-      password: userData.password
-    }
-
-    axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/auth`, user).then(({ data }) => {
-      if (data[0]) {
-        const account = { id: data[0]._id, password: data[0].password }
-        setToken(account)
-
-        if (userData.remember) {
-          if (accounts == "null" || accounts.length == 0) {
-            setAccounts([account])
-          } else if (accounts.length == 1) {
-            accounts[0].id !== account.id && setAccounts([...accounts, account])
-          } else if (accounts.length == 2) {
-            (accounts[0].id !== account.id && accounts[1].id !== account.id) && setAccounts([...accounts, account])
-          }
-        }
-
-        success("You a signed in");
-        setTimeout(() => router.push('/home'), 1000)
-      } else {
-        wrong("Wrong email or password");
+    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/login/${userData.method}`, {
+      headers: {
+        'login': userData.user,
+        'password': userData.password
       }
-    }).catch(({message})=> wrong(message)).finally(() => setLoading(false))
+    }).then(({ data }) => {
+      const account = { id: data.id, password: data.password }
+      setToken(account)
+
+      if (userData.remember) {
+        if (accounts == "null" || accounts.length == 0) {
+          setAccounts([account])
+        } else if (accounts.length == 1) {
+          accounts[0].id !== account.id && setAccounts([...accounts, account])
+        } else if (accounts.length == 2) {
+          (accounts[0].id !== account.id && accounts[1].id !== account.id) && setAccounts([...accounts, account])
+        }
+      }
+      success("You a signed in");
+      setTimeout(() => router.push('/home'), 1000)
+    }).catch(error => wrong(error.response.data.message)).finally(() => setLoading(false))
   }
 
   const authGoogle = () => {
@@ -80,8 +73,7 @@ export default function Login() {
 
   useEffect(() => {
     localStorage.removeItem('oauthGoogle')
-    if (accounts == "null") { setWait(false); return; }
-    accounts.length >= 3 ? router.push("/account") : setWait(false)
+    if (accounts != "null" && accounts.length >= 3) router.push("/account")
   }, [])
 
   useEffect(() => {
@@ -116,7 +108,19 @@ export default function Login() {
     localStorage.removeItem('oauthGoogle')
   }, [data])
 
-  if (wait) return <Wait />
+  let src
+  switch (resolvedTheme) {
+    case 'light':
+      src = '/lorenzon/logo.svg'
+      break
+    case 'dark':
+      src = '/lorenzon/white.svg'
+      break
+    default:
+      src = '/lorenzon/white.svg'
+      break
+  }
+
   return (
     <Root page="login" title="Sign in">
       <motion.section
@@ -126,7 +130,7 @@ export default function Login() {
         className="formes"
       >
         <Link href={"/"} className="logo">
-          <Image src="/lorenzon/white.svg" width={136} height={32} alt="Lorenzon" />
+          <Image src={src} width={136} height={32} alt="Lorenzon" />
         </Link>
         <div className="wrapper">
           <h1>Welcome Back!</h1>
@@ -209,8 +213,10 @@ export default function Login() {
           <div className="replacement">
             <span>Don’t have an account? </span>
             <Link href={"/register"} onClick={() => setPage(1)}>Sign up</Link>
-            <span> or </span>
-            <Link href={"/account"}>Accounts</Link>
+            {accounts != "null" && accounts.length >= 0 && <>
+              <span> or </span>
+              <Link href={"/account"}>Accounts</Link>
+            </>}
           </div>
         </div>
       </motion.section>

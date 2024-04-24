@@ -13,6 +13,7 @@ import Root from "../../layouts/root";
 
 import { useRouter } from "next/navigation";
 import { MdEmail } from "react-icons/md";
+import { useTheme } from "next-themes";
 
 export default function RegisterEmail() {
     const setPage = useAuthCreate(state => state.setPage);
@@ -21,12 +22,14 @@ export default function RegisterEmail() {
     const setName = useAuthCreate(state => state.setName);
     const setImage = useAuthCreate(state => state.setImage);
     const setRandomCode = useAuthCreate(state => state.setRandomCode);
+
     const { register, handleSubmit } = useForm();
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState(email || "");
     const [oauthGoogle, setOauthGoogle] = useLocalStorage('oauthGoogle', "null")
     const [accounts, setAccounts] = useLocalStorage("accounts", "null")
     const [token, setToken] = useLocalStorage("token", "null")
+    const { resolvedTheme } = useTheme()
     const { data } = useSession()
     const router = useRouter()
 
@@ -76,6 +79,19 @@ export default function RegisterEmail() {
         }
     }, [data])
 
+    let src
+    switch (resolvedTheme) {
+        case 'light':
+            src = '/lorenzon/logo.svg'
+            break
+        case 'dark':
+            src = '/lorenzon/white.svg'
+            break
+        default:
+            src = '/lorenzon/white.svg'
+            break
+    }
+
     return (
         <Root page="register" title="Sign up">
             <motion.section
@@ -85,7 +101,7 @@ export default function RegisterEmail() {
                 className="formes"
             >
                 <Link href={"/"} className="logo">
-                    <Image src="/lorenzon/white.svg" width={136} height={32} alt="Lorenzon" />
+                    <Image src={src} width={136} height={32} alt="Lorenzon" />
                 </Link>
                 <div className="wrapper">
                     <h1 className="start">Sign up to start listening</h1>
@@ -141,8 +157,10 @@ export default function RegisterEmail() {
                     <div className="replacement">
                         <span>Do you have an account? </span>
                         <Link href={"/login"}>Sign in</Link>
-                        <span> or </span>
-                        <Link href={"/account"}>Accounts</Link>
+                        {accounts != "null" && accounts.length >= 0 && <>
+                            <span> or </span>
+                            <Link href={"/account"}>Accounts</Link>
+                        </>}
                     </div>
                 </div>
             </motion.section>

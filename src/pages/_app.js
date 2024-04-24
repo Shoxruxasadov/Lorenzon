@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import { SessionProvider } from 'next-auth/react';
 import { SpeedInsights } from "@vercel/speed-insights/react"
@@ -24,14 +24,16 @@ import "..//styles/auth/login.scss"; // login
 import "..//styles/auth/register.scss"; // register
 import "..//styles/auth/account.scss"; // account
 import "..//styles/admin/admin.scss"; // admin
+import "..//styles/assets/menu.scss"; // menu
 import 'rodal/lib/rodal.css'; // rodal
-import 'aos/dist/aos.css'; // aos animation
+import 'aos/dist/aos.css'; // aos 
 
 export default function MyApp({ Component, pageProps, }) {
     const user = useStore(state => state.user);
     const getUserFromToken = useStore(state => state.getUserFromToken);
     const [isLoading, setLoading] = useState(true)
     const [token, setToken] = useLocalStorage("token", "null")
+    const pathname = usePathname()
     const router = useRouter()
 
     const allSongs = useMusic((state) => state.musics);
@@ -71,15 +73,25 @@ export default function MyApp({ Component, pageProps, }) {
             }
         }
 
-        if (token === 'null') { setLoading(false); router.push('/'); };
+        if (pathname == '/') {
+            document.querySelector('body').classList.add('scrolling')
+        } else {
+            document.querySelector('body').classList.remove('scrolling')
+        }
+
+        if (token === 'null') { setLoading(false); router.push((pathname == '/login' || pathname == '/register' || pathname == '/account') ? pathname : '/'); };
         if (token.id && !user._id) getUserFromToken(token, router).finally(() => setLoading(false));
         document.addEventListener("keyup", handleSpacePress);
-        return () => { document.removeEventListener("keyup", handleSpacePress); };
+        window.addEventListener("contextmenu", (e) => e.preventDefault())
+        return () => {
+            document.removeEventListener("keyup", handleSpacePress);
+            window.removeEventListener("contextmenu", (e) => e.preventDefault())
+        };
     }, [])
 
     useEffect(() => {
-        if (user.lastSong && user.lastSong.length > 0) {
-            setCurrentMusic(user.lastSong[0]);
+        if (user.lastSong) {
+            setCurrentMusic(user.lastSong);
             setAllSongs(user.recently);
         }
     }, [user])
@@ -160,24 +172,25 @@ export default function MyApp({ Component, pageProps, }) {
 
     if (isLoading) return <Wait />
     return <>
-        <SessionProvider session={pageProps.session}>
-            <ThemeProvider>
+        <ThemeProvider>
+            <SessionProvider session={pageProps.session}>
                 <QueryClientProvider client={queryClient}>
                     <Component {...pageProps} />
                     <ReactQueryDevtools initialIsOpen={false} />
                 </QueryClientProvider>
-            </ThemeProvider>
-            <ToastContainer />
-            <SpeedInsights />
-            <Analytics />
-            <audio
-                src={currentSong.song}
-                ref={audioElem}
-                loop={isLoop}
-                onTimeUpdate={getRead}
-                onLoadedData={getDuration}
-            />
-        </SessionProvider>
+            </SessionProvider>
+        </ThemeProvider>
+
+        <ToastContainer />
+        <SpeedInsights />
+        <Analytics />
+        <audio
+            src={currentSong.song}
+            ref={audioElem}
+            loop={isLoop}
+            onTimeUpdate={getRead}
+            onLoadedData={getDuration}
+        />
     </>
 }
 

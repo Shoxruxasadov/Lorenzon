@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 
-import { useMusic } from "../../../store/zustand";
+import { useMusic, useStore } from "../../../store/zustand";
 import GetAudioDuration from '../../../hooks/useDuration';
 import Loading from "../../../components/loading/home";
 import Error from "../../../components/other/error";
@@ -12,6 +12,7 @@ import HomeLayout from "../../../layouts/home";
 import { IoTimeOutline } from "react-icons/io5";
 
 export default function HomeAlbum() {
+    const user = useStore((state) => state.user);
     const [loadedImage, setLoadedImage] = useState(false);
     const pathname = usePathname()
     const router = useRouter()
@@ -21,7 +22,8 @@ export default function HomeAlbum() {
     const setReadTime = useMusic((state) => state.setReadTime);
     const playPouse = useMusic((state) => state.playPouse);
     const setPlayPouse = useMusic((state) => state.setPlayPouse);
-    const setMusics = useMusic((state) => state.setMusics);
+    const queue = useMusic(state => state.musics)
+    const setQueue = useMusic((state) => state.setMusics);
     const currentSong = useMusic((state) => state.currentMusic);
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
 
@@ -30,11 +32,19 @@ export default function HomeAlbum() {
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/${pathname.split('/')[2]}`).then(({ data }) => data[0]),
     })
 
-    console.log(isLoading, isSuccess);
-
     useEffect(() => {
         if (pathname) refetch()
     }, [pathname])
+
+    function arraysEqual(a, b) {
+        if (a === b) return true;
+        if (a == null || b == null) return false;
+        if (a.length !== b.length) return false;
+        for (let i = 0; i < a.length; ++i) { if (a[i]._id !== b[i]._id) return false; }
+        return true;
+    }
+
+    console.log(user);
 
     if (isLoading) return <Loading />
     if (isError) return <Error />
@@ -55,20 +65,79 @@ export default function HomeAlbum() {
                     <p className="title">{album.songs.length > 1 ? 'Album' : 'Single'}</p>
                     <h1 className="name">{album.name}</h1>
                     <div className="singers">
-                        <p>{album.singerName.map((s, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)} className="singer">{s + ', '}</span>)}</p>
+                        <p>{album.singerName.map((s, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)} className="singer">{album.singerName.length == i + 1 ? s : s + ','}</span>)}</p>
                         <span className="dot"> • </span>
                         <p>{album.songs[0].createdDay.substring(0, 4)}</p>
                         <span className="dot"> • </span>
-                        <p>{album.songs.length} track</p>
+                        <p>{album.songs.length} songs</p>
                     </div>
                 </div>
             </div>
-            <div className="panel"></div>
+            <div className="panel">
+                <button className="play" onClick={() => {
+                    if (arraysEqual(queue, album.songs)) {
+                        if (playPouse) {
+                            setPlayPouse(false)
+                        } else {
+                            setPlayPouse(true)
+                            setTimeout(() => setRender(!render), 10)
+                        }
+                    } else {
+                        setQueue(album.songs);
+                        setCurrentSong(album.songs[0])
+                        setReadTime(0)
+                        setPlayPouse(true)
+                        setTimeout(() => setRender(!render), 10)
+                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: album.songs[0]._id })
+                    }
+                }}>
+                    {arraysEqual(queue, album.songs) && playPouse ? <svg
+                        className={`pouse ${playPouse ? "active" : ""}`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={55}
+                        height={55}
+                        viewBox="0 0 100 100"
+                        fill="none"
+                    >
+                        <circle cx="50" cy="50" r="50" fill="#6940EE" />
+                        <rect
+                            x="30"
+                            y="30"
+                            width="15"
+                            height="40"
+                            rx="5"
+                            fill="#0D1219"
+                        />
+                        <rect
+                            x="55"
+                            y="30"
+                            width="15"
+                            height="40"
+                            rx="5"
+                            fill="#0D1219"
+                        />
+                    </svg> : <svg
+                        className="play"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={55}
+                        height={55}
+                        viewBox="0 0 100 100"
+                        fill="none"
+                    >
+                        <circle cx="50" cy="50" r="50" fill="#6940EE" />
+                        <path
+                            d="M68.5 46.1699C71.8333 48.0944 71.8333 52.9056 68.5 54.8301L42.25 69.9856C38.9167 71.9101 34.75 69.5044 34.75 65.6554L34.75 35.3446C34.75 31.4956 38.9167 29.0899 42.25 31.0144L68.5 46.1699Z"
+                            fill="#0D1219"
+                        />
+                    </svg>}
+                </button>
+            </div>
             <div className="songs">
                 <div className="head">
                     <div className="numero">&#8470;</div>
                     <div className="another">
                         <div className="name">Title</div>
+                        <div className="singer">Singer</div>
                         <div className="listen">Listened</div>
                         <div className="duration"><IoTimeOutline /></div>
                     </div>
@@ -82,7 +151,7 @@ export default function HomeAlbum() {
                                 if (playPouse && (currentSong.song == item.song)) {
                                     setPlayPouse(false)
                                 } else {
-                                    setMusics(album.songs);
+                                    setQueue(album.songs);
                                     setCurrentSong(item)
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
@@ -112,10 +181,14 @@ export default function HomeAlbum() {
                                 <div className='music'>
                                     <div className="music-title">
                                         <h3>{item.name}</h3>
-                                        <p>{item.singerName.map(n => n + ', ')}</p>
                                     </div>
                                 </div>
-                                <div className='listen'><p>{item.listenCount}</p></div>
+                                <div className='singer'>
+                                    <div className="music-singer">
+                                        <p>{item.singerName.map((n, i) => item.singerName.length == i + 1 ? n : n + ', ')}</p>
+                                    </div>
+                                </div>
+                                <div className='listen'><p>{item.listenCount.toString().split('').map((c, i) => i % 3 == 1 ? `${c} ` : c)}</p></div>
                                 <div className='duration'><p><GetAudioDuration audioUrl={item.song} /></p></div>
                             </div>
                         </li>

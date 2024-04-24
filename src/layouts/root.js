@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-export default function Root({ children, page, title }) {
+export default function Root({ children, page, title, isHover, setIsShow }) {
     return (
         <>
             <Head>
@@ -15,7 +15,7 @@ export default function Root({ children, page, title }) {
                 <meta name="description" content="Lorenzon • Enjoy the music and connect with people • Free Music Player" />
                 <meta name="keywords" content="Lorenzon, Lorenzonuz, Lorenzon uz, Lorenzon bot, Lorenzo, lorenzon, Music, Player, Free, Spotify, Spotify clone, Streaming, Stream, Streaming Music Player, Music Player, Song, Songs, Song player, Sound, Sound player, SoundCloud, SoundCloud clone" />
             </Head>
-            <div id={page}>
+            <div id={page} onContextMenu={() => !isHover && setIsShow && setIsShow(false)} onClick={() => setIsShow && setIsShow(false)}>
                 {children}
             </div>
         </>

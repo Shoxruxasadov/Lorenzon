@@ -20,7 +20,7 @@ main#admin-add-music {
     .head {
       width: 100%;
       height: 70px;
-      background: $admin-tabhead;
+      background: var(--admin-tabhead);
       padding: 0 30px;
       border-radius: 0.5em 0.5em 0 0;
 
@@ -33,7 +33,7 @@ main#admin-add-music {
 
     .body {
       width: 100%;
-      background: $view;
+      background: var(--viewer-color);
       padding: 30px 30px 50px 30px;
       display: flex;
       flex-direction: row-reverse;
@@ -102,7 +102,7 @@ main#admin-add-music {
                   font-size: 18px;
                   border-radius: 4px;
                   border: none;
-                  background: $main;
+                  background: var(--main-color);
                   color: #fff;
                   transition: 0.2s;
                   margin: 0 auto 5px;
@@ -154,7 +154,7 @@ main#admin-add-music {
               right: 2px;
               width: 22px;
               height: 22px;
-              background: $main;
+              background: var(--main-color);
               border-radius: 50%;
               display: flex;
               align-items: center;
@@ -188,7 +188,7 @@ main#admin-add-music {
             font-size: 18px;
             border-radius: 8px;
             border: none;
-            background: $main;
+            background: var(--main-color);
             color: #fff;
             transition: 0.2s;
 
@@ -222,13 +222,13 @@ main#admin-add-music {
             height: 100%;
             padding-left: 42px;
             border-radius: 8px;
-            border: 1px solid $admin-inpbor;
-            background: $admin-tabhead;
-            color: $text;
+            border: 1px solid var(--admin-inpbor);
+            background: var(--admin-tabhead);
+            color: var(--text-color);
             font-size: 15px;
 
             &::placeholder {
-              color: $bate;
+              color: var(--medium-color);
               padding-top: 1px;
 
               font-size: 14px;
@@ -242,7 +242,7 @@ main#admin-add-music {
             position: absolute;
             top: 50%;
             left: 14px;
-            color: $bate;
+            color: var(--medium-color);
             font-size: 16px;
 
             &,
@@ -264,8 +264,8 @@ main#admin-add-music {
 
         .singers, .written, .albums {
           border-radius: 8px;
-          border: 1px solid $admin-inpbor;
-          background: $admin-tabhead;
+          border: 1px solid var(--admin-inpbor);
+          background: var(--admin-tabhead);
 
           ::-webkit-scrollbar {
             width: 0px;
@@ -274,7 +274,7 @@ main#admin-add-music {
           .select {
             height: 100%;
             font-size: 13.333px;
-            color: $bate;
+            color: var(--medium-color);
             padding-left: 42px;
             padding-right: 12px;
 
@@ -286,7 +286,7 @@ main#admin-add-music {
 
             span {
               text-transform: capitalize;
-              color: $bate;
+              color: var(--medium-color);
 
               &.active {
                 white-space: nowrap;
@@ -297,17 +297,17 @@ main#admin-add-music {
 
                 &::before{
                   content: "\00d7";
-                  color: $bate;
+                  color: var(--medium-color);
                   padding: 0 5px;
                 }
 
                 &:hover:before{
-                  color: $text;
+                  color: var(--text-color);
                 }
               }
 
               &.active {
-                color: $text;
+                color: var(--text-color);
               }
             }
           }
@@ -324,8 +324,8 @@ main#admin-add-music {
             overflow: hidden;
 
             border-radius: 8px;
-            border: 1px solid $admin-inpbor;
-            background: $admin-tabhead;
+            border: 1px solid var(--admin-inpbor);
+            background: var(--admin-tabhead);
 
             &.active {
               transition: 0.2s;
@@ -340,11 +340,11 @@ main#admin-add-music {
               width: 5px;
             }
             ::-webkit-scrollbar-thumb {
-              background: $text;
+              background: var(--text-color);
               border-radius: 25px;
             }
             ::-webkit-scrollbar-track {
-              background-color: $admin-tabhead;
+              background-color: var(--admin-tabhead);
               border-radius: 25px;
             }
 
@@ -355,7 +355,7 @@ main#admin-add-music {
                 position: absolute;
                 top: calc(50% - 7.5px);
                 left: 13px;
-                color: $bate;
+                color: var(--medium-color);
                 font-size: 17px;
               }
 
@@ -366,12 +366,12 @@ main#admin-add-music {
                 margin-bottom: 15px;
 
                 border-radius: 8px;
-                border: 1px solid $login-bor;
-                background: $admin-tabhead;
-                color: $text;
+                border: 1px solid var(--login-bor);
+                background: var(--admin-tabhead);
+                color: var(--text-color);
 
                 &::placeholder {
-                  color: $bate;
+                  color: var(--medium-color);
                   padding-top: 1px;
 
                   font-size: 14px;
@@ -393,16 +393,17 @@ main#admin-add-music {
                 align-items: center;
                 font-size: 16px;
                 padding: 0 12px;
-                background: #151c29;
+                background: var(--login-bor);
                 margin-bottom: 2px;
 
                 &:hover {
-                  background: $main;
+                  background: var(--main-color);
+                  color: white;
                 }
 
                 &#routerSingerAdd {
                   justify-content: center;
-                  background: $main;
+                  background: var(--main-color);
                   margin-top: 10px;
                 }
 
@@ -422,8 +423,8 @@ main#admin-add-music {
         .role,
         .status {
           border-radius: 8px;
-          border: 1px solid $admin-inpbor;
-          background: $admin-tabhead;
+          border: 1px solid var(--admin-inpbor);
+          background: var(--admin-tabhead);
           position: relative;
 
           ::-webkit-scrollbar {
@@ -435,7 +436,7 @@ main#admin-add-music {
             position: absolute;
             top: 50%;
             left: 14px;
-            color: $bate;
+            color: var(--medium-color);
 
             &,
             & > path {
@@ -448,12 +449,12 @@ main#admin-add-music {
             height: 100%;
             padding-left: 42px;
             border-radius: 8px;
-            border: 1px solid $admin-inpbor;
-            background: $admin-tabhead;
-            color: $text;
+            border: 1px solid var(--admin-inpbor);
+            background: var(--admin-tabhead);
+            color: var(--text-color);
 
             &::placeholder {
-              color: $bate;
+              color: var(--medium-color);
               padding-top: 1px;
 
               font-size: 14px;
@@ -466,7 +467,7 @@ main#admin-add-music {
           .selectRole {
             height: 100%;
             font-size: 13.333px;
-            color: $bate;
+            color: var(--medium-color);
             padding-left: 42px;
 
             display: flex;
@@ -477,10 +478,10 @@ main#admin-add-music {
 
             span {
               cursor: pointer;
-              color: $bate;
+              color: var(--medium-color);
 
               &.active {
-                color: $text;
+                color: var(--text-color);
               }
             }
           }
@@ -497,8 +498,8 @@ main#admin-add-music {
             overflow: hidden;
 
             border-radius: 8px;
-            border: 1px solid $admin-inpbor;
-            background: $admin-tabhead;
+            border: 1px solid var(--admin-inpbor);
+            background: var(--admin-tabhead);
 
             &.active {
               padding: 10px;
@@ -510,11 +511,11 @@ main#admin-add-music {
               width: 5px;
             }
             ::-webkit-scrollbar-thumb {
-              background: $text;
+              background: var(--text-color);
               border-radius: 25px;
             }
             ::-webkit-scrollbar-track {
-              background-color: $admin-tabhead;
+              background-color: var(--admin-tabhead);
               border-radius: 25px;
             }
 
@@ -525,7 +526,7 @@ main#admin-add-music {
                 position: absolute;
                 top: calc(50% - 7.5px);
                 left: 13px;
-                color: $bate;
+                color: var(--medium-color);
                 font-size: 17px;
               }
 
@@ -536,12 +537,12 @@ main#admin-add-music {
                 margin-bottom: 15px;
 
                 border-radius: 8px;
-                border: 1px solid $admin-inpbor;
-                background: $admin-tabhead;
-                color: $text;
+                border: 1px solid var(--admin-inpbor);
+                background: var(--admin-tabhead);
+                color: var(--text-color);
 
                 &::placeholder {
-                  color: $bate;
+                  color: var(--medium-color);
                   padding-top: 1px;
 
                   font-size: 14px;
@@ -563,7 +564,12 @@ main#admin-add-music {
                 position: relative;
 
                 &:hover {
-                  background: $main;
+                  background: var(--main-color);
+                  color: white;
+
+                  svg{
+                    color: white;
+                  }
                 }
 
                 svg {
@@ -571,7 +577,7 @@ main#admin-add-music {
                   transform: translateY(-50%);
                   top: 50%;
                   left: 3px;
-                  color: $text;
+                  color: var(--text-color);
                 }
 
                 span {
@@ -594,7 +600,7 @@ main#admin-add-music {
             font-size: 18px;
             border-radius: 8px;
             border: none;
-            background: $main;
+            background: var(--main-color);
             color: #fff;
             transition: 0.2s;
 

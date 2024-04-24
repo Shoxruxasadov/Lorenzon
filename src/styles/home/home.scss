@@ -290,6 +290,10 @@
     padding: 24px 24px 94px;
     overflow-y: auto;
 
+    &.non-active {
+      overflow-y: hidden;
+    }
+
     header#main-header {
       width: 100%;
       height: 44px;
@@ -975,8 +979,25 @@
             }
           }
 
-          .title h4:hover {
-            text-decoration: underline;
+          .title h4 {
+            font-weight: 700;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        &.library .card.active {
+          background: linear-gradient(
+            to right,
+            var(--hover-color) 50%,
+            transparent
+          );
+
+          .title h4 {
+            color: var(--main-click-color);
+            font-weight: 700;
           }
         }
 
@@ -1050,7 +1071,6 @@
               max-width: 190px;
               color: var(--text-color);
               font-size: 17px;
-              font-weight: 700;
               cursor: pointer;
               text-wrap: nowrap;
               text-overflow: ellipsis;
@@ -1093,6 +1113,7 @@
   }
 
   footer#player {
+    transition: .25s;
     position: absolute;
     z-index: 1000;
     bottom: 0;
@@ -1103,8 +1124,16 @@
     background-color: var(--medium-back-color);
     backdrop-filter: blur(64px);
 
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
     &.active {
       height: 100svh;
+
+      .content{
+        height: 150px;
+      }
     }
 
     #bar {
@@ -1161,8 +1190,9 @@
     }
 
     .content {
+      transition: .25s;
       width: 100%;
-      height: 100%;
+      height: 90px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1462,6 +1492,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: sticky;
+    z-index: 100000;
 
     .loader {
       transform: rotateZ(45deg);

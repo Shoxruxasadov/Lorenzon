@@ -81,8 +81,64 @@ main#home-user {
 
   .panel {
     width: 100%;
-    height: 60px;
+    height: 55px;
     margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    button.play {
+      cursor: default;
+
+      svg {
+        border-radius: 50%;
+        transition: 0.2s;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+        &:active {
+          transform: scale(0.9);
+        }
+
+        &,
+        & > path,
+        & > circle,
+        & > rect {
+          cursor: pointer;
+        }
+      }
+    }
+
+    button.subscription {
+      border-radius: 32px;
+      padding: 8px 24px 6px;
+      transition: 0.2s;
+
+      color: var(--background-color);
+      background: var(--text-color);
+
+      &.active {
+        border-color: var(--main-click-color);
+        background: var(--main-click-color);
+        color: white;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+
+    button.delete-playlist{
+      border-radius: 32px;
+      padding: 8px 24px 6px;
+      transition: 0.2s;
+
+      background: #ff3822ea;
+    }
   }
 
   .popular {
@@ -105,6 +161,12 @@ main#home-user {
         border-radius: 6px;
         padding: 8px 0;
         transition: 0.2s;
+
+        &.selected .another .music .music-title h3,
+        &.selected .index span.in {
+          color: var(--main-click-color);
+          font-weight: 700;
+        }
 
         &.active {
           background: var(--analog-color) !important;
@@ -147,7 +209,7 @@ main#home-user {
           justify-content: center;
 
           span.in {
-            color: var(--madium-color);
+            color: var(--medium-color);
           }
 
           .icon {
@@ -273,7 +335,7 @@ main#home-user {
 
               p {
                 font-size: 14px;
-                color: var(--madium-color);
+                color: var(--medium-color);
               }
             }
           }
@@ -283,7 +345,7 @@ main#home-user {
             text-align: end;
 
             p {
-              color: var(--madium-color);
+              color: var(--medium-color);
             }
           }
 
@@ -293,7 +355,7 @@ main#home-user {
             text-align: end;
 
             p {
-              color: var(--madium-color);
+              color: var(--medium-color);
             }
           }
         }

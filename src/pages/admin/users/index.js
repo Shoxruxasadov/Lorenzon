@@ -18,7 +18,7 @@ export default function AdminUsers() {
         getUsers()
     }, [])
 
-    const getUsers = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users`).then(({ data }) => setAllUsers(data)).finally(() => setLoading(false))
+    const getUsers = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, { headers: { 'secret': process.env.NEXT_PUBLIC_HASHCODE } }).then(({ data }) => setAllUsers(data)).finally(() => setLoading(false))
     const removeUser = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/users/${userDeleted._id}`).then(() => success("Deleted user")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getUsers() })
 
     return (

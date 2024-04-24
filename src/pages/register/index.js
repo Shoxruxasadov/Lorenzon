@@ -5,6 +5,7 @@ import RegisterEmail from "../../components/auth/registerEmail";
 import RegisterOTP from "../../components/auth/registerOTP";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import Wait from "../../components/loading/wait";
+
 import { useAuthCreate } from "../../store/zustand";
 import RegisterPassword from "../../components/auth/registerPassword";
 import RegisterAbout from "../../components/auth/registerAbout";
@@ -18,10 +19,7 @@ export default function Register() {
   const router = useRouter()
 
   useEffect(() => {
-    if (accounts == "null") {
-      setWait(false)
-      return
-    }
+    if (accounts == "null") { setWait(false); return }
     accounts.length >= 3 ? router.push("/account") : setWait(false)
   }, [])
 

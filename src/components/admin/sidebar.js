@@ -1,8 +1,9 @@
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useStore } from "../../store/zustand";
 
+import { useStore } from "../../store/zustand";
 import { HiMiniMusicalNote, HiMiniMicrophone, HiMiniFolder, HiMiniFolderMinus } from "react-icons/hi2";
 import { FaUserFriends } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
@@ -10,6 +11,7 @@ import { HiHome } from "react-icons/hi";
 
 export default function AdminSidebar() {
     const user = useStore(state => state.user)
+    const { resolvedTheme } = useTheme()
     const pathname = usePathname()
     const links = [
         { title: "Users", path: "/admin/users", icon: (<FaUserFriends />) },
@@ -19,11 +21,24 @@ export default function AdminSidebar() {
         { title: "Playlists", path: "/admin/playlists", icon: (<HiMiniFolderMinus />) },
     ]
 
+    let src
+    switch (resolvedTheme) {
+        case 'light':
+            src = '/lorenzon/logo.svg'
+            break
+        case 'dark':
+            src = '/lorenzon/white.svg'
+            break
+        default:
+            src = '/lorenzon/white.svg'
+            break
+    }
+
     return (
         <nav id="admin-sidebar">
             <div className="wrapper">
                 <Link href={"/"} className="logo">
-                    <Image src="/lorenzon/white.svg" width={170} height={40} alt="Lorenzon" />
+                    <Image src={src} width={170} height={40} alt="Lorenzon" />
                 </Link>
                 <div className="category">
                     <div className="list">

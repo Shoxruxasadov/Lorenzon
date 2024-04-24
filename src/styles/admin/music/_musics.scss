@@ -26,10 +26,10 @@ main#admin-musics {
         font-size: 15px;
         text-align: center;
         border-collapse: collapse;
-        box-shadow: -0.5px -0.5px 0px $admin-shadbar, 1px 1px 5px -1px #00000026;
+        box-shadow: -0.5px -0.5px 0px var(--admin-shadbar), 1px 1px 5px -1px #00000026;
 
         thead tr {
-          background: $admin-tabhead;
+          background: var(--admin-tabhead);
           font-size: 18px;
 
           th:nth-child(1) {
@@ -54,10 +54,10 @@ main#admin-musics {
         }
 
         tbody tr {
-          background: $view;
+          background: var(--viewer-color);
 
           &:hover {
-            background: $admin-tabhead;
+            background: var(--admin-tabhead);
             opacity: background-color 50%;
           }
 
@@ -118,7 +118,7 @@ main#admin-musics {
               display: flex;
               align-items: center;
               justify-content: center;
-              color: $text;
+              color: var(--text-color);
             }
 
             .loader {
@@ -127,7 +127,7 @@ main#admin-musics {
               border-radius: 50%;
               width: 64px;
               height: 64px;
-              color: #fff;
+              color: var(--text-color);
 
               &:before,
               &:after {
@@ -139,12 +139,16 @@ main#admin-musics {
                 width: inherit;
                 height: inherit;
                 border-radius: 50%;
-                transform: rotateX(64deg);
                 animation: 1s wait-loading linear infinite;
               }
 
+              &::before {
+                color: var(--main-color);
+                transform: rotateX(64deg);
+              }
+
               &:after {
-                color: $main;
+                color: var(--main-color);
                 transform: rotateY(64deg);
                 animation-delay: 0.4s;
               }
@@ -158,7 +162,6 @@ main#admin-musics {
                 transform: translate(-50%, -50%) rotateZ(360deg);
               }
             }
-
             @keyframes rotateccw {
               0% {
                 transform: translate(-50%, -50%) rotate(0deg);
@@ -167,7 +170,6 @@ main#admin-musics {
                 transform: translate(-50%, -50%) rotate(-360deg);
               }
             }
-
             @keyframes wait-loading {
               0%,
               100% {
@@ -210,7 +212,7 @@ main#admin-musics {
 
   .rodal-delete {
     .rodal-mask {
-      background: $back;
+      background: var(--background-color);
       opacity: 70%;
     }
 

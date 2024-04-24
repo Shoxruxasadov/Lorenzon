@@ -1,14 +1,7 @@
-$main: #582ddd;
-$text: #f3f3f3;
-$back: #080b0f;
-$view: #0d1219;
-$bate: #99999f;
-$click: #6940ee;
-
 #account {
   width: 100%;
   height: 100svh;
-  background: $back;
+  background: var(--background-color);
   position: relative;
 
   .logo {
@@ -40,20 +33,24 @@ $click: #6940ee;
 
   main {
     width: 100%;
-    height: 95svh;
-    color: $text;
+    height: 93svh;
+    color: var(--text-color);
 
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 24px;
 
+    @media (max-width: 400px) {
+      transform: scale(0.7);
+    }
+
     .card {
       width: 160px;
       height: 220px;
-      box-shadow: 0 0 20px $view;
+      box-shadow: 0 0 20px var(--viewer-color);
       border-radius: 12px;
-      background: $view;
+      background: var(--viewer-color);
       transition: 0.2s;
       cursor: pointer;
       position: relative;
@@ -94,7 +91,7 @@ $click: #6940ee;
         transition: 0.15s;
         border-radius: 50%;
         position: absolute;
-        background: white;
+        background: var(--text-color);
         top: 0px;
         left: 0px;
         font-size: 20px;
@@ -103,7 +100,7 @@ $click: #6940ee;
 
         svg {
           font-size: 12px;
-          color: #111822;
+          color: var(--background-color);
 
           &,
           & > path {
@@ -117,7 +114,7 @@ $click: #6940ee;
 
         .title {
           padding: 0 12px;
-          background: white;
+          background: var(--text-color);
           visibility: hidden;
           position: absolute;
           border-radius: 8px;
@@ -127,7 +124,7 @@ $click: #6940ee;
           span {
             white-space: nowrap;
             font-size: 12px;
-            color: $back;
+            color: var(--background-color);
             line-height: 32px;
           }
 
@@ -136,7 +133,7 @@ $click: #6940ee;
             height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-top: 10px solid white;
+            border-top: 10px solid var(--text-color);
             border-radius: 10px;
             margin: 1em;
             position: absolute;
@@ -147,17 +144,12 @@ $click: #6940ee;
       }
 
       &:hover {
-        background: #111822;
+        background: var(--hover-color);
 
         .remove {
-          background: white;
           border-radius: 50%;
           transform: translate(-10px, -10px);
           visibility: visible;
-
-          svg {
-            color: #111822;
-          }
         }
       }
     }
@@ -178,11 +170,11 @@ $click: #6940ee;
         align-items: center;
         gap: 12px;
 
-        background: $view;
-        box-shadow: 0 0 20px $view;
+        background: var(--viewer-color);
+        box-shadow: 0 0 20px var(--viewer-color);
 
         &:hover {
-          background: #111822;
+          background: var(--hover-color);
         }
       }
 
@@ -201,7 +193,7 @@ $click: #6940ee;
           svg {
             font-size: 72px;
             padding-right: 4px;
-            color: $click;
+            color: var(--main-click-color);
 
             &,
             & > path {
@@ -233,11 +225,12 @@ $click: #6940ee;
   footer {
     width: 100%;
     height: 5svh;
-    color: $bate;
+    color: var(--medium-color);
 
     display: flex;
     justify-content: center;
     align-items: start;
+    flex-wrap: wrap;
 
     h1 {
       font-size: 16px;

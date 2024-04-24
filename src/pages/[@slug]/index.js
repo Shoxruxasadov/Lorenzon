@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -12,12 +12,14 @@ export default function User() {
 
     const { data: user, isLoading, isError, isSuccess, refetch } = useQuery({
         queryKey: "user",
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${pathname.substring(2)}`).then(({ data }) => data[0]),
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${pathname.substring(2)}`).then(({ data }) => data),
     })
 
     useEffect(() => {
         if (pathname) refetch()
     }, [pathname])
+
+    console.log(user);
 
     if (isLoading) return <Loading />
     if (isError) return <Error />

@@ -103,7 +103,7 @@ export default function AddMusic() {
                                     listenCount: 0,
                                 }).then(({ data }) => {
                                     success("Created song");
-                                    router.push("/admin/musics")
+                                    router.push("/admin/songs")
                                 }).catch((err) => {
                                     err.response.data.message[0] ? wrong(err.response.data.message[0]) : wrong("error")
                                     console.log(err.response.data);

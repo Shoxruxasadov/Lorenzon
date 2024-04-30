@@ -54,9 +54,9 @@ export default function MainFooter() {
               <Image src={src} width={136} height={32} alt="Lorenzon" />
             </Link>
             <div className="social">
-              <a href="https://www.instagram.com/lorenzon.uz" target="_blank" rel="noreferrer" name="instagram"><FaInstagram /></a>
-              <a href="https://www.facebook.com/profile.php?id=61556759417185" target="_blank" rel="noreferrer" name="facebook"><FaFacebook /></a>
-              <a href="https://x.com/lorenzon_uz" target="_blank" rel="noreferrer" name="twitter"><FaXTwitter /></a>
+              <a href="https://www.instagram.com/lorenzon.uz" target="_blank" rel="noreferrer" name="instagram" aria-label="Instagram"><FaInstagram /></a>
+              <a href="https://www.facebook.com/profile.php?id=61556759417185" target="_blank" rel="noreferrer" name="facebook" aria-label="Facebook"><FaFacebook /></a>
+              <a href="https://x.com/lorenzon_uz" target="_blank" rel="noreferrer" name="twitter" aria-label="Twitter"><FaXTwitter /></a>
             </div>
           </div>
         </div>

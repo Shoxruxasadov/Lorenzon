@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 
+import { useContextMenu, useHomeModels, useMusic, useStore } from "../../store/zustand";
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useContextMenu, useHomeModels, useMusic, useStore } from "../../store/zustand";
-import { useRouter } from "next/router";
 
 export default function HomeMain() {
   const user = useStore((state) => state.user);
@@ -21,14 +21,16 @@ export default function HomeMain() {
   const setReadTime = useMusic((state) => state.setReadTime);
 
   const RECOMMENDED_SONGS = useHomeModels((state) => state.RECOMMENDED_SONGS);
-  const YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.YOUR_FAVORITE_SINGERS);
+  const FAVORITE_SINGERS = useHomeModels((state) => state.FAVORITE_SINGERS);
+  const RECOMMENDED_ALBUMS = useHomeModels((state) => state.RECOMMENDED_ALBUMS);
+  const RECOMMENDED_PLAYLISTS = useHomeModels((state) => state.RECOMMENDED_PLAYLISTS);
 
   const setCursor = useContextMenu((state) => state.setCursor);
   const setIsShow = useContextMenu((state) => state.setIsShow);
   const setIsHover = useContextMenu((state) => state.setIsHover);
 
-  const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
+  const [columnCount, setColumnCount] = useState(6);
   const router = useRouter();
 
   useEffect(() => {
@@ -48,11 +50,9 @@ export default function HomeMain() {
   }, []);
 
   const onMouseMove = (e) => {
-    let rect = e.currentTarget.getBoundingClientRect();
     let x = e.clientX;
     let y = e.clientY;
     return { x, y }
-    
   };
 
   return (
@@ -69,10 +69,9 @@ export default function HomeMain() {
           style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
           {RECOMMENDED_SONGS.slice(0, columnCount).map((item, index) => (
-            <div
+            <div key={index}
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
-              key={index}
-              onContextMenu={(e) =>{
+              onContextMenu={(e) => {
                 setIsShow(item)
                 setCursor(onMouseMove(e))
               }}
@@ -138,12 +137,12 @@ export default function HomeMain() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                 />
               </div>
               <div className="title">
                 <h3 onClick={() => router.push(`/album/${item.album}`)}>{item.name}</h3>
-                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
               </div>
             </div>
           ))}
@@ -155,15 +154,11 @@ export default function HomeMain() {
           <h2>Favorite singers</h2>
           <Link href={"/singers"}>Show all</Link>
         </header>
-        <div
-          className="content"
-          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
-        >
-          {YOUR_FAVORITE_SINGERS.slice(0, columnCount).map((item, index) => (
-            <div
-              className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
+        <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
+          {FAVORITE_SINGERS.slice(0, columnCount).map((item, index) => (
+            <div key={index}
+              className='card'
               onClick={() => router.push(`/@${item.username}`)}
-              key={index}
             >
               <div className="images">
                 <Image
@@ -174,7 +169,7 @@ export default function HomeMain() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.user.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                   style={{ borderRadius: "50%" }}
                 />
               </div>
@@ -197,9 +192,15 @@ export default function HomeMain() {
           style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
           {user.recently.slice(0, columnCount).map((item, index) => (
-            <div
+            <div key={index}
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
-              key={index}
+              onContextMenu={(e) => {
+                setIsShow(item)
+                setCursor(onMouseMove(e))
+              }}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              onMouseMove={onMouseMove}
             >
               <div
                 className="images"
@@ -258,17 +259,81 @@ export default function HomeMain() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                 />
               </div>
               <div className="title">
                 <h3 onClick={() => router.push(`/album/${item.album}`)}>{item.name}</h3>
-                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
               </div>
             </div>
           ))}
         </div>
       </article>}
+
+      <article>
+        <header>
+          <h2>Recommended Albums</h2>
+          <Link href={"/singers"}>Show all</Link>
+        </header>
+        <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
+          {RECOMMENDED_ALBUMS.slice(0, columnCount).map((item, index) => (
+            <div key={index}
+              className='card'
+              onClick={() => router.push(`/album/${item._id}`)}
+            >
+              <div className="images">
+                <Image
+                  src={item.image || "/other/unknown.music.webp"}
+                  alt="image"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                  blurDataURL="/other/unknown.music.blur.webp"
+                  className={`image ${loadedImage ? 'unblur' : ''}`}
+                  onLoad={() => setLoadedImage(true)}
+                />
+              </div>
+              <div className="title">
+                <h2>{item.name}</h2>
+                <p>Album</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article>
+        <header>
+          <h2>Recommended Playlists</h2>
+          <Link href={"/singers"}>Show all</Link>
+        </header>
+        <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
+          {RECOMMENDED_PLAYLISTS.slice(0, columnCount).map((item, index) => (
+            <div key={index}
+              className='card'
+              onClick={() => router.push(`/playlist/${item._id}`)}
+            >
+              <div className="images">
+                <Image
+                  src={item.image || "/other/unknown.music.webp"}
+                  alt="image"
+                  width={200}
+                  height={200}
+                  placeholder="blur"
+                  blurDataURL="/other/unknown.music.blur.webp"
+                  className={`image ${loadedImage ? 'unblur' : ''}`}
+                  onLoad={() => setLoadedImage(true)}
+                />
+              </div>
+              <div className="title">
+                <h2>{item.name}</h2>
+                <p>Playlists • {item.creatorName}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
     </HomeLayout>
   )
 }

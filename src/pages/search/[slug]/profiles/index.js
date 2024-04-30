@@ -58,7 +58,7 @@ export default function HomeSearchProfiles() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                   style={{ borderRadius: "50%" }}
                 />
               </div>

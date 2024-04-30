@@ -1,23 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import axios from "axios";
 
+import Loading from "../../components/loading/home";
+import Error from "../../components/other/error";
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useAnotherModels, useMusic } from "../../store/zustand";
-import { useRouter } from "next/router";
 
 export default function HomeSingers() {
-  const YOUR_FAVORITE_SINGERS = useAnotherModels((state) => state.YOUR_FAVORITE_SINGERS);
-  const SET_YOUR_FAVORITE_SINGERS = useAnotherModels((state) => state.SET_YOUR_FAVORITE_SINGERS);
-  const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
+  const [columnCount, setColumnCount] = useState(6);
   const router = useRouter();
 
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get`).then(({ data }) => SET_YOUR_FAVORITE_SINGERS(data))
+  const { data: FAVORITE_SINGERS, isLoading, isError, isSuccess, refetch } = useQuery({
+    queryKey: ['FAVORITE_SINGERS'],
+    queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+  })
 
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 2330) setColumnCount(10);
       if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
@@ -33,7 +35,8 @@ export default function HomeSingers() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
+  if (isLoading) return <Loading />
+  if (isSuccess) return (
     <HomeLayout page="home-library" title="Favorite singers">
       <Banner src={"/other/space.ads.webp"} />
       <article>
@@ -41,7 +44,7 @@ export default function HomeSingers() {
           <h2>Favorite singers</h2>
         </header>
         <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
-          {YOUR_FAVORITE_SINGERS.map((item, index) => (
+          {FAVORITE_SINGERS.map((item, index) => (
             <div className='card' key={index} onClick={() => router.push(`/@${item.username}`)} >
               <div className="images">
                 <Image
@@ -52,7 +55,7 @@ export default function HomeSingers() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.user.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                   style={{ borderRadius: "50%" }}
                 />
               </div>
@@ -66,4 +69,5 @@ export default function HomeSingers() {
       </article>
     </HomeLayout>
   )
+  return <Error/>
 }

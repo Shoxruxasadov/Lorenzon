@@ -9,11 +9,13 @@ import { FaUserFriends } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { HiHome } from "react-icons/hi";
 
+
 export default function AdminSidebar() {
     const user = useStore(state => state.user)
     const { resolvedTheme } = useTheme()
     const pathname = usePathname()
     const links = [
+        { title: "Dashboard", path: "/admin", icon: (<HiHome />) },
         { title: "Users", path: "/admin/users", icon: (<FaUserFriends />) },
         { title: "Songs", path: "/admin/songs", icon: (<HiMiniMusicalNote />) },
         { title: "Singers", path: "/admin/singers", icon: (<HiMiniMicrophone />) },
@@ -42,15 +44,12 @@ export default function AdminSidebar() {
                 </Link>
                 <div className="category">
                     <div className="list">
-                        <Link key={"Dashboard"} href={"/admin"} className={pathname == "/admin" ? "active" : ""} >
-                            <div className="svg"><HiHome /></div>
-                            <span>Dashboard</span>
-                        </Link>
                         {links.map(link => (
                             <Link
                                 key={link.title}
-                                href={link.path}
-                                className={`/${pathname.split('/')[1]}/${pathname.split('/')[2]}` === link.path ? "active" : ""}
+                                href={link.path || pathname}
+                                className={`${pathname == link.path ? "active" : ""}`}
+                                onClick={() => !link.path && info("Coming Soon!")}
                             >
                                 <div className="svg">{link.icon}</div>
                                 <span>{link.title}</span>

@@ -28,7 +28,7 @@ export default function HomeAlbum() {
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
 
     const { data: album, isLoading, isError, isSuccess, refetch } = useQuery({
-        queryKey: "album",
+        queryKey: ['album'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/${pathname.split('/')[2]}`).then(({ data }) => data[0]),
     })
 
@@ -44,7 +44,19 @@ export default function HomeAlbum() {
         return true;
     }
 
-    console.log(user);
+    function combineArrays(arrays) {
+        var combinedArray = [];
+        arrays.forEach((array) => {
+            array.forEach((element) => {
+                if (combinedArray.indexOf(element) === -1) {
+                    combinedArray.push(element);
+                }
+            });
+        });
+        return combinedArray;
+    }
+
+    const singers = isSuccess ? combineArrays(album.songs.map(s => s.singerName)) : []
 
     if (isLoading) return <Loading />
     if (isError) return <Error />
@@ -59,17 +71,28 @@ export default function HomeAlbum() {
                     placeholder="blur"
                     blurDataURL="/other/unknown.music.blur.webp"
                     className={loadedImage ? 'album-image unblur' : 'user-image'}
-                    onLoadingComplete={() => setLoadedImage(true)}
+                    onLoad={() => setLoadedImage(true)}
                 />
                 <div className="content">
                     <p className="title">{album.songs.length > 1 ? 'Album' : 'Single'}</p>
                     <h1 className="name">{album.name}</h1>
                     <div className="singers">
-                        <p>{album.singerName.map((s, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)} className="singer">{album.singerName.length == i + 1 ? s : s + ','}</span>)}</p>
+                        <p>{album.singerName.map((s, i) => (
+                            <>
+                                <span
+                                    key={i}
+                                    onClick={() => router.push(`/@${album.singerUsername[i]}`)}
+                                    className="singer"
+                                >
+                                    {s}
+                                </span>
+                                {album.singerName.length != i + 1 && <span className="dot"> • </span>}
+                            </>
+                        ))}</p>
                         <span className="dot"> • </span>
                         <p>{album.songs[0].createdDay.substring(0, 4)}</p>
                         <span className="dot"> • </span>
-                        <p>{album.songs.length} songs</p>
+                        <p>{album.songs.length} Songs</p>
                     </div>
                 </div>
             </div>

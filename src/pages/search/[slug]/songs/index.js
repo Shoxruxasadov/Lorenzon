@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import HomeLayout from "../../../../layouts/home";
 import Banner from "../../../../layouts/banner";
-import { useMusic, useStore } from "../../../../store/zustand";
+import { useContextMenu, useMusic, useStore } from "../../../../store/zustand";
 import { usePathname } from "next/navigation";
 import Loading from "../../../../components/loading/home";
 
@@ -29,6 +29,10 @@ export default function HomeSearchSongs() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const setCursor = useContextMenu((state) => state.setCursor);
+  const setIsShow = useContextMenu((state) => state.setIsShow);
+  const setIsHover = useContextMenu((state) => state.setIsHover);
+
   useEffect(() => {
     setLoading(true)
     pathname && axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/songs/${pathname.split('/')[2]}`).then(({ data }) => setSongs(data)).finally(() => setLoading(false))
@@ -47,6 +51,12 @@ export default function HomeSearchSongs() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [pathname]);
+
+  const onMouseMove = (e) => {
+    let x = e.clientX;
+    let y = e.clientY;
+    return { x, y }
+  };
 
   if (isLoading) return <Loading />
   return (
@@ -71,7 +81,15 @@ export default function HomeSearchSongs() {
                     if (currentMusic.song != item.song) setReadTime(0)
                     axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
                   }
-                }}>
+                }}
+                onContextMenu={(e) => {
+                  setIsShow(item)
+                  setCursor(onMouseMove(e))
+                }}
+                onMouseEnter={() => setIsHover(true)}
+                onMouseLeave={() => setIsHover(false)}
+                onMouseMove={onMouseMove}
+              >
                 <svg
                   className={`pouse ${playPouse ? "active" : ""}`}
                   xmlns="http://www.w3.org/2000/svg"
@@ -116,12 +134,12 @@ export default function HomeSearchSongs() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                 />
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
-                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
               </div>
             </div>
           ))}

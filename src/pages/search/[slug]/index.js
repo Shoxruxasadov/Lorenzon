@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
-import { useMusic, useStore } from "../../../store/zustand";
+import { useContextMenu, useMusic, useStore } from "../../../store/zustand";
 import HomeLayout from "../../../layouts/home";
 import GetAudioDuration from "../../../hooks/useDuration"
 import Loading from "../../../components/loading/home";
@@ -35,6 +35,10 @@ export default function HomeSearching() {
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
     const setReadTime = useMusic((state) => state.setReadTime);
 
+    const setCursor = useContextMenu((state) => state.setCursor);
+    const setIsShow = useContextMenu((state) => state.setIsShow);
+    const setIsHover = useContextMenu((state) => state.setIsHover);
+
     useEffect(() => {
         setLoading(true)
         pathname && axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/${pathname.split('/')[2].replaceAll('%20', ' ')}`).then(({ data }) => setSearchData(data)).finally(() => setLoading(false))
@@ -53,6 +57,12 @@ export default function HomeSearching() {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, [pathname]);
+
+    const onMouseMove = (e) => {
+        let x = e.clientX;
+        let y = e.clientY;
+        return { x, y }
+    };
 
     if (isLoading) return <Loading />
     return (
@@ -77,6 +87,13 @@ export default function HomeSearching() {
                                         axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: searchData.topSong._id })
                                     }
                                 }}
+                                onContextMenu={(e) => {
+                                    setIsShow(searchData.topSong)
+                                    setCursor(onMouseMove(e))
+                                }}
+                                onMouseEnter={() => setIsHover(true)}
+                                onMouseLeave={() => setIsHover(false)}
+                                onMouseMove={onMouseMove}
                             >
                                 <div className="images" >
                                     <svg
@@ -123,12 +140,12 @@ export default function HomeSearching() {
                                         placeholder="blur"
                                         blurDataURL="/other/unknown.music.blur.webp"
                                         className={`image ${loadedImage ? 'unblur' : ''}`}
-                                        onLoadingComplete={() => setLoadedImage(true)}
+                                        onLoad={() => setLoadedImage(true)}
                                     />
                                 </div>
                                 <div className="title">
                                     <h3 onClick={() => router.push(`/album/${searchData.topSong.album}`)}>{searchData.topSong.name}</h3>
-                                    <p>{searchData.topSong.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${searchData.topSong.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                                    <p>{searchData.topSong.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${searchData.topSong.singerUsername[i]}`)}>{searchData.topSong.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
                                 </div>
                             </div>
                         </div>
@@ -139,8 +156,7 @@ export default function HomeSearching() {
                         </header>
                         <ul className="content">
                             {searchData.popularSongs.map((item, index) => (
-                                <li
-                                    key={item._id}
+                                <li key={item._id}
                                     className={`${currentSong.song == item.song && playPouse ? "active" : ""} ${currentSong.song == item.song ? "selected" : ""}`}
                                     onClick={() => {
                                         if (playPouse && (currentSong.song == item.song)) {
@@ -152,7 +168,15 @@ export default function HomeSearching() {
                                             setTimeout(() => setRender(!render), 10)
                                             axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
                                         }
-                                    }}>
+                                    }}
+                                    onContextMenu={(e) => {
+                                        setIsShow(item)
+                                        setCursor(onMouseMove(e))
+                                    }}
+                                    onMouseEnter={() => setIsHover(true)}
+                                    onMouseLeave={() => setIsHover(false)}
+                                    onMouseMove={onMouseMove}
+                                >
                                     <div className='index'>
                                         <span className='in'>{index + 1}</span>
                                         <div className="icon">{
@@ -173,10 +197,10 @@ export default function HomeSearching() {
                                     </div>
                                     <div className='another'>
                                         <div className='music'>
-                                            <div className='image'><img src={item.image} alt={item.name} /></div>
+                                            <div className='image'><img src={item.image || "/other/unknown.music.webp"} alt={item.name} /></div>
                                             <div className="music-title">
                                                 <h3>{item.name}</h3>
-                                                <p>{item.singerName.map(n => n + ', ')}</p>
+                                                <p>{item.singerName.map((n, i) => item.singerName.length == i + 1 ? n : n + ', ')}</p>
                                             </div>
                                         </div>
                                         <div className='listen'><p>{item.listenCount}</p></div>
@@ -194,9 +218,15 @@ export default function HomeSearching() {
                     </header>
                     <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>
                         {searchData.otherSongs.slice(0, columnCount).map((item, index) => (
-                            <div
+                            <div key={index}
                                 className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
-                                key={index}
+                                onContextMenu={(e) => {
+                                    setIsShow(item)
+                                    setCursor(onMouseMove(e))
+                                }}
+                                onMouseEnter={() => setIsHover(true)}
+                                onMouseLeave={() => setIsHover(false)}
+                                onMouseMove={onMouseMove}
                             >
                                 <div
                                     className="images"
@@ -254,12 +284,12 @@ export default function HomeSearching() {
                                         placeholder="blur"
                                         blurDataURL="/other/unknown.music.blur.webp"
                                         className={`image ${loadedImage ? 'unblur' : ''}`}
-                                        onLoadingComplete={() => setLoadedImage(true)}
+                                        onLoad={() => setLoadedImage(true)}
                                     />
                                 </div>
                                 <div className="title">
                                     <h3>{item.name}</h3>
-                                    <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                                    <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
                                 </div>
                             </div>
                         ))}
@@ -286,7 +316,7 @@ export default function HomeSearching() {
                                         placeholder="blur"
                                         blurDataURL="/other/unknown.user.blur.webp"
                                         className={`image ${loadedImage ? 'unblur' : ''}`}
-                                        onLoadingComplete={() => setLoadedImage(true)}
+                                        onLoad={() => setLoadedImage(true)}
                                         style={{ borderRadius: "50%" }}
                                     />
                                 </div>
@@ -319,7 +349,7 @@ export default function HomeSearching() {
                                         placeholder="blur"
                                         blurDataURL="/other/unknown.music.blur.webp"
                                         className={`image ${loadedImage ? 'unblur' : ''}`}
-                                        onLoadingComplete={() => setLoadedImage(true)}
+                                        onLoad={() => setLoadedImage(true)}
                                     />
                                 </div>
                                 <div className="title">
@@ -351,7 +381,7 @@ export default function HomeSearching() {
                                         placeholder="blur"
                                         blurDataURL="/other/unknown.music.blur.webp"
                                         className={`image ${loadedImage ? 'unblur' : ''}`}
-                                        onLoadingComplete={() => setLoadedImage(true)}
+                                        onLoad={() => setLoadedImage(true)}
                                     />
                                 </div>
                                 <div className="title">
@@ -376,14 +406,14 @@ export default function HomeSearching() {
                             >
                                 <div className="images" >
                                     <Image
-                                        src={item.image || "/other/unknown.music.webp"}
+                                        src={item.image || "/other/unknown.user.webp"}
                                         alt="image"
                                         width={200}
                                         height={200}
                                         placeholder="blur"
-                                        blurDataURL="/other/unknown.music.blur.webp"
+                                        blurDataURL="/other/unknown.user.blur.webp"
                                         className={`image ${loadedImage ? 'unblur' : ''}`}
-                                        onLoadingComplete={() => setLoadedImage(true)}
+                                        onLoad={() => setLoadedImage(true)}
                                         style={{ borderRadius: "50%" }}
                                     />
                                 </div>

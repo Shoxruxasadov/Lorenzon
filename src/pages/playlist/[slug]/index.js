@@ -32,7 +32,7 @@ export default function HomePlaylist() {
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
 
     const { data: playlist, isLoading, isError, isSuccess, refetch } = useQuery({
-        queryKey: "playlist",
+        queryKey: ['playlist'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`).then(({ data }) => data),
     })
 
@@ -68,7 +68,7 @@ export default function HomePlaylist() {
                     placeholder="blur"
                     blurDataURL="/other/unknown.music.blur.webp"
                     className={loadedImage ? 'album-image unblur' : 'user-image'}
-                    onLoadingComplete={() => setLoadedImage(true)}
+                    onLoad={() => setLoadedImage(true)}
                 />
                 <div className="content">
                     <p className="title">Playlist</p>
@@ -79,9 +79,9 @@ export default function HomePlaylist() {
                             <p>{playlist.creator.name}</p>
                         </div>
                         <span className="dot"> • </span>
-                        <p>{playlist.subscribers.length} subscribers</p>
+                        <p>{playlist.subscribers.length} Followers</p>
                         <span className="dot"> • </span>
-                        <p>{playlist.songs.length} songs</p>
+                        <p>{playlist.songs.length} Songs</p>
                     </div>
                 </div>
             </div>
@@ -213,7 +213,7 @@ export default function HomePlaylist() {
                             </div>
                             <div className='another'>
                                 <div className='music'>
-                                    <img src={item.image} alt={item.name} />
+                                    <img src={item.image || "/other/unknown.music.webp"} alt={item.name} />
                                     <div className="music-title">
                                         <h3>{item.name}</h3>
                                         <p>{item.singerName.map((n, i) => item.singerName.length == i + 1 ? n : n + ', ')}</p>

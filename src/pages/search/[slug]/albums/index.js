@@ -55,7 +55,7 @@ export default function HomeSearchAlbums() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                 />
               </div>
               <div className="title">

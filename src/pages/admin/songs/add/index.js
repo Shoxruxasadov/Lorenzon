@@ -259,7 +259,7 @@ export default function AddMusic() {
                                     {searchSinger && (
                                         singers.map((item, index) => (
                                             <li style={{ textTransform: "capitalize" }} key={index} onClick={() => { selectSinger[0].name == "Singer" ? setSelectSinger([item]) : setSelectSinger(prev => [...prev, item]); setOcSinger(false); setSearchSinger('') }} id="selectedItem">
-                                                <img src={item.image} alt="singer" style={{ borderRadius: "50%", marginRight: "10px" }} width={30} height={30} />
+                                                <img src={item.image || "/other/unknown.music.webp"} alt="singer" style={{ borderRadius: "50%", marginRight: "10px" }} width={30} height={30} />
                                                 <p>{item.name}</p>
                                             </li>
                                         ))
@@ -325,7 +325,7 @@ export default function AddMusic() {
                                     {searchAlbum && (
                                         albums.map((item, index) => (
                                             <li style={{ textTransform: "capitalize" }} key={index} onClick={() => { setSelectAlbum(item); setOcAlbum(false); setSearchAlbum('') }} id="selectedItem">
-                                                <img src={item.image} alt="album" style={{ borderRadius: "50%", marginRight: "10px" }} width={30} height={30} />
+                                                <img src={item.image || "/other/unknown.music.webp"} alt="album" style={{ borderRadius: "50%", marginRight: "10px" }} width={30} height={30} />
                                                 <p>{item.name}</p>
                                             </li>
                                         ))

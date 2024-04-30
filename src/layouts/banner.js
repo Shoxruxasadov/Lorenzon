@@ -23,11 +23,11 @@ export default function Banner({ src }) {
                 src={src}
                 alt="banner"
                 width={2560}
-                height={440}
+                height={380}
                 placeholder="blur"
                 blurDataURL="/other/unblur.webp"
                 className={loadedImage ? 'unblur' : ''}
-                onLoadingComplete={() => setLoadedImage(true)}
+                onLoad={() => setLoadedImage(true)}
             />}
         </div>
     )

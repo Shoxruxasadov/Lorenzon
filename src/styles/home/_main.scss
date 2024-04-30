@@ -41,7 +41,7 @@ main#home-main {
         min-width: 150px;
         min-height: 225px;
         -webkit-box-flex: 1;
-        background: var(--background-card);
+        background: var(--viewer-color);
         isolation: isolate;
         padding: 12px;
         border-radius: 8px;
@@ -59,8 +59,8 @@ main#home-main {
           width: 50%;
           height: 180%;
           transform: rotate(45deg);
-          background: var(--analog-color);
-          box-shadow: 0 0 12px var(--analog-color);
+          background: var(--hover-color);
+          box-shadow: 0 0 12px var(--hover-color);
         }
 
         @keyframes animate {
@@ -82,7 +82,7 @@ main#home-main {
           transform: translate(-50%, -50%);
           z-index: 1;
           border-radius: 4px;
-          background: var(--background-card);
+          background: var(--viewer-color);
         }
 
         &:hover {

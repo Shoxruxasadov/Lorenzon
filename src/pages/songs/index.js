@@ -1,19 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import axios from "axios";
 
+import { useContextMenu, useMusic, useStore } from "../../store/zustand";
+import Loading from "../../components/loading/home";
+import Error from "../../components/other/error";
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useAnotherModels, useMusic, useStore } from "../../store/zustand";
-import { useRouter } from "next/router";
 
-export default function HomeRecommended() {
+export default function HomeSongs() {
   const user = useStore(state => state.user);
   const render = useMusic((state) => state.render);
   const setRender = useMusic((state) => state.setRender);
-  const RECOMMENDED_SONGS = useAnotherModels((state) => state.RECOMMENDED_SONGS);
-  const SET_RECOMMENDED_SONGS = useAnotherModels((state) => state.SET_RECOMMENDED_SONGS);
 
   const playPouse = useMusic((state) => state.playPouse);
   const setPlayPouse = useMusic((state) => state.setPlayPouse);
@@ -22,13 +22,20 @@ export default function HomeRecommended() {
   const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
   const setReadTime = useMusic((state) => state.setReadTime);
 
-  const [columnCount, setColumnCount] = useState(6);
+  const setCursor = useContextMenu((state) => state.setCursor);
+  const setIsShow = useContextMenu((state) => state.setIsShow);
+  const setIsHover = useContextMenu((state) => state.setIsHover);
+
   const [loadedImage, setLoadedImage] = useState(false)
+  const [columnCount, setColumnCount] = useState(6);
   const router = useRouter();
 
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => { SET_RECOMMENDED_SONGS(data) })
+  const { data: RECOMMENDED_SONGS, isLoading, isError, isSuccess, refetch } = useQuery({
+    queryKey: ['RECOMMENDED_SONGS'],
+    queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+  })
 
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 2330) setColumnCount(10);
       if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
@@ -44,7 +51,14 @@ export default function HomeRecommended() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
+  const onMouseMove = (e) => {
+    let x = e.clientX;
+    let y = e.clientY;
+    return { x, y }
+  };
+
+  if (isLoading) return <Loading />
+  if (isSuccess) return (
     <HomeLayout page="home-library" title="Recommended songs">
       <Banner src={"/other/space.ads.webp"} />
       <article>
@@ -56,7 +70,16 @@ export default function HomeRecommended() {
           style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
           {RECOMMENDED_SONGS.map((item, index) => (
-            <div className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`} key={index}>
+            <div key={index}
+              className={`card ${currentMusic.song == item.song && playPouse ? "active" : ""}`}
+              onContextMenu={(e) => {
+                setIsShow(item)
+                setCursor(onMouseMove(e))
+              }}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              onMouseMove={onMouseMove}
+            >
               <div
                 className="images"
                 onClick={() => {
@@ -115,12 +138,12 @@ export default function HomeRecommended() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                 />
               </div>
               <div className="title">
                 <h3>{item.name}</h3>
-                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
               </div>
             </div>
           ))}
@@ -128,4 +151,5 @@ export default function HomeRecommended() {
       </article>
     </HomeLayout>
   )
+  return <Error />
 }

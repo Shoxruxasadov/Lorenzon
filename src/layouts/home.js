@@ -10,7 +10,8 @@ import Player from '../components/home/player';
 import MainFooter from '../components/home/footer';
 import MainHeader from '../components/home/header';
 import Root from './root'
-import RodalLoading from '../components/loading/rodal';
+import RodalLoading from '../components/loading/rodal.loading';
+import RodalAbout from '../components/home/rodal.about';
 import { SongMenu } from '../components/other/menu';
 
 export default function HomeLayout({ children, page, title }) {
@@ -24,7 +25,12 @@ export default function HomeLayout({ children, page, title }) {
     const isHover = useContextMenu((state) => state.isHover);
     const isShow = useContextMenu((state) => state.isShow);
 
+    const isOpenAbout = useStore(state => state.isOpenAbout);
+
     useEffect(() => {
+        const isMobileDevice = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobileDevice()) router.push('https://lorenzon.uz/mobile')
+
         if (token === "null") router.push('/');
         else isVerifyToken ? setLoading(false) : getUserFromToken(token, router).finally(() => setLoading(false))
     }, [])
@@ -41,6 +47,7 @@ export default function HomeLayout({ children, page, title }) {
             <Content />
             <Player />
             <RodalLoading />
+            <RodalAbout />
             {isShow && <SongMenu />}
         </Root>
     )

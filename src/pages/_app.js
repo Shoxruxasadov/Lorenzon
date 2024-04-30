@@ -7,16 +7,17 @@ import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from 'next-themes'
 import axios from "axios";
 
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 const queryClient = new QueryClient()
 
-import useLocalStorage from "../hooks/useLocalStorage";
 import { useHomeModels, useMusic, useStore } from "../store/zustand";
+import useLocalStorage from "../hooks/useLocalStorage";
 import Wait from "../components/loading/wait"
 
 import "..//styles/global.scss" // global
 import "..//styles/assets/error.scss"; // error
+import "..//styles/assets/mobile.scss"; // mobile
 import "..//styles/loading/wait.scss"; // wait
 import "..//styles/home/home.scss" // home
 import "..//styles/landing/landing.scss"; // landing
@@ -27,6 +28,8 @@ import "..//styles/admin/admin.scss"; // admin
 import "..//styles/assets/menu.scss"; // menu
 import 'rodal/lib/rodal.css'; // rodal
 import 'aos/dist/aos.css'; // aos 
+import 'react-date-range/dist/styles.css'; // calendar main style file
+import 'react-date-range/dist/theme/default.css'; // calendar theme css file
 
 export default function MyApp({ Component, pageProps, }) {
     const user = useStore(state => state.user);
@@ -59,11 +62,21 @@ export default function MyApp({ Component, pageProps, }) {
     const randomInteger = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 
     const SET_RECOMMENDED_SONGS = useHomeModels((state) => state.SET_RECOMMENDED_SONGS);
-    const SET_YOUR_FAVORITE_SINGERS = useHomeModels((state) => state.SET_YOUR_FAVORITE_SINGERS);
+    const SET_FAVORITE_SINGERS = useHomeModels((state) => state.SET_FAVORITE_SINGERS);
+    const SET_RECOMMENDED_ALBUMS = useHomeModels((state) => state.SET_RECOMMENDED_ALBUMS);
+    const SET_RECOMMENDED_PLAYLISTS = useHomeModels((state) => state.SET_RECOMMENDED_PLAYLISTS);
 
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/random`).then(({ data }) => SET_RECOMMENDED_SONGS(data));
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get/random`).then(({ data }) => SET_YOUR_FAVORITE_SINGERS(data));
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/random`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
+            SET_RECOMMENDED_SONGS(data.songs)
+            SET_FAVORITE_SINGERS(data.singers)
+            SET_RECOMMENDED_ALBUMS(data.albums)
+            SET_RECOMMENDED_PLAYLISTS(data.playlists)
+        });
+
+        // console.log(user.premium);
+        // if(user.premium != 'vip' && user.premium){
+        // }
 
         let variablePlaying = isPlaying;
         const handleSpacePress = ({ keyCode }) => {

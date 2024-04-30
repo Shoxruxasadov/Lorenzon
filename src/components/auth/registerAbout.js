@@ -65,6 +65,7 @@ export default function RegisterAbout() {
                 email: email,
                 password: password,
                 status: "basic",
+                premium: null,
                 role: "user",
                 username: uuid().split('-')[4],
                 gender: selectGender,
@@ -74,6 +75,17 @@ export default function RegisterAbout() {
                 banner: null,
                 lastSong: null,
                 recently: [],
+                description: null,
+                website: null,
+                socials: {
+                    youtube: null,
+                    instagram: null,
+                    facebook: null,
+                    telegram: null,
+                    spotify: null,
+                },
+                followers: [],
+                following: []
             }).then(({ data }) => {
                 const account = { id: data._id, password: data.password }
                 setToken(account)

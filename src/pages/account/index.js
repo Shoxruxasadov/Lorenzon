@@ -24,7 +24,7 @@ export default function Account() {
     const router = useRouter()
 
     const { data: users, isLoading, isError, isSuccess, error, refetch } = useQuery({
-        queryKey: "accounts",
+        queryKey: ['accounts'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth`, { headers: { 'accounts': JSON.stringify(accounts) } }).then(({ data }) => data)
     })
 

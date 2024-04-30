@@ -137,7 +137,7 @@ export function SongMenu() {
                 onMouseLeave={() => setIsHoverShare(false)}
                 className={`share${isHoverShare ? ' active' : ''}`}
             >
-                <li onClick={() => navigator.clipboard.writeText(`${NEXT_PUBLIC_CLIENT_API}/album/${isShow.album}`)}>
+                <li onClick={() => navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_CLIENT_API}/album/${isShow.album}`)}>
                     <TbClipboardCopy className='small' />
                     <span>Copy url song</span>
                 </li>

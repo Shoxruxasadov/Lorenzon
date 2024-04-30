@@ -22,7 +22,7 @@ export default function AdminPlaylists() {
   }, [])
 
   const getPlaylists = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists`).then(({ data }) => setAllPlaylists(data)).finally(() => setLoading(false))
-  const removePlaylist = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${playlistDeleted._id}`).then(() => success("Deleted song")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getPlaylists() })
+  const removePlaylist = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${playlistDeleted._id}`).then(({ data }) => success(data)).catch((err) => { wrong("Error"); console.log(err); }).finally(() => { setRodalDelete(false); getPlaylists() })
 
   return (
     <AdminLayout page="admin-musics" title="Musics">
@@ -57,7 +57,7 @@ export default function AdminPlaylists() {
                     <img src={playlist.image} alt={playlist.name} onClick={() => router.push(`/playlist/${playlist._id}`)} />
                     <div className="name">
                       <h1 onClick={() => router.push(`/playlist/${playlist._id}`)}>{playlist.name}</h1>
-                      <p onClick={() => router.push(`/@${playlist.creator.username}`)}>{playlist.creator.name}</p>
+                      <p onClick={() => router.push(`/@${playlist.creatorUsername}`)}>{playlist.creatorName}</p>
                     </div>
                   </td>
                   <td className="td">{playlist.songs.length}</td>

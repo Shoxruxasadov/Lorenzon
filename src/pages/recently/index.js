@@ -5,7 +5,7 @@ import axios from "axios";
 
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useMusic, useStore } from "../../store/zustand";
+import { useContextMenu, useMusic, useStore } from "../../store/zustand";
 import { useRouter } from "next/router";
 
 export default function HomeRecommended() {
@@ -20,6 +20,10 @@ export default function HomeRecommended() {
   const currentSong = useMusic((state) => state.currentMusic);
   const setCurrentSong = useMusic((state) => state.setCurrentMusic);
   const setReadTime = useMusic((state) => state.setReadTime);
+
+  const setCursor = useContextMenu((state) => state.setCursor);
+  const setIsShow = useContextMenu((state) => state.setIsShow);
+  const setIsHover = useContextMenu((state) => state.setIsHover);
 
   const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
@@ -42,25 +46,34 @@ export default function HomeRecommended() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const onMouseMove = (e) => {
+    let x = e.clientX;
+    let y = e.clientY;
+    return { x, y }
+  };
+
   return (
-    <HomeLayout page="home-library" title="Recommended songs">
+    <HomeLayout page="home-library" title="Recently songs">
       <Banner src={"/other/space.ads.webp"} />
 
       <article>
         <header>
           <h2>Recently Played</h2>
-          <Link href={"/recently"}>Show all</Link>
         </header>
         <div
           className="content"
-          style={{
-            gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-          }}
+          style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}
         >
           {user.recently.map((item, index) => (
-            <div
+            <div key={index}
               className={`card ${currentSong.song == item.song && playPouse ? "active" : ""}`}
-              key={index}
+              onContextMenu={(e) => {
+                setIsShow(item)
+                setCursor(onMouseMove(e))
+              }}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+              onMouseMove={onMouseMove}
             >
               <div
                 className="images"
@@ -119,12 +132,12 @@ export default function HomeRecommended() {
                   placeholder="blur"
                   blurDataURL="/other/unknown.music.blur.webp"
                   className={`image ${loadedImage ? 'unblur' : ''}`}
-                  onLoadingComplete={() => setLoadedImage(true)}
+                  onLoad={() => setLoadedImage(true)}
                 />
               </div>
               <div className="title">
                 <h3 onClick={() => router.push(`/album/${item.album}`)}>{item.name}</h3>
-                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                <p>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
               </div>
             </div>
           ))}

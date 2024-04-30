@@ -21,7 +21,7 @@ export default function AdminSongs() {
     getSongs()
   }, [])
 
-  const getSongs = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`).then(({ data }) => setAllSongs(data)).finally(() => setLoading(false))
+  const getSongs = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => setAllSongs(data)).finally(() => setLoading(false))
   const removeSong = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/${songDeleted._id}`).then(() => success("Deleted song")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getSongs() })
 
   return (

@@ -3,22 +3,18 @@ import { useState } from "react";
 import Image from "next/image";
 import { useTheme } from 'next-themes'
 import { signOut } from "next-auth/react";
+import axios from "axios";
 
 import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { info } from "../../utils/toastify";
 
-import { PiUserSwitch, PiUserCircle, PiSignOut, PiFeather, PiGear, PiGavel, PiMoon, PiSun, PiDevices, PiCheckBold } from "react-icons/pi";
+import { PiUserSwitch, PiUserCircle, PiSignOut, PiFeather, PiGear, PiGavel, PiMoon, PiSun, PiDevices, PiCheckBold, PiQueueFill, PiMicrophoneStageFill } from "react-icons/pi";
 import { IoLanguageOutline, IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { BsPatchExclamationFill } from "react-icons/bs";
+import { BsPatchExclamationFill, BsChatSquareTextFill } from "react-icons/bs";
 import { MdLocalLibrary } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import { TbPlaylistAdd } from "react-icons/tb";
-
-import { MdLyrics } from "react-icons/md";
-import { BiSolidCommentDetail } from "react-icons/bi";
-import { PiQueueFill } from "react-icons/pi";
-import axios from "axios";
 
 export default function Content() {
     const user = useStore((state) => state.user);
@@ -87,53 +83,9 @@ export default function Content() {
                             <p>
                                 <span className="pre">{user && user.status ? user.status : "Basic"}</span>
                                 <span className="dot">•</span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="15"
-                                    height="15"
-                                    viewBox="0 0 15 15"
-                                    fill="none"
-                                >
-                                    <path
-                                        d="M11.3334 14.6667H4.66669C4.39335 14.6667 4.16669 14.44 4.16669 14.1667C4.16669 13.8933 4.39335 13.6667 4.66669 13.6667H11.3334C11.6067 13.6667 11.8334 13.8933 11.8334 14.1667C11.8334 14.44 11.6067 14.6667 11.3334 14.6667Z"
-                                        fill={
-                                            user && user.status === "premium"
-                                                ? "url(#paint0_linear_261_101)"
-                                                : "white"
-                                        }
-                                    />
-                                    <path
-                                        d="M13.5667 3.67999L10.9 5.58665C10.5467 5.83999 10.04 5.68665 9.88669 5.27999L8.62669 1.91999C8.41336 1.33999 7.59336 1.33999 7.38002 1.91999L6.11336 5.27332C5.96002 5.68665 5.46002 5.83999 5.10669 5.57999L2.44002 3.67332C1.90669 3.29999 1.20002 3.82665 1.42002 4.44665L4.19336 12.2133C4.28669 12.48 4.54002 12.6533 4.82002 12.6533H11.1734C11.4534 12.6533 11.7067 12.4733 11.8 12.2133L14.5734 4.44665C14.8 3.82665 14.0934 3.29999 13.5667 3.67999ZM9.66669 9.83332H6.33336C6.06002 9.83332 5.83336 9.60665 5.83336 9.33332C5.83336 9.05999 6.06002 8.83332 6.33336 8.83332H9.66669C9.94002 8.83332 10.1667 9.05999 10.1667 9.33332C10.1667 9.60665 9.94002 9.83332 9.66669 9.83332Z"
-                                        fill={
-                                            user && user.status === "premium"
-                                                ? "url(#paint1_linear_261_101)"
-                                                : "white"
-                                        }
-                                    />
-                                    <defs>
-                                        <linearGradient
-                                            id="paint0_linear_261_101"
-                                            x1="8.00002"
-                                            y1="13.6667"
-                                            x2="8.00002"
-                                            y2="14.6667"
-                                            gradientUnits="userSpaceOnUse"
-                                        >
-                                            <stop stopColor="#896aee" />
-                                            <stop offset="1" stopColor="#896aee" />
-                                        </linearGradient>
-                                        <linearGradient
-                                            id="paint1_linear_261_101"
-                                            x1="7.99784"
-                                            y1="1.48499"
-                                            x2="7.99784"
-                                            y2="12.6533"
-                                            gradientUnits="userSpaceOnUse"
-                                        >
-                                            <stop stopColor="#896aee" />
-                                            <stop offset="1" stopColor="#896aee" />
-                                        </linearGradient>
-                                    </defs>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 1 15 15" className="corona" width="15" height="15">
+                                    <path d="M11.3334 14.6667H4.66669C4.39335 14.6667 4.16669 14.44 4.16669 14.1667C4.16669 13.8933 4.39335 13.6667 4.66669 13.6667H11.3334C11.6067 13.6667 11.8334 13.8933 11.8334 14.1667C11.8334 14.44 11.6067 14.6667 11.3334 14.6667Z" fill={user && user.status == "premium" ? 'var(--main-click-color)' : 'var(--medium-color)'} />
+                                    <path d="M13.5667 3.67999L10.9 5.58665C10.5467 5.83999 10.04 5.68665 9.88669 5.27999L8.62669 1.91999C8.41336 1.33999 7.59336 1.33999 7.38002 1.91999L6.11336 5.27332C5.96002 5.68665 5.46002 5.83999 5.10669 5.57999L2.44002 3.67332C1.90669 3.29999 1.20002 3.82665 1.42002 4.44665L4.19336 12.2133C4.28669 12.48 4.54002 12.6533 4.82002 12.6533H11.1734C11.4534 12.6533 11.7067 12.4733 11.8 12.2133L14.5734 4.44665C14.8 3.82665 14.0934 3.29999 13.5667 3.67999ZM9.66669 9.83332H6.33336C6.06002 9.83332 5.83336 9.60665 5.83336 9.33332C5.83336 9.05999 6.06002 8.83332 6.33336 8.83332H9.66669C9.94002 8.83332 10.1667 9.05999 10.1667 9.33332C10.1667 9.60665 9.94002 9.83332 9.66669 9.83332Z" fill={user && user.status == "premium" ? 'var(--main-click-color)' : 'var(--medium-color)'} />
                                 </svg>
                             </p>
                         </div>
@@ -185,7 +137,7 @@ export default function Content() {
                             <p>Singer Panel</p>
                         </div>
                     )}
-                    <div className="list error" onClick={() => router.push('/feedback')}>
+                    <div className="list error" onClick={() => router.push('/support')}>
                         <PiFeather />
                         <p>Send Feedback</p>
                     </div>
@@ -278,7 +230,7 @@ export default function Content() {
             {lyrics && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
                 <header>
                     <div className="title">
-                        <MdLyrics />
+                        <PiMicrophoneStageFill />
                         <h4>Lyrics</h4>
                     </div>
                 </header>
@@ -289,7 +241,7 @@ export default function Content() {
             {comment && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
                 <header>
                     <div className="title">
-                        <BiSolidCommentDetail />
+                        <BsChatSquareTextFill />
                         <h4>Comments</h4>
                     </div>
                 </header>
@@ -306,10 +258,14 @@ export default function Content() {
             {(!lyrics && !comment && !queue) && <article className={`${userNavigate ? "active" : ""} ${navigate ? "segment" : ""} ${user && user.role === "admin" ? "admin" : "simple"}`}>
                 <header>
                     <div className="title">
-                        <MdLocalLibrary />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-1 -2.5 30 30" fill="none">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M2 8C0.895431 8 0 8.89543 0 10V22C0 23.1046 0.89543 24 2 24H22C23.1046 24 24 23.1046 24 22V10C24 8.89543 23.1046 8 22 8H2ZM9.5 13.5002C9.5 12.7323 10.3295 12.251 10.9961 12.6319L14.9806 14.9087C15.6524 15.2926 15.6524 16.2613 14.9806 16.6452L10.9961 18.9221C10.3295 19.303 9.5 18.8216 9.5 18.0538V13.5002Z" fill='var(--text-color)' />
+                            <rect x="1" y="4" width="22" height="2" rx="1" fill='var(--text-color)' />
+                            <rect x="2" width="20" height="2" rx="1" fill='var(--text-color)' />
+                        </svg>
                         <h4>Library</h4>
                     </div>
-                    <button onClick={() => {
+                    <button role="button" aria-labelledby="content" onClick={() => {
                         setLoading(true)
                         axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists`, {
                             name: `My playlist № ${user.playlists.length + 1}`,

@@ -8,13 +8,16 @@
   --text-color: #f3f3f3;
   --medium-color: #f3f3f3a3;
   --slow-color: #f3f3f33f;
+  --pause-color: #f3f3f3;
 
   --background-color: #080b0f;
   --medium-back-color: #080b0fa3;
+  --medium-slow-color: #080b0fa3;
   --slow-back-color: #080b0fbb;
   --background-card: #0a0d12;
   --viewer-color: #0c1016;
   --analog-color: #0e1520;
+  --analog-slow-color: #0e15209f;
   --hover-color: #141e30;
 
   --login-bor: #333333;
@@ -25,6 +28,10 @@
   --admin-butowe: #ffffff;
   --admin-line: #3b393d;
   --admin-shadbar: #00000026;
+
+  --svg-mbc: #090d12;
+  --svg-mc: #9fa0a2;
+  --svg-sc: #45464C;
 }
 
 [data-theme="light"]:root {
@@ -33,23 +40,30 @@
   --text-color: #080b0f;
   --medium-color: #080b0fa3;
   --slow-color: #080b0f3f;
+  --pause-color: #adadad;
 
   --background-color: #ffffff;
   --medium-back-color: #ffffffa3;
+  --medium-slow-color: #121820a3;
   --slow-back-color: #ffffff50;
   --background-card: #f9f9f9;
   --viewer-color: #f3f3f3;
   --analog-color: #e5e4e7;
+  --analog-slow-color: #1620309f;
   --hover-color: #dddae2;
 
   --login-bor: #d0d5dd;
   --login-inp: #f9f9f9;
 
-  --admin-tabhead: #f9f8f9; 
+  --admin-tabhead: #f9f8f9;
   --admin-inpbor: #dde2e8;
   --admin-butowe: #6940ee;
   --admin-line: #b5b5b5;
   --admin-shadbar: #ffffffb3;
+
+  --svg-mbc: #fbfbfb;
+  --svg-mc: #5f6165;
+  --svg-sc: #BFC0C2;
 }
 
 // ===== FONT FACE ===== \\
@@ -104,7 +118,7 @@ textarea {
 }
 
 ::selection {
-  background: rgba($color: #6940ee, $alpha: 0.15);
+  background: rgba($color: #6940ee, $alpha: 0.2);
 }
 ::-webkit-scrollbar {
   all: unset;

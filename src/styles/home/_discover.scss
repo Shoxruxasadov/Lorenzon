@@ -1,59 +1,73 @@
 main#home-discover {
-    article {
-      overflow: hidden;
-      max-width: 1900px;
-      margin-bottom: 24px;
-  
+  article {
+    overflow: hidden;
+    max-width: 1900px;
+    margin-bottom: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    header {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-  
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-  
-        h2 {
-          font-size: 20px;
-          font-weight: 700;
-          letter-spacing: 0.5px;
-          padding-left: 3px;
-        }
-  
-        a {
-          color: #896aee;
-          font-size: 16px;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-        }
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding-left: 3px;
       }
-  
-      .content {
-        grid-gap: 8px;
-        display: grid;
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        grid-column: auto;
-        min-width: 360px;
-  
-        div {
-          width: 100%;
-          max-width: 200px;
-          min-width: 180px;
-          min-height: 225px;
-          -webkit-box-flex: 1;
-          background: var(--background-card);
-          isolation: isolate;
-          padding: 12px;
-          border-radius: 8px;
+
+      a {
+        color: #896aee;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .content {
+      grid-gap: 8px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-column: auto;
+      min-width: 360px;
+
+      div {
+        width: 100%;
+        max-width: 200px;
+        min-width: 180px;
+        min-height: 200px;
+        -webkit-box-flex: 1;
+        background: var(--viewer-color);
+        isolation: isolate;
+        padding: 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        h4 {
+          font-size: 24px;
+          font-weight: 600;
           cursor: pointer;
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
+          text-shadow: 0 0 10px var(--viewer-color);
+        }
+
+        img {
+          position: absolute;
+          bottom: -8%;
+          right: -8%;
+          width: 70%;
+          transform: rotate(30deg);
+          cursor: pointer;
+          z-index: -1;
+          box-shadow: 0 0 10px #0000005b;
+          border-radius: 8px;
         }
       }
     }
   }
-  
+}

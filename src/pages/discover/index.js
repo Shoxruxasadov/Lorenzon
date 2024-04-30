@@ -128,8 +128,8 @@ export default function Discover() {
                     <h2>Browse all</h2>
                 </header>
                 <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
-                    {covers.map(cover => (
-                        <div onClick={()=>info('Coming soon!')}>
+                    {covers.map((cover, index) => (
+                        <div key={index} onClick={()=>info('Coming soon!')}>
                             <h4>{cover.title}</h4>
                             <Image
                                 src={cover.image || "/other/unknown.music.webp"}

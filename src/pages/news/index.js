@@ -10,8 +10,8 @@ export default function News() {
         <HomeLayout page="home-news" title="News">
             {news.length ? <ul className="list">
                 {
-                    news.slice().reverse().map(support => (
-                        <li onClick={() => router.push(support.subject)}>
+                    news.slice().reverse().map((support, index) => (
+                        <li key={index} onClick={() => router.push(support.subject)}>
                             <img src={support.live} alt="live" />
                             <div className="title">
                                 {support.type == 'follow' && <h3>{support.subject}</h3>}

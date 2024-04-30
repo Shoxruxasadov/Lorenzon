@@ -155,8 +155,8 @@ export default function Settings() {
                         <img src="/language/uz.svg" alt="uzb." />
                         <h2>Hozircha</h2>
                     </div>
-                    <p>Premium olmoqchi bo'lganlar Telegramdan murojat qiling <a href="https://t.me/LorenzonSupport" target="_blank" >@LorenzonSupport</a></p>
-                    <p className="money">Qo'llab quvvatlash | <Clipboard data-clipboard-text='5614 6827 0092 1572' onClick={()=>info('Copy to clipboard')}>5614 6827 0092 1572</Clipboard></p>
+                    <p>Premium olmoqchi bo&apos;lganlar Telegramdan murojat qiling <a href="https://t.me/LorenzonSupport" target="_blank" >@LorenzonSupport</a></p>
+                    <p className="money">Qo&apos;llab quvvatlash | <Clipboard data-clipboard-text='5614 6827 0092 1572' onClick={()=>info('Copy to clipboard')}>5614 6827 0092 1572</Clipboard></p>
                 </div>
                 <div className="card">
                     <div className="title">

@@ -1,29 +1,20 @@
-import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
 import { useContextMenu, useMusic, useStore } from "../../../store/zustand";
-import HomeLayout from "../../../layouts/home";
 import GetAudioDuration from "../../../hooks/useDuration"
 import Loading from "../../../components/loading/home";
+import Error from "../../../components/other/error";
+import HomeLayout from "../../../layouts/home";
 
 export default function HomeSearching() {
     const user = useStore((state) => state.user);
-    const [isLoading, setLoading] = useState(true)
-    const [searchData, setSearchData] = useState({
-        topSong: {},
-        popularSongs: [],
-        otherSongs: [],
-        singers: [],
-        albums: [],
-        playlists: [],
-        profiles: [],
-    })
-    const [columnCount, setColumnCount] = useState(6);
     const [loadedImage, setLoadedImage] = useState(false)
+    const [columnCount, setColumnCount] = useState(6);
     const pathname = usePathname()
     const router = useRouter()
 
@@ -39,10 +30,12 @@ export default function HomeSearching() {
     const setIsShow = useContextMenu((state) => state.setIsShow);
     const setIsHover = useContextMenu((state) => state.setIsHover);
 
-    useEffect(() => {
-        setLoading(true)
-        pathname && axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/${pathname.split('/')[2].replaceAll('%20', ' ')}`).then(({ data }) => setSearchData(data)).finally(() => setLoading(false))
+    const { data: searchData, isLoading, isError, isSuccess, refetch } = useQuery({
+        queryKey: ['searchData'],
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/${pathname.split('/')[2].replaceAll('%20', ' ')}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+    })
 
+    useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 2330) setColumnCount(10);
             if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
@@ -56,7 +49,7 @@ export default function HomeSearching() {
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
-    }, [pathname]);
+    }, []);
 
     const onMouseMove = (e) => {
         let x = e.clientX;
@@ -65,7 +58,7 @@ export default function HomeSearching() {
     };
 
     if (isLoading) return <Loading />
-    return (
+    if (isSuccess) return (
         <HomeLayout page="home-search" title={`serach - ${pathname.split('/')[2]}`}>
             {searchData ? <>
                 {searchData.topSong != null && <div className="top">
@@ -84,7 +77,7 @@ export default function HomeSearching() {
                                         setCurrentSong(searchData.topSong)
                                         setTimeout(() => setRender(!render), 10)
                                         if (currentSong.song != searchData.topSong.song) setReadTime(0)
-                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: searchData.topSong._id })
+                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: searchData.topSong._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                     }
                                 }}
                                 onContextMenu={(e) => {
@@ -166,7 +159,7 @@ export default function HomeSearching() {
                                             if (currentSong.song != item.song) setReadTime(0)
                                             setPlayPouse(true)
                                             setTimeout(() => setRender(!render), 10)
-                                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                         }
                                     }}
                                     onContextMenu={(e) => {
@@ -432,4 +425,5 @@ export default function HomeSearching() {
             }
         </HomeLayout >
     )
+    return <Error />
 }

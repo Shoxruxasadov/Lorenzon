@@ -1,8 +1,8 @@
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import { useTheme } from 'next-themes'
 import { useState } from "react";
 import Image from "next/image";
-import { useTheme } from 'next-themes'
-import { signOut } from "next-auth/react";
 import axios from "axios";
 
 import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
@@ -12,7 +12,6 @@ import { info } from "../../utils/toastify";
 import { PiUserSwitch, PiUserCircle, PiSignOut, PiFeather, PiGear, PiGavel, PiMoon, PiSun, PiDevices, PiCheckBold, PiQueueFill, PiMicrophoneStageFill } from "react-icons/pi";
 import { IoLanguageOutline, IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { BsPatchExclamationFill, BsChatSquareTextFill } from "react-icons/bs";
-import { MdLocalLibrary } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import { TbPlaylistAdd } from "react-icons/tb";
 
@@ -206,7 +205,7 @@ export default function Content() {
                                     setCurrentSong(item)
                                     setTimeout(() => setRender(!render), 10)
                                     if (currentSong.song != item.song) setReadTime(0)
-                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                 }
                             }}>
                                 <img alt={item.name} src={item.image} />
@@ -276,7 +275,7 @@ export default function Content() {
                             description: null,
                             subscribers: [user._id],
                             songs: [],
-                        }).then(() => getUserFromToken(token, router)).catch((res) => console.log(res)).finally(() => setLoading(false))
+                        }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => getUserFromToken(token, router)).catch((res) => console.log(res)).finally(() => setLoading(false))
                     }}><TbPlaylistAdd /></button>
                 </header>
                 <div className="content library">
@@ -288,7 +287,16 @@ export default function Content() {
                                 key={i}
                             >
                                 <div className="image">
-                                    <img alt={playlist.name} src={playlist.image || '/other/unknown.music.webp'} />
+                                    <Image
+                                        src={playlist.image || "/other/unknown.music.webp"}
+                                        alt={playlist.name }
+                                        width={200}
+                                        height={200}
+                                        placeholder="blur"
+                                        blurDataURL="/other/unknown.music.blur.webp"
+                                        className={`image ${loadedImage ? 'unblur' : ''}`}
+                                        onLoad={() => setLoadedImage(true)}
+                                    />
                                 </div>
                                 <div className="title">
                                     <h4>{playlist.name}</h4>

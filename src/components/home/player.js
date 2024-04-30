@@ -1,10 +1,10 @@
-import styled from 'styled-components';
 import { useRouter } from "next/navigation";
-import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
+import styled from 'styled-components';
+import axios from 'axios';
 
+import { useHomeDetails, useMusic, useStore } from "../../store/zustand";
 import { PiQueue, PiQueueFill, PiMicrophoneStage, PiMicrophoneStageFill } from "react-icons/pi";
 import { BsFullscreen, BsFullscreenExit, BsChatSquareText, BsChatSquareTextFill } from "react-icons/bs";
-import axios from 'axios';
 
 const RedingTime = styled.div`
     &::before{
@@ -24,7 +24,6 @@ const VolumeControl = styled.div`
         transition: 0.1s;
         left: ${props => props.volume}%!important;
     }`;
-
 const VolumeCount = styled.div`
     transition: 0.1s;
     left: ${props => props.volume}%!important;
@@ -161,7 +160,7 @@ export default function Player() {
                                 setReadRender(!readRender)
                                 setRender(!render)
                             }, 10)
-                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API} /users/song / ${user._id} `, { id: randomSong._id })
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: randomSong._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                         } else {
                             songs.map((item, index) => {
                                 if (item._id == music._id) {
@@ -170,7 +169,7 @@ export default function Player() {
                                     if (!((index == 0) || (+read.substring(0, 1) != 0) || (+read.substring(2) > 5.99))) {
                                         const prevSong = songs[index - 1]
                                         setCurrentMusic(prevSong)
-                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API} /users/song / ${user._id} `, { id: prevSong._id })
+                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song /${user._id}`, { id: prevSong._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                     }
                                     setTimeout(() => {
                                         setReadRender(!readRender)
@@ -217,7 +216,7 @@ export default function Player() {
                                 setReadRender(!readRender)
                                 setRender(!render)
                             }, 10)
-                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API} /users/song / ${user._id} `, { id: randomSong._id })
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id} `, { id: randomSong._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                         } else {
                             songs.map((item, index) => {
                                 if (item._id == music._id) {
@@ -230,7 +229,7 @@ export default function Player() {
                                             setReadRender(!readRender)
                                             setRender(!render)
                                         }, 10)
-                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API} /users/song / ${user._id} `, { id: nextSong._id })
+                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id} `, { id: nextSong._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                     }
                                 }
                             })

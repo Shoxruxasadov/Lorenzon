@@ -4,7 +4,6 @@ import axios from 'axios';
 
 import { useContextMenu, useMusic, useStore } from '../../store/zustand';
 import useLocalStorage from '../../hooks/useLocalStorage';
-
 import { info, success } from "../../utils/toastify"
 
 import { IoIosAdd } from "react-icons/io";
@@ -14,7 +13,6 @@ import { BiAlbum, BiMicrophone } from "react-icons/bi";
 import { PiDesktopLight, PiQueue } from "react-icons/pi";
 import { TiInfoLargeOutline } from "react-icons/ti";
 import { HiOutlineCodeBracketSquare } from "react-icons/hi2";
-
 
 export function SongMenu() {
     const [isHoverPlaylist, setIsHoverPlaylist] = useState()
@@ -116,7 +114,7 @@ export function SongMenu() {
                             description: null,
                             subscribers: [_id],
                             songs: [isShow._id],
-                        }).then(() => getUserFromToken(token, router))
+                        }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => getUserFromToken(token, router))
                             .catch((res) => console.log(res))
                             .finally(() => setLoading(false))
                     }}>
@@ -126,7 +124,7 @@ export function SongMenu() {
                 <hr />
                 {playlists.map((item, i) => (
                     <li key={i} className='playlist' onClick={() => {
-                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/song/${item._id}`, { id: isShow._id }).then(({ data }) => success(data))
+                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/song/${item._id}`, { id: isShow._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => success(data))
                     }}>
                         <img src={item.image || '/other/unknown.music.webp'} alt="playlist" width={22} height={22} />
                         <span>{item.name}</span>

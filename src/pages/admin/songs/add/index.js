@@ -4,18 +4,16 @@ import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid';
 import axios from "axios";
 
-import { storage } from "../../../../lib/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { success, wrong, warning } from "../../../../utils/toastify";
+import { success, wrong } from "../../../../utils/toastify";
+import { storage } from "../../../../lib/firebase/firebase";
 import AdminLayout from "../../../../layouts/admin";
 
-import { BiSolidLockAlt, BiSolidPencil, BiSolidLock, BiSolidFlag, BiSolidCake, } from "react-icons/bi";
-import { FaMale, FaFemale, FaGenderless, FaEye, FaEyeSlash, FaUser, } from "react-icons/fa";
-import { RiAdminFill, RiUser2Fill, RiNeteaseCloudMusicFill, RiAlbumFill } from "react-icons/ri";
-import { TbMailFilled } from "react-icons/tb";
-import { MdVerifiedUser } from "react-icons/md";
+import { RiNeteaseCloudMusicFill, RiAlbumFill } from "react-icons/ri";
+import { BiSolidPencil, BiSolidCake, } from "react-icons/bi";
 import { LiaPencilRulerSolid } from "react-icons/lia";
 import { SiSourceengine } from "react-icons/si"
+import { FaUser, } from "react-icons/fa";
 import { HiSearch } from "react-icons/hi"
 
 export default function AddMusic() {
@@ -55,17 +53,16 @@ export default function AddMusic() {
     }, [selectWritten])
 
     function getSingers(inp) {
-        if(!inp) return
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singer/${inp}`)
+        if (!inp) return
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singer/${inp}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
             .then(({ data }) => setSingers(data)).catch((err) => console.error(err));
     }
 
     function getAlbums(inp) {
-        if(!inp) return
-        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/name/${inp}`)
+        if (!inp) return
+        axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/name/${inp}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
             .then(({ data }) => setAlbums(data)).catch((err) => console.error(err));
     }
-
 
     const onSubmit = (data) => {
         if (photo && music) {
@@ -101,7 +98,7 @@ export default function AddMusic() {
                                     song: downloadSongURL,
                                     createdDay: createdDay,
                                     listenCount: 0,
-                                }).then(({ data }) => {
+                                }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
                                     success("Created song");
                                     router.push("/admin/songs")
                                 }).catch((err) => {

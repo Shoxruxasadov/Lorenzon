@@ -1,8 +1,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
+import axios from "axios";
 
 import { useMusic, useStore } from "../../../store/zustand";
 import GetAudioDuration from '../../../hooks/useDuration';
@@ -29,7 +29,7 @@ export default function HomeAlbum() {
 
     const { data: album, isLoading, isError, isSuccess, refetch } = useQuery({
         queryKey: ['album'],
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/${pathname.split('/')[2]}`).then(({ data }) => data[0]),
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data[0]),
     })
 
     useEffect(() => {
@@ -56,10 +56,7 @@ export default function HomeAlbum() {
         return combinedArray;
     }
 
-    const singers = isSuccess ? combineArrays(album.songs.map(s => s.singerName)) : []
-
     if (isLoading) return <Loading />
-    if (isError) return <Error />
     if (isSuccess && album) return (
         <HomeLayout page="home-album" title="Album">
             <div className="profile">
@@ -111,7 +108,7 @@ export default function HomeAlbum() {
                         setReadTime(0)
                         setPlayPouse(true)
                         setTimeout(() => setRender(!render), 10)
-                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: album.songs[0]._id })
+                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: album.songs[0]._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                     }
                 }}>
                     {arraysEqual(queue, album.songs) && playPouse ? <svg
@@ -179,7 +176,7 @@ export default function HomeAlbum() {
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
                                     setTimeout(() => setRender(!render), 10)
-                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                 }
                             }}>
                             <div className='index'>

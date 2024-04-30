@@ -7,6 +7,7 @@ import axios from "axios";
 import { useContextMenu, useHomeModels, useMusic, useStore } from "../../store/zustand";
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
+import Loading from "../../components/loading/home";
 
 export default function HomeMain() {
   const user = useStore((state) => state.user);
@@ -55,14 +56,15 @@ export default function HomeMain() {
     return { x, y }
   };
 
-  return (
+
+  if (RECOMMENDED_SONGS.length > 0 || FAVORITE_SINGERS.length > 0 || RECOMMENDED_ALBUMS.length > 0 || RECOMMENDED_PLAYLISTS.length > 0) return (
     <HomeLayout page="home-main" title="Home">
       <Banner src={"/other/space.ads.webp"} />
 
       <article>
         <header>
           <h2>Recommended songs</h2>
-          <Link href={"/recommended"}>Show all</Link>
+          <Link href={"/songs"}>Show all</Link>
         </header>
         <div
           className="content"
@@ -90,7 +92,7 @@ export default function HomeMain() {
                     setCurrentSong(item)
                     setTimeout(() => setRender(!render), 10)
                     if (currentSong.song != item.song) setReadTime(0)
-                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                   }
                 }}>
                 <svg
@@ -274,7 +276,7 @@ export default function HomeMain() {
       <article>
         <header>
           <h2>Recommended Albums</h2>
-          <Link href={"/singers"}>Show all</Link>
+          <Link href={"/albums"}>Show all</Link>
         </header>
         <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
           {RECOMMENDED_ALBUMS.slice(0, columnCount).map((item, index) => (
@@ -306,7 +308,7 @@ export default function HomeMain() {
       <article>
         <header>
           <h2>Recommended Playlists</h2>
-          <Link href={"/singers"}>Show all</Link>
+          <Link href={"/playlists"}>Show all</Link>
         </header>
         <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }} >
           {RECOMMENDED_PLAYLISTS.slice(0, columnCount).map((item, index) => (
@@ -336,4 +338,5 @@ export default function HomeMain() {
       </article>
     </HomeLayout>
   )
+  return <Loading />
 }

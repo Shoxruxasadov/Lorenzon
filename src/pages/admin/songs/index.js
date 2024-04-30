@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Rodal from "rodal";
 import axios from "axios";
 
@@ -11,18 +12,16 @@ import { IoTimeOutline } from "react-icons/io5";
 import { HiSearch } from "react-icons/hi";
 
 export default function AdminSongs() {
-  const [allSongs, setAllSongs] = useState([])
-  const [loading, setLoading] = useState(true)
   const [songDeleted, setSongDeleted] = useState({})
   const [rodalDelete, setRodalDelete] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    getSongs()
-  }, [])
+  const { data: allSongs, isLoading, isError, isSuccess, error, refetch } = useQuery({
+    queryKey: ['allSongs'],
+    queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+  })
 
-  const getSongs = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/songs`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => setAllSongs(data)).finally(() => setLoading(false))
-  const removeSong = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/${songDeleted._id}`).then(() => success("Deleted song")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getSongs() })
+  const removeSong = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/${songDeleted._id}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => success("Deleted song")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); refetch() })
 
   return (
     <AdminLayout page="admin-musics" title="Musics">
@@ -57,28 +56,26 @@ export default function AdminSongs() {
               </tr>
             </thead>
             <tbody className="tbody">
-              {allSongs.map((song, i) => (
+              {isLoading ? allSongs.map((song, i) => (
                 <tr className="tr" key={i} >
                   <td className="td">
-                    <img src={song.image} alt={song.name} onClick={()=>router.push(`/album/${song.album}`)}/>
+                    <img src={song.image} alt={song.name} onClick={() => router.push(`/album/${song.album}`)} />
                     <div className="name">
-                      <h1 onClick={()=>router.push(`/album/${song.album}`)}>{song.name}</h1>
-                      <p>{song.singerName.map((n,i) => <span key={i} onClick={() => router.push(`/@${song.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                      <h1 onClick={() => router.push(`/album/${song.album}`)}>{song.name}</h1>
+                      <p>{song.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${song.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
                     </div>
                   </td>
                   <td className="td">{song.listenCount}</td>
                   <td className="td"><GetAudioDuration audioUrl={song.song} /></td>
                   <td><button onClick={() => { setRodalDelete(true); setSongDeleted(song) }}>Delete</button></td>
                 </tr>
-              ))}
-              {loading && <tr className="loadingTable">
+              )) : <tr className="loadingTable">
                 <td rowSpan={3} colSpan={7}>
                   <div className="waiting">
                     <span className="loader"></span>
                   </div>
                 </td>
-              </tr>
-              }
+              </tr>}
             </tbody>
           </table>
         </div>

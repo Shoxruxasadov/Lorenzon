@@ -18,7 +18,7 @@ export default function Followers() {
 
     const { data: followers, isLoading, isError, isSuccess, refetch } = useQuery({
         queryKey: ['followers'],
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/followers/${pathname.split('/')[1].slice(1)}`).then(({ data }) => data),
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/followers/${pathname.split('/')[1].slice(1)}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
 
     useEffect(() => {

@@ -1,20 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { Calendar } from 'react-date-range';
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from 'uuid';
-import { Calendar } from 'react-date-range';
+import axios from "axios";
 
-import { storage } from "../../lib/firebase/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../lib/firebase/firebase";
 
-import { info, wrong, success, warning } from "../../utils/toastify";
+import { wrong, success, warning } from "../../utils/toastify";
+import { useStore } from "../../store/zustand";
 import Loading from "../../components/loading/setting";
 import SettingLayout from "../../layouts/settings";
 import Error from "../../components/other/error";
-import { useStore } from "../../store/zustand";
-
-import { day, februaryDays, month } from "../../utils/calendar";
 import country from "../../utils/country";
 
 import { SiYoutube, SiFacebook, SiTelegram, SiSpotify } from "react-icons/si";
@@ -22,9 +20,9 @@ import { PiInstagramLogoFill } from "react-icons/pi";
 import { HiAtSymbol, HiLink } from "react-icons/hi";
 
 export default function Settings() {
-    const { register, handleSubmit, formState: { errors }, } = useForm();
     const setLoading = useStore(state => state.setLoading);
     const localUser = useStore((state) => state.user);
+    const { handleSubmit } = useForm();
 
     const [banner, setBanner] = useState(undefined);
     const [avatar, setAvatar] = useState(undefined);
@@ -33,19 +31,16 @@ export default function Settings() {
 
     const { data: user, isLoading, isError, isSuccess, refetch } = useQuery({
         queryKey: ['user'],
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/${localUser._id}`).then(({ data }) => data),
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/${localUser._id}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
 
     // FORM
     const [name, setName] = useState(localUser.name);
     const [username, setUsername] = useState(localUser.username);
     const [visibleCalendar, setVisibleCalendar] = useState(false)
-
     const [gender, setGender] = useState('');
     const [country, setCountry] = useState('');
     const [birthday, setBirthday] = useState('')
-    const [happyMonth, setHappyMonth] = useState('')
-    const [happyYear, setHappyYear] = useState('')
     const [bio, setBio] = useState('');
     const [website, setWebsite] = useState('');
     const [youtube, setYoutube] = useState('');
@@ -56,14 +51,13 @@ export default function Settings() {
     const randomID = uuid().split('-')[4];
 
     // soon
-    const [allCountry, setAllCountry] = useState(country);
-    const [newCountry, setNewCountry] = useState([]);
-    const [searchInput, setSearchInput] = useState("");
-    const [selectCountry, setSelectCountry] = useState("country");
-    const [ocCountry, setOcCountry] = useState(false);
-
-    const [selectGender, setSelectGender] = useState("gender");
-    const [ocGender, setOcGender] = useState(false);
+    // const [allCountry, setAllCountry] = useState(country);
+    // const [newCountry, setNewCountry] = useState([]);
+    // const [searchInput, setSearchInput] = useState("");
+    // const [selectCountry, setSelectCountry] = useState("country");
+    // const [ocCountry, setOcCountry] = useState(false);
+    // const [selectGender, setSelectGender] = useState("gender");
+    // const [ocGender, setOcGender] = useState(false);
 
 
     useEffect(() => {
@@ -141,7 +135,9 @@ export default function Settings() {
                     telegram: telegram || (user.socials && user.socials.telegram) || null,
                     spotify: spotify || (user.socials && user.socials.spotify) || null,
                 },
-            }).then(({ data }) => success(data)).catch(err => { console.log(err); wrong('This username is already taken') }).finally(() => setLoading(false))
+                followers: user.followers,
+                following: user.following
+            }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => success(data)).catch(err => { console.log(err); wrong('This username is already taken') }).finally(() => setLoading(false))
         }
 
         setLoading(true)
@@ -292,7 +288,7 @@ export default function Settings() {
         if (birthday) {
             const selectDay = new Date()
             selectDay.setFullYear(birthday.split('/')[0])
-            selectDay.setMonth(birthday.split('/')[1]-1)
+            selectDay.setMonth(birthday.split('/')[1] - 1)
             selectDay.setDate(birthday.split('/')[2])
             setSelectDate(selectDay)
         }

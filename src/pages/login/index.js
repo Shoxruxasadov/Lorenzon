@@ -10,7 +10,6 @@ import axios from "axios";
 import { wrong, success, warning } from "../../utils/toastify";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { useAuthCreate } from "../../store/zustand";
-import Wait from "../../components/loading/wait";
 import Root from "../../layouts/root";
 
 import { MdAccountCircle, MdOutlinePassword } from "react-icons/md";
@@ -40,7 +39,8 @@ export default function Login() {
     axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/login/${userData.method}`, {
       headers: {
         'login': userData.user,
-        'password': userData.password
+        'password': userData.password,
+        'secret': process.env.NEXT_PUBLIC_SECRET
       }
     }).then(({ data }) => {
       const account = { id: data.id, password: data.password }
@@ -79,7 +79,7 @@ export default function Login() {
   useEffect(() => {
     if (oauthGoogle == 'signIn' && data) {
       setLoading(true)
-      axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${data.user.email}`).then(res => {
+      axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${data.user.email}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(res => {
         if (res.data.length == 0) {
           warning("You don't have an account, create one first")
           router.push("/register")

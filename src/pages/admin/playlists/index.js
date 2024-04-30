@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Rodal from "rodal";
 import axios from "axios";
 
-import { success, wrong } from "../../../utils/toastify";
-import GetAudioDuration from "../../../hooks/useDuration";
 import AdminLayout from "../../../layouts/admin";
-
-import { IoTimeOutline } from "react-icons/io5";
+import { success, wrong } from "../../../utils/toastify";
 import { HiSearch } from "react-icons/hi";
 
 export default function AdminPlaylists() {
-  const [allPlaylists, setAllPlaylists] = useState([])
-  const [loading, setLoading] = useState(true)
   const [playlistDeleted, setPlaylistDeleted] = useState({})
   const [rodalDelete, setRodalDelete] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    getPlaylists()
-  }, [])
+  const { data: allPlaylists, isLoading, isError, isSuccess, error, refetch } = useQuery({
+    queryKey: ['allPlaylists'],
+    queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+  })
 
-  const getPlaylists = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists`).then(({ data }) => setAllPlaylists(data)).finally(() => setLoading(false))
-  const removePlaylist = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${playlistDeleted._id}`).then(({ data }) => success(data)).catch((err) => { wrong("Error"); console.log(err); }).finally(() => { setRodalDelete(false); getPlaylists() })
+  const removePlaylist = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${playlistDeleted._id}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => success(data)).catch((err) => { wrong("Error"); console.log(err); }).finally(() => { setRodalDelete(false); refetch() })
 
   return (
     <AdminLayout page="admin-musics" title="Musics">
@@ -51,7 +47,7 @@ export default function AdminPlaylists() {
               </tr>
             </thead>
             <tbody className="tbody">
-              {allPlaylists.map((playlist, i) => (
+              {isLoading ? allPlaylists.map((playlist, i) => (
                 <tr className="tr" key={i} >
                   <td className="td">
                     <img src={playlist.image} alt={playlist.name} onClick={() => router.push(`/playlist/${playlist._id}`)} />
@@ -63,15 +59,13 @@ export default function AdminPlaylists() {
                   <td className="td">{playlist.songs.length}</td>
                   <td><button onClick={() => { setRodalDelete(true); setPlaylistDeleted(song) }}>Delete</button></td>
                 </tr>
-              ))}
-              {loading && <tr className="loadingTable">
+              )) : <tr className="loadingTable">
                 <td rowSpan={3} colSpan={7}>
                   <div className="waiting">
                     <span className="loader"></span>
                   </div>
                 </td>
-              </tr>
-              }
+              </tr>}
             </tbody>
           </table>
         </div>

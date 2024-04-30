@@ -32,7 +32,7 @@ export default function User() {
 
     const { data: user, isLoading, isError, isSuccess, refetch } = useQuery({
         queryKey: ['user'],
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${pathname.substring(2)}`).then(({ data }) => data),
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${pathname.substring(2)}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
 
     useEffect(() => {
@@ -71,7 +71,6 @@ export default function User() {
     }
 
     if (isLoading) return <Loading />
-    if (isError) return <Error />
     if (pathname.substring(1).startsWith("@") && isSuccess && user) return (
         <HomeLayout page="home-user" title={user.name}>
             {(user.banner || user._id == myuser._id) && <Banner src={user.banner || "empty"} />}
@@ -117,9 +116,9 @@ export default function User() {
                                 className={`${arrayCheckField(myuser._id, user.followers || []) ? 'following' : 'follow'}`}
                                 onClick={() => {
                                     if (arrayCheckField(myuser._id, user.followers || [])) {
-                                        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/users/unfollow/${user._id}`, { headers: { 'my-user-id': myuser._id } }).then(({ data }) => { refetch(); success(data) })
+                                        axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/users/unfollow/${user._id}`, { headers: { 'my-user-id': myuser._id, 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => { refetch(); success(data) })
                                     } else {
-                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/follow/${user._id}`, { id: myuser._id }).then(({ data }) => { refetch(); success(data) })
+                                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/follow/${user._id}`, { id: myuser._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => { refetch(); success(data) })
                                     }
                                 }}
                             >{arrayCheckField(myuser._id, user.followers || []) ? 'Following' : 'Follow'}</button>}
@@ -144,7 +143,7 @@ export default function User() {
                         setReadTime(0)
                         setPlayPouse(true)
                         setTimeout(() => setRender(!render), 10)
-                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: user.songs[0]._id })
+                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: user.songs[0]._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                     }
                 }}>
                     {arraysEqual(queue, user.songs) && playPouse ? <svg
@@ -205,7 +204,7 @@ export default function User() {
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
                                     setTimeout(() => setRender(!render), 10)
-                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${myuser._id}`, { id: item._id })
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${myuser._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                 }
                             }}>
                             <div className='index'>
@@ -301,7 +300,7 @@ export default function User() {
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
                                     setTimeout(() => setRender(!render), 10)
-                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${myuser._id}`, { id: item._id })
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${myuser._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                 }
                             }}>
                             <div className='index'>

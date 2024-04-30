@@ -6,14 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { wrong } from "../../utils/toastify";
 import { useAuthCreate } from "../../store/zustand";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import Error from "../../components/other/error";
 import Wait from "../../components/loading/wait";
 import Root from "../../layouts/root";
 
 import { PiUserCirclePlusFill, PiXBold } from "react-icons/pi";
-import { wrong } from "../../utils/toastify";
-import Error from "../../components/other/error";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Account() {
@@ -25,7 +25,7 @@ export default function Account() {
 
     const { data: users, isLoading, isError, isSuccess, error, refetch } = useQuery({
         queryKey: ['accounts'],
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth`, { headers: { 'accounts': JSON.stringify(accounts) } }).then(({ data }) => data)
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth`, { headers: { 'accounts': JSON.stringify(accounts), 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
     })
 
     useEffect(() => {
@@ -54,7 +54,6 @@ export default function Account() {
     }
 
     if (isLoading) return <Wait />
-    if (isError) return <Error />
     if (isSuccess) return (
         <Root page="account" title="Switch account">
             <motion.div className="wrapper"

@@ -7,10 +7,10 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 
-import { success, warning, wrong } from "../../utils/toastify";
 import { day, februaryDays, month } from "../../utils/calendar";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { success, warning, wrong } from "../../utils/toastify";
 import { useAuthCreate } from "../../store/zustand";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import country from "../../utils/country";
 import Root from "../../layouts/root";
 
@@ -87,7 +87,7 @@ export default function GoogleAbout() {
                 },
                 followers: [],
                 following: []
-            }).then(({ data }) => {
+            }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
                 const account = { id: data._id, password: data.password }
                 setToken(account)
 

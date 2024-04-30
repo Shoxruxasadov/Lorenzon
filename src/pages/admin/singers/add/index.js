@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { v4 as uuid } from 'uuid';
 import axios from "axios";
 
-import { storage } from "../../../../lib/firebase/firebase"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../lib/firebase/firebase"
 
 import { warning, wrong, success } from "../../../../utils/toastify";
 import AdminLayout from "../../../../layouts/admin";
@@ -59,7 +59,7 @@ export default function AdminAddSinger() {
             warning("Enter Password");
         } else if (data.password.length < 8 || data.password.length > 20) {
             warning("Enter Password must 8 to 20");
-        }else {
+        } else {
             setDisable(true);
 
             const addUserRequest = (image) => axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, {
@@ -74,7 +74,7 @@ export default function AdminAddSinger() {
                 birthday: happy.length < 10 ? null : happy,
                 image: image || null,
                 banner: null
-            }).then(() => {
+            }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => {
                 success("Created user");
                 router.push("/admin/singers")
             }).catch((err) => {

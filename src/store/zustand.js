@@ -5,12 +5,12 @@ export const useStore = create((set) => ({
     user: {},
     isVerifyToken: false,
     setVerifyToken: (is) => set(() => ({ isVerifyToken: is })),
-    getUserFromToken: (token, router) => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { headers: { 'password': token.password } }).then(({ data }) => {
+    getUserFromToken: (token, router) => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { headers: { 'password': token.password, 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
         set(() => ({ user: data }));
         set(() => ({ isVerifyToken: true }));
     }).catch(() => router.push('/')),
     isAdmin: false,
-    verifyAdmin: (token, router, setLoading) => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { headers: { 'password': token.password } }).then(({ data }) => {
+    verifyAdmin: (token, router, setLoading) => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/auth/${token.id}`, { headers: { 'password': token.password, 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
         if (data.role == 'admin') { set(() => ({ isAdmin: true })); setLoading(false) }
         else { router.push('/') }
     }).catch(() => router.push('/')),

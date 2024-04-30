@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Rodal from "rodal";
 import axios from "axios";
 
-import { success, wrong } from "../../../utils/toastify";
 import AdminLayout from "../../../layouts/admin";
+import { success, wrong } from "../../../utils/toastify";
 import { HiSearch } from "react-icons/hi";
 
 export default function AdminUsers() {
-    const [allUsers, setAllUsers] = useState([])
-    const [loading, setLoading] = useState(true)
     const [userDeleted, setUserDeleted] = useState({})
     const [rodalDelete, setRodalDelete] = useState(false)
     const router = useRouter()
 
-    useEffect(() => {
-        getUsers()
-    }, [])
+    const { data: allUsers, isLoading, isError, isSuccess, error, refetch } = useQuery({
+        queryKey: ['allUsers'],
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+    })
 
-    const getUsers = () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => setAllUsers(data)).finally(() => setLoading(false))
-    const removeUser = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/users/${userDeleted._id}`).then(() => success("Deleted user")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getUsers() })
+    const removeUser = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/users/${userDeleted._id}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => success("Deleted user")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); getUsers() })
 
     return (
         <AdminLayout page="admin-users" title="Users">
@@ -55,7 +54,7 @@ export default function AdminUsers() {
                             </tr>
                         </thead>
                         <tbody>
-                            {allUsers.map(user => (
+                            {isLoading ? allUsers.map(user => (
                                 <tr key={user._id}>
                                     <td onClick={() => router.push(`/@${user.username}`)}>
                                         <img src={user.image || "/other/unknown.user.webp"} alt={user.name} />
@@ -78,20 +77,18 @@ export default function AdminUsers() {
                                     </td>
                                     <td><span className="username">@{user.username}</span></td>
                                     <td>{user.birthday && `${user.birthday.split("/")[2]}-${user.birthday.split("/")[1]}-${user.birthday.split("/")[0]}`}</td>
-                                    <td style={{textTransform: "capitalize"}}>{user.country}</td>
+                                    <td style={{ textTransform: "capitalize" }}>{user.country}</td>
                                     <td><span className={`pag ${user.gender ? user.gender == "male" ? "male" : "female" : ""}`}>{user.gender}</span></td>
                                     <td><span className={`pag ${user.role == "admin" ? "admin" : "simple"}`}>{user.role}</span></td>
                                     <td><button onClick={() => { setRodalDelete(true); setUserDeleted(user) }}>Delete</button></td>
                                 </tr>
-                            ))}
-                            {loading && <tr className="loadingTable">
+                            )) : <tr className="loadingTable">
                                 <td rowSpan={3} colSpan={7}>
                                     <div className="waiting">
                                         <span className="loader"></span>
                                     </div>
                                 </td>
-                             </tr>
-                            }
+                            </tr>}
                         </tbody>
                     </table>
                 </div>

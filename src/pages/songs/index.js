@@ -91,7 +91,7 @@ export default function HomeSongs() {
                     setCurrentMusic(item)
                     setTimeout(() => setRender(!render), 10)
                     if (currentMusic.song != item.song) setReadTime(0)
-                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                   }
                 }}>
                 <svg

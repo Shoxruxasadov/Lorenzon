@@ -37,7 +37,7 @@ export default function RegisterEmail() {
         setLoading(true);
         const listEmailProviders = ["gmail.com", "mail.ru", "icloud.com", "hotmail.com", "outlook.com", "yahoo.com", "yandex.ru", "umail.uz"]
         const verifyEmail = () => listEmailProviders.map(item => item == email.split('@')[1] && true).filter(item => item != false)[0]
-        verifyEmail() ? axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${email}`).then(({ data }) => data.length == 0 ? axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/email?to=${email}`).then(({ data }) => { setRandomCode(data); setEmail(email); setPage(2) }).catch((error) => console.log("Error: ", error)).finally(() => setLoading(false)) : wrong("Such an account exists")).finally(() => setLoading(false)) : wrong("This email type was not accepted")
+        verifyEmail() ? axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${email}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data.length == 0 ? axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/email?to=${email}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => { setRandomCode(data); setEmail(email); setPage(2) }).catch((error) => console.log("Error: ", error)).finally(() => setLoading(false)) : wrong("Such an account exists")).finally(() => setLoading(false)) : wrong("This email type was not accepted")
     }
 
     const authGoogle = () => {
@@ -54,7 +54,7 @@ export default function RegisterEmail() {
     useEffect(() => {
         if (oauthGoogle == 'signIn' && data) {
             setLoading(true)
-            axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${data.user.email}`).then(res => {
+            axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${data.user.email}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(res => {
                 if (res.data.length == 0) {
                     setPage(5)
                     setEmail(data.user.email)

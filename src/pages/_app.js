@@ -16,18 +16,19 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import Wait from "../components/loading/wait"
 
 import "..//styles/global.scss" // global
-import "..//styles/assets/error.scss"; // error
 import "..//styles/assets/mobile.scss"; // mobile
-import "..//styles/loading/wait.scss"; // wait
-import "..//styles/home/home.scss" // home
+import "..//styles/assets/error.scss"; // error
+import "..//styles/assets/menu.scss"; // menu
 import "..//styles/landing/landing.scss"; // landing
-import "..//styles/auth/login.scss"; // login
+import "..//styles/loading/wait.scss"; // wait
+import "..//styles/admin/admin.scss"; // admin
+import "..//styles/home/home.scss" // home
 import "..//styles/auth/register.scss"; // register
 import "..//styles/auth/account.scss"; // account
-import "..//styles/admin/admin.scss"; // admin
-import "..//styles/assets/menu.scss"; // menu
-import 'rodal/lib/rodal.css'; // rodal
+import "..//styles/auth/login.scss"; // login
+
 import 'aos/dist/aos.css'; // aos 
+import 'rodal/lib/rodal.css'; // rodal
 import 'react-date-range/dist/styles.css'; // calendar main style file
 import 'react-date-range/dist/theme/default.css'; // calendar theme css file
 
@@ -155,7 +156,7 @@ export default function MyApp({ Component, pageProps, }) {
                 const song = allSongs[randomInteger(0, allSongs.length - 1)]
                 setCurrentMusic(song)
                 setTimeout(() => setRender(!render), 10)
-                axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: song._id })
+                axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: song._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
             } else {
                 allSongs.map((item, index) => {
                     if (item._id == currentSong._id) {
@@ -165,7 +166,7 @@ export default function MyApp({ Component, pageProps, }) {
                             const song = allSongs[index + 1]
                             setCurrentMusic(song)
                             setTimeout(() => setRender(!render), 10)
-                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: song._id })
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: song._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                         }
                         setReadTime(0)
                     }

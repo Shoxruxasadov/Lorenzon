@@ -1,21 +1,19 @@
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import axios from "axios";
-import { useRouter } from "next/router";
 
+import { useContextMenu, useMusic, useStore } from "../../../../store/zustand";
+import Loading from "../../../../components/loading/home";
+import Error from "../../../../components/other/error";
 import HomeLayout from "../../../../layouts/home";
 import Banner from "../../../../layouts/banner";
-import { useContextMenu, useMusic, useStore } from "../../../../store/zustand";
-import { usePathname } from "next/navigation";
-import Loading from "../../../../components/loading/home";
 
 export default function HomeSearchSongs() {
   const user = useStore(state => state.user);
-  const [isLoading, setLoading] = useState(true)
   const render = useMusic((state) => state.render);
   const setRender = useMusic((state) => state.setRender);
-  const [songs, setSongs] = useState([])
 
   const playPouse = useMusic((state) => state.playPouse);
   const setPlayPouse = useMusic((state) => state.setPlayPouse);
@@ -23,20 +21,21 @@ export default function HomeSearchSongs() {
   const setCurrentMusic = useMusic((state) => state.setCurrentMusic);
   const setReadTime = useMusic((state) => state.setReadTime);
 
-  const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
-
-  const router = useRouter();
+  const [columnCount, setColumnCount] = useState(6);
   const pathname = usePathname();
+  const router = useRouter();
 
   const setCursor = useContextMenu((state) => state.setCursor);
   const setIsShow = useContextMenu((state) => state.setIsShow);
   const setIsHover = useContextMenu((state) => state.setIsHover);
 
-  useEffect(() => {
-    setLoading(true)
-    pathname && axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/songs/${pathname.split('/')[2]}`).then(({ data }) => setSongs(data)).finally(() => setLoading(false))
+  const { data: songs, isLoading, isError, isSuccess, refetch } = useQuery({
+    queryKey: ['searchSongs'],
+    queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/songs/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+  })
 
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 2330) setColumnCount(10);
       if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
@@ -50,7 +49,7 @@ export default function HomeSearchSongs() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [pathname]);
+  }, []);
 
   const onMouseMove = (e) => {
     let x = e.clientX;
@@ -59,7 +58,7 @@ export default function HomeSearchSongs() {
   };
 
   if (isLoading) return <Loading />
-  return (
+  if (isSuccess) return (
     <HomeLayout page="home-library" title="Searched Songs">
       <Banner src={"/other/space.ads.webp"} />
       <article>
@@ -79,7 +78,7 @@ export default function HomeSearchSongs() {
                     setCurrentMusic(item)
                     setTimeout(() => setRender(!render), 10)
                     if (currentMusic.song != item.song) setReadTime(0)
-                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                   }
                 }}
                 onContextMenu={(e) => {
@@ -147,4 +146,5 @@ export default function HomeSearchSongs() {
       </article>
     </HomeLayout>
   )
+  return <Error />
 }

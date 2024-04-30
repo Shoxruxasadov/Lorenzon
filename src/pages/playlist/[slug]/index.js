@@ -1,8 +1,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
+import axios from "axios";
 
 import { success } from "../../../utils/toastify";
 import { useMusic, useStore } from "../../../store/zustand";
@@ -33,12 +33,12 @@ export default function HomePlaylist() {
 
     const { data: playlist, isLoading, isError, isSuccess, refetch } = useQuery({
         queryKey: ['playlist'],
-        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`).then(({ data }) => data),
+        queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
 
     useEffect(() => {
         if (pathname) refetch()
-    }, [pathname])
+    }, [])
 
     function arraysEqual(a, b) {
         if (a === b) return true;
@@ -56,7 +56,6 @@ export default function HomePlaylist() {
     }
 
     if (isLoading) return <Loading />
-    if (isError) return <Error />
     if (isSuccess && playlist) return (
         <HomeLayout page="home-album" title="Playlist">
             <div className="profile">
@@ -100,7 +99,7 @@ export default function HomePlaylist() {
                         setReadTime(0)
                         setPlayPouse(true)
                         setTimeout(() => setRender(!render), 10)
-                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: playlist.songs[0]._id })
+                        axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: playlist.songs[0]._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                     }
                 }}>
                     {arraysEqual(queue, playlist.songs) && playPouse ? <svg
@@ -147,20 +146,20 @@ export default function HomePlaylist() {
                     className={`subscription${arrayCheckField(user._id, playlist.subscribers) ? ' active' : ''}`}
                     onClick={() => {
                         if (arrayCheckField(user._id, playlist.subscribers)) {
-                            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/subscriber/${pathname.split('/')[2]}`, { headers: { 'user-id': user._id } }).then(({ data }) => {
+                            axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/subscriber/${pathname.split('/')[2]}`, { headers: { 'user-id': user._id, 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
                                 refetch()
                                 success(data)
                                 getUserFromToken(token, router)
                             })
                         } else {
-                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/subscriber/${pathname.split('/')[2]}`, { id: user._id }).then(({ data }) => {
+                            axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/subscriber/${pathname.split('/')[2]}`, { id: user._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
                                 refetch()
                                 success(data)
                                 getUserFromToken(token, router)
                             })
                         }
                     }}
-                >{arrayCheckField(user._id, playlist.subscribers) ? 'Following' : 'Follow'}</button> : <button className="delete-playlist" onClick={() => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`).then(({ data }) => {
+                >{arrayCheckField(user._id, playlist.subscribers) ? 'Following' : 'Follow'}</button> : <button className="delete-playlist" onClick={() => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
                     success(data)
                     getUserFromToken(token, router)
                     router.push('/home')
@@ -190,7 +189,7 @@ export default function HomePlaylist() {
                                     if (currentSong.song != item.song) setReadTime(0)
                                     setPlayPouse(true)
                                     setTimeout(() => setRender(!render), 10)
-                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id })
+                                    axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/users/song/${user._id}`, { id: item._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } })
                                 }
                             }}>
                             <div className='index'>
@@ -221,7 +220,7 @@ export default function HomePlaylist() {
                                 </div>
                                 <div className='listen'><p>{item.listenCount.toString().split('').map((c, i) => i % 3 == 1 ? `${c} ` : c)}</p></div>
                                 <div className='duration'><p><GetAudioDuration audioUrl={item.song} /></p></div>
-                                {playlist.creator.username == user.username && <div className="action"><button onClick={() => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/song/${pathname.split('/')[2]}`, { headers: { 'song-id': item._id } }).then(({ data }) => {
+                                {playlist.creator.username == user.username && <div className="action"><button onClick={() => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/song/${pathname.split('/')[2]}`, { headers: { 'song-id': item._id, 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => {
                                     refetch()
                                     success(data)
                                 })}>Delete</button></div>}

@@ -1,25 +1,26 @@
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import axios from "axios";
 
+import Loading from "../../../../components/loading/home";
+import Error from "../../../../components/other/error";
 import HomeLayout from "../../../../layouts/home";
 import Banner from "../../../../layouts/banner";
-import Loading from "../../../../components/loading/home";
 
 export default function HomeSearchAlbums() {
-  const [isLoading, setLoading] = useState(true)
-  const [albums, setAlbums] = useState([])
-  const [columnCount, setColumnCount] = useState(6);
   const [loadedImage, setLoadedImage] = useState(false)
+  const [columnCount, setColumnCount] = useState(6);
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    setLoading(true)
-    pathname && axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/albums/${pathname.split('/')[2]}`).then(({ data }) => setAlbums(data)).finally(() => setLoading(false))
+  const { data: albums, isLoading, isError, isSuccess, refetch } = useQuery({
+    queryKey: ['searchAlbums'],
+    queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/albums/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
+  })
 
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 2330) setColumnCount(10);
       if (window.innerWidth >= 2130 && window.innerWidth < 2330) setColumnCount(9);
@@ -33,10 +34,10 @@ export default function HomeSearchAlbums() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [pathname]);
+  }, []);
 
   if (isLoading) return <Loading />
-  return (
+  if (isSuccess) return (
     <HomeLayout page="home-library" title="Searched Albums">
       <Banner src={"/other/space.ads.webp"} />
       <article>
@@ -68,4 +69,5 @@ export default function HomeSearchAlbums() {
       </article>
     </HomeLayout>
   )
+  return <Error />
 }

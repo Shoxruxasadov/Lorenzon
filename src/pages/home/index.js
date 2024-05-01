@@ -56,7 +56,6 @@ export default function HomeMain() {
     return { x, y }
   };
 
-
   if (RECOMMENDED_SONGS.length > 0 || FAVORITE_SINGERS.length > 0 || RECOMMENDED_ALBUMS.length > 0 || RECOMMENDED_PLAYLISTS.length > 0) return (
     <HomeLayout page="home-main" title="Home">
       <Banner src={"/other/space.ads.webp"} />

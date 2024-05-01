@@ -59,7 +59,7 @@ export default function AdminAlbums() {
                     <img src={album.image} alt={album.name} onClick={() => router.push(`/album/${album._id}`)} />
                     <div className="name">
                       <h1 onClick={() => router.push(`/album/${album._id}`)}>{album.name}</h1>
-                      <p>{album.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                      <p>{album.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${album.singerUsername[i]}`)}>{album.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
                     </div>
                   </td>
                   <td className="td">{album.songs.length}</td>

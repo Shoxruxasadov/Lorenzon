@@ -220,7 +220,7 @@ export default function Content() {
                             </div>
                             <div className="title">
                                 <h4 className={`${currentSong.song == item.song ? "active" : ""}`} onClick={() => router.push(`/album/${item.album}`)}>{item.name}</h4>
-                                <p className={`singers ${currentSong.song == item.song ? "active" : ""}`}>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                                <p className={`singers ${currentSong.song == item.song ? "active" : ""}`}>{item.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${item.singerUsername[i]}`)}>{item.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
                             </div>
                         </div>
                     ))}

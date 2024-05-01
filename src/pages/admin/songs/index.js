@@ -70,6 +70,7 @@ export default function AdminSongs() {
                     <div className="name">
                       <h1 onClick={() => router.push(`/album/${song.album}`)}>{song.name}</h1>
                       <p>{song.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${song.singerUsername[i]}`)}>{n + ", "}</span>)}</p>
+                      <p>{song.singerName.map((n, i) => <span key={i} onClick={() => router.push(`/@${song.singerUsername[i]}`)}>{song.singerName.length == i + 1 ? n : n + ', '}</span>)}</p>
                     </div>
                   </td>
                   <td className="td">{song.listenCount}</td>

@@ -33,7 +33,7 @@ export default function HomeAlbum() {
     })
 
     useEffect(() => {
-        if (pathname) refetch()
+        refetch()
     }, [pathname])
 
     function arraysEqual(a, b) {

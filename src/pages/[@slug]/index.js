@@ -30,7 +30,7 @@ export default function User() {
     const pathname = usePathname()
     const router = useRouter()
 
-    const { data: user, isLoading, isError, isSuccess, refetch } = useQuery({
+    const { data: user, isLoading, isError, isSuccess, isFetching, refetch } = useQuery({
         queryKey: ['user'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/username/${pathname.substring(2)}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
@@ -70,7 +70,7 @@ export default function User() {
         return false;
     }
 
-    if (isLoading) return <Loading />
+    if (isFetching) return <Loading />
     if (pathname.substring(1).startsWith("@") && isSuccess && user) return (
         <HomeLayout page="home-user" title={user.name}>
             {(user.banner || user._id == myuser._id) && <Banner src={user.banner || "empty"} />}

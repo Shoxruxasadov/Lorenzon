@@ -27,7 +27,7 @@ export default function HomeAlbum() {
     const currentSong = useMusic((state) => state.currentMusic);
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
 
-    const { data: album, isLoading, isError, isSuccess, refetch } = useQuery({
+    const { data: album, isLoading, isError, isSuccess, isFetching, refetch } = useQuery({
         queryKey: ['album'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/albums/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data[0]),
     })
@@ -56,7 +56,7 @@ export default function HomeAlbum() {
         return combinedArray;
     }
 
-    if (isLoading) return <Loading />
+    if (isFetching) return <Loading />
     if (isSuccess && album) return (
         <HomeLayout page="home-album" title="Album">
             <div className="profile">

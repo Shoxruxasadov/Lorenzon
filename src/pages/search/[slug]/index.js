@@ -30,7 +30,7 @@ export default function HomeSearching() {
     const setIsShow = useContextMenu((state) => state.setIsShow);
     const setIsHover = useContextMenu((state) => state.setIsHover);
 
-    const { data: searchData, isLoading, isError, isSuccess, refetch } = useQuery({
+    const { data: searchData, isLoading, isError, isSuccess, isFetching, refetch } = useQuery({
         queryKey: ['searchData'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/search/${pathname.split('/')[2].replaceAll('%20', ' ')}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
     })
@@ -51,13 +51,17 @@ export default function HomeSearching() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    useEffect(()=>{
+        refetch()
+    },[pathname])
+
     const onMouseMove = (e) => {
         let x = e.clientX;
         let y = e.clientY;
         return { x, y }
     };
 
-    if (isLoading) return <Loading />
+    if (isFetching) return <Loading />
     if (isSuccess) return (
         <HomeLayout page="home-search" title={`serach - ${pathname.split('/')[2]}`}>
             {searchData ? <>

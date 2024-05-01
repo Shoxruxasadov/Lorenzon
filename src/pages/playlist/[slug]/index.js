@@ -31,7 +31,7 @@ export default function HomePlaylist() {
     const currentSong = useMusic((state) => state.currentMusic);
     const setCurrentSong = useMusic((state) => state.setCurrentMusic);
 
-    const { data: playlist, isLoading, isError, isSuccess, refetch } = useQuery({
+    const { data: playlist, isLoading, isError, isSuccess, isFetching, refetch } = useQuery({
         queryKey: ['playlist'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/${pathname.split('/')[2]}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
@@ -55,7 +55,7 @@ export default function HomePlaylist() {
         return false;
     }
 
-    if (isLoading) return <Loading />
+    if (isFetching) return <Loading />
     if (isSuccess && playlist) return (
         <HomeLayout page="home-album" title="Playlist">
             <div className="profile">

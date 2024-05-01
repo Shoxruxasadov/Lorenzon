@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+    import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Rodal from "rodal";
@@ -13,8 +13,8 @@ export default function AdminSingers() {
     const [rodalDelete, setRodalDelete] = useState(false)
     const router = useRouter()
 
-    const { data: allUsers, isLoading, isError, isSuccess, error, refetch } = useQuery({
-        queryKey: ['allUsers'],
+    const { data: allSingers, isLoading, isError, isSuccess, error, refetch } = useQuery({
+        queryKey: ['allSingers'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/singers/get`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data)
     })
 
@@ -59,7 +59,7 @@ export default function AdminSingers() {
                                         <span className="loader"></span>
                                     </div>
                                 </td>
-                            </tr> : allUsers.map(user => (
+                            </tr> : allSingers.map(user => (
                                 <tr key={user._id}>
                                     <td onClick={() => router.push(`/@${user.username}`)}>
                                         <img src={user.image || "/other/unknown.user.webp"} alt={user.name} />

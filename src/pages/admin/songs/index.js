@@ -23,7 +23,7 @@ export default function AdminSongs() {
 
   const removeSong = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/${songDeleted._id}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => success("Deleted song")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); refetch() })
 
-  return (
+  if (isSuccess) return (
     <AdminLayout page="admin-musics" title="Musics">
       <header>
         <div className="category">
@@ -89,4 +89,5 @@ export default function AdminSongs() {
       </Rodal>
     </AdminLayout>
   );
+  return 'loading...
 }

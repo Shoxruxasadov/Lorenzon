@@ -89,5 +89,5 @@ export default function AdminSongs() {
       </Rodal>
     </AdminLayout>
   );
-  return 'loading...
+  return <span>loading...</span>
 }

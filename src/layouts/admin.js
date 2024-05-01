@@ -9,15 +9,16 @@ import Root from './root'
 import axios from 'axios';
 
 export default function AdminLayout({ children, page, title }) {
-    const verifyAdmin = useStore(state => state.verifyAdmin);
+    const { role } = useStore(state => state.user);
     const isAdmin = useStore(state => state.isAdmin);
     const [token, setToken] = useLocalStorage("token", "null")
     const [isLoading, setLoading] = useState(true)
     const router = useRouter()
 
     useEffect(() => {
-        if (token === "null") { router.push('/'); return }
-        isAdmin ? setLoading(false) : verifyAdmin(token, router, setLoading)
+        if (token === "null" || role!='admin') { router.push('/'); return }
+        // isAdmin ? setLoading(false) : verifyAdmin(token, router, setLoading)
+        setLoading(false)
     }, [])
 
     if (isLoading) return <Loading />

@@ -7,6 +7,7 @@ import axios from "axios";
 import { success, wrong } from "../../../utils/toastify";
 import GetAudioDuration from "../../../hooks/useDuration";
 import AdminLayout from "../../../layouts/admin";
+import Loading from "../../../components/loading/admin";
 
 import { IoTimeOutline } from "react-icons/io5";
 import { HiSearch } from "react-icons/hi";
@@ -23,7 +24,7 @@ export default function AdminSongs() {
 
   const removeSong = () => axios.delete(`${process.env.NEXT_PUBLIC_SERVER_API}/songs/${songDeleted._id}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(() => success("Deleted song")).catch(() => wrong("Error")).finally(() => { setRodalDelete(false); refetch() })
 
-  if (isSuccess) return (
+  return (
     <AdminLayout page="admin-musics" title="Musics">
       <header>
         <div className="category">
@@ -56,7 +57,13 @@ export default function AdminSongs() {
               </tr>
             </thead>
             <tbody className="tbody">
-              {isLoading ? allSongs.map((song, i) => (
+              {isLoading ? <tr className="loadingTable">
+                <td rowSpan={3} colSpan={7}>
+                  <div className="waiting">
+                    <span className="loader"></span>
+                  </div>
+                </td>
+              </tr> : allSongs.map((song, i) => (
                 <tr className="tr" key={i} >
                   <td className="td">
                     <img src={song.image} alt={song.name} onClick={() => router.push(`/album/${song.album}`)} />
@@ -69,13 +76,7 @@ export default function AdminSongs() {
                   <td className="td"><GetAudioDuration audioUrl={song.song} /></td>
                   <td><button onClick={() => { setRodalDelete(true); setSongDeleted(song) }}>Delete</button></td>
                 </tr>
-              )) : <tr className="loadingTable">
-                <td rowSpan={3} colSpan={7}>
-                  <div className="waiting">
-                    <span className="loader"></span>
-                  </div>
-                </td>
-              </tr>}
+              ))}
             </tbody>
           </table>
         </div>
@@ -89,5 +90,4 @@ export default function AdminSongs() {
       </Rodal>
     </AdminLayout>
   );
-  return <span>loading...</span>
 }

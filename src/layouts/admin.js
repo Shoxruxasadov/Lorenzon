@@ -16,12 +16,12 @@ export default function AdminLayout({ children, page, title }) {
     const router = useRouter()
 
     useEffect(() => {
-        if (token === "null" || role!='admin') { router.push('/'); return }
+        if (token=='null' || token.length==0 || role!='admin') { router.push('/'); return }
         // isAdmin ? setLoading(false) : verifyAdmin(token, router, setLoading)
         setLoading(false)
     }, [])
 
-    if (isLoading) return <Loading />
+    // if (isLoading) return <Loading />
     return (
         <Root page="admin" title={title}>
             <Sidebar />

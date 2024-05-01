@@ -16,7 +16,7 @@ export default function Following() {
     const pathname = usePathname()
     const router = useRouter()
 
-    const { data: following, isLoading, isError, isSuccess, refetch } = useQuery({
+    const { data: following, isLoading, isError, isSuccess, isFetching, refetch } = useQuery({
         queryKey: ['following'],
         queryFn: () => axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/following/${pathname.split('/')[1].slice(1)}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => data),
     })
@@ -37,7 +37,7 @@ export default function Following() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    if (isLoading) return <Loading />;
+    if (isFetching) return <Loading />;
     if (isSuccess) return (
         <HomeLayout page="home-follow" title={user.name}>
             {following.length ? <div className="content" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`, }}>

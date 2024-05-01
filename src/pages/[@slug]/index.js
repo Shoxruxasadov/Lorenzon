@@ -52,7 +52,7 @@ export default function User() {
     }, []);
 
     useEffect(() => {
-        if (pathname) refetch()
+        refetch()
     }, [pathname])
 
     function arraysEqual(a, b) {

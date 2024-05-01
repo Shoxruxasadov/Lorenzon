@@ -20,7 +20,7 @@ export function SongMenu() {
     const cursor = useContextMenu((state) => state.cursor);
     const isShow = useContextMenu((state) => state.isShow);
     const setIsShow = useContextMenu((state) => state.setIsShow);
-    const { playlists, _id, name, username } = useStore((state) => state.user);
+    const { yourPlaylists, _id, name, username } = useStore((state) => state.user);
     const setLoading = useStore((state) => state.setLoading);
     const getUserFromToken = useStore(state => state.getUserFromToken);
     const [token, setToken] = useLocalStorage("token", "null")
@@ -122,7 +122,7 @@ export function SongMenu() {
                     <button>Create Playlist</button>
                 </li>
                 <hr />
-                {playlists.map((item, i) => (
+                {yourPlaylists.map((item, i) => (
                     <li key={i} className='playlist' onClick={() => {
                         axios.patch(`${process.env.NEXT_PUBLIC_SERVER_API}/playlists/song/${item._id}`, { id: isShow._id }, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(({ data }) => success(data))
                     }}>

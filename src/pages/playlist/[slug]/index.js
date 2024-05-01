@@ -37,7 +37,7 @@ export default function HomePlaylist() {
     })
 
     useEffect(() => {
-        if (pathname) refetch()
+        refetch()
     }, [pathname])
 
     function arraysEqual(a, b) {

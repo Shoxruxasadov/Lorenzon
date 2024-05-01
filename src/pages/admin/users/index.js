@@ -54,7 +54,13 @@ export default function AdminUsers() {
                             </tr>
                         </thead>
                         <tbody>
-                            {isLoading ? allUsers.map(user => (
+                            {isLoading ? <tr className="loadingTable">
+                                <td rowSpan={3} colSpan={7}>
+                                    <div className="waiting">
+                                        <span className="loader"></span>
+                                    </div>
+                                </td>
+                            </tr> :  allUsers.map(user => (
                                 <tr key={user._id}>
                                     <td onClick={() => router.push(`/@${user.username}`)}>
                                         <img src={user.image || "/other/unknown.user.webp"} alt={user.name} />
@@ -82,13 +88,7 @@ export default function AdminUsers() {
                                     <td><span className={`pag ${user.role == "admin" ? "admin" : "simple"}`}>{user.role}</span></td>
                                     <td><button onClick={() => { setRodalDelete(true); setUserDeleted(user) }}>Delete</button></td>
                                 </tr>
-                            )) : <tr className="loadingTable">
-                                <td rowSpan={3} colSpan={7}>
-                                    <div className="waiting">
-                                        <span className="loader"></span>
-                                    </div>
-                                </td>
-                            </tr>}
+                            ))}
                         </tbody>
                     </table>
                 </div>

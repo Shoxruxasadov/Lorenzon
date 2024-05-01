@@ -47,7 +47,13 @@ export default function AdminAlbums() {
               </tr>
             </thead>
             <tbody className="tbody">
-              {isLoading ? allAlbums.map((album, i) => (
+              {isLoading ? <tr className="loadingTable">
+                <td rowSpan={3} colSpan={7}>
+                  <div className="waiting">
+                    <span className="loader"></span>
+                  </div>
+                </td>
+              </tr> : allAlbums.map((album, i) => (
                 <tr className="tr" key={i} >
                   <td className="td">
                     <img src={album.image} alt={album.name} onClick={() => router.push(`/album/${album._id}`)} />
@@ -59,13 +65,7 @@ export default function AdminAlbums() {
                   <td className="td">{album.songs.length}</td>
                   <td><button onClick={() => { setRodalDelete(true); setAlbumDeleted(song) }}>Delete</button></td>
                 </tr>
-              )) : <tr className="loadingTable">
-                <td rowSpan={3} colSpan={7}>
-                  <div className="waiting">
-                    <span className="loader"></span>
-                  </div>
-                </td>
-              </tr>}
+              ))}
             </tbody>
           </table>
         </div>

@@ -47,7 +47,13 @@ export default function AdminPlaylists() {
               </tr>
             </thead>
             <tbody className="tbody">
-              {isLoading ? allPlaylists.map((playlist, i) => (
+              {isLoading ? <tr className="loadingTable">
+                <td rowSpan={3} colSpan={7}>
+                  <div className="waiting">
+                    <span className="loader"></span>
+                  </div>
+                </td>
+              </tr> : allPlaylists.map((playlist, i) => (
                 <tr className="tr" key={i} >
                   <td className="td">
                     <img src={playlist.image} alt={playlist.name} onClick={() => router.push(`/playlist/${playlist._id}`)} />
@@ -59,13 +65,7 @@ export default function AdminPlaylists() {
                   <td className="td">{playlist.songs.length}</td>
                   <td><button onClick={() => { setRodalDelete(true); setPlaylistDeleted(song) }}>Delete</button></td>
                 </tr>
-              )) : <tr className="loadingTable">
-                <td rowSpan={3} colSpan={7}>
-                  <div className="waiting">
-                    <span className="loader"></span>
-                  </div>
-                </td>
-              </tr>}
+              ))}
             </tbody>
           </table>
         </div>

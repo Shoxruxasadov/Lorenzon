@@ -5,7 +5,7 @@ export default function Wait() {
     const pathname = usePathname()
 
     return (
-        <Root page="wait" title={(pathname && pathname == '/') ? 'Enjoy the music • Music streaming service' :'Loading...'}>
+        <Root page="wait" title={(pathname && pathname == '/') ? 'Landing' :'Loading...'}>
             <span className="loader"></span>
         </Root>
     )

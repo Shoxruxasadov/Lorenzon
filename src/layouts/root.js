@@ -4,7 +4,7 @@ export default function Root({ children, page, title, isHover, setIsShow }) {
     return (
         <>
             <Head>
-                {title === "Lorenzon" ? <title>Lorenzon</title> : title == "Loading..." ? <title>Lorenzon • Loading...</title> : <title>Lorenzon • {title}</title>}
+                {title === "Lorenzon" ? <title>Lorenzon</title> : title == "Loading..." ? <title>Lorenzon • Loading...</title> : title == "Landing" ? <title>Lorenzon • Enjoy the music • Music streaming service</title> : <title>Lorenzon • {title}</title>}
                 <link href="/favicon.ico?" rel="icon" />
                 <link href="/favicon.png?" rel="apple-touch-icon" />
                 <link href="/manifest.json" rel="manifest" />

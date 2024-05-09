@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import axios from "axios";
 
+import { useContextMenu, useMusic, useStore } from "../../store/zustand";
 import HomeLayout from "../../layouts/home";
 import Banner from "../../layouts/banner";
-import { useContextMenu, useMusic, useStore } from "../../store/zustand";
-import { useRouter } from "next/router";
 
 export default function HomeRecommended() {
   const user = useStore((state) => state.user);

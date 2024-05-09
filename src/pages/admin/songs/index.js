@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Rodal from "rodal";
 import axios from "axios";
@@ -7,7 +7,6 @@ import axios from "axios";
 import { success, wrong } from "../../../utils/toastify";
 import GetAudioDuration from "../../../hooks/useDuration";
 import AdminLayout from "../../../layouts/admin";
-import Loading from "../../../components/loading/admin";
 
 import { IoTimeOutline } from "react-icons/io5";
 import { HiSearch } from "react-icons/hi";

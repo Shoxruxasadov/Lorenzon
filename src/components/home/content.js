@@ -46,13 +46,14 @@ export default function Content() {
         setPlayPouse(false)
         setVerifyToken(false)
         router.push('/account')
+        router.refresh()
     }
 
     function logout() {
         setToken("null")
         setPlayPouse(false)
         setVerifyToken(false)
-        signOut()
+        signOut();
     }
 
     function arraysEqual(a, b) {

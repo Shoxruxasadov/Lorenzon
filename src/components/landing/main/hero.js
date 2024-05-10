@@ -51,11 +51,11 @@ export default function Hero() {
               <p>Making music accessible for all. Join the largest music events ever made by humanity. Download the app and we do the rest.</p>
             </div>
             <div className="login">
-              <Link href={(accounts == "null" || accounts.length == 0) ? "/register" : "/account"} className="signup">
+              <Link href={(accounts == "null" || accounts.length == 0) ? "/signup" : "/account"} className="signup">
                 Sign Up
               </Link>
               <Link href={(accounts == "null" || accounts.length == 0) ? "/login" : "/account"} className="signin">
-                Sign In
+                Log In
               </Link>
             </div>
           </div>

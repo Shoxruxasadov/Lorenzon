@@ -16,7 +16,7 @@ import { MdAccountCircle, MdOutlinePassword } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useTheme } from "next-themes";
 
-export default function Login() {
+export default function LogIn() {
   const { register, handleSubmit, formState: { errors }, } = useForm();
   const [oauthGoogle, setOauthGoogle] = useLocalStorage('oauthGoogle', "null")
   const [accounts, setAccounts] = useLocalStorage("accounts", "null")
@@ -82,7 +82,7 @@ export default function Login() {
       axios.get(`${process.env.NEXT_PUBLIC_SERVER_API}/users/email/${data.user.email}`, { headers: { 'secret': process.env.NEXT_PUBLIC_SECRET } }).then(res => {
         if (res.data.length == 0) {
           warning("You don't have an account, create one first")
-          router.push("/register")
+          router.push("/signup")
           setPage(5)
           setEmail(data.user.email)
           setName(data.user.name)
@@ -122,7 +122,7 @@ export default function Login() {
   }
 
   return (
-    <Root page="login" title="Sign in">
+    <Root page="login" title="Log In">
       <motion.section
         initial={{ x: "-2rem", opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -174,7 +174,7 @@ export default function Login() {
               </div>
               <Link href={"/forget"}>Forget Password?</Link>
             </div>
-            <button disabled={loading} onClick={handleValidation} type="submit">Sign in</button>
+            <button disabled={loading} onClick={handleValidation} type="submit">Log In</button>
           </form>
           <div className="lines">
             <div className="line-start " />
@@ -207,12 +207,12 @@ export default function Login() {
                   fill="#EB4335"
                 />
               </svg>
-              <span>Sign in with Google</span>
+              <span>Log In with Google</span>
             </button>
           </div>
           <div className="replacement">
             <span>Don’t have an account? </span>
-            <Link href={"/register"} onClick={() => setPage(1)}>Sign up</Link>
+            <Link href={"/signup"} onClick={() => setPage(1)}>Sign up</Link>
             {accounts != "null" && accounts.length >= 0 && <>
               <span> or </span>
               <Link href={"/account"}>Accounts</Link>

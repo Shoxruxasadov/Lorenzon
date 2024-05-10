@@ -93,7 +93,7 @@ export default function Account() {
                                 <p>Add account</p>
                             </div>
                         </Link>
-                        <Link href={"/register"} className="register" onClick={() => setPage(1)}>
+                        <Link href={"/signup"} className="signup" onClick={() => setPage(1)}>
                             <div className="create-footer">
                                 <p>Create new account</p>
                             </div>

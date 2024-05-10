@@ -20,7 +20,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { BiSolidFlag } from "react-icons/bi"
 import { HiSearch } from "react-icons/hi"
 
-export default function RegisterAbout() {
+export default function SignUpAbout() {
     const [accounts, setAccounts] = useLocalStorage("accounts", "null")
     const [token, setToken] = useLocalStorage("token", "null")
     const password = useAuthCreate(state => state.password);
@@ -127,7 +127,7 @@ export default function RegisterAbout() {
     }, [])
 
     return (
-        <Root page="register" title="Tell us about yourself">
+        <Root page="signup" title="Tell us about yourself">
             <motion.section
                 initial={{ x: 0, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

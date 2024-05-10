@@ -10,7 +10,7 @@ import Root from "../../layouts/root";
 
 import { IoIosArrowBack } from "react-icons/io";
 
-export default function RegisterOTP() {
+export default function SignUpOTP() {
     const setPage = useAuthCreate(state => state.setPage);
     const page = useAuthCreate(state => state.page);
     const email = useAuthCreate(state => state.email);
@@ -63,7 +63,7 @@ export default function RegisterOTP() {
     }, [])
 
     return (
-        <Root page="register" title="Confirm your account">
+        <Root page="signup" title="Confirm your account">
             <motion.section
                 initial={{ x: 0, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

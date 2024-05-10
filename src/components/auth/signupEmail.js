@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { MdEmail } from "react-icons/md";
 import { useTheme } from "next-themes";
 
-export default function RegisterEmail() {
+export default function SignUpEmail() {
     const setPage = useAuthCreate(state => state.setPage);
     const setEmail = useAuthCreate(state => state.setEmail);
     const email = useAuthCreate(state => state.email);
@@ -93,7 +93,7 @@ export default function RegisterEmail() {
     }
 
     return (
-        <Root page="register" title="Sign up">
+        <Root page="signup" title="Sign Up">
             <motion.section
                 initial={{ x: 0, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -156,8 +156,8 @@ export default function RegisterEmail() {
                     </div>
                     <div className="replacement">
                         <span>Do you have an account? </span>
-                        <Link href={"/login"}>Sign in</Link>
-                        {accounts != "null" && accounts.length >= 0 && <>
+                        <Link href={"/login"}>Log In</Link>
+                        {accounts != "null" && accounts.length > 0 && <>
                             <span> or </span>
                             <Link href={"/account"}>Accounts</Link>
                         </>}

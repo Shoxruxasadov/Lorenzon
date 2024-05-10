@@ -23,7 +23,7 @@ import "..//styles/landing/landing.scss"; // landing
 import "..//styles/loading/wait.scss"; // wait
 import "..//styles/admin/admin.scss"; // admin
 import "..//styles/home/home.scss" // home
-import "..//styles/auth/register.scss"; // register
+import "..//styles/auth/signup.scss"; // signup
 import "..//styles/auth/account.scss"; // account
 import "..//styles/auth/login.scss"; // login
 
@@ -93,7 +93,7 @@ export default function MyApp({ Component, pageProps, }) {
             document.querySelector('body').classList.remove('scrolling')
         }
 
-        if (token === 'null') { setLoading(false); router.push((pathname == '/login' || pathname == '/register' || pathname == '/account') ? pathname : '/'); };
+        if (token === 'null') { setLoading(false); router.push((pathname == '/login' || pathname == '/signup' || pathname == '/account') ? pathname : '/'); };
         if (token.id && !user._id) getUserFromToken(token, router).finally(() => setLoading(false));
         document.addEventListener("keyup", handleSpacePress);
         window.addEventListener("contextmenu", (e) => e.preventDefault())

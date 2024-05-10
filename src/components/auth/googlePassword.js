@@ -12,7 +12,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { IoIosArrowBack } from "react-icons/io";
 import { MdPassword } from "react-icons/md";
 
-export default function GooglePassword() {
+export default function SignUpGooglePassword() {
     const setPage = useAuthCreate(state => state.setPage);
     const page = useAuthCreate(state => state.page);
     const setPassword = useAuthCreate(state => state.setPassword);
@@ -56,7 +56,7 @@ export default function GooglePassword() {
     }, [])
 
     return (
-        <Root page="register" title="Create a password">
+        <Root page="signup" title="Create a password">
             <motion.section
                 initial={{ x: 0, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

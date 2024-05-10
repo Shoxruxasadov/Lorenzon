@@ -45,8 +45,7 @@ export default function Content() {
         setToken("null")
         setPlayPouse(false)
         setVerifyToken(false)
-        router.push('/account')
-        router.refresh()
+        router.replace('/account')
     }
 
     function logout() {

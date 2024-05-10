@@ -1,4 +1,4 @@
-#sugnup {
+#signup {
   background: var(--background-color);
   color: var(--text-color);
   overflow: hidden;
@@ -901,7 +901,7 @@
 //======================================= MEDIA ====================================== \\
 
 @media (max-width: 920px) {
-  #sugnup {
+  #signup {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -922,7 +922,7 @@
 }
 
 @media (max-width: 920px) and (min-height: 1000px) {
-  #sugnup {
+  #signup {
     .formes {
       width: 150%;
       transform: scale(1.3) !important;
@@ -931,7 +931,7 @@
 }
 
 @media (max-width: 440px) {
-  #sugnup {
+  #signup {
     .formes {
       width: 110%;
       transform: scale(0.9) !important;
@@ -953,7 +953,7 @@
 }
 
 @media (max-width: 400px) {
-  #sugnup {
+  #signup {
     .formes {
       width: 120%;
       transform: scale(0.85) !important;
@@ -976,7 +976,7 @@
 }
 
 @media (max-width: 360px) {
-  #sugnup {
+  #signup {
     .formes {
       width: 130%;
       transform: scale(0.75) !important;

@@ -15,17 +15,17 @@ import { useHomeModels, useMusic, useStore } from "../store/zustand";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Wait from "../components/loading/wait"
 
-import "..//styles/global.scss" // global
-import "..//styles/assets/mobile.scss"; // mobile
-import "..//styles/assets/error.scss"; // error
-import "..//styles/assets/menu.scss"; // menu
-import "..//styles/landing/landing.scss"; // landing
-import "..//styles/loading/wait.scss"; // wait
-import "..//styles/admin/admin.scss"; // admin
-import "..//styles/home/home.scss" // home
-import "..//styles/auth/signup.scss"; // signup
-import "..//styles/auth/account.scss"; // account
-import "..//styles/auth/login.scss"; // login
+import "../styles/global.scss" // global
+import "../styles/assets/mobile.scss"; // mobile
+import "../styles/assets/error.scss"; // error
+import "../styles/assets/menu.scss"; // menu
+import "../styles/landing/landing.scss"; // landing
+import "../styles/loading/wait.scss"; // wait
+import "../styles/admin/admin.scss"; // admin
+import "../styles/home/home.scss" // home
+import "../styles/auth/signup.scss"; // signup
+import "../styles/auth/account.scss"; // account
+import "../styles/auth/login.scss"; // login
 
 import 'aos/dist/aos.css'; // aos 
 import 'rodal/lib/rodal.css'; // rodal

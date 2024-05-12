@@ -21,24 +21,24 @@ export default function About() {
                 <div className="wrapper">
                     <div className="top" data-aos="zoom-out-down">
                         <h3>This is us</h3>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in.</p>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in</p>
                     </div>
                     <div className="round">
                         <div className="card" data-aos="zoom-out">
                             <h3>Values</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Lorem Ipsum has been the.</p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Very well it has been the.</p>
                         </div>
                         <div className="card" data-aos="zoom-out">
-                            <h3>Tecnology</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Lorem Ipsum has been the.</p>
+                            <h3>Technology</h3>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Very well it has been the.</p>
                         </div>
                         <div className="card" data-aos="zoom-out">
                             <h3>People</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Lorem Ipsum has been the.</p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Very well it has been the.</p>
                         </div>
                         <div className="card" data-aos="zoom-out">
                             <h3>Diversity</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Lorem Ipsum has been the.</p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typeset industry. Very well it has been the.</p>
                         </div>
                     </div>
                 </div>

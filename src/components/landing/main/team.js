@@ -9,7 +9,7 @@ export default function Team() {
                         <h2>The team around the world</h2>
                     </div>
                     <div className="subtitle" data-aos="zoom-out-down">
-                        <p>The standart chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested Sections 1.10.32.</p>
+                        <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested Sections 1.10.32.</p>
                     </div>
                 </div>
                 <Image src="/landing/team/world.webp" width={1280} height={400} className="world" alt="world" data-aos="zoom-out"/>

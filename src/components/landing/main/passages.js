@@ -6,14 +6,14 @@ export default function Passages() {
                     <div className="headline">
                         <h2>More variants of features that you can get</h2>
                     </div>
-                    <h3 className="headtitle">There are many variation of passages of Lorem Ipsum<span> available</span>.</h3>
-                    <p className="subtitle">The standart chank of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                    <h3 className="headtitle">There are many variations of passages of Lorem Ipsum<span> available</span>.</h3>
+                    <p className="subtitle">The standard chank of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
                     <hr />
-                    <p>&#39;Lorem ipsum dolor sit amet.</p>
+                    <p>&#39;The story itself is a lot of pain.</p>
                     <hr />
-                    <p>Sed ut persoiciatis unde omnis iste nat.</p>
+                    <p>But let us guess where all this comes from.</p>
                     <hr />
-                    <p>At vero eos et accusamus.</p>
+                    <p>But indeed we also accuse them.</p>
                 </div>
                 <div className="title" data-aos="zoom-out-left">
                     <div className="headtitle">

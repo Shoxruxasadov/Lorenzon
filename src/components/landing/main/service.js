@@ -9,24 +9,24 @@ export default function Service() {
                         <h2>The best B2B - B2C opportunities</h2>
                     </div>
                     <div className="subtitle">
-                        <p>There are many variation of passages of Lorem Ipsum available, but the <br /> majority have suffered alteration in some form, by injected humour</p>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the <br /> majority have suffered alteration in some form, by injected humor</p>
                     </div>
                 </div>
                 <div className="wrapper">
                     <div className="card" data-aos="zoom-out">
                         <Image src="/landing/service/energy.webp" width={80} height={80} alt="energy" />
-                        <h3>Lorem Ipsum is simply</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum pariatur quos maiores?</p>
+                        <h3>It's simply great</h3>
+                        <p>The company itself is a very successful company. Who are the elders?</p>
                     </div>
                     <div className="card" data-aos="zoom-out">
                         <Image src="/landing/service/wifi.webp" width={80} height={80} alt="wifi" />
                         <h3>It is a long established</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum pariatur quos maiores?</p>
+                        <p>The company itself is a very successful company. Who are the elders?</p>
                     </div>
                     <div className="card" data-aos="zoom-out">
                         <Image src="/landing/service/health.webp" width={80} height={80} alt="health" />
                         <h3>Contrary to pop belief</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum pariatur quos maiores?</p>
+                        <p>The company itself is a very successful company. Who are the elders?</p>
                     </div>
                 </div>
                 <div className="wrapper">

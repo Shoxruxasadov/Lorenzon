@@ -15,7 +15,7 @@ export default function Service() {
                 <div className="wrapper">
                     <div className="card" data-aos="zoom-out">
                         <Image src="/landing/service/energy.webp" width={80} height={80} alt="energy" />
-                        <h3>It's simply great</h3>
+                        <h3>It&#39;s simply great</h3>
                         <p>The company itself is a very successful company. Who are the elders?</p>
                     </div>
                     <div className="card" data-aos="zoom-out">

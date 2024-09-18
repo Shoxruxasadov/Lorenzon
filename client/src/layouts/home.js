@@ -28,8 +28,8 @@ export default function HomeLayout({ children, page, title }) {
     const isOpenAbout = useStore(state => state.isOpenAbout);
 
     useEffect(() => {
-        const isMobileDevice = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobileDevice()) router.push('https://lorenzon.uz/mobile')
+        // const isMobileDevice = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        // if (isMobileDevice()) router.push('https://lorenzon.uz/mobile')
 
         if (token === "null") router.push('/');
         else isVerifyToken ? setLoading(false) : getUserFromToken(token, router).finally(() => setLoading(false))

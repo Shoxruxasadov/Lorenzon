@@ -21,7 +21,7 @@ import { SupportModule } from 'src/support/support.module';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_CLUSTER}.jjoghyy.mongodb.net/?retryWrites=true&w=majority&appName=Lorenzon`,
+      `mongodb+srv://shoxruxasadov:M8zRI1MJFKTZFptI@lorenzon.jjoghyy.mongodb.net/?retryWrites=true&w=majority&appName=Lorenzon`,
     ),
     MailerModule.forRoot({
       transport: {
